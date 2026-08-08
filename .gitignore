@@ -1,0 +1,40 @@
+# ============================================================
+# kido-app — META REPO (repo cha)
+# Chỉ chứa file/tài liệu/config DÙNG CHUNG ở cấp gốc.
+# 4 package con là REPO GITHUB RIÊNG (xem README.md) -> KHÔNG track ở đây.
+# ============================================================
+
+# --- Sub-repos: mỗi cái là 1 repo GitHub độc lập ---
+/kido-pipeline/
+/kido-server/
+/landing/
+/mobile/
+
+# --- Dependencies & stores ---
+node_modules/
+.pnpm-store/
+
+# --- Cache / index / tạm (đều sinh lại được ở máy mới) ---
+.codegraph/
+tmp/
+*.tsbuildinfo
+
+# --- Cấu hình máy-riêng (không chia sẻ) ---
+.claude/settings.local.json
+
+# --- SECRETS: không bao giờ commit ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.p8
+id_rsa*
+
+# --- OS / editor junk ---
+.DS_Store
+Thumbs.db
+
+# --- File tạm bị ghi nhầm ra gốc ---
+/C:Users*

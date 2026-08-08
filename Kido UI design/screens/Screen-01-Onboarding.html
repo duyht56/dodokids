@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kido · Onboarding — 3 slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #E8E5DF; font-family: 'Nunito', system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+@keyframes kido-pulse { 0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,53,.45), 0 10px 24px rgba(255,107,53,.4); } 50% { transform: scale(1.06); box-shadow: 0 0 0 16px rgba(255,107,53,0), 0 14px 30px rgba(255,107,53,.5); } }
+@keyframes kido-float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+@keyframes kido-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes kido-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes kido-twinkle { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.18); opacity:.85; } }
+@keyframes kido-dot { 0%,80%,100% { transform: scale(.6); opacity:.4; } 40% { transform: scale(1); opacity:1; } }
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+@keyframes orbit { 0% { transform: rotate(0deg) translateX(48px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(48px) rotate(-360deg); } }
+@keyframes fade-in { from { opacity:0; } to { opacity:1; } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-8px)} 30%{transform:translateX(8px)} 45%{transform:translateX(-6px)} 60%{transform:translateX(6px)} 75%{transform:translateX(-3px)} 90%{transform:translateX(3px)} }
+@keyframes green-flash { 0%{background:#4CAF50;transform:scale(1)} 30%{background:#66BB6A;transform:scale(1.04)} 100%{background:#4CAF50;transform:scale(1)} }
+@keyframes sheet-up { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.sk { background: linear-gradient(90deg, #E8E8E8 25%, #F5F5F5 50%, #E8E8E8 75%); background-size: 800px 100%; animation: shimmer 1.5s ease-in-out infinite; border-radius: 8px; }
+
+</style>
+</head>
+<body>
+<div style="padding: 32px 40px 16px; background:#1A1A2E; display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:99;">
+  <div style="width:32px;height:32px;border-radius:10px;background:#FF6B35;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;">01-Onboarding</div>
+  <div style="font-family:'Nunito';font-size:18px;font-weight:900;color:#fff;">Onboarding — 3 slides</div>
+  <div style="margin-left:auto;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);">Kido App · React Native · Portrait Only</div>
+</div>
+<div style="padding: 48px 40px 80px; display:flex; flex-wrap:wrap; gap:48px; align-items:flex-start;">
+<!-- ============ BAND A: ONBOARDING ============ -->
+<div style="font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#6B7280; margin-bottom:12px; width:100%; flex-basis:100%;">01 · Onboarding <span style="color:#6B7280; font-weight:700; letter-spacing:0;">— 3 slides, full-bleed clay illustration</span></div>
+
+<!-- Onboarding Slide 1 (mobile) -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Slide 1 · Welcome · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; z-index:9; font-size:14px; font-weight:800; color:#1A1A2E;"><span>9:41</span><span style="display:flex; gap:7px; align-items:center;"><span style="font-size:12px;">📶</span><span style="width:22px; height:11px; border:2px solid #1A1A2E; border-radius:3px; display:inline-block; position:relative;"><span style="position:absolute; inset:1.5px; background:#1A1A2E; border-radius:1px; width:80%;"></span></span></span></div>
+    <div style="position:absolute; top:0; left:0; right:0; height:430px; background:radial-gradient(120% 90% at 50% 30%, #F0EBFF 0%, #E6DEFF 100%); display:flex; align-items:flex-end; justify-content:center; overflow:hidden;">
+      <div style="position:absolute; top:90px; left:40px; font-size:28px; animation:kido-twinkle 2.4s ease-in-out infinite;">⭐</div>
+      <div style="position:absolute; top:150px; right:46px; font-size:20px; animation:kido-twinkle 3s ease-in-out infinite .5s;">✨</div>
+      <div style="position:absolute; top:60px; right:80px; width:14px; height:14px; border-radius:50%; background:#4ECDC4; opacity:.6;"></div>
+      <img src="../assets/dodo.png" alt="Đô Đô vẫy tay" style="width:300px; height:auto; margin-bottom:-6px; filter:drop-shadow(0 18px 24px rgba(26,26,46,.18)); animation:kido-float 4s ease-in-out infinite;">
+    </div>
+    <div style="position:absolute; top:430px; left:0; right:0; bottom:0; padding:32px 28px 0; display:flex; flex-direction:column;">
+      <div style="display:flex; gap:8px; margin-bottom:24px;">
+        <span style="width:26px; height:8px; border-radius:9999px; background:#FF6B35;"></span>
+        <span style="width:8px; height:8px; border-radius:9999px; background:#E3DBD0;"></span>
+        <span style="width:8px; height:8px; border-radius:9999px; background:#E3DBD0;"></span>
+      </div>
+      <div style="font-size:32px; font-weight:900; line-height:1.15; color:#1A1A2E; letter-spacing:-.5px;">Chào bé! <br>Mình là Đô Đô 🐵</div>
+      <div style="font-size:16px; font-weight:600; line-height:1.5; color:#6B7280; margin-top:14px;">Cùng mình bắt đầu hành trình học tập thật vui và nhiều phần thưởng nhé!</div>
+      <div style="flex:1;"></div>
+      <button style="height:56px; border:none; border-radius:9999px; background:#FF6B35; color:#fff; font-family:'Nunito'; font-size:17px; font-weight:800; box-shadow:0 8px 18px rgba(255,107,53,.32); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">Tiếp theo <span style="font-size:18px;">→</span></button>
+      <button style="height:48px; margin:8px 0 18px; border:none; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:15px; font-weight:700; cursor:pointer;">Bỏ qua</button>
+      <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:130px; height:5px; border-radius:9999px; background:#1A1A2E; opacity:.85;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Onboarding Slide 2 (mobile) -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Slide 2 · Subjects · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; z-index:9; font-size:14px; font-weight:800; color:#1A1A2E;"><span>9:41</span><span style="width:22px; height:11px; border:2px solid #1A1A2E; border-radius:3px; position:relative;"><span style="position:absolute; inset:1.5px; background:#1A1A2E; border-radius:1px; width:80%;"></span></span></div>
+    <div style="position:absolute; top:0; left:0; right:0; height:430px; background:radial-gradient(120% 90% at 50% 35%, #EFE8FF 0%, #DED1FA 100%); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+      <div style="position:absolute; top:70px; left:54px; width:54px; height:54px; border-radius:18px; background:#FFE66D; transform:rotate(-12deg); box-shadow:0 10px 18px rgba(0,0,0,.08); display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:900; color:#FF6B35;">A</div>
+      <div style="position:absolute; bottom:60px; right:48px; width:50px; height:50px; border-radius:16px; background:#FF6B35; transform:rotate(10deg); box-shadow:0 10px 18px rgba(0,0,0,.1); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:900; color:#fff;">7</div>
+      <img src="./cartoon_monkey_writing_in_notebook_20260-mqv5gpy9.png" alt="Ba lô học tập" style="width: 300px; height: 300px; object-fit: cover; border-radius: 36px; animation: kido-float 4.5s ease-in-out infinite">
+    </div>
+    <div style="position:absolute; top:430px; left:0; right:0; bottom:0; padding:32px 28px 0; display:flex; flex-direction:column;">
+      <div style="display:flex; gap:8px; margin-bottom:24px;">
+        <span style="width:8px; height:8px; border-radius:9999px; background:#E3DBD0;"></span>
+        <span style="width:26px; height:8px; border-radius:9999px; background:#FF6B35;"></span>
+        <span style="width:8px; height:8px; border-radius:9999px; background:#E3DBD0;"></span>
+      </div>
+      <div style="font-size:32px; font-weight:900; line-height:1.15; color:#1A1A2E; letter-spacing:-.5px;">Học Toán, Tiếng Việt &amp; Tiếng Anh</div>
+      <div style="font-size:16px; font-weight:600; line-height:1.5; color:#6B7280; margin-top:14px;">Mỗi ngày một bài học nhỏ, vui nhộn và vừa sức với bé.</div>
+      <div style="flex:1;"></div>
+      <button style="height:56px; border:none; border-radius:9999px; background:#FF6B35; color:#fff; font-family:'Nunito'; font-size:17px; font-weight:800; box-shadow:0 8px 18px rgba(255,107,53,.32); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">Tiếp theo <span style="font-size:18px;">→</span></button>
+      <button style="height:48px; margin:8px 0 18px; border:none; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:15px; font-weight:700; cursor:pointer;">Bỏ qua</button>
+      <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:130px; height:5px; border-radius:9999px; background:#1A1A2E; opacity:.85;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Onboarding Slide 3 (mobile) -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Slide 3 · Rewards · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; z-index:9; font-size:14px; font-weight:800; color:#1A1A2E;"><span>9:41</span><span style="width:22px; height:11px; border:2px solid #1A1A2E; border-radius:3px; position:relative;"><span style="position:absolute; inset:1.5px; background:#1A1A2E; border-radius:1px; width:80%;"></span></span></div>
+    <div style="position:absolute; top:0; left:0; right:0; height:430px; background:radial-gradient(120% 90% at 50% 35%, #FFF6DE 0%, #FFEEBC 100%); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+      <div style="position:absolute; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(255,230,109,.9) 0%, rgba(255,230,109,0) 70%);"></div>
+      <div style="position:relative; display:flex; align-items:flex-end; gap:14px;">
+        <div style="font-size:46px; animation:kido-bob 2.2s ease-in-out infinite .2s;">⭐</div>
+        <div style="font-size:74px; animation:kido-bob 2.2s ease-in-out infinite; filter:drop-shadow(0 8px 12px rgba(255,160,0,.4));">⭐</div>
+        <div style="font-size:46px; animation:kido-bob 2.2s ease-in-out infinite .4s;">⭐</div>
+      </div>
+      <div style="position:absolute; bottom:42px; padding:8px 18px; background:#fff; border-radius:9999px; font-size:15px; font-weight:800; color:#FF6B35; box-shadow:0 8px 18px rgba(0,0,0,.1);">+ 3 sao mới! 🎉</div>
+    </div>
+    <div style="position:absolute; top:430px; left:0; right:0; bottom:0; padding:32px 28px 0; display:flex; flex-direction:column;">
+      <div style="display:flex; gap:8px; margin-bottom:24px;">
+        <span style="width:8px; height:8px; border-radius:9999px; background:#E3DBD0;"></span>
+        <span style="width:8px; height:8px; border-radius:9999px; background:#E3DBD0;"></span>
+        <span style="width:26px; height:8px; border-radius:9999px; background:#FF6B35;"></span>
+      </div>
+      <div style="font-size:32px; font-weight:900; line-height:1.15; color:#1A1A2E; letter-spacing:-.5px;">Kiếm sao và nhận phần thưởng</div>
+      <div style="font-size:16px; font-weight:600; line-height:1.5; color:#6B7280; margin-top:14px;">Hoàn thành bài học để mở khóa huy hiệu và sticker đáng yêu.</div>
+      <div style="flex:1;"></div>
+      <button style="height:56px; border:none; border-radius:9999px; background:#FF6B35; color:#fff; font-family:'Nunito'; font-size:17px; font-weight:800; box-shadow:0 8px 18px rgba(255,107,53,.32); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">Bắt đầu học! <span style="font-size:18px;">🚀</span></button>
+      <button style="height:48px; margin:8px 0 18px; border:none; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:15px; font-weight:700; cursor:pointer;">Đã có tài khoản? Đăng nhập</button>
+      <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:130px; height:5px; border-radius:9999px; background:#1A1A2E; opacity:.85;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Onboarding Tablet (split) -->
+<div style="flex-shrink:0; width:796px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Split layout · Tablet 768×1024</div>
+  <div style="position:relative; width:768px; height:1024px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:48px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22); display:flex;">
+    <div style="width:45%; background:radial-gradient(120% 90% at 50% 40%, #F0EBFF 0%, #E0D6FF 100%); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+      <div style="position:absolute; top:130px; left:60px; font-size:34px; animation:kido-twinkle 2.6s ease-in-out infinite;">⭐</div>
+      <div style="position:absolute; bottom:160px; right:50px; font-size:26px; animation:kido-twinkle 3s ease-in-out infinite .5s;">✨</div>
+      <img src="../assets/dodo.png" alt="Đô Đô" style="width:300px; height:auto; filter:drop-shadow(0 20px 28px rgba(26,26,46,.2)); animation:kido-float 4s ease-in-out infinite;">
+    </div>
+    <div style="width:55%; padding:120px 64px; display:flex; flex-direction:column; justify-content:center;">
+      <div style="display:flex; gap:10px; margin-bottom:36px;">
+        <span style="width:34px; height:10px; border-radius:9999px; background:#FF6B35;"></span>
+        <span style="width:10px; height:10px; border-radius:9999px; background:#E3DBD0;"></span>
+        <span style="width:10px; height:10px; border-radius:9999px; background:#E3DBD0;"></span>
+      </div>
+      <div style="font-size:48px; font-weight:900; line-height:1.12; color:#1A1A2E; letter-spacing:-1px;">Chào bé! Mình là Đô Đô 🐵</div>
+      <div style="font-size:20px; font-weight:600; line-height:1.5; color:#6B7280; margin-top:20px; max-width:340px;">Cùng mình bắt đầu hành trình học tập thật vui và nhiều phần thưởng nhé!</div>
+      <button style="margin-top:48px; height:64px; width:280px; border:none; border-radius:9999px; background:#FF6B35; color:#fff; font-family:'Nunito'; font-size:20px; font-weight:800; box-shadow:0 10px 22px rgba(255,107,53,.32); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;">Tiếp theo <span>→</span></button>
+      <button style="margin-top:14px; height:52px; width:280px; border:none; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:17px; font-weight:700; cursor:pointer; text-align:left; padding-left:28px;">Bỏ qua</button>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

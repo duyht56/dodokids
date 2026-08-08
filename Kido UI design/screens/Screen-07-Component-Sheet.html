@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kido · Component Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #E8E5DF; font-family: 'Nunito', system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+@keyframes kido-pulse { 0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,53,.45), 0 10px 24px rgba(255,107,53,.4); } 50% { transform: scale(1.06); box-shadow: 0 0 0 16px rgba(255,107,53,0), 0 14px 30px rgba(255,107,53,.5); } }
+@keyframes kido-float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+@keyframes kido-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes kido-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes kido-twinkle { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.18); opacity:.85; } }
+@keyframes kido-dot { 0%,80%,100% { transform: scale(.6); opacity:.4; } 40% { transform: scale(1); opacity:1; } }
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+@keyframes orbit { 0% { transform: rotate(0deg) translateX(48px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(48px) rotate(-360deg); } }
+@keyframes fade-in { from { opacity:0; } to { opacity:1; } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-8px)} 30%{transform:translateX(8px)} 45%{transform:translateX(-6px)} 60%{transform:translateX(6px)} 75%{transform:translateX(-3px)} 90%{transform:translateX(3px)} }
+@keyframes green-flash { 0%{background:#4CAF50;transform:scale(1)} 30%{background:#66BB6A;transform:scale(1.04)} 100%{background:#4CAF50;transform:scale(1)} }
+@keyframes sheet-up { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.sk { background: linear-gradient(90deg, #E8E8E8 25%, #F5F5F5 50%, #E8E8E8 75%); background-size: 800px 100%; animation: shimmer 1.5s ease-in-out infinite; border-radius: 8px; }
+
+</style>
+</head>
+<body>
+<div style="padding: 32px 40px 16px; background:#1A1A2E; display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:99;">
+  <div style="width:32px;height:32px;border-radius:10px;background:#FF6B35;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;">07-Component-Sheet</div>
+  <div style="font-family:'Nunito';font-size:18px;font-weight:900;color:#fff;">Component Sheet</div>
+  <div style="margin-left:auto;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);">Kido App · React Native · Portrait Only</div>
+</div>
+<div style="padding: 48px 40px 80px; display:flex; flex-wrap:wrap; gap:48px; align-items:flex-start;">
+<!-- ============ BAND G: COMPONENT SHEET ============ -->
+<div style="font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#6B7280; margin-bottom:12px; width:100%; flex-basis:100%;">08 · Component Sheet &amp; Design System <span style="color:#6B7280; font-weight:700; letter-spacing:0;">— tokens · buttons · nodes · cards · mascot</span></div>
+
+<div style="flex-shrink:0; width:1400px;">
+  <div style="background:#fff; border-radius:32px; box-shadow:0 20px 50px rgba(26,26,46,.1); padding:48px 52px; display:flex; flex-direction:column; gap:44px;">
+
+    <!-- COLOR -->
+    <div>
+      <div style="font-size:13px; font-weight:900; letter-spacing:2px; color:#FF6B35; text-transform:uppercase; margin-bottom:18px;">Color Palette</div>
+      <div style="display:flex; flex-wrap:wrap; gap:14px;">
+        <div style="width:140px;"><div style="height:72px; border-radius:16px; background:#FF6B35; box-shadow:0 6px 14px rgba(255,107,53,.3);"></div><div style="font-size:13px; font-weight:800; color:#1A1A2E; margin-top:8px;">Coral Orange</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">#FF6B35</div></div>
+        <div style="width:140px;"><div style="height:72px; border-radius:16px; background:#4ECDC4;"></div><div style="font-size:13px; font-weight:800; color:#1A1A2E; margin-top:8px;">Sky Blue</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">#4ECDC4</div></div>
+        <div style="width:140px;"><div style="height:72px; border-radius:16px; background:#FFE66D;"></div><div style="font-size:13px; font-weight:800; color:#1A1A2E; margin-top:8px;">Sunshine</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">#FFE66D</div></div>
+        <div style="width:140px;"><div style="height:72px; border-radius:16px; background:#FFFBF5; border:1px solid #EDE8DE;"></div><div style="font-size:13px; font-weight:800; color:#1A1A2E; margin-top:8px;">Cream White</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">#FFFBF5</div></div>
+        <div style="width:140px;"><div style="height:72px; border-radius:16px; background:#F0EBFF;"></div><div style="font-size:13px; font-weight:800; color:#1A1A2E; margin-top:8px;">Soft Lavender</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">#F0EBFF</div></div>
+        <div style="width:140px;"><div style="height:72px; border-radius:16px; background:#1A1A2E;"></div><div style="font-size:13px; font-weight:800; color:#1A1A2E; margin-top:8px;">Deep Navy</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">#1A1A2E</div></div>
+        <div style="width:140px;"><div style="height:72px; border-radius:16px; background:#6B7280;"></div><div style="font-size:13px; font-weight:800; color:#1A1A2E; margin-top:8px;">Slate Gray</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">#6B7280</div></div>
+        <div style="width:140px;"><div style="height:72px; border-radius:16px; background:#4CAF50;"></div><div style="font-size:13px; font-weight:800; color:#1A1A2E; margin-top:8px;">Success</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">#4CAF50</div></div>
+        <div style="width:140px;"><div style="height:72px; border-radius:16px; background:#FFC107;"></div><div style="font-size:13px; font-weight:800; color:#1A1A2E; margin-top:8px;">Warning Amber</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">#FFC107</div></div>
+      </div>
+    </div>
+
+    <!-- TYPE -->
+    <div style="border-top:1px solid #F0ECE4; padding-top:36px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:2px; color:#FF6B35; text-transform:uppercase; margin-bottom:18px;">Typography — Nunito</div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; align-items:baseline; gap:20px;"><span style="width:120px; font-family:'Inter'; font-size:12px; color:#6B7280;">Display · 800</span><span style="font-size:36px; font-weight:900; color:#1A1A2E;">Bé giỏi quá!</span></div>
+        <div style="display:flex; align-items:baseline; gap:20px;"><span style="width:120px; font-family:'Inter'; font-size:12px; color:#6B7280;">Heading · 700</span><span style="font-size:24px; font-weight:800; color:#1A1A2E;">Tuần 3 · Toán học</span></div>
+        <div style="display:flex; align-items:baseline; gap:20px;"><span style="width:120px; font-family:'Inter'; font-size:12px; color:#6B7280;">Body · 600</span><span style="font-size:16px; font-weight:600; color:#6B7280;">Bé hãy đếm các chú voi trong hình nhé!</span></div>
+        <div style="display:flex; align-items:baseline; gap:20px;"><span style="width:120px; font-family:'Inter'; font-size:12px; color:#6B7280;">Caption · 500</span><span style="font-size:13px; font-weight:700; color:#6B7280;">⭐ CẤP 5 · NHÀ THÁM HIỂM</span></div>
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div style="border-top:1px solid #F0ECE4; padding-top:36px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:2px; color:#FF6B35; text-transform:uppercase; margin-bottom:18px;">Buttons</div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px;">
+        <div><div style="font-family:'Inter'; font-size:11px; color:#6B7280; margin-bottom:8px;">Primary · default</div><button style="width:100%; height:52px; border:none; border-radius:9999px; background:#FF6B35; color:#fff; font-family:'Nunito'; font-size:16px; font-weight:800; box-shadow:0 6px 14px rgba(255,107,53,.3); cursor:pointer;">Tiếp theo →</button></div>
+        <div><div style="font-family:'Inter'; font-size:11px; color:#6B7280; margin-bottom:8px;">Primary · pressed</div><button style="width:100%; height:52px; border:none; border-radius:9999px; background:#E85A28; color:#fff; font-family:'Nunito'; font-size:16px; font-weight:800; transform:scale(.97); cursor:pointer;">Tiếp theo →</button></div>
+        <div><div style="font-family:'Inter'; font-size:11px; color:#6B7280; margin-bottom:8px;">Primary · disabled</div><button style="width:100%; height:52px; border:none; border-radius:9999px; background:#FF6B35; opacity:.4; color:#fff; font-family:'Nunito'; font-size:16px; font-weight:800; cursor:not-allowed;">Tiếp theo →</button></div>
+        <div><div style="font-family:'Inter'; font-size:11px; color:#6B7280; margin-bottom:8px;">Icon button</div><div style="display:flex; gap:10px;"><div style="width:52px; height:52px; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:22px;">←</div><div style="width:52px; height:52px; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:20px;">🔔</div><div style="width:52px; height:52px; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:20px;">⚙️</div></div></div>
+        <div><div style="font-family:'Inter'; font-size:11px; color:#6B7280; margin-bottom:8px;">Secondary · outline</div><button style="width:100%; height:52px; border:2px solid #1A1A2E; border-radius:9999px; background:#fff; color:#1A1A2E; font-family:'Nunito'; font-size:16px; font-weight:800; cursor:pointer;">Để sau</button></div>
+        <div><div style="font-family:'Inter'; font-size:11px; color:#6B7280; margin-bottom:8px;">Ghost</div><button style="width:100%; height:52px; border:none; border-radius:9999px; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:15px; font-weight:700; cursor:pointer;">Bỏ qua</button></div>
+        <div><div style="font-family:'Inter'; font-size:11px; color:#6B7280; margin-bottom:8px;">Success</div><button style="width:100%; height:52px; border:none; border-radius:9999px; background:#4CAF50; color:#fff; font-family:'Nunito'; font-size:16px; font-weight:800; box-shadow:0 6px 14px rgba(76,175,80,.3); cursor:pointer;">✓ Đã làm</button></div>
+        <div><div style="font-family:'Inter'; font-size:11px; color:#6B7280; margin-bottom:8px;">Sky / secondary CTA</div><button style="width:100%; height:52px; border:none; border-radius:9999px; background:#4ECDC4; color:#fff; font-family:'Nunito'; font-size:16px; font-weight:800; box-shadow:0 6px 14px rgba(78,205,196,.3); cursor:pointer;">Chơi tiếp</button></div>
+      </div>
+    </div>
+
+    <!-- NODES -->
+    <div style="border-top:1px solid #F0ECE4; padding-top:36px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:2px; color:#FF6B35; text-transform:uppercase; margin-bottom:18px;">Lesson Nodes · 5 states</div>
+      <div style="display:flex; gap:44px; align-items:flex-start;">
+        <div style="text-align:center;"><div style="display:flex; flex-direction:column; align-items:center;"><div style="width:64px; height:64px; border-radius:9999px; background:#4CAF50; display:flex; align-items:center; justify-content:center; font-size:28px; color:#fff; border:4px solid #fff; box-shadow:0 8px 16px rgba(76,175,80,.4);">✓</div><div style="margin-top:-6px; font-size:13px; letter-spacing:-2px;">⭐⭐⭐</div></div><div style="font-family:'Inter'; font-size:12px; color:#6B7280; margin-top:8px;">Completed</div></div>
+        <div style="text-align:center;"><div style="width:64px; height:64px; border-radius:9999px; background:#FF6B35; display:flex; align-items:center; justify-content:center; font-size:26px; color:#fff; border:4px solid #fff; animation:kido-pulse 2s ease-in-out infinite; margin:0 auto;">▶</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280; margin-top:14px;">Current</div></div>
+        <div style="text-align:center;"><div style="width:64px; height:64px; border-radius:9999px; background:#E5E2DC; display:flex; align-items:center; justify-content:center; font-size:26px; opacity:.85; margin:0 auto;">🔒</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280; margin-top:14px;">Locked</div></div>
+        <div style="text-align:center;"><div style="width:64px; height:64px; border-radius:9999px; background:linear-gradient(135deg,#A674FF,#FFD23F); background-size:200% 100%; animation:kido-shimmer 3s linear infinite; display:flex; align-items:center; justify-content:center; font-size:28px; box-shadow:0 8px 18px rgba(166,116,255,.4); margin:0 auto;">👑</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280; margin-top:14px;">Paywall</div></div>
+        <div style="text-align:center;"><div style="position:relative; width:64px; height:64px; margin:0 auto;"><div style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); padding:3px 9px; background:#4ECDC4; color:#fff; font-size:10px; font-weight:900; border-radius:9999px; white-space:nowrap;">HÔM NAY</div><div style="width:64px; height:64px; border-radius:9999px; background:#4ECDC4; display:flex; align-items:center; justify-content:center; font-size:26px; color:#fff; border:4px solid #fff; box-shadow:0 8px 16px rgba(78,205,196,.4);">📅</div></div><div style="font-family:'Inter'; font-size:12px; color:#6B7280; margin-top:14px;">Today</div></div>
+      </div>
+    </div>
+
+    <!-- CARDS -->
+    <div style="border-top:1px solid #F0ECE4; padding-top:36px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:2px; color:#FF6B35; text-transform:uppercase; margin-bottom:18px;">Cards</div>
+      <div style="display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:18px;">
+        <div style="background:#fff; border:1px solid #F0ECE4; border-radius:20px; padding:16px; display:flex; gap:14px; align-items:center; box-shadow:0 4px 16px rgba(0,0,0,.05);">
+          <div style="width:60px; height:60px; border-radius:14px; overflow:hidden; flex-shrink:0;"><img src="../assets/clay-cap.png" style="width:100%; height:100%; object-fit:cover;"></div>
+          <div style="flex:1;"><div style="font-size:16px; font-weight:900; color:#1A1A2E;">Bài 7 · Đếm đồ vật</div><div style="display:flex; gap:6px; margin-top:6px;"><span style="padding:3px 10px; border-radius:9999px; background:#F0EBFF; color:#7B5BD6; font-size:11px; font-weight:800;">🔢 Toán</span><span style="padding:3px 10px; border-radius:9999px; background:#FFF3D6; color:#C9941A; font-size:11px; font-weight:800;">⭐ Dễ</span></div></div>
+          <span style="font-size:20px; color:#C4C4C4;">→</span>
+        </div>
+        <div style="border-radius:20px; background:linear-gradient(120deg,#FF6B35,#FF8E53); padding:18px; color:#fff; box-shadow:0 10px 22px rgba(255,107,53,.3);"><div style="font-size:13px; font-weight:800; opacity:.9;">Tiến độ tuần</div><div style="font-size:28px; font-weight:900; margin-top:2px;">60%</div><div style="height:9px; border-radius:9999px; background:rgba(255,255,255,.3); margin-top:10px; overflow:hidden;"><div style="width:60%; height:100%; background:#FFE66D; border-radius:9999px;"></div></div></div>
+        <div style="display:flex; gap:14px;"><div style="flex:1; background:#fff; border:1px solid #F0ECE4; border-radius:20px; padding:16px 8px; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,.05);"><div style="font-size:36px;">🥇</div><div style="font-size:12px; font-weight:800; color:#1A1A2E; margin-top:4px;">Earned</div></div><div style="flex:1; background:#F4F2EC; border-radius:20px; padding:16px 8px; text-align:center;"><div style="font-size:36px; filter:grayscale(1); opacity:.4;">🏆</div><div style="font-size:12px; font-weight:800; color:#C4C4C4; margin-top:4px;">Locked</div></div></div>
+      </div>
+    </div>
+
+    <!-- MASCOT -->
+    <div style="border-top:1px solid #F0ECE4; padding-top:36px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:2px; color:#FF6B35; text-transform:uppercase; margin-bottom:6px;">Mascot Đô Đô · 6 expressions</div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; margin-bottom:18px;">1 final render supplied · remaining poses need illustration in matching chibi-clay style</div>
+      <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:16px;">
+        <div style="text-align:center;"><div style="aspect-ratio:1; border-radius:20px; background:radial-gradient(120% 90% at 50% 35%,#F0EBFF,#E0D6FF); display:flex; align-items:center; justify-content:center; overflow:hidden;"><img src="../assets/dodo.png" style="width:88%; height:88%; object-fit:contain;"></div><div style="font-size:12px; font-weight:800; color:#1A1A2E; margin-top:8px;">Happy ✓</div></div>
+        <div style="text-align:center;"><div style="aspect-ratio:1; border-radius:20px; background:repeating-linear-gradient(45deg,#F4F2EC,#F4F2EC 8px,#EDEAE1 8px,#EDEAE1 16px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Inter'; font-size:11px; font-weight:600; color:#9A9488; text-align:center;">celebrating</span></div><div style="font-size:12px; font-weight:800; color:#6B7280; margin-top:8px;">Celebrating</div></div>
+        <div style="text-align:center;"><div style="aspect-ratio:1; border-radius:20px; background:repeating-linear-gradient(45deg,#F4F2EC,#F4F2EC 8px,#EDEAE1 8px,#EDEAE1 16px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Inter'; font-size:11px; font-weight:600; color:#9A9488; text-align:center;">thinking</span></div><div style="font-size:12px; font-weight:800; color:#6B7280; margin-top:8px;">Thinking</div></div>
+        <div style="text-align:center;"><div style="aspect-ratio:1; border-radius:20px; background:repeating-linear-gradient(45deg,#F4F2EC,#F4F2EC 8px,#EDEAE1 8px,#EDEAE1 16px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Inter'; font-size:11px; font-weight:600; color:#9A9488; text-align:center;">encouraging</span></div><div style="font-size:12px; font-weight:800; color:#6B7280; margin-top:8px;">Encouraging</div></div>
+        <div style="text-align:center;"><div style="aspect-ratio:1; border-radius:20px; background:repeating-linear-gradient(45deg,#F4F2EC,#F4F2EC 8px,#EDEAE1 8px,#EDEAE1 16px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Inter'; font-size:11px; font-weight:600; color:#9A9488; text-align:center;">disappointed</span></div><div style="font-size:12px; font-weight:800; color:#6B7280; margin-top:8px;">Disappointed</div></div>
+        <div style="text-align:center;"><div style="aspect-ratio:1; border-radius:20px; background:repeating-linear-gradient(45deg,#F4F2EC,#F4F2EC 8px,#EDEAE1 8px,#EDEAE1 16px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Inter'; font-size:11px; font-weight:600; color:#9A9488; text-align:center;">cheering</span></div><div style="font-size:12px; font-weight:800; color:#6B7280; margin-top:8px;">Cheering</div></div>
+      </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <div style="border-top:1px solid #F0ECE4; padding-top:36px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:2px; color:#FF6B35; text-transform:uppercase; margin-bottom:18px;">Bottom Navigation</div>
+      <div style="max-width:420px; background:#fff; border:1px solid #F0ECE4; border-radius:24px; height:74px; display:flex; align-items:center; justify-content:space-around; padding-top:6px; box-shadow:0 6px 20px rgba(0,0,0,.05);">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:3px;"><div style="width:52px; height:30px; border-radius:9999px; background:#FFEDE4; display:flex; align-items:center; justify-content:center; font-size:18px;">🗺️</div><span style="font-size:11px; font-weight:800; color:#FF6B35;">Bản đồ</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:3px;"><div style="height:30px; display:flex; align-items:center; font-size:18px; opacity:.5;">📚</div><span style="font-size:11px; font-weight:700; color:#6B7280;">Bài học</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:3px;"><div style="height:30px; display:flex; align-items:center; font-size:18px; opacity:.5;">🏆</div><span style="font-size:11px; font-weight:700; color:#6B7280;">Thành tích</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:3px;"><div style="height:30px; display:flex; align-items:center; font-size:18px; opacity:.5;">👨‍👩‍👧</div><span style="font-size:11px; font-weight:700; color:#6B7280;">Phụ huynh</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+</body>
+</html>

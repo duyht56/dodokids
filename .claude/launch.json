@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "kido-admin",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "admin:dev", "--prefix", "kido-pipeline"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "landing",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "landing"],
+      "port": 3002
+    }
+  ]
+}

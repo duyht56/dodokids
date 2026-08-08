@@ -1,0 +1,6 @@
+[mcp_servers.claude-design]
+url = "https://api.anthropic.com/v1/design/mcp"
+
+[mcp_servers.codegraph]
+command = "C:\\nvm4w\\nodejs\\node.exe"
+args = ["C:\\nvm4w\\nodejs\\node_modules\\@colbymchenry\\codegraph\\npm-shim.js", "serve", "--mcp"]

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kido · Profile Setup — 3 steps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #E8E5DF; font-family: 'Nunito', system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+@keyframes kido-pulse { 0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,53,.45), 0 10px 24px rgba(255,107,53,.4); } 50% { transform: scale(1.06); box-shadow: 0 0 0 16px rgba(255,107,53,0), 0 14px 30px rgba(255,107,53,.5); } }
+@keyframes kido-float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+@keyframes kido-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes kido-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes kido-twinkle { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.18); opacity:.85; } }
+@keyframes kido-dot { 0%,80%,100% { transform: scale(.6); opacity:.4; } 40% { transform: scale(1); opacity:1; } }
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+@keyframes orbit { 0% { transform: rotate(0deg) translateX(48px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(48px) rotate(-360deg); } }
+@keyframes fade-in { from { opacity:0; } to { opacity:1; } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-8px)} 30%{transform:translateX(8px)} 45%{transform:translateX(-6px)} 60%{transform:translateX(6px)} 75%{transform:translateX(-3px)} 90%{transform:translateX(3px)} }
+@keyframes green-flash { 0%{background:#4CAF50;transform:scale(1)} 30%{background:#66BB6A;transform:scale(1.04)} 100%{background:#4CAF50;transform:scale(1)} }
+@keyframes sheet-up { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.sk { background: linear-gradient(90deg, #E8E8E8 25%, #F5F5F5 50%, #E8E8E8 75%); background-size: 800px 100%; animation: shimmer 1.5s ease-in-out infinite; border-radius: 8px; }
+
+</style>
+</head>
+<body>
+<div style="padding: 32px 40px 16px; background:#1A1A2E; display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:99;">
+  <div style="width:32px;height:32px;border-radius:10px;background:#FF6B35;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;">09-Profile-Setup</div>
+  <div style="font-family:'Nunito';font-size:18px;font-weight:900;color:#fff;">Profile Setup — 3 steps</div>
+  <div style="margin-left:auto;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);">Kido App · React Native · Portrait Only</div>
+</div>
+<div style="padding: 48px 40px 80px; display:flex; flex-wrap:wrap; gap:48px; align-items:flex-start;">
+<!-- ============ BAND I: PROFILE SETUP ============ -->
+<div style="font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#6B7280; margin-bottom:12px; width:100%; flex-basis:100%;">10 · Profile Setup <span style="color:#6B7280; font-weight:700; letter-spacing:0;">— 3 steps · mobile + tablet</span></div>
+
+<!-- ── STEP 1: TÊN BÉ ── -->
+<!-- Mobile -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Step 1 · Tên bé · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <!-- status -->
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; z-index:9; font-size:14px; font-weight:800; color:#1A1A2E;"><span>9:41</span><span style="display:flex; gap:7px; align-items:center;"><span style="font-size:12px;">📶</span><span style="width:22px; height:11px; border:2px solid #1A1A2E; border-radius:3px; position:relative;"><span style="position:absolute; inset:1.5px; background:#1A1A2E; border-radius:1px; width:80%;"></span></span></span></div>
+    <!-- step indicator -->
+    <div style="position:absolute; top:58px; left:28px; right:28px; display:flex; align-items:center; gap:8px;">
+      <div style="flex:1; height:6px; border-radius:9999px; background:#FF6B35;"></div>
+      <div style="flex:1; height:6px; border-radius:9999px; background:#E3DBD0;"></div>
+      <div style="flex:1; height:6px; border-radius:9999px; background:#E3DBD0;"></div>
+    </div>
+    <div style="position:absolute; top:72px; left:28px; right:28px; display:flex; justify-content:space-between; margin-top:8px;">
+      <span style="font-size:11px; font-weight:800; color:#FF6B35;">Tên bé</span>
+      <span style="font-size:11px; font-weight:700; color:#C4C4C4;">Tuổi &amp; Lớp</span>
+      <span style="font-size:11px; font-weight:700; color:#C4C4C4;">Avatar</span>
+    </div>
+    <!-- header row -->
+    <div style="position:absolute; top:108px; left:28px; right:28px; display:flex; align-items:flex-start; justify-content:space-between;">
+      <div style="flex:1;">
+        <div style="font-size:28px; font-weight:900; color:#1A1A2E; line-height:1.15;">Bé tên là gì?</div>
+        <div style="font-size:15px; font-weight:600; color:#6B7280; margin-top:8px; line-height:1.45;">Đô Đô muốn biết<br>tên bạn mới!</div>
+      </div>
+      <!-- Đô Đô wink -->
+      <div style="position:relative; flex-shrink:0; margin-left:12px;">
+        <img src="../assets/dodo.png" style="width:86px; height:86px; object-fit:contain; object-position:top; filter:drop-shadow(0 8px 14px rgba(26,26,46,.18));">
+        <!-- wink overlay -->
+        <div style="position:absolute; top:30px; left:18px; width:16px; height:9px; border-bottom:3px solid #1A1A2E; border-radius:0 0 9999px 9999px; background:transparent;"></div>
+      </div>
+    </div>
+    <!-- input -->
+    <div style="position:absolute; top:240px; left:28px; right:28px;">
+      <div style="height:64px; border-radius:18px; background:#fff; border:2.5px solid #4ECDC4; display:flex; align-items:center; padding:0 20px; box-shadow:0 0 0 4px rgba(78,205,196,.12);">
+        <span style="font-size:20px; font-weight:600; color:#1A1A2E; font-family:'Nunito';">Minh Khôi</span>
+        <div style="width:2px; height:26px; background:#FF6B35; margin-left:2px; animation:kido-twinkle 1s ease-in-out infinite;"></div>
+      </div>
+      <div style="margin-top:10px; font-size:13px; font-weight:700; color:#4ECDC4; padding-left:4px;">✓ Tên hợp lệ</div>
+    </div>
+    <!-- mascot hint bubble -->
+    <div style="position:absolute; top:330px; left:28px; right:28px; background:#F0EBFF; border-radius:16px; padding:14px 18px; display:flex; gap:12px; align-items:center;">
+      <span style="font-size:22px;">💡</span>
+      <div style="font-size:13px; font-weight:700; color:#6B7280; line-height:1.4;">Nhập tên bé để Đô Đô gọi tên khi chào mỗi ngày nhé!</div>
+    </div>
+    <!-- keyboard push indicator -->
+    <div style="position:absolute; bottom:182px; left:0; right:0; height:1px; background:#F0ECE4;"></div>
+    <!-- simulated keyboard -->
+    <div style="position:absolute; bottom:0; left:0; right:0; height:182px; background:#D1D5DB; border-top:1px solid #C0C4CC; border-radius:0 0 40px 40px; padding:10px 8px 0; display:flex; flex-direction:column; gap:7px;">
+      <div style="display:flex; gap:5px; justify-content:center;">
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">q</div>
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">w</div>
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">e</div>
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">r</div>
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">t</div>
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">y</div>
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">u</div>
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">i</div>
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">o</div>
+        <div style="height:40px; flex:1; max-width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">p</div>
+      </div>
+      <div style="display:flex; gap:5px; justify-content:center;">
+        <div style="height:40px; width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">a</div>
+        <div style="height:40px; width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">s</div>
+        <div style="height:40px; width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">d</div>
+        <div style="height:40px; width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">f</div>
+        <div style="height:40px; width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">g</div>
+        <div style="height:40px; width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">h</div>
+        <div style="height:40px; width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">j</div>
+        <div style="height:40px; width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">k</div>
+        <div style="height:40px; width:32px; background:#fff; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#1A1A2E; box-shadow:0 1px 0 #9CA3AF;">l</div>
+      </div>
+      <!-- CTA is ABOVE keyboard, not hidden -->
+      <div style="padding:0 4px;">
+        <button style="width:100%; height:48px; border:none; border-radius:9999px; background:#FF6B35; color:#fff; font-family:'Nunito'; font-size:16px; font-weight:800; box-shadow:0 6px 14px rgba(255,107,53,.3); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">Tiếp theo <span>→</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── STEP 2: TUỔI ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Step 2 · Tuổi &amp; Lớp · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; z-index:9; font-size:14px; font-weight:800; color:#1A1A2E;"><span>9:41</span><span style="display:flex; gap:7px; align-items:center;"><span>📶</span><span style="width:22px; height:11px; border:2px solid #1A1A2E; border-radius:3px; position:relative;"><span style="position:absolute; inset:1.5px; background:#1A1A2E; border-radius:1px; width:80%;"></span></span></span></div>
+    <!-- step indicator -->
+    <div style="position:absolute; top:58px; left:28px; right:28px; display:flex; align-items:center; gap:8px;">
+      <div style="flex:1; height:6px; border-radius:9999px; background:#FF6B35;"></div>
+      <div style="flex:1; height:6px; border-radius:9999px; background:#FF6B35;"></div>
+      <div style="flex:1; height:6px; border-radius:9999px; background:#E3DBD0;"></div>
+    </div>
+    <div style="position:absolute; top:72px; left:28px; right:28px; display:flex; justify-content:space-between; margin-top:8px;">
+      <span style="font-size:11px; font-weight:800; color:#FF6B35;">Tên bé</span>
+      <span style="font-size:11px; font-weight:800; color:#FF6B35;">Tuổi &amp; Lớp</span>
+      <span style="font-size:11px; font-weight:700; color:#C4C4C4;">Avatar</span>
+    </div>
+    <!-- header -->
+    <div style="position:absolute; top:108px; left:28px; right:28px;">
+      <div style="font-size:28px; font-weight:900; color:#1A1A2E;">Bé bao nhiêu tuổi?</div>
+      <div style="font-size:15px; font-weight:600; color:#6B7280; margin-top:6px;">Đô Đô sẽ chọn bài phù hợp nhất!</div>
+    </div>
+    <!-- age cards -->
+    <div style="position:absolute; top:186px; left:0; right:0; display:flex; gap:14px; padding:0 28px; overflow:visible;">
+      <!-- unselected -->
+      <div style="width:100px; height:120px; border-radius:22px; background:#fff; border:2px solid #F0ECE4; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; flex-shrink:0; box-shadow:0 4px 14px rgba(0,0,0,.05);">
+        <div style="font-size:42px; font-weight:900; color:#1A1A2E; line-height:1;">4</div>
+        <div style="font-size:13px; font-weight:700; color:#6B7280;">tuổi</div>
+        <div style="font-size:22px; margin-top:2px;">🐥</div>
+      </div>
+      <!-- selected -->
+      <div style="width:100px; height:120px; border-radius:22px; background:#FFF0EB; border:3px solid #FF6B35; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; flex-shrink:0; transform:scale(1.06); box-shadow:0 8px 22px rgba(255,107,53,.25);">
+        <div style="font-size:42px; font-weight:900; color:#FF6B35; line-height:1;">5</div>
+        <div style="font-size:13px; font-weight:800; color:#FF6B35;">tuổi</div>
+        <div style="font-size:22px; margin-top:2px;">🐰</div>
+      </div>
+      <!-- unselected -->
+      <div style="width:100px; height:120px; border-radius:22px; background:#fff; border:2px solid #F0ECE4; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; flex-shrink:0; box-shadow:0 4px 14px rgba(0,0,0,.05);">
+        <div style="font-size:42px; font-weight:900; color:#1A1A2E; line-height:1;">6</div>
+        <div style="font-size:13px; font-weight:700; color:#6B7280;">tuổi</div>
+        <div style="font-size:22px; margin-top:2px;">🦊</div>
+      </div>
+    </div>
+    <!-- class section -->
+    <div style="position:absolute; top:336px; left:28px; right:28px;">
+      
+      <div style="display:flex; gap:10px;">
+        
+        
+        
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="position:absolute; bottom:28px; left:28px; right:28px; display:flex; flex-direction:column; gap:10px;">
+      <button style="width:100%; height:56px; border:none; border-radius:9999px; background:#FF6B35; color:#fff; font-family:'Nunito'; font-size:17px; font-weight:800; box-shadow:0 8px 18px rgba(255,107,53,.3); cursor:pointer;">Tiếp theo →</button>
+      <button style="height:44px; border:none; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:14px; font-weight:700; cursor:pointer;">← Quay lại</button>
+    </div>
+    <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:130px; height:5px; border-radius:9999px; background:#1A1A2E; opacity:.85;"></div>
+  </div>
+</div>
+
+<!-- ── STEP 3: AVATAR ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Step 3 · Avatar · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; z-index:9; font-size:14px; font-weight:800; color:#1A1A2E;"><span>9:41</span><span style="display:flex; gap:7px; align-items:center;"><span>📶</span><span style="width:22px; height:11px; border:2px solid #1A1A2E; border-radius:3px; position:relative;"><span style="position:absolute; inset:1.5px; background:#1A1A2E; border-radius:1px; width:80%;"></span></span></span></div>
+    <!-- step indicator - all filled -->
+    <div style="position:absolute; top:58px; left:28px; right:28px; display:flex; align-items:center; gap:8px;">
+      <div style="flex:1; height:6px; border-radius:9999px; background:#FF6B35;"></div>
+      <div style="flex:1; height:6px; border-radius:9999px; background:#FF6B35;"></div>
+      <div style="flex:1; height:6px; border-radius:9999px; background:#FF6B35;"></div>
+    </div>
+    <div style="position:absolute; top:72px; left:28px; right:28px; display:flex; justify-content:space-between; margin-top:8px;">
+      <span style="font-size:11px; font-weight:800; color:#FF6B35;">Tên bé</span>
+      <span style="font-size:11px; font-weight:800; color:#FF6B35;">Tuổi &amp; Lớp</span>
+      <span style="font-size:11px; font-weight:800; color:#FF6B35;">Avatar</span>
+    </div>
+    <!-- header -->
+    <div style="position:absolute; top:108px; left:28px; right:28px;">
+      <div style="font-size:28px; font-weight:900; color:#1A1A2E;">Chọn avatar cho bé!</div>
+      <div style="font-size:15px; font-weight:600; color:#6B7280; margin-top:6px;">Bé muốn là con vật nào?</div>
+    </div>
+    <!-- preview of chosen -->
+    <div style="position:absolute; top:168px; left:28px; right:28px; border-radius:22px; background:linear-gradient(120deg, #F0EBFF, #E7F7F5); padding:16px 20px; display:flex; align-items:center; gap:14px;">
+      <div style="position:relative; width:64px; height:64px; border-radius:9999px; background:#F0EBFF; border:3px solid #FF6B35; display:flex; align-items:center; justify-content:center; font-size:34px; flex-shrink:0;">🐱<div style="position:absolute; bottom:-2px; right:-2px; width:20px; height:20px; border-radius:9999px; background:#FF6B35; border:2px solid #fff; display:flex; align-items:center; justify-content:center; font-size:10px; color:#fff; font-weight:900;">✓</div></div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:#6B7280;">Bạn đã chọn</div>
+        <div style="font-size:20px; font-weight:900; color:#1A1A2E; margin-top:2px;">Xin chào, Minh Khôi! 👋</div>
+      </div>
+    </div>
+    <!-- 3×3 avatar grid -->
+    <div style="position:absolute; top:274px; left:28px; right:28px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+      <!-- selected: mèo -->
+      <div style="aspect-ratio:1; border-radius:9999px; background:#F0EBFF; border:3px solid #FF6B35; display:flex; align-items:center; justify-content:center; font-size:38px; position:relative; box-shadow:0 6px 18px rgba(255,107,53,.22);">🐱<div style="position:absolute; bottom:0; right:0; width:22px; height:22px; border-radius:9999px; background:#FF6B35; border:2px solid #fff; display:flex; align-items:center; justify-content:center; font-size:11px; color:#fff;">✓</div></div>
+      <div style="aspect-ratio:1; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:38px; border:3px solid transparent;">🐰</div>
+      <div style="aspect-ratio:1; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:38px; border:3px solid transparent;">🐻</div>
+      <div style="aspect-ratio:1; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:38px; border:3px solid transparent;">🦆</div>
+      <div style="aspect-ratio:1; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:38px; border:3px solid transparent;">🦊</div>
+      <div style="aspect-ratio:1; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:38px; border:3px solid transparent;">🦋</div>
+      <div style="aspect-ratio:1; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:38px; border:3px solid transparent;">🐘</div>
+      <div style="aspect-ratio:1; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:38px; border:3px solid transparent;">🐢</div>
+      <div style="aspect-ratio:1; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:38px; border:3px solid transparent;">🦌</div>
+    </div>
+    <!-- CTA celebration -->
+    <div style="position:absolute; bottom:28px; left:28px; right:28px; display:flex; flex-direction:column; gap:10px;">
+      <button style="width:100%; height:56px; border:none; border-radius:9999px; background:linear-gradient(120deg,#FF6B35,#FF8C42); color:#fff; font-family:'Nunito'; font-size:17px; font-weight:800; box-shadow:0 8px 22px rgba(255,107,53,.38); cursor:pointer; animation:kido-pulse 2s ease-in-out infinite; display:flex; align-items:center; justify-content:center; gap:8px;">Bắt đầu học thôi! 🚀</button>
+      <button style="height:44px; border:none; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:14px; font-weight:700; cursor:pointer;">← Quay lại</button>
+    </div>
+    <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:130px; height:5px; border-radius:9999px; background:#1A1A2E; opacity:.85;"></div>
+  </div>
+</div>
+
+<!-- ── TABLET: ALL 3 STEPS ── -->
+<div style="flex-shrink:0; width:820px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Step 2 · Tuổi &amp; Avatar combined · Tablet 768×1024</div>
+  <div style="position:relative; width:768px; height:1024px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:48px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 36px; z-index:9; font-size:15px; font-weight:800; color:#1A1A2E;"><span>9:41</span><span style="display:flex; gap:8px; align-items:center;"><span>📶</span><span style="width:24px; height:12px; border:2px solid #1A1A2E; border-radius:3px; position:relative;"><span style="position:absolute; inset:1.5px; background:#1A1A2E; border-radius:1px; width:80%;"></span></span></span></div>
+    <!-- step indicator -->
+    <div style="position:absolute; top:60px; left:40px; right:40px; display:flex; align-items:center; gap:12px;">
+      <div style="flex:1; height:8px; border-radius:9999px; background:#FF6B35;"></div>
+      <div style="flex:1; height:8px; border-radius:9999px; background:#FF6B35;"></div>
+      <div style="flex:1; height:8px; border-radius:9999px; background:#E3DBD0;"></div>
+    </div>
+    <div style="position:absolute; top:76px; left:40px; right:40px; display:flex; justify-content:space-between; margin-top:10px;">
+      <span style="font-size:13px; font-weight:800; color:#FF6B35;">Tên bé</span>
+      <span style="font-size:13px; font-weight:800; color:#FF6B35;">Tuổi &amp; Lớp</span>
+      <span style="font-size:13px; font-weight:700; color:#C4C4C4;">Avatar</span>
+    </div>
+    <!-- two-column layout -->
+    <div style="position:absolute; top:122px; left:0; right:0; bottom:0; display:flex;">
+      <!-- left: mascot column -->
+      <div style="width:42%; background:radial-gradient(120% 70% at 50% 35%, #FFF0EB 0%, rgba(255,240,235,0) 70%); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 32px; gap:20px;">
+        <img src="../assets/dodo.png" style="width:230px; height:auto; filter:drop-shadow(0 18px 26px rgba(26,26,46,.2)); animation:kido-float 4s ease-in-out infinite;">
+        <div style="background:#FF6B35; border-radius:20px; padding:16px 20px; text-align:center; box-shadow:0 8px 18px rgba(255,107,53,.28);">
+          <div style="font-size:18px; font-weight:900; color:#fff;">"Bé 5 tuổi thật tuyệt!</div>
+          <div style="font-size:15px; font-weight:700; color:rgba(255,255,255,.9); margin-top:4px;">Mình sẽ học vui lắm đó!" 🎉</div>
+        </div>
+      </div>
+      <!-- right: form -->
+      <div style="flex:1; padding:36px 44px; display:flex; flex-direction:column; overflow:hidden;">
+        <div style="font-size:30px; font-weight:900; color:#1A1A2E; line-height:1.15;">Bé bao nhiêu tuổi?</div>
+        <div style="font-size:16px; font-weight:600; color:#6B7280; margin-top:8px;">Đô Đô sẽ chọn bài phù hợp nhất!</div>
+        <!-- age cards -->
+        <div style="display:flex; gap:16px; margin-top:28px;">
+          <div style="width:120px; height:140px; border-radius:26px; background:#fff; border:2.5px solid #F0ECE4; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,.05);">
+            <div style="font-size:52px; font-weight:900; color:#1A1A2E; line-height:1;">4</div>
+            <div style="font-size:14px; font-weight:700; color:#6B7280;">tuổi</div>
+            <div style="font-size:26px;">🐥</div>
+          </div>
+          <div style="width:120px; height:140px; border-radius:26px; background:#FFF0EB; border:3px solid #FF6B35; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; transform:scale(1.06); box-shadow:0 10px 26px rgba(255,107,53,.28);">
+            <div style="font-size:52px; font-weight:900; color:#FF6B35; line-height:1;">5</div>
+            <div style="font-size:14px; font-weight:800; color:#FF6B35;">tuổi</div>
+            <div style="font-size:26px;">🐰</div>
+          </div>
+          <div style="width:120px; height:140px; border-radius:26px; background:#fff; border:2.5px solid #F0ECE4; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; box-shadow:0 4px 14px rgba(0,0,0,.05);">
+            <div style="font-size:52px; font-weight:900; color:#1A1A2E; line-height:1;">6</div>
+            <div style="font-size:14px; font-weight:700; color:#6B7280;">tuổi</div>
+            <div style="font-size:26px;">🦊</div>
+          </div>
+        </div>
+        <!-- age -->
+        
+        <div style="display:flex; gap:12px;">
+          
+          
+          
+        </div>
+        <div style="flex:1;"></div>
+        <div style="display:flex; gap:14px;">
+          <button style="flex:1; height:64px; border:2px solid #E3DBD0; border-radius:9999px; background:#fff; color:#6B7280; font-family:'Nunito'; font-size:17px; font-weight:800; cursor:pointer;">← Quay lại</button>
+          <button style="flex:2; height:64px; border:none; border-radius:9999px; background:#FF6B35; color:#fff; font-family:'Nunito'; font-size:18px; font-weight:800; box-shadow:0 10px 22px rgba(255,107,53,.32); cursor:pointer;">Tiếp theo →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

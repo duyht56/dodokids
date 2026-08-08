@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kido · Offline Task Component</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #E8E5DF; font-family: 'Nunito', system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+@keyframes kido-pulse { 0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,53,.45), 0 10px 24px rgba(255,107,53,.4); } 50% { transform: scale(1.06); box-shadow: 0 0 0 16px rgba(255,107,53,0), 0 14px 30px rgba(255,107,53,.5); } }
+@keyframes kido-float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+@keyframes kido-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes kido-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes kido-twinkle { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.18); opacity:.85; } }
+@keyframes kido-dot { 0%,80%,100% { transform: scale(.6); opacity:.4; } 40% { transform: scale(1); opacity:1; } }
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+@keyframes orbit { 0% { transform: rotate(0deg) translateX(48px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(48px) rotate(-360deg); } }
+@keyframes fade-in { from { opacity:0; } to { opacity:1; } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-8px)} 30%{transform:translateX(8px)} 45%{transform:translateX(-6px)} 60%{transform:translateX(6px)} 75%{transform:translateX(-3px)} 90%{transform:translateX(3px)} }
+@keyframes green-flash { 0%{background:#4CAF50;transform:scale(1)} 30%{background:#66BB6A;transform:scale(1.04)} 100%{background:#4CAF50;transform:scale(1)} }
+@keyframes sheet-up { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.sk { background: linear-gradient(90deg, #E8E8E8 25%, #F5F5F5 50%, #E8E8E8 75%); background-size: 800px 100%; animation: shimmer 1.5s ease-in-out infinite; border-radius: 8px; }
+
+</style>
+</head>
+<body>
+<div style="padding: 32px 40px 16px; background:#1A1A2E; display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:99;">
+  <div style="width:32px;height:32px;border-radius:10px;background:#FF6B35;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;">13-Offline-Task</div>
+  <div style="font-family:'Nunito';font-size:18px;font-weight:900;color:#fff;">Offline Task Component</div>
+  <div style="margin-left:auto;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);">Kido App · React Native · Portrait Only</div>
+</div>
+<div style="padding: 48px 40px 80px; display:flex; flex-wrap:wrap; gap:48px; align-items:flex-start;">
+<!-- ============ BAND M: OFFLINE TASK ============ -->
+<div style="font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#6B7280; margin-bottom:12px; width:100%; flex-basis:100%;">14 · Offline Task Component &amp; Screen <span style="color:#6B7280; font-weight:700; letter-spacing:0;">— 4 card states · full list screen</span></div>
+
+<!-- ── COMPONENT STATES (shown in Parent Dashboard context) ── -->
+
+<!-- State 1: Pending -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">State 1 · Pending — coral left border</div>
+  <div style="position:relative; width:375px; height:812px; background:#F5F5F0; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; z-index:9; font-size:14px; font-weight:800; color:#1A1A2E;"><span>9:41</span><span style="display:flex;gap:7px;align-items:center;"><span>📶</span><span style="width:22px;height:11px;border:2px solid #1A1A2E;border-radius:3px;position:relative;"><span style="position:absolute;inset:1.5px;background:#1A1A2E;border-radius:1px;width:80%;"></span></span></span></div>
+    <!-- parent header -->
+    <div style="position:absolute; top:54px; left:24px; right:24px; height:52px; display:flex; align-items:center; gap:10px;">
+      <div style="width:42px; height:42px; border-radius:9999px; background:#E7E2FF; display:flex; align-items:center; justify-content:center; font-size:22px;">👨‍👩‍👧</div>
+      <div><div style="font-size:18px; font-weight:900; color:#1A1A2E;">Bảng Phụ huynh</div><div style="font-family:'Inter'; font-size:12px; color:#6B7280;">Tuần 3 · Bé Kido</div></div>
+    </div>
+    <!-- progress card condensed -->
+    <div style="position:absolute; top:116px; left:20px; right:20px; background:#fff; border-radius:18px; padding:14px 16px; box-shadow:0 4px 14px rgba(0,0,0,.05);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;"><div style="font-size:14px; font-weight:900; color:#1A1A2E;">📊 Tiến độ tuần</div><span style="font-size:12px; font-weight:800; color:#4CAF50; background:#EAF7EA; padding:2px 8px; border-radius:9999px;">60%</span></div>
+      <div style="height:8px; border-radius:9999px; background:#F0ECE4; overflow:hidden;"><div style="width:60%; height:100%; background:#FF6B35; border-radius:9999px;"></div></div>
+    </div>
+    <!-- section header -->
+    <div style="position:absolute; top:216px; left:20px; right:20px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+        <div style="font-size:14px; font-weight:900; color:#1A1A2E;">📝 Nhiệm vụ hôm nay</div>
+        <div style="font-size:12px; font-weight:800; color:#FF6B35; cursor:pointer;">Xem tất cả →</div>
+      </div>
+      <!-- PENDING CARD -->
+      <div style="background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,.06); display:flex;">
+        <!-- coral left border -->
+        <div style="width:4px; background:#FF6B35; flex-shrink:0; border-radius:0;"></div>
+        <div style="flex:1; padding:16px 16px 16px 14px;">
+          <div style="font-size:12px; font-weight:800; color:#FF6B35; letter-spacing:.5px; margin-bottom:8px;">🧮 Tuần 3 · Bài 2 · Toán</div>
+          <div style="font-size:15px; font-weight:600; color:#1A1A2E; line-height:1.5;">"Hãy nhờ bé đếm các bậc cầu thang trong nhà cùng bạn. Bé đếm được đến bao nhiêu?"</div>
+          <div style="display:flex; gap:10px; margin-top:14px;">
+            <button style="flex:1; height:44px; border:none; border-radius:12px; background:#4CAF50; color:#fff; font-family:'Nunito'; font-size:14px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 4px 10px rgba(76,175,80,.28);">✅ Đã làm</button>
+            <button style="flex:1; height:44px; border:1.5px solid #E3DBD0; border-radius:12px; background:#fff; color:#6B7280; font-family:'Nunito'; font-size:14px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px;">⏭ Bỏ qua</button>
+          </div>
+        </div>
+      </div>
+      <!-- history summary -->
+      <div style="margin-top:10px; display:flex; align-items:center; gap:8px; padding:10px 14px; background:#EAF7EA; border-radius:12px;">
+        <span style="font-size:16px;">✅</span>
+        <div style="font-family:'Inter'; font-size:13px; font-weight:600; color:#1A1A2E;">Tuần trước: <strong>4/5</strong> nhiệm vụ hoàn thành</div>
+        <div style="margin-left:auto; display:flex; gap:4px;">
+          <div style="width:8px; height:8px; border-radius:2px; background:#4CAF50;"></div>
+          <div style="width:8px; height:8px; border-radius:2px; background:#4CAF50;"></div>
+          <div style="width:8px; height:8px; border-radius:2px; background:#4CAF50;"></div>
+          <div style="width:8px; height:8px; border-radius:2px; background:#4CAF50;"></div>
+          <div style="width:8px; height:8px; border-radius:2px; background:#E3DBD0;"></div>
+        </div>
+      </div>
+    </div>
+    <!-- offline task tips -->
+    <div style="position:absolute; top:476px; left:20px; right:20px; background:#fff; border-radius:18px; padding:16px; box-shadow:0 4px 14px rgba(0,0,0,.05);">
+      <div style="font-size:13px; font-weight:900; color:#6B7280; letter-spacing:.5px; margin-bottom:12px;">CÀI ĐẶT</div>
+      <div style="display:flex; align-items:center; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid #F2F0EA;"><span style="font-size:14px; font-weight:700; color:#1A1A2E;">🔔 Thông báo nhiệm vụ</span><span style="width:42px;height:24px;border-radius:9999px;background:#4CAF50;position:relative;flex-shrink:0;"><span style="position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:#fff;"></span></span></div>
+      <div style="display:flex; align-items:center; justify-content:space-between; padding-top:12px;"><span style="font-size:14px; font-weight:700; color:#1A1A2E;">💳 Quản lý đăng ký</span><span style="font-size:18px; color:#C4C4C4;">→</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- State 2: Done -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">State 2 · Done — green bg + checkmark</div>
+  <div style="position:relative; width:375px; height:440px; background:#F5F5F0; border:14px solid #1A1A2E; border-radius:32px; overflow:hidden; box-shadow:0 20px 50px rgba(26,26,46,.18);">
+    <div style="padding:24px 20px;">
+      <div style="font-size:14px; font-weight:900; color:#1A1A2E; margin-bottom:12px;">📝 Nhiệm vụ hôm nay</div>
+      <!-- DONE CARD -->
+      <div style="background:#F0FDF4; border-radius:18px; overflow:hidden; border:1.5px solid #BBF7D0; box-shadow:0 4px 14px rgba(76,175,80,.08); display:flex;">
+        <div style="width:4px; background:#4CAF50; flex-shrink:0;"></div>
+        <div style="flex:1; padding:16px 16px 16px 14px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+            <div style="font-size:12px; font-weight:800; color:#4CAF50; letter-spacing:.5px;">🧮 Tuần 3 · Bài 2 · Toán</div>
+            <div style="width:28px; height:28px; border-radius:9999px; background:#4CAF50; display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff; box-shadow:0 4px 8px rgba(76,175,80,.3);">✓</div>
+          </div>
+          <div style="font-size:15px; font-weight:600; color:#6B7280; line-height:1.5; text-decoration:none;">"Hãy nhờ bé đếm các bậc cầu thang trong nhà cùng bạn."</div>
+          <div style="margin-top:12px; padding:8px 12px; background:#DCFCE7; border-radius:10px; display:flex; align-items:center; gap:8px;">
+            <span style="font-size:14px;">✅</span>
+            <div style="font-family:'Inter'; font-size:13px; font-weight:700; color:#16A34A;">Hoàn thành lúc 8:32 sáng</div>
+          </div>
+        </div>
+      </div>
+      <!-- history -->
+      <div style="margin-top:10px; display:flex; align-items:center; gap:8px; padding:10px 14px; background:#EAF7EA; border-radius:12px;">
+        <span style="font-size:16px;">✅</span>
+        <div style="font-family:'Inter'; font-size:13px; font-weight:600; color:#1A1A2E;">Tuần trước: <strong>4/5</strong> hoàn thành</div>
+        <div style="margin-left:auto; display:flex; gap:4px;">
+          <div style="width:8px;height:8px;border-radius:2px;background:#4CAF50;"></div><div style="width:8px;height:8px;border-radius:2px;background:#4CAF50;"></div><div style="width:8px;height:8px;border-radius:2px;background:#4CAF50;"></div><div style="width:8px;height:8px;border-radius:2px;background:#4CAF50;"></div><div style="width:8px;height:8px;border-radius:2px;background:#E3DBD0;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- State 3: Skipped -->
+  <div style="margin-top:20px; position:relative; width:375px; height:240px; background:#F5F5F0; border:14px solid #1A1A2E; border-radius:32px; overflow:hidden; box-shadow:0 20px 50px rgba(26,26,46,.18);">
+    <div style="padding:24px 20px;">
+      <div style="font-size:14px; font-weight:900; color:#1A1A2E; margin-bottom:12px;">📝 Nhiệm vụ hôm nay</div>
+      <!-- SKIPPED CARD -->
+      <div style="background:#F4F2EC; border-radius:18px; overflow:hidden; border:1.5px solid #E3DBD0; display:flex; opacity:.8;">
+        <div style="width:4px; background:#C4C4C4; flex-shrink:0;"></div>
+        <div style="flex:1; padding:16px 16px 16px 14px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+            <div style="font-size:12px; font-weight:800; color:#9A9488; letter-spacing:.5px;">🧮 Tuần 3 · Bài 2 · Toán</div>
+            <div style="font-size:12px; font-weight:800; color:#9A9488; background:#E3DBD0; padding:3px 10px; border-radius:9999px;">Bỏ qua</div>
+          </div>
+          <div style="font-size:15px; font-weight:600; color:#9A9488; line-height:1.5; text-decoration:line-through;">"Hãy nhờ bé đếm các bậc cầu thang trong nhà..."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- State 4: No task -->
+  <div style="margin-top:20px; position:relative; width:375px; height:170px; background:#F5F5F0; border:14px solid #1A1A2E; border-radius:32px; overflow:hidden; box-shadow:0 20px 50px rgba(26,26,46,.18);">
+    <div style="padding:24px 20px;">
+      <div style="font-size:14px; font-weight:900; color:#1A1A2E; margin-bottom:12px;">📝 Nhiệm vụ hôm nay</div>
+      <!-- NO TASK CARD -->
+      <div style="background:#fff; border-radius:18px; padding:16px 20px; display:flex; align-items:center; gap:14px; border:1.5px dashed #E3DBD0;">
+        <span style="font-size:28px; flex-shrink:0;">🎉</span>
+        <div>
+          <div style="font-size:15px; font-weight:800; color:#1A1A2E;">Không có nhiệm vụ hôm nay!</div>
+          <div style="font-family:'Inter'; font-size:12px; font-weight:500; color:#6B7280; margin-top:3px;">Nhiệm vụ mới sẽ có vào ngày mai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FULL SCREEN: XEM TẤT CẢ ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Full Screen · Xem tất cả nhiệm vụ · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#F5F5F0; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; z-index:9; font-size:14px; font-weight:800; color:#1A1A2E;"><span>9:41</span><span style="display:flex;gap:7px;align-items:center;"><span>📶</span><span style="width:22px;height:11px;border:2px solid #1A1A2E;border-radius:3px;position:relative;"><span style="position:absolute;inset:1.5px;background:#1A1A2E;border-radius:1px;width:80%;"></span></span></span></div>
+    <!-- nav bar -->
+    <div style="position:absolute; top:54px; left:20px; right:20px; display:flex; align-items:center; gap:12px; height:50px;">
+      <div style="width:40px; height:40px; border-radius:9999px; background:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; box-shadow:0 2px 8px rgba(0,0,0,.06);">←</div>
+      <div style="font-size:20px; font-weight:900; color:#1A1A2E;">Tất cả nhiệm vụ</div>
+    </div>
+    <!-- filter tabs -->
+    <div style="position:absolute; top:114px; left:20px; right:20px; display:flex; gap:8px;">
+      <div style="height:36px; padding:0 16px; border-radius:9999px; background:#FF6B35; display:flex; align-items:center; font-size:13px; font-weight:800; color:#fff; box-shadow:0 4px 10px rgba(255,107,53,.28);">Tất cả</div>
+      <div style="height:36px; padding:0 16px; border-radius:9999px; background:#fff; display:flex; align-items:center; font-size:13px; font-weight:700; color:#6B7280; border:1.5px solid #E3DBD0;">✅ Đã làm</div>
+      <div style="height:36px; padding:0 16px; border-radius:9999px; background:#fff; display:flex; align-items:center; font-size:13px; font-weight:700; color:#6B7280; border:1.5px solid #E3DBD0;">⏳ Chưa làm</div>
+    </div>
+    <!-- summary bar -->
+    <div style="position:absolute; top:162px; left:20px; right:20px; background:#fff; border-radius:14px; padding:10px 16px; display:flex; justify-content:space-around; box-shadow:0 2px 10px rgba(0,0,0,.04);">
+      <div style="text-align:center;"><div style="font-size:20px; font-weight:900; color:#4CAF50;">4</div><div style="font-family:'Inter'; font-size:11px; color:#6B7280;">Đã làm</div></div>
+      <div style="width:1px; background:#F0ECE4;"></div>
+      <div style="text-align:center;"><div style="font-size:20px; font-weight:900; color:#FF6B35;">1</div><div style="font-family:'Inter'; font-size:11px; color:#6B7280;">Đang chờ</div></div>
+      <div style="width:1px; background:#F0ECE4;"></div>
+      <div style="text-align:center;"><div style="font-size:20px; font-weight:900; color:#9A9488;">2</div><div style="font-family:'Inter'; font-size:11px; color:#6B7280;">Bỏ qua</div></div>
+      <div style="width:1px; background:#F0ECE4;"></div>
+      <div style="text-align:center;"><div style="font-size:20px; font-weight:900; color:#1A1A2E;">7</div><div style="font-family:'Inter'; font-size:11px; color:#6B7280;">Tổng</div></div>
+    </div>
+    <!-- task list -->
+    <div style="position:absolute; top:228px; left:0; right:0; bottom:0; padding:4px 20px 24px; display:flex; flex-direction:column; gap:10px; overflow:hidden;">
+      <!-- week label -->
+      <div style="font-size:12px; font-weight:900; color:#6B7280; letter-spacing:1px; padding-top:4px;">TUẦN 3</div>
+      <!-- item: pending -->
+      <div style="background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 3px 12px rgba(0,0,0,.05); display:flex;">
+        <div style="width:4px; background:#FF6B35; flex-shrink:0;"></div>
+        <div style="flex:1; padding:13px 14px;">
+          <div style="font-size:11px; font-weight:800; color:#FF6B35;">🧮 Toán · Bài 2</div>
+          <div style="font-size:14px; font-weight:600; color:#1A1A2E; margin-top:4px; line-height:1.4;">"Đếm bậc cầu thang cùng bé"</div>
+          <div style="display:flex; gap:8px; margin-top:10px;">
+            <button style="flex:1; height:36px; border:none; border-radius:9px; background:#4CAF50; color:#fff; font-family:'Nunito'; font-size:13px; font-weight:800; cursor:pointer;">✅ Đã làm</button>
+            <button style="flex:1; height:36px; border:1.5px solid #E3DBD0; border-radius:9px; background:#fff; color:#6B7280; font-family:'Nunito'; font-size:13px; font-weight:800; cursor:pointer;">⏭ Bỏ qua</button>
+          </div>
+        </div>
+      </div>
+      <!-- item: done -->
+      <div style="background:#F0FDF4; border-radius:16px; overflow:hidden; border:1.5px solid #BBF7D0; display:flex;">
+        <div style="width:4px; background:#4CAF50; flex-shrink:0;"></div>
+        <div style="flex:1; padding:13px 14px; display:flex; gap:10px; align-items:flex-start;">
+          <div style="flex:1;">
+            <div style="font-size:11px; font-weight:800; color:#4CAF50;">📚 Tiếng Việt · Bài 1</div>
+            <div style="font-size:14px; font-weight:600; color:#6B7280; margin-top:4px; line-height:1.4;">"Tìm 5 đồ vật bắt đầu bằng chữ A"</div>
+          </div>
+          <div style="width:28px; height:28px; border-radius:9999px; background:#4CAF50; display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff; flex-shrink:0;">✓</div>
+        </div>
+      </div>
+      <!-- week label -->
+      <div style="font-size:12px; font-weight:900; color:#6B7280; letter-spacing:1px;">TUẦN 2</div>
+      <!-- item: done -->
+      <div style="background:#F0FDF4; border-radius:16px; overflow:hidden; border:1.5px solid #BBF7D0; display:flex;">
+        <div style="width:4px; background:#4CAF50; flex-shrink:0;"></div>
+        <div style="flex:1; padding:13px 14px; display:flex; gap:10px; align-items:flex-start;">
+          <div style="flex:1;"><div style="font-size:11px; font-weight:800; color:#4CAF50;">🔢 Toán · Bài 5</div><div style="font-size:14px; font-weight:600; color:#6B7280; margin-top:4px; line-height:1.4;">"Xếp đồ vật theo thứ tự to nhỏ"</div></div>
+          <div style="width:28px; height:28px; border-radius:9999px; background:#4CAF50; display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff; flex-shrink:0;">✓</div>
+        </div>
+      </div>
+      <!-- item: skipped -->
+      <div style="background:#F4F2EC; border-radius:16px; overflow:hidden; border:1.5px solid #E3DBD0; display:flex; opacity:.75;">
+        <div style="width:4px; background:#C4C4C4; flex-shrink:0;"></div>
+        <div style="flex:1; padding:13px 14px; display:flex; gap:10px; align-items:center;">
+          <div style="flex:1;"><div style="font-size:11px; font-weight:800; color:#9A9488;">🌿 Tiếng Anh · Bài 3</div><div style="font-size:14px; font-weight:600; color:#9A9488; margin-top:4px; text-decoration:line-through;">"Chỉ 3 màu sắc trong tiếng Anh"</div></div>
+          <div style="font-size:12px; font-weight:800; color:#9A9488; background:#E3DBD0; padding:3px 10px; border-radius:9999px; flex-shrink:0;">Bỏ qua</div>
+        </div>
+      </div>
+      <!-- item: done -->
+      <div style="background:#F0FDF4; border-radius:16px; overflow:hidden; border:1.5px solid #BBF7D0; display:flex;">
+        <div style="width:4px; background:#4CAF50; flex-shrink:0;"></div>
+        <div style="flex:1; padding:13px 14px; display:flex; gap:10px; align-items:flex-start;">
+          <div style="flex:1;"><div style="font-size:11px; font-weight:800; color:#4CAF50;">🔢 Toán · Bài 4</div><div style="font-size:14px; font-weight:600; color:#6B7280; margin-top:4px;">"Đếm số ngón tay cùng bé"</div></div>
+          <div style="width:28px; height:28px; border-radius:9999px; background:#4CAF50; display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff; flex-shrink:0;">✓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── COMPONENT SPEC ── -->
+<div style="flex-shrink:0; width:440px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Component Anatomy</div>
+  <div style="background:#fff; border-radius:24px; padding:28px; box-shadow:0 10px 30px rgba(0,0,0,.07); display:flex; flex-direction:column; gap:20px;">
+    <!-- card anatomy -->
+    <div style="background:#FFFBF5; border-radius:16px; overflow:hidden; display:flex; border:1.5px dashed #E3DBD0;">
+      <div style="width:4px; background:#FF6B35;"></div>
+      <div style="flex:1; padding:14px;">
+        <div style="font-size:11px; font-weight:900; color:#FF6B35; letter-spacing:.5px; margin-bottom:6px;">① Context tag — subject · week · lesson</div>
+        <div style="font-size:11px; font-weight:900; color:#4ECDC4; letter-spacing:.5px; margin-bottom:6px;">② Task description — Nunito SemiBold 15pt</div>
+        <div style="font-size:11px; font-weight:900; color:#4CAF50; letter-spacing:.5px;">③ Action buttons — Done (primary) + Skip (ghost)</div>
+      </div>
+    </div>
+    <!-- state tokens -->
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div style="font-size:12px; font-weight:900; letter-spacing:1px; color:#6B7280; text-transform:uppercase;">State tokens</div>
+      <div style="display:flex; align-items:center; gap:10px;"><div style="width:4px; height:36px; background:#FF6B35; border-radius:2px;"></div><div><div style="font-size:13px; font-weight:800; color:#1A1A2E;">Pending</div><div style="font-family:'Inter'; font-size:11px; color:#6B7280;">bg #fff · left border #FF6B35 4px</div></div></div>
+      <div style="display:flex; align-items:center; gap:10px;"><div style="width:4px; height:36px; background:#4CAF50; border-radius:2px;"></div><div><div style="font-size:13px; font-weight:800; color:#1A1A2E;">Done</div><div style="font-family:'Inter'; font-size:11px; color:#6B7280;">bg #F0FDF4 · border #BBF7D0 · left #4CAF50</div></div></div>
+      <div style="display:flex; align-items:center; gap:10px;"><div style="width:4px; height:36px; background:#C4C4C4; border-radius:2px;"></div><div><div style="font-size:13px; font-weight:800; color:#1A1A2E;">Skipped</div><div style="font-family:'Inter'; font-size:11px; color:#6B7280;">bg #F4F2EC · text strikethrough · opacity .8</div></div></div>
+      <div style="display:flex; align-items:center; gap:10px;"><div style="width:4px; height:36px; background:#E3DBD0; border-radius:2px; border:1.5px dashed #C4C4C4;"></div><div><div style="font-size:13px; font-weight:800; color:#1A1A2E;">No task</div><div style="font-family:'Inter'; font-size:11px; color:#6B7280;">dashed border · 🎉 emoji · friendly copy</div></div></div>
+    </div>
+    <!-- history bar -->
+    <div>
+      <div style="font-size:12px; font-weight:900; letter-spacing:1px; color:#6B7280; text-transform:uppercase; margin-bottom:10px;">History strip</div>
+      <div style="display:flex; gap:5px; align-items:center;">
+        <div style="width:16px; height:16px; border-radius:3px; background:#4CAF50;"></div>
+        <div style="width:16px; height:16px; border-radius:3px; background:#4CAF50;"></div>
+        <div style="width:16px; height:16px; border-radius:3px; background:#4CAF50;"></div>
+        <div style="width:16px; height:16px; border-radius:3px; background:#4CAF50;"></div>
+        <div style="width:16px; height:16px; border-radius:3px; background:#E3DBD0;"></div>
+        <span style="font-family:'Inter'; font-size:12px; color:#6B7280; margin-left:6px;">4/5 tuần trước</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

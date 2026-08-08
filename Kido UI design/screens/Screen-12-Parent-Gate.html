@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kido · Parent Gate — Math Auth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #E8E5DF; font-family: 'Nunito', system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+@keyframes kido-pulse { 0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,53,.45), 0 10px 24px rgba(255,107,53,.4); } 50% { transform: scale(1.06); box-shadow: 0 0 0 16px rgba(255,107,53,0), 0 14px 30px rgba(255,107,53,.5); } }
+@keyframes kido-float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+@keyframes kido-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes kido-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes kido-twinkle { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.18); opacity:.85; } }
+@keyframes kido-dot { 0%,80%,100% { transform: scale(.6); opacity:.4; } 40% { transform: scale(1); opacity:1; } }
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+@keyframes orbit { 0% { transform: rotate(0deg) translateX(48px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(48px) rotate(-360deg); } }
+@keyframes fade-in { from { opacity:0; } to { opacity:1; } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-8px)} 30%{transform:translateX(8px)} 45%{transform:translateX(-6px)} 60%{transform:translateX(6px)} 75%{transform:translateX(-3px)} 90%{transform:translateX(3px)} }
+@keyframes green-flash { 0%{background:#4CAF50;transform:scale(1)} 30%{background:#66BB6A;transform:scale(1.04)} 100%{background:#4CAF50;transform:scale(1)} }
+@keyframes sheet-up { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.sk { background: linear-gradient(90deg, #E8E8E8 25%, #F5F5F5 50%, #E8E8E8 75%); background-size: 800px 100%; animation: shimmer 1.5s ease-in-out infinite; border-radius: 8px; }
+
+</style>
+</head>
+<body>
+<div style="padding: 32px 40px 16px; background:#1A1A2E; display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:99;">
+  <div style="width:32px;height:32px;border-radius:10px;background:#FF6B35;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;">12-Parent-Gate</div>
+  <div style="font-family:'Nunito';font-size:18px;font-weight:900;color:#fff;">Parent Gate — Math Auth</div>
+  <div style="margin-left:auto;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);">Kido App · React Native · Portrait Only</div>
+</div>
+<div style="padding: 48px 40px 80px; display:flex; flex-wrap:wrap; gap:48px; align-items:flex-start;">
+<!-- ============ BAND L: PARENT GATE ============ -->
+<div style="font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#6B7280; margin-bottom:12px; width:100%; flex-basis:100%;">13 · Parent Gate <span style="color:#6B7280; font-weight:700; letter-spacing:0;">— modal bottom sheet · 4 states · mobile</span></div>
+
+<!-- shared background helper: the "app behind the sheet" -->
+
+<!-- ── STATE 1: DEFAULT ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">State 1 · Default — math challenge</div>
+  <div style="position:relative; width:375px; height:812px; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <!-- app behind (blurred/dimmed) -->
+    <div style="position:absolute; inset:0; background:#FFFBF5; filter:blur(3px); transform:scale(1.02);">
+      <div style="position:absolute; top:0; left:0; right:0; height:50px; background:#FFFBF5; padding:0 28px; display:flex; align-items:center; justify-content:space-between; font-size:14px; font-weight:800; color:#1A1A2E; opacity:.7;"><span>9:41</span></div>
+      <div style="position:absolute; top:54px; left:20px; right:20px; height:56px; display:flex; align-items:center; gap:12px;">
+        <div style="width:44px; height:44px; border-radius:9999px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:24px;">🧒</div>
+        <div><div style="font-size:16px; font-weight:900; color:#1A1A2E;">Bé Kido</div></div>
+      </div>
+      <div style="position:absolute; top:122px; left:20px; right:20px; height:84px; border-radius:24px; background:linear-gradient(120deg,#FF6B35,#FF8E53);"></div>
+      <div style="position:absolute; bottom:0; left:0; right:0; height:83px; background:#fff; border-top:1px solid #F0ECE4; display:flex; align-items:flex-start; justify-content:space-around; padding-top:10px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">🗺️</div><span style="font-size:11px;color:#6B7280;">Bản đồ</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">📚</div><span style="font-size:11px;color:#6B7280;">Bài học</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">🏆</div><span style="font-size:11px;color:#6B7280;">Thành tích</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">👨‍👩‍👧</div><span style="font-size:11px;color:#6B7280;">Phụ huynh</span></div>
+      </div>
+    </div>
+    <!-- dim overlay -->
+    <div style="position:absolute; inset:0; background:rgba(26,26,46,.48);"></div>
+    <!-- bottom sheet -->
+    <div style="position:absolute; bottom:0; left:0; right:0; height:490px; background:#fff; border-radius:32px 32px 0 0; box-shadow:0 -12px 40px rgba(26,26,46,.18); animation:sheet-up .35s cubic-bezier(.32,1,.23,1) both; display:flex; flex-direction:column; align-items:center; padding:0 24px 28px;">
+      <!-- drag handle -->
+      <div style="width:44px; height:5px; border-radius:9999px; background:#E3DBD0; margin-top:14px; flex-shrink:0;"></div>
+      <!-- icon + title -->
+      <div style="margin-top:20px; width:52px; height:52px; border-radius:18px; background:#F0EBFF; display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0;">🔐</div>
+      <div style="font-size:22px; font-weight:900; color:#1A1A2E; margin-top:12px; text-align:center; line-height:1.15;">Khu vực phụ huynh</div>
+      <div style="font-size:15px; font-weight:600; color:#6B7280; margin-top:8px; text-align:center; line-height:1.45;">Giải phép toán để xác nhận<br>bạn là phụ huynh nhé!</div>
+      <!-- math card -->
+      <div style="width:100%; margin-top:20px; height:72px; border-radius:20px; background:#4ECDC4; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(78,205,196,.32); flex-shrink:0;">
+        <span style="font-size:34px; font-weight:900; color:#fff; letter-spacing:2px;">4 × 6 = ?</span>
+      </div>
+      <!-- answer input -->
+      <div style="width:100%; margin-top:16px; flex-shrink:0;">
+        <div style="height:64px; border-radius:18px; background:#F4F2EC; border:2.5px solid #4ECDC4; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 4px rgba(78,205,196,.12);">
+          <span style="font-size:32px; font-weight:900; color:#C4C4C4; letter-spacing:6px;">_ _</span>
+        </div>
+      </div>
+      <!-- numpad -->
+      <div style="width:100%; margin-top:14px; flex-shrink:0; display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">1</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">2</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">3</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">4</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">5</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">6</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">7</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">8</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">9</div>
+        <div style="height:44px; border-radius:12px; background:#E3DBD0; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; color:#6B7280; cursor:pointer;">⌫</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">0</div>
+        <div style="height:44px; border-radius:12px; background:#E3DBD0; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; color:#6B7280;">OK</div>
+      </div>
+      <div style="flex:1;"></div>
+      <button style="height:44px; border:none; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:15px; font-weight:800; cursor:pointer; width:100%;">✕ Đóng</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATE 2: WRONG ANSWER ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">State 2 · Wrong — shake + error + attempts left</div>
+  <div style="position:relative; width:375px; height:812px; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; inset:0; background:#FFFBF5; filter:blur(3px); transform:scale(1.02);">
+      <div style="position:absolute; bottom:0; left:0; right:0; height:83px; background:#fff; border-top:1px solid #F0ECE4; display:flex; align-items:flex-start; justify-content:space-around; padding-top:10px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">🗺️</div><span style="font-size:11px;color:#6B7280;">Bản đồ</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">📚</div><span style="font-size:11px;color:#6B7280;">Bài học</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">🏆</div><span style="font-size:11px;color:#6B7280;">Thành tích</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">👨‍👩‍👧</div><span style="font-size:11px;color:#6B7280;">Phụ huynh</span></div>
+      </div>
+    </div>
+    <div style="position:absolute; inset:0; background:rgba(26,26,46,.48);"></div>
+    <div style="position:absolute; bottom:0; left:0; right:0; height:520px; background:#fff; border-radius:32px 32px 0 0; box-shadow:0 -12px 40px rgba(26,26,46,.18); display:flex; flex-direction:column; align-items:center; padding:0 24px 28px;">
+      <div style="width:44px; height:5px; border-radius:9999px; background:#E3DBD0; margin-top:14px; flex-shrink:0;"></div>
+      <div style="margin-top:20px; width:52px; height:52px; border-radius:18px; background:#FFF0F0; display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0;">🔐</div>
+      <div style="font-size:22px; font-weight:900; color:#1A1A2E; margin-top:12px; text-align:center;">Khu vực phụ huynh</div>
+      <div style="font-size:15px; font-weight:600; color:#6B7280; margin-top:6px; text-align:center; line-height:1.45;">Giải phép toán để xác nhận<br>bạn là phụ huynh nhé!</div>
+      <!-- math card — shake state -->
+      <div style="width:100%; margin-top:18px; height:72px; border-radius:20px; background:#FF5252; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(255,82,82,.32); flex-shrink:0; animation:shake .5s ease-out both;">
+        <span style="font-size:34px; font-weight:900; color:#fff; letter-spacing:2px;">4 × 6 = ?</span>
+      </div>
+      <!-- answer input — wrong (red shake) -->
+      <div style="width:100%; margin-top:14px; flex-shrink:0; animation:shake .5s ease-out .05s both;">
+        <div style="height:64px; border-radius:18px; background:#FFF0F0; border:2.5px solid #FF5252; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 4px rgba(255,82,82,.12);">
+          <span style="font-size:32px; font-weight:900; color:#FF5252; letter-spacing:4px;">20</span>
+        </div>
+      </div>
+      <!-- error message -->
+      <div style="width:100%; margin-top:12px; padding:12px 16px; background:#FFF0F0; border-radius:14px; display:flex; align-items:center; gap:10px; flex-shrink:0;">
+        <span style="font-size:20px;">❌</span>
+        <div>
+          <div style="font-size:14px; font-weight:900; color:#FF5252;">Sai rồi! Thử lại nhé</div>
+          <div style="font-size:12px; font-weight:700; color:#6B7280; margin-top:2px;">Còn <strong style="color:#1A1A2E;">2 lần thử</strong> trước khi bị khóa</div>
+        </div>
+      </div>
+      <!-- numpad -->
+      <div style="width:100%; margin-top:12px; flex-shrink:0; display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">1</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">2</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">3</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">4</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">5</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">6</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">7</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">8</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">9</div>
+        <div style="height:44px; border-radius:12px; background:#E3DBD0; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; color:#6B7280; cursor:pointer;">⌫</div>
+        <div style="height:44px; border-radius:12px; background:#F4F2EC; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#1A1A2E; cursor:pointer;">0</div>
+        <div style="height:44px; border-radius:12px; background:#E3DBD0; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; color:#6B7280;">OK</div>
+      </div>
+      <!-- attempts dots -->
+      <div style="display:flex; gap:8px; margin-top:12px; align-items:center; flex-shrink:0;">
+        <div style="width:10px; height:10px; border-radius:9999px; background:#FF5252;"></div>
+        <div style="width:10px; height:10px; border-radius:9999px; background:#E3DBD0;"></div>
+        <div style="width:10px; height:10px; border-radius:9999px; background:#E3DBD0;"></div>
+        <span style="font-size:12px; font-weight:700; color:#6B7280; margin-left:4px;">1/3 lần đã sai</span>
+      </div>
+      <div style="flex:1;"></div>
+      <button style="height:44px; border:none; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:15px; font-weight:800; cursor:pointer; width:100%;">✕ Đóng</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATE 3: CORRECT ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">State 3 · Correct — green flash → navigating</div>
+  <div style="position:relative; width:375px; height:812px; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; inset:0; background:#FFFBF5; filter:blur(3px); transform:scale(1.02);">
+      <div style="position:absolute; bottom:0; left:0; right:0; height:83px; background:#fff; border-top:1px solid #F0ECE4; display:flex; align-items:flex-start; justify-content:space-around; padding-top:10px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">🗺️</div><span style="font-size:11px;color:#6B7280;">Bản đồ</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">📚</div><span style="font-size:11px;color:#6B7280;">Bài học</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">🏆</div><span style="font-size:11px;color:#6B7280;">Thành tích</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">👨‍👩‍👧</div><span style="font-size:11px;color:#6B7280;">Phụ huynh</span></div>
+      </div>
+    </div>
+    <!-- green overlay flash -->
+    <div style="position:absolute; inset:0; background:rgba(76,175,80,.22); animation:fade-in .2s ease-out both;"></div>
+    <div style="position:absolute; bottom:0; left:0; right:0; height:490px; background:#fff; border-radius:32px 32px 0 0; box-shadow:0 -12px 40px rgba(26,26,46,.18); display:flex; flex-direction:column; align-items:center; padding:0 24px 28px;">
+      <div style="width:44px; height:5px; border-radius:9999px; background:#E3DBD0; margin-top:14px; flex-shrink:0;"></div>
+      <!-- big success icon -->
+      <div style="margin-top:28px; width:80px; height:80px; border-radius:9999px; background:#4CAF50; display:flex; align-items:center; justify-content:center; font-size:40px; color:#fff; box-shadow:0 12px 28px rgba(76,175,80,.4); animation:green-flash 1s ease-in-out infinite; flex-shrink:0;">✓</div>
+      <div style="font-size:24px; font-weight:900; color:#1A1A2E; margin-top:18px; text-align:center;">Đúng rồi! 🎉</div>
+      <div style="font-size:15px; font-weight:600; color:#6B7280; margin-top:8px; text-align:center; line-height:1.45;">Đang mở khu vực phụ huynh...</div>
+      <!-- green math card -->
+      <div style="width:100%; margin-top:22px; height:72px; border-radius:20px; background:#4CAF50; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(76,175,80,.32); flex-shrink:0;">
+        <span style="font-size:30px; font-weight:900; color:#fff; letter-spacing:2px;">4 × 6 = <span style="background:rgba(255,255,255,.25); padding:2px 10px; border-radius:10px;">24 ✓</span></span>
+      </div>
+      <!-- answer input — correct -->
+      <div style="width:100%; margin-top:18px; flex-shrink:0;">
+        <div style="height:64px; border-radius:18px; background:#EAF7EA; border:3px solid #4CAF50; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 4px rgba(76,175,80,.15);">
+          <span style="font-size:32px; font-weight:900; color:#4CAF50; letter-spacing:4px;">24 ✓</span>
+        </div>
+      </div>
+      <!-- loading indicator -->
+      <div style="display:flex; gap:10px; margin-top:24px; flex-shrink:0;">
+        <div style="width:10px; height:10px; border-radius:50%; background:#4CAF50; animation:kido-dot 1.4s infinite 0s;"></div>
+        <div style="width:10px; height:10px; border-radius:50%; background:#4CAF50; animation:kido-dot 1.4s infinite .2s;"></div>
+        <div style="width:10px; height:10px; border-radius:50%; background:#4CAF50; animation:kido-dot 1.4s infinite .4s;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATE 4: LOCKED ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">State 4 · Locked — 3 wrong · 60s countdown</div>
+  <div style="position:relative; width:375px; height:812px; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <div style="position:absolute; inset:0; background:#FFFBF5; filter:blur(3px); transform:scale(1.02);">
+      <div style="position:absolute; bottom:0; left:0; right:0; height:83px; background:#fff; border-top:1px solid #F0ECE4; display:flex; align-items:flex-start; justify-content:space-around; padding-top:10px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">🗺️</div><span style="font-size:11px;color:#6B7280;">Bản đồ</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">📚</div><span style="font-size:11px;color:#6B7280;">Bài học</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">🏆</div><span style="font-size:11px;color:#6B7280;">Thành tích</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:72px;"><div style="height:30px;display:flex;align-items:center;font-size:18px;opacity:.4;">👨‍👩‍👧</div><span style="font-size:11px;color:#6B7280;">Phụ huynh</span></div>
+      </div>
+    </div>
+    <div style="position:absolute; inset:0; background:rgba(26,26,46,.55);"></div>
+    <div style="position:absolute; bottom:0; left:0; right:0; height:510px; background:#fff; border-radius:32px 32px 0 0; box-shadow:0 -12px 40px rgba(26,26,46,.18); display:flex; flex-direction:column; align-items:center; padding:0 24px 28px;">
+      <div style="width:44px; height:5px; border-radius:9999px; background:#E3DBD0; margin-top:14px; flex-shrink:0;"></div>
+      <!-- lock icon -->
+      <div style="margin-top:20px; width:64px; height:64px; border-radius:9999px; background:#1A1A2E; display:flex; align-items:center; justify-content:center; font-size:30px; flex-shrink:0; box-shadow:0 8px 20px rgba(26,26,46,.3);">🔒</div>
+      <div style="font-size:22px; font-weight:900; color:#1A1A2E; margin-top:14px; text-align:center;">Tạm thời bị khóa</div>
+      <div style="font-size:15px; font-weight:600; color:#6B7280; margin-top:8px; text-align:center; line-height:1.45;">Đã sai 3 lần. Vui lòng chờ<br>trước khi thử lại.</div>
+      <!-- countdown ring -->
+      <div style="position:relative; width:120px; height:120px; margin-top:22px; flex-shrink:0;">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#F0ECE4" stroke-width="10"></circle>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#FF6B35" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="130" transform="rotate(-90 60 60)"></circle>
+        </svg>
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <div style="font-size:34px; font-weight:900; color:#1A1A2E; line-height:1;">42</div>
+          <div style="font-size:12px; font-weight:700; color:#6B7280;">giây</div>
+        </div>
+      </div>
+      <!-- attempts all red -->
+      <div style="display:flex; gap:8px; margin-top:16px; align-items:center; flex-shrink:0;">
+        <div style="width:10px; height:10px; border-radius:9999px; background:#FF5252;"></div>
+        <div style="width:10px; height:10px; border-radius:9999px; background:#FF5252;"></div>
+        <div style="width:10px; height:10px; border-radius:9999px; background:#FF5252;"></div>
+        <span style="font-size:12px; font-weight:700; color:#FF5252; margin-left:4px;">Đã sai 3/3 lần</span>
+      </div>
+      <!-- answer input — greyed locked -->
+      <div style="width:100%; margin-top:16px; flex-shrink:0; opacity:.35; pointer-events:none;">
+        <div style="height:64px; border-radius:18px; background:#E8E8E8; border:2px solid #D0CDC8; display:flex; align-items:center; justify-content:center;">
+          <span style="font-size:32px; font-weight:900; color:#9A9488; letter-spacing:6px;">_ _</span>
+        </div>
+      </div>
+      <!-- numpad greyed -->
+      <div style="width:100%; margin-top:12px; flex-shrink:0; display:grid; grid-template-columns:repeat(3,1fr); gap:8px; opacity:.3; pointer-events:none;">
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">1</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">2</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">3</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">4</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">5</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">6</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">7</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">8</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">9</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; color:#9A9488;">⌫</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#9A9488;">0</div>
+        <div style="height:44px; border-radius:12px; background:#E8E8E8; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; color:#9A9488;">OK</div>
+      </div>
+      <div style="flex:1;"></div>
+      <button style="height:44px; border:none; background:transparent; color:#6B7280; font-family:'Nunito'; font-size:15px; font-weight:800; cursor:pointer; width:100%;">✕ Đóng</button>
+    </div>
+  </div>
+</div>
+
+<!-- spec note -->
+<div style="flex-shrink:0; width:1800px;">
+  <div data-drags-parent="1" style="background:#fff; border-radius:24px; padding:28px 40px; box-shadow:0 10px 30px rgba(0,0,0,.06); display:flex; gap:48px; flex-wrap:wrap;">
+    <div style="min-width:220px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:1px; color:#FF6B35; text-transform:uppercase; margin-bottom:10px;">Sheet animation</div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; line-height:1.7;">translateY(100%) → translateY(0)<br>0.35s cubic-bezier(.32,1,.23,1)<br>Height: 60% viewport (490–520pt)</div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:1px; color:#FF5252; text-transform:uppercase; margin-bottom:10px;">Wrong state</div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; line-height:1.7;">shake: translateX ±8px → ±3px<br>0.5s ease-out · math card turns red<br>Wrong option gets red border</div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:1px; color:#4CAF50; text-transform:uppercase; margin-bottom:10px;">Correct state</div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; line-height:1.7;">Green overlay flash 0.2s<br>Sheet stays open → dots loader<br>Auto-close + navigate after 600ms</div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:1px; color:#1A1A2E; text-transform:uppercase; margin-bottom:10px;">Locked state</div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; line-height:1.7;">60s countdown ring (SVG stroke-dashoffset)<br>Answers opacity .35 + pointer-events:none<br>Unlocks automatically on timer end</div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:1px; color:#4ECDC4; text-transform:uppercase; margin-bottom:10px;">Math generation</div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; line-height:1.7;">Result range 10–20<br>Distractors: correct ± 1 and ± 2<br>Shuffled each time sheet opens</div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

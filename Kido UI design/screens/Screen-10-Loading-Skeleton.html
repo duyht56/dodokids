@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kido · Loading & Skeleton States</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #E8E5DF; font-family: 'Nunito', system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+@keyframes kido-pulse { 0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,53,.45), 0 10px 24px rgba(255,107,53,.4); } 50% { transform: scale(1.06); box-shadow: 0 0 0 16px rgba(255,107,53,0), 0 14px 30px rgba(255,107,53,.5); } }
+@keyframes kido-float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+@keyframes kido-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes kido-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes kido-twinkle { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.18); opacity:.85; } }
+@keyframes kido-dot { 0%,80%,100% { transform: scale(.6); opacity:.4; } 40% { transform: scale(1); opacity:1; } }
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+@keyframes orbit { 0% { transform: rotate(0deg) translateX(48px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(48px) rotate(-360deg); } }
+@keyframes fade-in { from { opacity:0; } to { opacity:1; } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-8px)} 30%{transform:translateX(8px)} 45%{transform:translateX(-6px)} 60%{transform:translateX(6px)} 75%{transform:translateX(-3px)} 90%{transform:translateX(3px)} }
+@keyframes green-flash { 0%{background:#4CAF50;transform:scale(1)} 30%{background:#66BB6A;transform:scale(1.04)} 100%{background:#4CAF50;transform:scale(1)} }
+@keyframes sheet-up { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.sk { background: linear-gradient(90deg, #E8E8E8 25%, #F5F5F5 50%, #E8E8E8 75%); background-size: 800px 100%; animation: shimmer 1.5s ease-in-out infinite; border-radius: 8px; }
+
+</style>
+</head>
+<body>
+<div style="padding: 32px 40px 16px; background:#1A1A2E; display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:99;">
+  <div style="width:32px;height:32px;border-radius:10px;background:#FF6B35;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;">10-Loading-Skeleton</div>
+  <div style="font-family:'Nunito';font-size:18px;font-weight:900;color:#fff;">Loading & Skeleton States</div>
+  <div style="margin-left:auto;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);">Kido App · React Native · Portrait Only</div>
+</div>
+<div style="padding: 48px 40px 80px; display:flex; flex-wrap:wrap; gap:48px; align-items:flex-start;">
+<!-- ============ BAND J: LOADING & SKELETON STATES ============ -->
+<div style="font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#6B7280; margin-bottom:12px; width:100%; flex-basis:100%;">11 · Loading &amp; Skeleton States <span style="color:#6B7280; font-weight:700; letter-spacing:0;">— Adventure Map · Activity · Image · Parent Dashboard</span></div>
+
+<!-- ── 1. ADVENTURE MAP SKELETON ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Adventure Map Skeleton · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <!-- status bar shimmer -->
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; background:#FFFBF5; display:flex; align-items:center; justify-content:space-between; padding:0 28px;">
+      <div class="sk" style="width:40px; height:13px; border-radius:6px;"></div>
+      <div class="sk" style="width:60px; height:13px; border-radius:6px;"></div>
+    </div>
+    <!-- header skeleton -->
+    <div style="position:absolute; top:54px; left:0; right:0; height:62px; padding:0 20px; display:flex; align-items:center; gap:12px;">
+      <div class="sk" style="width:44px; height:44px; border-radius:9999px; flex-shrink:0;"></div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+        <div class="sk" style="width:80px; height:13px;"></div>
+        <div class="sk" style="width:120px; height:11px;"></div>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <div class="sk" style="width:40px; height:40px; border-radius:9999px;"></div>
+        <div class="sk" style="width:72px; height:40px; border-radius:9999px;"></div>
+      </div>
+    </div>
+    <!-- progress banner skeleton -->
+    <div style="position:absolute; top:122px; left:20px; right:20px; height:84px; border-radius:24px;" class="sk"></div>
+    <!-- map area with nodes -->
+    <div style="position:absolute; top:218px; left:0; right:0; bottom:83px; position:absolute; top:218px; left:0; right:0; bottom:83px;">
+      <!-- dotted path skeleton -->
+      <svg viewBox="0 0 375 500" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+        <path d="M255,470 C200,440 140,420 118,388 C95,352 295,338 255,300 C218,266 95,250 120,212 C148,180 292,168 250,128 C212,92 150,86 110,50" fill="none" stroke="#E8E8E8" stroke-width="9" stroke-linecap="round" stroke-dasharray="2 18"></path>
+      </svg>
+      <!-- node circles -->
+      <div class="sk" style="position:absolute; left:78px; top:18px; width:64px; height:64px; border-radius:9999px;"></div>
+      <div class="sk" style="position:absolute; left:218px; top:96px; width:64px; height:64px; border-radius:9999px;"></div>
+      <div class="sk" style="position:absolute; left:88px; top:180px; width:64px; height:64px; border-radius:9999px;"></div>
+      <div class="sk" style="position:absolute; left:223px; top:268px; width:64px; height:64px; border-radius:9999px;"></div>
+      <div class="sk" style="position:absolute; left:88px; top:368px; width:64px; height:64px; border-radius:9999px;"></div>
+      <div class="sk" style="position:absolute; left:223px; top:430px; width:64px; height:64px; border-radius:9999px;"></div>
+      <!-- island label skeleton -->
+      <div class="sk" style="position:absolute; left:20px; bottom:14px; width:140px; height:34px; border-radius:9999px;"></div>
+    </div>
+    <!-- bottom nav skeleton -->
+    <div style="position:absolute; bottom:0; left:0; right:0; height:83px; background:#fff; border-top:1px solid #F0ECE4; display:flex; align-items:flex-start; justify-content:space-around; padding-top:14px;">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="sk" style="width:52px; height:30px; border-radius:9999px;"></div>
+        <div class="sk" style="width:36px; height:10px;"></div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="sk" style="width:28px; height:28px; border-radius:9999px;"></div>
+        <div class="sk" style="width:36px; height:10px;"></div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="sk" style="width:28px; height:28px; border-radius:9999px;"></div>
+        <div class="sk" style="width:36px; height:10px;"></div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="sk" style="width:28px; height:28px; border-radius:9999px;"></div>
+        <div class="sk" style="width:36px; height:10px;"></div>
+      </div>
+    </div>
+    <!-- shimmer spec label -->
+    <div style="position:absolute; top:230px; left:50%; transform:translateX(-50%); width:220px; text-align:center; padding:8px 14px; background:rgba(255,251,245,.9); border-radius:12px; border:1px dashed #D0CAC0;">
+      <div style="font-size:11px; font-weight:800; color:#6B7280;">shimmer: #E8E8E8→#F5F5F5→#E8E8E8</div>
+      <div style="font-size:11px; font-weight:700; color:#9A9488; margin-top:2px;">1.5s ease-in-out infinite · left→right</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 2. ACTIVITY LOADING OVERLAY ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Activity Loading Overlay · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <!-- ghost of previous screen behind overlay -->
+    <div style="position:absolute; inset:0; opacity:.18;">
+      <div style="position:absolute; top:54px; left:20px; right:20px; height:62px; display:flex; align-items:center; gap:12px;">
+        <div class="sk" style="width:44px; height:44px; border-radius:9999px;"></div>
+        <div style="flex:1; display:flex; flex-direction:column; gap:8px;"><div class="sk" style="width:80px; height:13px;"></div><div class="sk" style="width:120px; height:11px;"></div></div>
+      </div>
+    </div>
+    <!-- overlay -->
+    <div style="position:absolute; inset:0; background:rgba(255,251,245,.94); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0;">
+      <!-- orbiting dots container -->
+      <div style="position:relative; width:130px; height:130px; display:flex; align-items:center; justify-content:center;">
+        <!-- Đô Đô -->
+        <img src="./baby_monkey_opening_backpack_20260627001-mqv718uo.png" style="width: 150px; height: 150px; object-fit: contain; object-position: top; position: relative; z-index: 2; animation: kido-bob 2.5s ease-in-out infinite">
+        <!-- orbit dots -->
+        <div style="position:absolute; inset:0; animation:orbit 1.8s linear infinite;">
+          <div style="position:absolute; top:50%; left:50%; width:12px; height:12px; border-radius:50%; background:#FF6B35; transform:translateX(-50%) translateY(-50%) translateX(48px); box-shadow:0 2px 8px rgba(255,107,53,.5);"></div>
+        </div>
+        <div style="position:absolute; inset:0; animation:orbit 1.8s linear infinite .6s;">
+          <div style="position:absolute; top:50%; left:50%; width:12px; height:12px; border-radius:50%; background:#4ECDC4; transform:translateX(-50%) translateY(-50%) translateX(48px); box-shadow:0 2px 8px rgba(78,205,196,.5);"></div>
+        </div>
+        <div style="position:absolute; inset:0; animation:orbit 1.8s linear infinite 1.2s;">
+          <div style="position:absolute; top:50%; left:50%; width:12px; height:12px; border-radius:50%; background:#FFE66D; transform:translateX(-50%) translateY(-50%) translateX(48px); box-shadow:0 2px 8px rgba(255,230,109,.5);"></div>
+        </div>
+      </div>
+      <div style="font-size:18px; font-weight:900; color:#1A1A2E; margin-top:20px;">Đô Đô đang chuẩn bị...</div>
+      <div style="font-size:14px; font-weight:600; color:#6B7280; margin-top:8px;">Chờ một xíu nhé bé! 🎒</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 3. IMAGE LOADING IN ACTIVITY CARD ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Image Skeleton in Activity Card · 3 states</div>
+  <div style="position:relative; width:375px; height:812px; background:#FFFBF5; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22); padding:60px 0 0;">
+    <div style="padding:0 20px; display:flex; flex-direction:column; gap:28px;">
+
+      <!-- State A: loading -->
+      <div>
+        <div style="font-size:12px; font-weight:800; color:#4ECDC4; letter-spacing:1px; margin-bottom:10px;">A — Loading (shimmer)</div>
+        <div style="position:relative; height:208px; border-radius:24px; overflow:hidden;" class="sk">
+          <!-- shimmer inner glow hint -->
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="10" fill="#E0DCCF"></rect><path d="M8 26l7-9 5 6 4-5 4 8H8z" fill="#C9C4B8"></path><circle cx="26" cy="11" r="3" fill="#C9C4B8"></circle></svg>
+            <div style="font-size:11px; font-weight:700; color:#C9C4B8;">Đang tải ảnh...</div>
+          </div>
+        </div>
+        <!-- options skeleton -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;">
+          <div class="sk" style="height:80px; border-radius:18px;"></div>
+          <div class="sk" style="height:80px; border-radius:18px;"></div>
+          <div class="sk" style="height:80px; border-radius:18px;"></div>
+          <div class="sk" style="height:80px; border-radius:18px;"></div>
+        </div>
+      </div>
+
+      <!-- State B: loaded + fade in -->
+      <div>
+        <div style="font-size:12px; font-weight:800; color:#4CAF50; letter-spacing:1px; margin-bottom:10px;">B — Loaded (300ms fade-in)</div>
+        <div style="position:relative; height:208px; border-radius:24px; overflow:hidden; background:radial-gradient(120% 90% at 50% 40%, #FFEAEF, #FBD3DE);">
+          <img src="../assets/clay-leaf.png" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:24px; animation:fade-in .3s ease-out both;">
+          <!-- fade-in indicator badge -->
+          <div style="position:absolute; top:10px; right:10px; background:rgba(76,175,80,.9); color:#fff; font-size:11px; font-weight:800; padding:4px 10px; border-radius:9999px;">300ms fade ✓</div>
+        </div>
+        <!-- options real -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;">
+          <div style="height:80px; border-radius:18px; background:#fff; border:2px solid #F0ECE4; display:flex; align-items:center; justify-content:center; font-size:38px; font-weight:900; color:#1A1A2E;">3</div>
+          <div style="height:80px; border-radius:18px; background:#fff; border:3px solid #FF6B35; display:flex; align-items:center; justify-content:center; font-size:38px; font-weight:900; color:#FF6B35;">4</div>
+          <div style="height:80px; border-radius:18px; background:#fff; border:2px solid #F0ECE4; display:flex; align-items:center; justify-content:center; font-size:38px; font-weight:900; color:#1A1A2E;">5</div>
+          <div style="height:80px; border-radius:18px; background:#fff; border:2px solid #F0ECE4; display:flex; align-items:center; justify-content:center; font-size:38px; font-weight:900; color:#1A1A2E;">6</div>
+        </div>
+      </div>
+
+      <!-- No layout shift note -->
+      <div style="background:#FFF3D6; border-radius:16px; padding:14px 16px; display:flex; gap:10px; align-items:center;">
+        <span style="font-size:20px;">📐</span>
+        <div style="font-size:12px; font-weight:700; color:#1A1A2E; line-height:1.45;">Image container giữ đúng kích thước <strong>208pt</strong> khi skeleton → không có layout shift. Chỉ opacity thay đổi khi load xong.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 4. PARENT DASHBOARD SKELETON ── -->
+<div style="flex-shrink:0; width:403px;">
+  <div style="font-size:11px; font-weight:700; color:#6B7280; margin-bottom:10px; font-family:'Inter';">Parent Dashboard Skeleton · Mobile</div>
+  <div style="position:relative; width:375px; height:812px; background:#F5F5F0; border:14px solid #1A1A2E; border-radius:54px; overflow:hidden; box-shadow:0 30px 70px rgba(26,26,46,.22);">
+    <!-- status -->
+    <div style="position:absolute; top:0; left:0; right:0; height:50px; background:#F5F5F0; display:flex; align-items:center; justify-content:space-between; padding:0 28px;">
+      <div class="sk" style="width:40px; height:13px; border-radius:6px;"></div>
+      <div class="sk" style="width:60px; height:13px; border-radius:6px;"></div>
+    </div>
+    <!-- header -->
+    <div style="position:absolute; top:54px; left:0; right:0; height:60px; padding:0 24px; display:flex; align-items:center; gap:12px;">
+      <div class="sk" style="width:42px; height:42px; border-radius:9999px; flex-shrink:0;"></div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+        <div class="sk" style="width:140px; height:14px;"></div>
+        <div class="sk" style="width:100px; height:11px;"></div>
+      </div>
+    </div>
+    <!-- body -->
+    <div style="position:absolute; top:118px; left:0; right:0; bottom:0; padding:4px 24px 24px; display:flex; flex-direction:column; gap:16px; overflow:hidden;">
+
+      <!-- progress card skeleton -->
+      <div style="background:#fff; border-radius:18px; padding:18px; box-shadow:0 4px 16px rgba(0,0,0,.04); display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="sk" style="width:140px; height:15px;"></div>
+          <div class="sk" style="width:50px; height:22px; border-radius:9999px;"></div>
+        </div>
+        <!-- 3 bar groups -->
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between;"><div class="sk" style="width:60px; height:11px;"></div><div class="sk" style="width:30px; height:11px;"></div></div>
+            <div class="sk" style="height:8px; border-radius:9999px; width:100%;"></div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between;"><div class="sk" style="width:80px; height:11px;"></div><div class="sk" style="width:30px; height:11px;"></div></div>
+            <div class="sk" style="height:8px; border-radius:9999px; width:100%;"></div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between;"><div class="sk" style="width:72px; height:11px;"></div><div class="sk" style="width:30px; height:11px;"></div></div>
+            <div class="sk" style="height:8px; border-radius:9999px; width:100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- chart / report card skeleton -->
+      <div class="sk" style="height:72px; border-radius:18px;"></div>
+
+      <!-- section label -->
+      <div class="sk" style="width:140px; height:12px;"></div>
+
+      <!-- list items × 4 -->
+      <div style="background:#fff; border-radius:18px; padding:4px 0; box-shadow:0 4px 16px rgba(0,0,0,.04);">
+        <div style="display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid #F2F0EA;">
+          <div class="sk" style="width:36px; height:36px; border-radius:9999px; flex-shrink:0;"></div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:7px;">
+            <div class="sk" style="width:70%; height:13px;"></div>
+            <div class="sk" style="width:45%; height:10px;"></div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid #F2F0EA;">
+          <div class="sk" style="width:36px; height:36px; border-radius:9999px; flex-shrink:0;"></div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:7px;">
+            <div class="sk" style="width:55%; height:13px;"></div>
+            <div class="sk" style="width:40%; height:10px;"></div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid #F2F0EA;">
+          <div class="sk" style="width:36px; height:36px; border-radius:9999px; flex-shrink:0;"></div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:7px;">
+            <div class="sk" style="width:65%; height:13px;"></div>
+            <div class="sk" style="width:35%; height:10px;"></div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:13px 16px;">
+          <div class="sk" style="width:36px; height:36px; border-radius:9999px; flex-shrink:0;"></div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:7px;">
+            <div class="sk" style="width:50%; height:13px;"></div>
+            <div class="sk" style="width:38%; height:10px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- settings skeleton -->
+      <div class="sk" style="width:100px; height:12px;"></div>
+      <div class="sk" style="height:130px; border-radius:18px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SPEC CALLOUT ── -->
+<div style="flex-shrink:0; width:1800px;">
+  <div data-drags-parent="1" style="background:#fff; border-radius:24px; padding:32px 40px; box-shadow:0 10px 30px rgba(0,0,0,.06); display:flex; gap:48px; flex-wrap:wrap;">
+    <div style="min-width:220px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:1px; color:#FF6B35; text-transform:uppercase; margin-bottom:12px;">Shimmer token</div>
+      <div style="display:flex; gap:0; height:28px; border-radius:8px; overflow:hidden; width:240px;">
+        <div style="flex:1; background:#E8E8E8;"></div>
+        <div style="flex:1; background:#F5F5F5;"></div>
+        <div style="flex:1; background:#E8E8E8;"></div>
+      </div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; margin-top:8px;">#E8E8E8 → #F5F5F5 → #E8E8E8<br>background-size: 800px · 1.5s ease-in-out ∞</div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:1px; color:#4ECDC4; text-transform:uppercase; margin-bottom:12px;">Orbit animation</div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; line-height:1.6;">3 colored dots (Coral / Sky / Yellow)<br>rotate() translateX(48px) · 1.8s linear ∞<br>offset: 0s · 0.6s · 1.2s (evenly spaced)</div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:1px; color:#4CAF50; text-transform:uppercase; margin-bottom:12px;">Image fade-in</div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; line-height:1.6;">opacity: 0 → 1 · 300ms ease-out<br>Container height fixed = no layout shift<br>Trigger: onLoad event on &lt;img&gt;</div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="font-size:13px; font-weight:900; letter-spacing:1px; color:#A674FF; text-transform:uppercase; margin-bottom:12px;">Activity overlay</div>
+      <div style="font-family:'Inter'; font-size:12px; color:#6B7280; line-height:1.6;">bg: rgba(255,251,245,.94)<br>Auto-dismiss on content ready<br>No progress bar — ambient only</div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
