@@ -1,8 +1,25 @@
+> Reuse note: the "static, versioned audio registry", the bundled number pack
+> 0–50, and local playback that this change's design called for already landed
+> via `add-explore-prompt-audio` — `exploreAudioRegistry.generated.ts` (pipeline
+> export), the `promptAudio` key scheme, and `playExplorePromptAudio`. This change
+> now adds the capability MODEL on top and enables the audio-dependent modes.
+
 ## 1. Capability Model
 
-- [ ] 1.1 Define typed Explore capability states and per-mode required dependency contracts
-- [ ] 1.2 Include the active capability profile in generator/version replay context
-- [ ] 1.3 Add tests proving unavailable audio disables only dependent modes
+- [x] 1.1 `mobile/src/explore/exploreAudioCapability.ts` — typed states
+      (`available` | `missing` | `unsupported-version`) derived from the bundled
+      pack, plus `hasExploreAudioKeys`, `hearSelectAudioKeys` and
+      `isHearSelectAudioAvailable(maxNumber)` (the per-mode required-dependency
+      contract for number `hear_select`). Fail-closed: an empty/unknown pack is
+      never `available`.
+- [ ] 1.2 Have the number generator filter `hear_select` via
+      `isHearSelectAudioAvailable`, and fold the capability into the
+      generation/replay version so selection stays deterministic per profile.
+- [~] 1.3 Static contract added
+      (`scripts/verify-explore-offline-audio-contracts.cjs`,
+      `npm run test:explore-offline-audio`). Behavioral proof (empty pack →
+      `missing` → `hear_select` disabled; supported pack → `available` → enabled,
+      other modes unaffected) is deferred until the toolchain is installed.
 
 ## 2. Visual Offline Gameplay
 
