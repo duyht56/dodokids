@@ -71,12 +71,20 @@ exported as data (`EXPLORE_PROMPT_AUDIO_INVENTORY`).
       `getOrCreateLibraryClip` (which calls `tts.service` `wrap:false` and
       get-or-creates by word-key + `lang`, so shared transcripts collapse to one
       clip). CLI: `npm run explore-audio:generate`.
-- [x] 2.3 New clips land at `pending_review`; the routine never auto-approves —
-      Human Gate approves before export.
-- [~] 2.4 `exploreAudioInventory.test.ts` (vitest) covers the inventory data
-      (keys well-formed/unique, 0–50 + labels covered, collision-free file bases).
-      A mock-based unit test of the generate/export routines (stub
-      `audio-library.service` + `AudioLibraryModel`) is still to add.
+- [x] 2.3 New clips land at `pending_review`; **explicit audio Human Gate added**
+      (`exploreAudioApproval.ts` + CLI `review` / `approve` / `reject`) — the base
+      pipeline has no approval flow for `audio_library` clips, and Explore audio is
+      spoken to children, so `review` lists each clip with a local path to LISTEN
+      and a human runs `approve` (never auto-approved). `export` ships only
+      `approved` clips.
+- [x] 2.3a Extracted `toWordKey` to a pure `src/services/word-key.ts` so
+      `export` / `review` / `approve` don't transitively construct the TTS client
+      (GCP) at import; the CLI also lazy-loads `generate`. Verified: CLI prints
+      usage with no GCP error, modules import cleanly.
+- [x] 2.4 vitest: `exploreAudioInventory.test.ts` (inventory data) +
+      `exploreAudioApproval.test.ts` (id mapping) — **7 tests pass**, and
+      `tsc --noEmit` is clean (0 errors project-wide). A mock-based test of the
+      DB-touching generate/approve/export paths is still worth adding.
 
 ## 3. Bundled Pack Export (kido-pipeline → app)
 

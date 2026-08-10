@@ -18,6 +18,22 @@ auto-approve.
 - **WHEN** an inventory clip has not reached `approved`
 - **THEN** it is excluded from the exported pack
 
+### Requirement: Explore audio review gate
+Because the base pipeline has no approval flow for `audio_library` clips and
+Explore prompt audio is spoken to children, this change SHALL provide an explicit
+human review and approval step: a review action listing every inventory clip with
+a local path to listen, an approve action a human runs to set clips `approved`,
+and a reject action. Approval MUST NOT be automatic, and the review / approve /
+export actions MUST run without generation (TTS/GCP) credentials.
+
+#### Scenario: Reviewer listens then approves
+- **WHEN** a human runs review, listens to the generated clips, and runs approve
+- **THEN** the reviewed clips become `approved` and are eligible for export
+
+#### Scenario: Approve without generation credentials
+- **WHEN** the review or approve action runs
+- **THEN** it operates on the database only and does not require TTS/GCP credentials
+
 ### Requirement: Deterministic bundled-pack export
 kido-pipeline SHALL export approved Explore clips as a versioned audio pack plus a
 Metro-static registry (static `require` references) that the mobile app bundles.
