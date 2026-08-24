@@ -44,8 +44,8 @@ generator, an independent 2-D validator and a tap-an-option renderer.
   fills; wrong → a gentle no-mark retry (nothing locks, the answer is never filled
   in); `supportLevel` dims distractor options (never the answer, always leaving a
   live distractor); reduced-motion-friendly, native-driver motion, emoji-free UI.
-- A progressive one-board-per-level L1→L5 run (like `odd_one_out` and
-  `candle_count`): no XP, streak, countdown or lose state; levels scale the grid
+- A progressive one-board-per-level L1→L5 run (like `odd_one_out`): no XP, streak,
+  countdown or lose state; levels scale the grid
   (2×2 → 3×3) and the rule complexity (shape×colour, then count×colour, then a
   3×3 mixing both kinds).
 - Best-effort audio: one new phrase clip `missing_cell_choose` and the

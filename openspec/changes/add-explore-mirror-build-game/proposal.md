@@ -44,8 +44,8 @@ tap-to-toggle "build the mirror" renderer with a "Xong" submit.
   1 highlights the next expected mirror cell (a subtle anchor) and 2 dims
   impossible cells (right cells whose left mirror-partner is OFF), never
   auto-filling the answer; emoji-free UI.
-- A progressive one-board-per-level L1→L5 run (like `odd_one_out` and
-  `candle_count`): no XP, streak, countdown or lose state; levels scale the grid
+- A progressive one-board-per-level L1→L5 run (like `odd_one_out`): no XP, streak,
+  countdown or lose state; levels scale the grid
   (3×(2·2) → 4×(2·4)) and the pattern density.
 - Best-effort audio: one new phrase clip `mirror_build_reflect` and the
   `game_mirror_build` catalog name added to `promptAudio.ts` and mirrored in

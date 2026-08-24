@@ -53,27 +53,25 @@ be able to build in the same working tree concurrently.
   range/arithmetic run steps down one level (`demoteRangeProgress` /
   `demoteArithmeticProgress`) and presents a fresh exercise with "Mình thử bài
   dễ hơn nhé"; nothing outside the mounted run changes.
-- **`number_line_hop` is a range game** (continuous, 8 correct → done) with its
-  own 5-level ladder; `advanceRangeProgress` now takes the game's `levels`.
-  `stack_tower` and `odd_one_out` are progressive five-board runs from the
-  parent's starting level.
-- **No wrong state in two of the three games.** Landing on another stone or
-  placing a block out of order is physical feedback (Đô Đô announces the stone;
-  the tower leans and the block slides back), never `onAnswer(false)`; only
-  odd-one-out reports a miss because its construct is a single choice.
+- **`stack_tower` and `odd_one_out` are progressive five-board runs** from the
+  parent's starting level. (`advanceRangeProgress`/`demoteRangeProgress` take a
+  game's own `levels`, so a range game can run its own ladder.)
+- **No wrong state in one of the two games.** Placing a block out of order is
+  physical feedback (the tower leans and the block slides back), never
+  `onAnswer(false)`; only odd-one-out reports a miss because its construct is a
+  single choice.
 - **Catalog speaks the name before navigating** only when the clip is bundled
   (650 ms lead); otherwise it navigates immediately — the feature degrades to
   today's behaviour rather than adding a silent delay.
 
 ## Risks / Trade-offs
 
-- The new prompts carry the target in audio (hop_to + number). Until the v2
-  pack is exported the renderers MUST show the target visually; the
-  number-line-hop renderer checks `hasExploreAudioKeys` and always shows the
-  card at L1 and at any support level.
-- Twelve games make the catalog long on a phone; the four groups keep it
+- New-game prompts are best-effort. Until the v2 pack is exported the renderers
+  MUST show the task visually (the child cannot rely on the audio), and a
+  missing clip never blocks play.
+- Eleven games make the catalog long on a phone; the four groups keep it
   scannable, but a "more" affordance may be needed at 15+ games.
-- Thumbnails are vector icons for three games until art is delivered —
+- Thumbnails are vector icons for two games until art is delivered —
   visibly less rich than the PNG cards.
-- Server specs now run the conformance matrix over twelve games (+15 tests);
-  runtime is still seconds.
+- Server specs now run the conformance matrix over eleven games; runtime is
+  still seconds.

@@ -564,50 +564,17 @@ ngoài việc bump generatorVersion do pool đổi.
 - Không dùng asset có background hoặc chi tiết gây nhầm lẫn.
 
 > **Cập nhật (2026-08, Đợt 2 — openspec `add-explore-round-2-games`).** Catalog thêm
-> ba game sinh bài bằng thuật toán, chơi offline, không lưu gì: **Đô Đô nhảy lò
-> cò** (trục số, đếm tiếp/lùi), **Xếp tháp cho Đô Đô** (xếp theo cỡ/dài/cao/số
-> lượng) và **Ai lạc đàn?** (phân loại — tìm bạn khác). Đây là ba ý tưởng điểm cao
-> nhất của đợt soát catalog 2026-08-23; §6 "MVP khoảng 8 trò chơi" vì vậy mở
-> rộng lên 11 game hiển thị (Xưởng luyện nét vẫn ẩn).
+> hai game sinh bài bằng thuật toán, chơi offline, không lưu gì: **Xếp tháp cho
+> Đô Đô** (xếp theo cỡ/dài/cao/số lượng) và **Ai lạc đàn?** (phân loại — tìm bạn
+> khác). Đây là những ý tưởng điểm cao nhất của đợt soát catalog 2026-08-23; §6
+> "MVP khoảng 8 trò chơi" vì vậy mở rộng lên 10 game hiển thị (Xưởng luyện nét
+> vẫn ẩn).
 
-### 7.9. Game 9 — Đô Đô nhảy lò cò (`number_line_hop`)
+### 7.9. Game 9 — (đã gỡ)
 
-**Mục tiêu:** vị trí số trên trục số (`math_number_line` `_locate`/`_jump`) và đếm tiếp / đếm lùi (count on / count back) bằng cách điều khiển nhân vật — trẻ "lái" Đô Đô nên động lực tham gia cao nhất trong Đợt 2.
-
-#### Cách chơi
-
-- Màn hình là một dải viên đá đánh số `0..max` (mọi viên đều có nhãn, ≥ 48pt; dải dài hơn màn hình cuộn ngang và tự cuộn theo Đô Đô). Đô Đô đứng trên viên xuất phát.
-- Ba mode: **locate** "Đưa Đô Đô nhảy tới số N" (xuất phát từ 0); **add** "Đô Đô nhảy thêm K bước nhé"; **subtract** "Đô Đô nhảy bớt K bước nhé" (xuất phát từ một viên ≥ 1, có ghim đánh dấu).
-- Trẻ chạm một viên đá → Đô Đô nhảy **từng viên một** về phía đó (≈240 ms/viên, nảy + co giãn), **mỗi lần đáp xuống đều đếm to** số của viên đó bằng clip số đã bundled ("bốn, năm, sáu…").
-- Đáp đúng viên đích → Đô Đô reo vui, màn chơi tính đúng và chuyển bài. Đáp viên khác **không phải sai**: Đô Đô nói "Đây là số N", đứng lại đó và trẻ chạm tiếp; với add/subtract đề bài vẫn tính từ viên xuất phát có ghim.
-- Không có trạng thái thua, không đếm ngược, không reset; số lần đáp trượt chỉ giữ trong bộ nhớ để nâng hỗ trợ thị giác trong bài đó.
-
-#### Độ khó
-
-- L1: 0–5, locate, luôn hiện thẻ số đích.
-- L2: 0–10, locate.
-- L3: 0–10, locate + add (K ≤ 4).
-- L4: 0–15, locate + add + subtract (K ≤ 5).
-- L5: 0–20, add + subtract (K ≤ 5), vẫn ghi nhãn mọi viên (không nhãn thưa).
-- Chạy như game phạm vi liên tục: một bài mỗi lần đúng, 8 câu mỗi lượt, nhãn "Phạm vi {max}", thăng/hạ phạm vi trong bộ nhớ theo quy tắc chung.
-
-#### Sinh bài
-
-- Sinh cục bộ, deterministic theo seed; validator độc lập kiểm tra phạm vi, mode thuộc level, đích ≠ xuất phát, `start ± K = target`, `1 ≤ K ≤ maxSteps`, prompt và audioRefs rồi replay theo seed (byte-identical). Variety bucket = mode; mọi mode của level xuất hiện ≥ 20% trong các vòng một bài.
-- Không cần question bank hay asset theo đề: chỉ cần Đô Đô (bundled) và clip số 0–50.
-
-#### Hỗ trợ (support)
-
-- Đích **không bao giờ chỉ nằm trong audio**: thẻ số (locate) hoặc chip "+K"/"−K" kèm K chấm hiện khi L1, khi clip prompt chưa có trong pack, hoặc khi support ≥ 1.
-- Support 1: thẻ/chip và viên xuất phát nhấp nháy nhẹ; support 2: viên đích nhấp nháy nhẹ (không tự giải). Reduce-motion → highlight tĩnh, Đô Đô bước rời từng viên cùng nhịp đếm.
-
-#### Asset
-
-- `explore-dodo-mascot` (ExploreMascot, bundled); viên đá, ghim, thẻ là UI vẽ bằng token; không emoji làm icon.
-
-#### Audio
-
-- Prompt: `hop_to + số` hoặc `hop_steps + thêm/bớt + số + hop_steps_suffix` (batch v2, chưa bundled — game vẫn chơi được hoàn toàn bằng hình). Phản hồi: `hop_here_is + số` khi đáp trượt; đếm to bằng `number:name:n` đã bundled; khen/nhắc do màn chơi chung nói. Mọi clip best-effort, thiếu không chặn chơi.
+> Game 9 ("Đô Đô nhảy lò cò") đã được gỡ hoàn toàn khỏi catalog theo yêu cầu
+> product owner (không đủ giá trị). Số thứ tự các game sau giữ nguyên để tránh
+> xáo trộn tham chiếu; không còn game nào mang mã game đã gỡ này.
 
 ### 7.10. Game 10 — Xếp tháp cho Đô Đô (`stack_tower`)
 
@@ -693,10 +660,6 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
   Validator: tập đã chọn = đúng tập khớp thuộc tính (không thừa, không thiếu), chỉ
   một thuộc tính biến thiên. L1→L5 tăng cỡ trường (5→15) và độ đa dạng nhiễu. Tái
   dùng layout `tap_count` + token của `odd_one_out`.
-- **Cắm nến (`candle_count`)** — tạo ra một tập đúng số lượng (đếm ra): trẻ cắm
-  ĐÚNG N nến (N ≤ 10) vào khung ten-frame trên bánh (chạm ô để thêm / bớt) rồi
-  "Xong". Validator: số nến = N, ô = ten-frame cố định. L1→L5 tăng phạm vi N. Tái
-  dùng `COUNT_LEVELS` + primitive ten-frame.
 - **Dọn đồ (`sort_bins`)** — phân loại: từng vật một, trẻ chạm THÙNG (2–3 nhóm
   theo màu / hình / chủ đề) mà vật thuộc về; đúng → thả + vật kế, sai → nhắc nhẹ.
   Validator: thùng = đúng tập nhóm có mặt, mọi vật vào đúng nhóm. L1→L5 tăng số vật
@@ -729,9 +692,9 @@ không hợp ràng buộc chạm-only và tái dùng engine thấp nhất — đ
 `balance_scale` (cân) BỎ vì "Bên nào nhiều hơn?" (§7.4) đã có bập bênh thật ở Đợt 3,
 game cân sẽ trùng.
 
-**Cần designer (PNG thumbnail):** shape-hunt, candle-count, sort-bins, missing-cell,
-peekaboo-recall, subitize-flash, mirror-build — cùng ba game Đợt 2 (number-line-hop,
-stack-tower, odd-one-out). Tới khi có PNG, catalog dùng icon vector fallback trong
+**Cần designer (PNG thumbnail):** shape-hunt, sort-bins, missing-cell,
+peekaboo-recall, subitize-flash, mirror-build — cùng hai game Đợt 2 (stack-tower,
+odd-one-out). Tới khi có PNG, catalog dùng icon vector fallback trong
 `thumbnails.ts` (`EXPLORE_FALLBACK_ICONS`), không cần đổi code khi art về.
 
 ---

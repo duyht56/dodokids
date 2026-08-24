@@ -11,7 +11,7 @@ The two readable features the old ladder introduced late — equal cases (L4) an
 - Point the game's `levels` at a compare-specific 4-entry order (not the shared ten-range order other range games keep).
 - Bump the compare `generatorVersion` (v3→v4) because the changed level ranges change the seeded exercise stream; mirror the bump in the kido-server registry's `quantity_compare` branch and cap its `levels` to four.
 - Keep the equal mode, the compare sprite pool, the tap-to-count spoken numbers, the mascot, the fairness/validator/config versions and the stateless-play boundary exactly as they are.
-- No change to the other range games (`tap_count`, `number_explorer`, `number_line_hop`) or their shared ten-range ladder.
+- No change to the other range games (`tap_count`, `number_explorer`) or their shared ten-range ladder.
 - Add a "bập bênh" (seesaw / balance-beam) presentation for the Explore compare game, layered on top of the capped ladder. It is presentation only: a new Explore-local `SeesawComparisonBoard` reuses the exercise's existing left/right counts, correct side, seeded slots and assets — no seeded field is added and the generator/validator/version stay unchanged (replay byte-identical). Pre-answer the plank rests level (with an optional gentle symmetric idle sway) so it never reveals the answer; only a correct pick tilts the plank down toward the side with MORE (or keeps it level for equal), on the native driver, skipped under reduced motion (static resting tilt). The shared two-column `QuantityComparisonBoard` the lesson `compare_tap` activity depends on is NOT modified.
 
 ## Capabilities

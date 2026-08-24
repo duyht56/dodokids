@@ -42,8 +42,8 @@ which is far more reliable for a 4–6 year old and for tests.
   honours the `supportLevel` contract through a pure cue helper (level 1 only NAMES
   the item's category, level 2 points at the correct bin), is reduced-motion
   friendly and uses emoji only as puzzle content.
-- A progressive one-board-per-level L1→L5 run (like `odd_one_out`, `shape_hunt` and
-  `candle_count`): no XP, streak, countdown or lose state; levels scale item count
+- A progressive one-board-per-level L1→L5 run (like `odd_one_out` and `shape_hunt`):
+  no XP, streak, countdown or lose state; levels scale item count
   (4→8), bin count (2→3) and category subtlety.
 - Best-effort audio: one new generic instruction phrase `sort_bins_sort` and the
   `game_sort_bins` catalog name added to `promptAudio.ts` and mirrored in

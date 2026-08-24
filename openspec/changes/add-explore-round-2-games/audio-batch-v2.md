@@ -1,6 +1,6 @@
 # Batch audio Khám phá v2 — gom gen một lần
 
-Pack: `explore-audio-vi-v2` · Tổng inventory: 152 key · Đã có clip trong app: 94 · **Cần gen mới: 58** (generate dùng get-or-create theo transcript nên clip cũ được tái dùng).
+Pack: `explore-audio-vi-v2` · Tổng inventory: 147 key · Đã có clip trong app: 94 · **Cần gen mới: 53** (generate dùng get-or-create theo transcript nên clip cũ được tái dùng).
 
 ## Lệnh chạy một lần (kido-pipeline)
 
@@ -12,7 +12,7 @@ npm run explore-audio:approve -- --all   # Human Gate
 npm run explore-audio:export -- ../mobile   # ghi wav + exploreAudioRegistry.generated.ts (v2)
 ```
 
-## Clip cần gen mới (58)
+## Clip cần gen mới (53)
 
 | Key | Transcript |
 |---|---|
@@ -49,7 +49,6 @@ npm run explore-audio:export -- ../mobile   # ghi wav + exploreAudioRegistry.gen
 | `phrase:game_arithmetic_machine:v1` | Máy cộng trừ |
 | `phrase:game_route_planner:v1` | Dẫn đường cho Đô Đô |
 | `phrase:game_tracing_workshop:v1` | Xưởng luyện nét |
-| `phrase:game_number_line_hop:v1` | Đô Đô nhảy lò cò |
 | `phrase:game_stack_tower:v1` | Xếp tháp cho Đô Đô |
 | `phrase:game_odd_one_out:v1` | Ai lạc đàn? |
 | `phrase:bond_room_full:v1` | Ô của bé đã đầy. Con bấm Kiểm tra nhé. |
@@ -64,10 +63,6 @@ npm run explore-audio:export -- ../mobile   # ghi wav + exploreAudioRegistry.gen
 | `phrase:tracing_path_done:v1` | Đường đã hoàn thành! |
 | `phrase:tracing_corridor_wider:v1` | Đường đã rộng hơn và có hút nét. |
 | `phrase:tracing_follow_dots:v1` | Mình nhìn theo các chấm tím nhé. |
-| `phrase:hop_to:v1` | Đưa Đô Đô nhảy tới số |
-| `phrase:hop_steps:v1` | Đô Đô nhảy |
-| `phrase:hop_steps_suffix:v1` | bước nhé. |
-| `phrase:hop_here_is:v1` | Đây là số |
 | `phrase:tower_big_to_small:v1` | Xếp từ to đến nhỏ nhé. |
 | `phrase:tower_short_to_long:v1` | Xếp từ ngắn đến dài nhé. |
 | `phrase:tower_low_to_high:v1` | Xếp từ thấp đến cao nhé. |

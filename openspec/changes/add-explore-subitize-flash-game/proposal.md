@@ -1,6 +1,6 @@
 ## Why
 
-Khám phá (Explore) trains counting (`tap_count`, `candle_count`), quantity
+Khám phá (Explore) trains counting (`tap_count`), quantity
 comparison (`quantity_compare`) and number sense (`number_explorer`), but nothing
 trains SUBITIZING — recognising a small quantity (1–6) at a glance, without
 counting one-by-one. Subitizing is a foundational number-sense skill for 4–6 year
@@ -47,8 +47,8 @@ and a flash-then-cover renderer.
   path: level 1 has Đô Đô re-peek the group briefly, level 2 keeps the group OPEN
   (no auto-hide) so a struggling child can count — support only changes how long
   the quantity is visible and never touches the options.
-- A progressive one-board-per-level L1→L5 run (like `candle_count` and
-  `peekaboo_recall`): no XP, streak, countdown or lose state; levels scale the N
+- A progressive one-board-per-level L1→L5 run (like `peekaboo_recall`): no XP,
+  streak, countdown or lose state; levels scale the N
   range within 1–6 and the arrangement (paired ten-frame vs scattered).
 - Best-effort audio: one new phrase clip `subitize_flash_how_many` and the
   `game_subitize_flash` catalog name added to `promptAudio.ts` and mirrored in

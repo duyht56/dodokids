@@ -1,14 +1,14 @@
-## 1. Đăng ký 3 game mới (lớp chung)
+## 1. Đăng ký 2 game mới (lớp chung)
 
-- [x] 1.1 Mã game `number_line_hop`, `stack_tower`, `odd_one_out` trong `docs/kido-explore-contract.ts`, `mobile/src/types/explore.ts`, `kido-server/src/modules/explore/explore.types.ts`
+- [x] 1.1 Mã game `stack_tower`, `odd_one_out` trong `docs/kido-explore-contract.ts`, `mobile/src/types/explore.ts`, `kido-server/src/modules/explore/explore.types.ts`
 - [x] 1.2 `registry.ts`: GAME_COPY (thứ tự sư phạm), LOCAL_GAMES, BUNDLED_OVERRIDES, `isProgressiveExploreRunGame` (+stack_tower, odd_one_out); `variety.ts` ủy quyền policy/key cho module game; `rendererRegistry.tsx` map exerciseType → renderer
 - [x] 1.3 `thumbnails.ts` Partial + `EXPLORE_FALLBACK_ICONS` (icon vector cho tới khi có PNG); catalog 4 nhóm mới
-- [x] 1.4 kido-server `explore.registry.ts`: PUBLIC_GAMES + `round2Definition` (enabled, offline, bundled); `explore.service.spec.ts` 12 game
-- [x] 1.5 `scripts/verify-explore-variety-buckets.cjs` thêm 3 generator; `package.json` script `test:explore-{number-line-hop,stack-tower,odd-one-out,memory,pattern}`
+- [x] 1.4 kido-server `explore.registry.ts`: PUBLIC_GAMES + `round2Definition` (enabled, offline, bundled); `explore.service.spec.ts` 11 game
+- [x] 1.5 `scripts/verify-explore-variety-buckets.cjs` thêm 2 generator; `package.json` script `test:explore-{stack-tower,odd-one-out,memory,pattern}`
 
 ## 2. Giọng Đô Đô + batch audio v2 (gom gen một lần)
 
-- [x] 2.1 `promptAudio.ts` + mirror pipeline: 13 câu feedback, 12 tên game, 6 mảnh feedback tách gộp, 6 hướng dẫn tracing, 4 hop, 5 tower, 1 odd; builder `praiseKeys/retryKeys/hintKeys/levelUpKeys/easierKeys/runCompleteKeys/breakReminderKeys/gameNameKeys/numberBondFeedbackKeys/tracingGuidanceKeys/numberLineHopKeys/numberLineHopLandedKeys/stackTowerKeys/oddOneOutKeys`
+- [x] 2.1 `promptAudio.ts` + mirror pipeline: 13 câu feedback, 11 tên game, 6 mảnh feedback tách gộp, 6 hướng dẫn tracing, 5 tower, 1 odd; builder `praiseKeys/retryKeys/hintKeys/levelUpKeys/easierKeys/runCompleteKeys/breakReminderKeys/gameNameKeys/numberBondFeedbackKeys/tracingGuidanceKeys/stackTowerKeys/oddOneOutKeys`
 - [x] 2.2 Pack v2: pipeline `EXPLORE_AUDIO_PACK_VERSION = 'explore-audio-vi-v2'`; mobile chấp nhận v1 + v2
 - [x] 2.3 `audio-batch-v2.md`: 58 clip cần gen (trong 152 key inventory) + lệnh chạy một lần
 - [ ] 2.4 (anh Duy / pipeline) `npm run explore-audio:generate` → `review` → `approve -- --all` → `export -- ../mobile`; chạy lại `npm run test:explore-offline-audio` + `test:explore-prompt-audio` sau export
@@ -22,9 +22,8 @@
 - [x] 3.3 Khám phá số: supportLevel 1 chấm/khung 10 dưới thẻ, 2 còn 2 lựa chọn
 - [x] 3.4 Máy cộng trừ + So sánh: supportLevel 1 hiện số đếm, 2 chạy animation giải thích / pulse bên đúng
 
-## 4. Ba game mới
+## 4. Hai game mới
 
-- [x] 4.1 Đô Đô nhảy lò cò: generator/validator/renderer (nhảy từng ô + đếm to, không có "sai"), script `test:explore-number-line-hop`, spec server, capability spec
 - [x] 4.2 Xếp tháp cho Đô Đô: 5 dimension, tháp nghiêng/khối trượt, Đô Đô leo, script, spec server, capability spec
 - [x] 4.3 Ai lạc đàn?: noise L3/L5, validator "đúng 1 ô lạ trên mọi chiều", hint mờ không lộ, script, spec server, capability spec
 - [x] 4.4 Script contract Lật thẻ + Tìm quy luật (`test:explore-memory`, `test:explore-pattern`)
@@ -33,19 +32,10 @@
 
 - [x] 5.1 `cd mobile && npx tsc --noEmit && npx eslint <file đã sửa>`; toàn bộ `npm run test:explore-*` xanh
 - [x] 5.2 `cd kido-server && npx jest src/modules/explore` xanh; `openspec validate add-explore-round-2-games`
-- [x] 5.3 BRD §7.9–7.11 cho 3 game mới; `docs/AI_CONTEXT.md`
-- [x] 5.4 Simulator: catalog 12 game, chơi thử 3 game mới, hạ độ khó sau 3 lần sai, Đô Đô phản ứng cạnh feedback
+- [x] 5.3 BRD §7.10–7.11 cho 2 game mới; `docs/AI_CONTEXT.md`
+- [x] 5.4 Simulator: catalog 11 game, chơi thử 2 game mới, hạ độ khó sau 3 lần sai, Đô Đô phản ứng cạnh feedback
 
 ## 6. Chi tiết từng phần (báo cáo của agent thực hiện)
-
-### number_line_hop (báo cáo agent)
-- [x] numberLineHopGame.ts: generator/validator deterministic, 5 level (0–5 locate+thẻ; 0–10 locate; 0–10 locate/add K≤4; 0–15 locate/add/subtract K≤5; 0–20 add/subtract K≤5), add start ≥ 1, validator kiểm tra cấu trúc + prompt + audioRefs + replay seed, variety capacity theo biến thể thật
-- [x] NumberLineHopRenderer.tsx: dải đá 0..max có nhãn mọi viên, ≥ 48pt, ScrollView tự cuộn theo Đô Đô; Đô Đô nhảy từng viên (Animated native driver, parabol + squash/stretch 240ms) và đếm to từng viên qua onSpeakFeedback([numberKey(n)])
-- [x] Đáp trượt không phải sai: 'Đây là số N' (text + numberLineHopLandedKeys cùng nguồn), Đô Đô đứng lại, ghim điểm bắt đầu cho add/subtract, đích giữ nguyên; đích → cheer + onAnswer(true)
-- [x] Thẻ số / chip +K/−K với K chấm hiện khi L1, khi clip prompt chưa bundled (hasExploreAudioKeys) hoặc support ≥ 1; support = max(supportLevel, ⌊misses/2⌋); L1 pulse thẻ + viên bắt đầu, L2 pulse viên đích; reduce-motion được tôn trọng
-- [x] scripts/verify-explore-number-line-hop-contracts.cjs (npm run test:explore-number-line-hop): 200 seed/level, replay, tamper (target±1, mode swap, steps 0, start, card, prompt, audio, forgery), 300 vòng 1-bài/level mọi bucket ≥ 20%, kiểm tra renderer/registry
-- [x] kido-server explore.number-line-hop.spec.ts: corpus 60 seed/level, tamper, vòng 1-bài, registry hai phía (enabled/offline/local/catalogVisible, manifest trùng), renderer rules
-- [x] openspec specs/explore-number-line-hop-game/spec.md: Purpose + ADDED requirements (modes & levels, hop + đếm to, đáp trượt không sai, thẻ đích hiển thị & support, conformance/variety)
 
 ### stack_tower (báo cáo agent)
 Generator/validator stack_tower: tỉ lệ đơn điệu ≥ minRatio từng cấp (floor 3 chữ số), khối lớn nhất = 1, màu palette không trùng, chấm 1–6 khác nhau, sàn ≠ đáp án và ≠ ngược (n ≥ 3, fallback hoán vị xác định), validator suy lại thứ tự và kiểm tra prompt/audioRefs/replay byte-identical.

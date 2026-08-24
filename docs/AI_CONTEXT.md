@@ -193,9 +193,9 @@ Mobile:
   correct pick then tilts toward the side with MORE (native driver, static under
   reduced motion). The shared `components/activities/QuantityComparisonBoard.tsx`
   (lesson `compare_tap`) is not touched.
-- Explore Đợt 2 (OpenSpec `add-explore-round-2-games`, 2026-08): three more
-  local games — `number_line_hop` (range game, 5-level ladder), `stack_tower`
-  and `odd_one_out` (progressive five-board runs) — each owning its variety
+- Explore Đợt 2 (OpenSpec `add-explore-round-2-games`, 2026-08): two more
+  local games — `stack_tower` and `odd_one_out` (progressive five-board runs)
+  — each owning its variety
   policy/keys in `mobile/src/explore/games/<game>Game.ts`; renderers receive
   `supportLevel` (0/1/2 from the play screen's miss count) and the screen
   demotes a range/arithmetic run one level after three misses in a row
@@ -259,9 +259,9 @@ Mobile:
   timeout (deferred setState), never touching the reducer's matched set —
   replay/scoring unaffected, skipped-friendly under reduced motion.
 - Explore tier-2 games (Đợt 3 Slice 3, OpenSpec `add-explore-<code>-game` each):
-  seven new offline/stateless/no-reward games registered end-to-end exactly like
+  six new offline/stateless/no-reward games registered end-to-end exactly like
   the Đợt 2 games — `shape_hunt` (tap all of a kind, reuses tap_count field +
-  odd_one_out tokens), `candle_count` (place exactly N ≤10 on a ten-frame),
+  odd_one_out tokens),
   `sort_bins` (tap-only classify into 2–3 bins), `missing_cell` (2-D Raven matrix,
   reuses pattern hidden-slot), `peekaboo_recall` (what's-missing, reuses memory
   cover/reveal), `subitize_flash` (flash N 1–6 then Đô Đô auto-hides ~1s — approved,
@@ -275,7 +275,7 @@ Mobile:
   PUBLIC_GAMES + bundled def + explore.service.spec catalog count, a
   verify-explore-<game> script, a kido-server spec, and best-effort audio keys
   mirrored to promptAudio + exploreAudioInventory (silent until next audio batch).
-  Server bundled-catalog count is now 19 (18 visible + hidden tracing). Deferred:
+  Server bundled-catalog count is now 18 (17 visible + hidden tracing). Deferred:
   `tangram_assemble` (needs drag/rotate, not tap-only); dropped: `balance_scale`
   (redundant with the compare seesaw). Also pending: catalog PNG art for all Đợt-2
   and tier-2 games; route predict-ahead mode; number_bond slot shuffle.
