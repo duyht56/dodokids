@@ -676,6 +676,64 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 
 - Đề: "Bạn nào khác với các bạn còn lại?" (key `phrase:odd_which_different`), luôn hiển thị trên màn hình; clip nằm trong batch audio v2, thiếu clip vẫn chơi bình thường. Khen / thử lại / gợi ý / lên bậc do màn chơi chung đọc.
 
+### 7.12. Nhóm game tier-2 (Đợt 3)
+
+> Bảy game bổ sung ở Đợt 3, cùng một khuôn: offline / stateless / no-reward,
+> generator deterministic + validator ĐỘC LẬP (replay theo seed byte-identical),
+> Đô Đô làm mascot, tương tác CHẠM (không kéo-thả), một lượt = 5 bảng L1→L5
+> (progressive), tái dùng engine / pool / asset đã có (KHÔNG thêm art mới). Spec
+> đầy đủ nằm ở các OpenSpec capability change `add-explore-<code>-game`. Thumbnail
+> hiện dùng icon vector fallback — cần PNG do designer giao (xem danh sách ở cuối
+> mục). Clip audio (đề + tên game) là best-effort, im lặng tới batch audio kế
+> tiếp; chữ trên màn luôn là chuẩn. Trạng thái sai luôn nhẹ (Đô Đô "nghĩ", thử
+> lại, tăng trợ giúp), không đánh dấu đáp án, không kết thúc lượt, không đếm ngược.
+
+- **Săn hình (`shape_hunt`)** — quét thị giác + chú ý một-đối-một: trẻ chạm HẾT
+  các vật đúng loại (theo hình / màu / đồ vật) trong một trường rồi "Xong".
+  Validator: tập đã chọn = đúng tập khớp thuộc tính (không thừa, không thiếu), chỉ
+  một thuộc tính biến thiên. L1→L5 tăng cỡ trường (5→15) và độ đa dạng nhiễu. Tái
+  dùng layout `tap_count` + token của `odd_one_out`.
+- **Cắm nến (`candle_count`)** — tạo ra một tập đúng số lượng (đếm ra): trẻ cắm
+  ĐÚNG N nến (N ≤ 10) vào khung ten-frame trên bánh (chạm ô để thêm / bớt) rồi
+  "Xong". Validator: số nến = N, ô = ten-frame cố định. L1→L5 tăng phạm vi N. Tái
+  dùng `COUNT_LEVELS` + primitive ten-frame.
+- **Dọn đồ (`sort_bins`)** — phân loại: từng vật một, trẻ chạm THÙNG (2–3 nhóm
+  theo màu / hình / chủ đề) mà vật thuộc về; đúng → thả + vật kế, sai → nhắc nhẹ.
+  Validator: thùng = đúng tập nhóm có mặt, mọi vật vào đúng nhóm. L1→L5 tăng số vật
+  (4→8) và số thùng (2→3). Tái dùng bộ thuộc tính của `odd_one_out`.
+- **Ô thiếu (`missing_cell`)** — suy luận ma trận 2 chiều (khác `pattern_finder`
+  một chiều): lưới 2×2 / 3×3 kiểu Raven, hàng theo một thuộc tính và cột theo
+  thuộc tính khác, một ô trống; trẻ chọn token đúng từ options. Validator: CHỈ MỘT
+  option thỏa CẢ luật hàng lẫn cột. L1→L5 tăng cỡ lưới + độ phức tạp. Tái dùng
+  hidden-slot của `pattern_finder` + lưới `odd_one_out`.
+- **Ú òa (`peekaboo_recall`)** — trí nhớ làm việc ("cái gì biến mất"): hiện 2–5
+  vật → Đô Đô che (peekaboo, KHÔNG đồng hồ) → bớt 1 vật → lộ lại kèm 1 ô trống →
+  trẻ chạm vật bị thiếu từ options. Validator: phần còn lại = tập gốc trừ đúng 1,
+  options gồm vật bị thiếu thật. L1→L5 tăng cỡ tập (2→5). Tái dùng cover/reveal +
+  pool thẻ của Lật thẻ.
+- **Nhìn nhanh (`subitize_flash`)** — subitize (nhận số lượng nhỏ trong nháy mắt):
+  nháy N vật (1–6) khoảng 1 giây rồi Đô Đô che (auto-hide đã được product owner
+  duyệt — KHÔNG phải đếm ngược: không đồng hồ, không số tích tắc, chỉ là Đô Đô
+  che nhóm), trẻ chọn N. `supportLevel`: mức 1 Đô Đô hé lại, mức 2 để mở luôn cho
+  bé đếm — không mức nào đánh dấu đáp án. L1→L5 tăng phạm vi N trong 1–6 + cách sắp
+  xếp. Tái dùng `DotGroup` + `buildNearTargetOptions`.
+- **Soi gương (`mirror_build`)** — đối xứng / không gian: lưới có trục gương giữa,
+  nửa trái có sẵn hình; trẻ chạm ô nửa phải để dựng ảnh phản chiếu rồi "Xong".
+  Validator: nửa phải = đúng ảnh gương của nửa trái (suy từ nửa trái nhìn thấy,
+  không từ đáp án generator), bài không tầm thường. Support: mức 1 gợi ô kế tiếp,
+  mức 2 làm mờ ô không hợp lệ. L1→L5 tăng cỡ lưới + mật độ. Tái dùng lưới/ô vẽ
+  bằng View + palette mù-màu-an-toàn.
+
+**Hoãn / bỏ:** `tangram_assemble` (ghép hình) HOÃN vì cần kéo–xoay–ghép hình học,
+không hợp ràng buộc chạm-only và tái dùng engine thấp nhất — để làm riêng sau.
+`balance_scale` (cân) BỎ vì "Bên nào nhiều hơn?" (§7.4) đã có bập bênh thật ở Đợt 3,
+game cân sẽ trùng.
+
+**Cần designer (PNG thumbnail):** shape-hunt, candle-count, sort-bins, missing-cell,
+peekaboo-recall, subitize-flash, mirror-build — cùng ba game Đợt 2 (number-line-hop,
+stack-tower, odd-one-out). Tới khi có PNG, catalog dùng icon vector fallback trong
+`thumbnails.ts` (`EXPLORE_FALLBACK_ICONS`), không cần đổi code khi art về.
+
 ---
 
 ## 8. MÔ HÌNH SINH BÀI VÀ QUẢN TRỊ NỘI DUNG

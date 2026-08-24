@@ -258,6 +258,27 @@ Mobile:
   still-hidden pair (`hintPair`) for `HINT_PEEK_MS`, armed from the resolve
   timeout (deferred setState), never touching the reducer's matched set —
   replay/scoring unaffected, skipped-friendly under reduced motion.
+- Explore tier-2 games (Đợt 3 Slice 3, OpenSpec `add-explore-<code>-game` each):
+  seven new offline/stateless/no-reward games registered end-to-end exactly like
+  the Đợt 2 games — `shape_hunt` (tap all of a kind, reuses tap_count field +
+  odd_one_out tokens), `candle_count` (place exactly N ≤10 on a ten-frame),
+  `sort_bins` (tap-only classify into 2–3 bins), `missing_cell` (2-D Raven matrix,
+  reuses pattern hidden-slot), `peekaboo_recall` (what's-missing, reuses memory
+  cover/reveal), `subitize_flash` (flash N 1–6 then Đô Đô auto-hides ~1s — approved,
+  no countdown clock; supportLevel re-peeks/stays-open), `mirror_build` (build the
+  symmetric right half). All tap-only, progressive L1→L5, deterministic generator +
+  independent validator (byte-identical replay), Đô Đô mascot, React-Compiler-safe
+  (setState deferred in callbacks/timeouts). Registration points per game: codes in
+  the 3 EXPLORE_GAME_CODES, games/renderers/rendererRegistry, registry.ts,
+  variety.ts (+ verify-explore-variety-buckets generator map), thumbnails.ts
+  fallback icon (no PNG yet), a catalog group, kido-server explore.registry
+  PUBLIC_GAMES + bundled def + explore.service.spec catalog count, a
+  verify-explore-<game> script, a kido-server spec, and best-effort audio keys
+  mirrored to promptAudio + exploreAudioInventory (silent until next audio batch).
+  Server bundled-catalog count is now 19 (18 visible + hidden tracing). Deferred:
+  `tangram_assemble` (needs drag/rotate, not tap-only); dropped: `balance_scale`
+  (redundant with the compare seesaw). Also pending: catalog PNG art for all Đợt-2
+  and tier-2 games; route predict-ahead mode; number_bond slot shuffle.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
