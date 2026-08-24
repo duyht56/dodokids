@@ -21,6 +21,8 @@ export const EXPLORE_GAME_CODES = [
   'odd_one_out',
   'shape_hunt',
   'candle_count',
+  'sort_bins',
+  'missing_cell',
 ] as const;
 
 export type ExploreGameCode = (typeof EXPLORE_GAME_CODES)[number];
