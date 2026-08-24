@@ -344,11 +344,13 @@ trở thành clue ngoài ý muốn.
 
 #### Độ khó
 
+Thang độ khó giới hạn ở phạm vi 20 cho lứa 4–6 (đúng 4 cấp, không vượt quá 20):
+
 - L1: phạm vi 5, chênh lệch ít nhất 2.
 - L2: phạm vi 10, có chênh lệch 1.
-- L3: phạm vi 20.
-- L4: thêm trường hợp bằng nhau.
-- L5: bố trí hai nhóm khác nhau nhưng vẫn nhìn và đếm rõ.
+- L3: phạm vi 15, thêm trường hợp bằng nhau.
+- L4: phạm vi 20, giữ trường hợp bằng nhau và thêm bố trí hai nhóm khác nhau
+  (grouped) nhưng vẫn nhìn và đếm rõ.
 
 #### Effort nội dung
 

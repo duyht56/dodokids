@@ -180,6 +180,19 @@ Mobile:
   `variety.ts` buckets `count_all`/`count_target` (variantKey `count:<mode>:<N>`),
   `generatorVersion`/`validatorVersion` bumped to `tap-count-v4`, ladder still
   L1(1–5)→L4(1–20)→L10(1–50); new best-effort audio keys `count_target_*`.
+- Explore compare range cap (OpenSpec `cap-explore-compare-range`, 2026-08):
+  `quantity_compare` (`games/compareGame.ts`) is capped at range 20 per BRD §7.4
+  via a compare-specific `COMPARE_LEVEL_ORDER = [1,2,3,4]` — L1(5)/L2(10)/L3(15)/
+  L4(20), equal re-homed to L3 and the grouped arrangement to L4; `variety.ts`
+  buckets trimmed to four levels; `generatorVersion` bumped to `quantity-compare-v4`
+  (mirrored in kido-server `explore.registry.ts`). The shared `RANGE_LEVEL_ORDER`
+  ten-range ladder other range games use is untouched. The Explore presentation is
+  a "bập bênh" seesaw (`explore/components/SeesawComparisonBoard.tsx`, wired from
+  `QuantityCompareRenderer.tsx`) — presentation only, reusing the seeded
+  counts/side/slots/assets with no version change; the plank rests level until a
+  correct pick then tilts toward the side with MORE (native driver, static under
+  reduced motion). The shared `components/activities/QuantityComparisonBoard.tsx`
+  (lesson `compare_tap`) is not touched.
 - Explore Đợt 2 (OpenSpec `add-explore-round-2-games`, 2026-08): three more
   local games — `number_line_hop` (range game, 5-level ladder), `stack_tower`
   and `odd_one_out` (progressive five-board runs) — each owning its variety
