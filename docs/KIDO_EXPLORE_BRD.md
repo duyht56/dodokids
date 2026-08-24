@@ -265,6 +265,12 @@ lesson định kỳ.
 - Điền số còn thiếu.
 - Sắp xếp 3–5 thẻ số.
 
+Chế độ "nghe rồi chọn số" (`hear_select`) được cung cấp ở **mọi cấp độ L1–L10**
+khi gói âm thanh đã bundle phủ được phạm vi của cấp đó (số đích chỉ phát trong
+âm thanh, không hiện trên màn hình). Khi không có gói âm thanh, cấp đó chỉ dùng
+các chế độ hình ảnh của mình (L1 lùi về `match_sample`); Kham Phá không bao giờ
+phụ thuộc bắt buộc vào âm thanh.
+
 #### Sinh bài
 
 Engine chọn phạm vi, chọn số mục tiêu, sinh distractor gần số mục tiêu rồi xáo
@@ -294,13 +300,29 @@ Number card SVG/primitive; không cần ảnh mới.
 - Clone object và xếp bằng seeded, non-overlapping layout.
 - Trẻ chạm từng vật rồi chọn thẻ số tương ứng.
 
+#### Mode
+
+Hai mode tương tác, chọn theo seed (deterministic, ~50/50); mode là round-variety
+bucket nên round planning phủ cả hai:
+
+- `count_all` — đếm tất cả vật mục tiêu rồi chọn thẻ số (mode gốc). Có thể có
+  distractor (L5+) và trẻ chỉ đếm loại vật được yêu cầu.
+- `count_target` — "chạm đúng N": tất cả vật cùng một loại, trẻ chạm **đúng N**
+  vật trong một tập lớn hơn rồi bấm **Xong**. N sinh theo seed trong phạm vi của
+  level; independent validator kiểm tra tập luôn lớn hơn N (không có thẻ số, không
+  có distractor) và renderer kiểm tra trẻ đã chọn đúng N vật riêng biệt. Màn hình
+  không bao giờ đánh dấu đáp án hay tiết lộ N ngoài câu hỏi.
+
 #### Độ khó
+
+Thang level phủ 1–20 (L1→L4) rồi mở rộng tới 1–50 (L1→L10); cả hai mode đều rút
+mục tiêu trong phạm vi của level.
 
 - L1: 1–5 vật xếp hàng.
 - L2: 1–10 vật rải nhẹ.
 - L3: 6–15 vật rải rác.
 - L4: 10–20 vật chia nhóm.
-- L5: hai loại vật nhưng chỉ đếm loại được yêu cầu.
+- L5: hai loại vật nhưng chỉ đếm loại được yêu cầu (count_all).
 
 #### Asset rule
 

@@ -166,6 +166,20 @@ Mobile:
   the play screen owns a global 🔊 replay button and renders exercises through
   `ExploreExerciseView`; catalog order/grouping is bundled `GAME_COPY` order
   plus a UI-only group table in `ExploreCatalogScreen`.
+- Explore number `hear_select` on every level (OpenSpec
+  `enable-explore-number-hear-select-all-levels`, 2026-08): `number_explorer`
+  offers the audio-first `hear_select` mode at all L1–L10 when the bundled pack
+  covers the range, keeping each level's visual modes for the audio-missing
+  profile; declared buckets/capacity in `variety.ts` cover both profiles and
+  `generatorVersion` bumped to `number-explorer-v4` (seeded stream changed).
+- Explore count second mode (OpenSpec `add-explore-count-target-mode`, 2026-08):
+  `tap_count` (`games/countGame.ts`) now has a seed-deterministic `mode`
+  discriminator — `count_all` (count all, pick the number) and `count_target`
+  ("chạm đúng N": tap exactly N of a larger single-asset set and submit, checked
+  by the independent validator + `TapCountRenderer`); both declared as
+  `variety.ts` buckets `count_all`/`count_target` (variantKey `count:<mode>:<N>`),
+  `generatorVersion`/`validatorVersion` bumped to `tap-count-v4`, ladder still
+  L1(1–5)→L4(1–20)→L10(1–50); new best-effort audio keys `count_target_*`.
 - Explore Đợt 2 (OpenSpec `add-explore-round-2-games`, 2026-08): three more
   local games — `number_line_hop` (range game, 5-level ladder), `stack_tower`
   and `odd_one_out` (progressive five-board runs) — each owning its variety
