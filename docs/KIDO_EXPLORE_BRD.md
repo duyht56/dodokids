@@ -177,21 +177,19 @@ Không hiển thị XP, sao, sticker, badge, streak, currency hoặc bảng thà
 
 ## 7. DANH MỤC 8 TRÒ CHƠI
 
-> **Cập nhật (2026-08) — thay slot hiển thị của Xưởng luyện nét.** Vì bộ nét chữ
-> tiếng Việt chưa đủ ổn định về thị giác, **Xưởng luyện nét (`tracing_workshop`)
-> được GIỮ LẠI nhưng ẨN khỏi catalog trẻ** (`catalogVisible: false`) — engine,
-> path pack, route, renderer và test vẫn còn nguyên để bật lại sau khi sửa. Slot
-> hiển thị được thay bằng **Dẫn đường cho Đô Đô (`route_planner`)**: game lập kế
-> hoạch không gian trên lưới, trẻ ghép chuỗi mũi tên (tối đa 8 lệnh) rồi cho Đô
-> Đô chạy để hoàn thành mục tiêu theo thứ tự và về nhà. Mỗi bảng sinh cục bộ từ
-> seed và được validator độc lập chứng minh giải được trong 8 lệnh; 5 cấp L1–L5
-> (L5 lặp lại đến khi thoát). **Chơi offline hoàn toàn** (generator + validator +
-> config + visual đều bundled; audio tùy chọn, KHÔNG bắt buộc). Hiển thị hiệu lực
-> = bundled AND server (fail-closed) để metadata server cũ không vô tình lộ lại
-> Tracing. Chi tiết: openspec `explore-route-planner-game`, `explore-catalog`,
-> `explore-session-runtime`.
+> **Cập nhật (2026-08-25) — bật lại Xưởng luyện nét + làm mịn nét tiếng Việt.**
+> **Xưởng luyện nét (`tracing_workshop`) đã được BẬT LẠI và HIỂN THỊ trong catalog
+> trẻ** (`catalogVisible: true`). Bộ nét chữ tiếng Việt được **làm mịn ở pack v5**
+> (`mobile/src/explore/games/tracingSmoothing.ts`, áp trong `createTracingStroke`):
+> các nét cong được nội suy lại bằng centripetal Catmull-Rom cho mượt, vẫn giữ
+> nguyên góc nhọn (mũ ^, A/k/x) và dấu (breve, mũ, móc, gạch đ). Trước đó (2026-08)
+> game này từng bị ẨN vì nét chữ tiếng Việt chưa đủ ổn định thị giác; **Dẫn đường
+> cho Đô Đô (`route_planner`)** vẫn là một game không gian offline độc lập trong
+> catalog. Hiển thị hiệu lực = bundled AND server (fail-closed) — server chỉ có thể
+> ẨN (kill switch) một game đang hiện, không thể lộ lại game đã ẩn. Chi tiết:
+> openspec `explore-route-planner-game`, `explore-catalog`, `explore-session-runtime`.
 
-### 7.1. Game 1 — Xưởng luyện nét (giữ lại, ẩn khỏi catalog)
+### 7.1. Game 1 — Xưởng luyện nét (bật lại, nét tiếng Việt làm mịn v5)
 
 **Mục tiêu:** vận động tinh, điều khiển nét và phối hợp tay–mắt.
 

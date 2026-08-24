@@ -145,10 +145,12 @@ Mobile:
 - Xưởng luyện nét uses a dedicated ordered-track flow in
   `mobile/src/screens/child/TracingWorkshopScreen.tsx`: every bundled path is
   directly selectable, completion auto-advances within the selected track, and
-  current-visit marks are memory-only. As of 2026-08 it is retained but hidden
-  from the child catalog (`catalogVisible: false`); its route also fails closed.
-- Dẫn đường cho Đô Đô (`route_planner`) is the visible offline replacement for
-  the hidden Tracing slot: local grid generator/solver/validator in
+  current-visit marks are memory-only. As of 2026-08-25 it is LIVE and
+  catalog-visible (`catalogVisible: true`); its Vietnamese glyph strokes were
+  smoothed in pack v5 (`mobile/src/explore/games/tracingSmoothing.ts`, applied in
+  `createTracingStroke`). Its route still fails closed on a server kill switch.
+- Dẫn đường cho Đô Đô (`route_planner`) is a sibling offline spatial game (it
+  originally filled the hidden Tracing slot): local grid generator/solver/validator in
   `mobile/src/explore/games/routePlanner{Types,Engine,Game}.ts`, rendered by
   `mobile/src/explore/renderers/RoutePlannerRenderer.tsx`, run as a continuous
   one-at-a-time L1→L5 progression owned by `ExplorePlayScreen`. All run state
@@ -275,7 +277,8 @@ Mobile:
   PUBLIC_GAMES + bundled def + explore.service.spec catalog count, a
   verify-explore-<game> script, a kido-server spec, and best-effort audio keys
   mirrored to promptAudio + exploreAudioInventory (silent until next audio batch).
-  Server bundled-catalog count is now 18 (17 visible + hidden tracing). Deferred:
+  Server registered-public catalog count is 17, and as of 2026-08-25 all 17 are
+  catalog-visible (tracing re-enabled + smoothed to pack v5). Deferred:
   `tangram_assemble` (needs drag/rotate, not tap-only); dropped: `balance_scale`
   (redundant with the compare seesaw). Also pending: catalog PNG art for all Đợt-2
   and tier-2 games; route predict-ahead mode; number_bond slot shuffle.
