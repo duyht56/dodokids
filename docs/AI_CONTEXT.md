@@ -154,6 +154,41 @@ Mobile:
   one-at-a-time L1→L5 progression owned by `ExplorePlayScreen`. All run state
   (level, seed, commands, support, replay exclusions) is memory-only; optional
   audio (`mobile/src/explore/audio.ts`) is never a required dependency.
+- Explore shared play layer (OpenSpec `fix-explore-catalog-round-1`, 2026-08):
+  the round planner in `mobile/src/explore/variety.ts` rotates bucket serving
+  order per batch and serves `recentBucketKeys` last, so one-exercise batches
+  cover every reachable mode (contract: `npm run test:explore-variety-buckets`);
+  `buildNearTargetOptions(..., { exclude })` in `games/numberUtils.ts` is the
+  shared, non-median distractor builder; range/arithmetic progress is
+  `{ level, recent }` with 5-of-7 window promotion; continuous runs end after
+  `CONTINUOUS_RUN_TARGET` (8) correct answers (Route Planner after Stage 5);
+  `ExploreMascot` (`explore/components/ExploreMascot.tsx`) is the only mascot;
+  the play screen owns a global 🔊 replay button and renders exercises through
+  `ExploreExerciseView`; catalog order/grouping is bundled `GAME_COPY` order
+  plus a UI-only group table in `ExploreCatalogScreen`.
+- Explore Đợt 2 (OpenSpec `add-explore-round-2-games`, 2026-08): three more
+  local games — `number_line_hop` (range game, 5-level ladder), `stack_tower`
+  and `odd_one_out` (progressive five-board runs) — each owning its variety
+  policy/keys in `mobile/src/explore/games/<game>Game.ts`; renderers receive
+  `supportLevel` (0/1/2 from the play screen's miss count) and the screen
+  demotes a range/arithmetic run one level after three misses in a row
+  (`demoteRangeProgress`/`demoteArithmeticProgress`). Đô Đô's feedback voice,
+  game names and all new prompts are ONE audio batch: inventory in
+  `promptAudio.ts` mirrored by `kido-pipeline/src/explore/exploreAudioInventory.ts`,
+  pack `explore-audio-vi-v2` (mobile accepts v1+v2); see
+  `openspec/changes/add-explore-round-2-games/audio-batch-v2.md` for the run.
+- Explore Đợt 3 feel pass (OpenSpec `polish-explore-round-3-feel`, 2026-08):
+  presentation-only motion + best-effort voice, no generator/validator/version or
+  audio-pack change. `NumberBondRenderer` slides leaves into/out of the "Bé thêm"
+  box, settles the two parts on "Gộp lại", and speaks the bundled
+  `numberBondFeedbackKeys` + number clips via `onSpeakFeedback`; all animations use
+  the native driver and are skipped under reduced motion (same gate as
+  `MemoryMatchRenderer`), resting in today's static end state.
+- Explore Đợt 3 feel (OpenSpec `polish-explore-round-3-feel`, 2026-08),
+  presentation-only: `MemoryMatchRenderer` turns each card with a real flip
+  (per-card `scaleX` 1→0→1, face swapped at the mid-point, native driver,
+  skipped under reduced motion) driven only by the reducer's `faceUp`/`matched`
+  state — no `memoryGame.ts`/`memoryState` change, replay byte-identical.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/

@@ -26,16 +26,25 @@
       disabled and volume scaling) is deferred until an approved clip exists — the
       empty clip map degrades every cue to silence, so play behavior cannot yet be
       exercised.
+- [x] 1.6 Extracted the app-agnostic playback core to
+      `mobile/src/services/sfx.ts` (`playSfxModule`, `stopAllSfx`); `sound.ts` is
+      now the Explore binding over it (settings gate, silent-mode, debounce and
+      cleanup all live in the shared core). Lessons/navigation can reuse the same
+      core when app-wide SFX is scoped.
 
-## 2. Approved SFX Asset Set — NOT STARTED (content gap; no audio files in repo)
+## 2. Approved SFX Asset Set — first-pass clips landed (original synthesis)
 
-- [ ] 2.1 Finalize and document the v1 SFX set: the five names, source/licensing,
-      warm/no-shame review (soft `try_again`, no buzzer/lose stinger), size budget
-- [ ] 2.2 Add the approved, compressed clips under
-      `mobile/src/assets/audio/explore/`
-- [ ] 2.3 Back the name union with static `require(...)` references so Metro
-      bundles every clip (the `EXPLORE_SFX` map in `sound.ts` holds the commented
-      slots); test that each name resolves in a production bundle
+- [x] 2.1 v1 SFX set documented: five cues; SOURCE = original additive-synthesis
+      chimes generated in-repo (no third-party samples → ship-safe, no license),
+      warm/no-shame design (soft descending `try_again`, no buzzer/lose stinger),
+      size budget ~270 KB total (mono 44.1 kHz PCM WAV). First-pass set that
+      pro-designed clips can replace by dropping in the same file names.
+- [x] 2.2 Clips added under `mobile/src/assets/audio/explore/` (`select.wav`,
+      `correct.wav`, `try-again.wav`, `level-up.wav`, `run-complete.wav`).
+- [x] 2.3 `EXPLORE_SFX` in `sound.ts` backs every cue with a static
+      `require('../assets/audio/explore/*.wav')`. Confirmed the project's effective
+      Metro `assetExts` includes `wav`, so every clip bundles; the contract test
+      asserts each cue's require is present.
 
 ## 3. Run-Event Wiring (central funnel)
 
@@ -75,6 +84,7 @@
 - [ ] 5.4 `cd mobile && npm run lint` — BLOCKED: `node_modules` not installed in
       `mobile/` (eslint unavailable). Code written to match existing
       `audio.ts`/`speech.ts` style; re-run after `npm install`.
-- [x] 5.5 Verify removing the assets or short-circuiting the service leaves all
-      nine games fully playable: the `EXPLORE_SFX` map is empty by default, so
-      every cue no-ops silently (best-effort rollback switch)
+- [x] 5.5 Verify removing an asset or short-circuiting the service leaves all nine
+      games fully playable: each cue is independently best-effort, so an unmapped
+      cue or a missing/failed file degrades to silence, and the parent
+      `audioEnabled` toggle fully silences all cues (best-effort rollback switch)

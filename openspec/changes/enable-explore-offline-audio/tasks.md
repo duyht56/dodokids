@@ -12,18 +12,25 @@
       `isHearSelectAudioAvailable(maxNumber)` (the per-mode required-dependency
       contract for number `hear_select`). Fail-closed: an empty/unknown pack is
       never `available`.
-- [ ] 1.2 Have the number generator filter `hear_select` via
-      `isHearSelectAudioAvailable`, and fold the capability into the
-      generation/replay version so selection stays deterministic per profile.
+- [x] 1.2 Number generator filters `hear_select` via `isHearSelectAudioAvailable`
+      (`resolveAvailableModes`), shared by the validator so generator/validator
+      stay symmetric. `hear_select` now LEADS levels 1–2 as the primary listen
+      construct; `match_sample` is demoted to the offline-safe fallback used only
+      when audio is unavailable. Kept `generatorVersion`/`validatorVersion` at v3:
+      the change is additive (v3 already declared `hear_select`) and Explore is
+      local-only + zero-history, so no persisted envelopes need a version bump.
 - [~] 1.3 Static contract added
       (`scripts/verify-explore-offline-audio-contracts.cjs`,
-      `npm run test:explore-offline-audio`). Behavioral proof (empty pack →
-      `missing` → `hear_select` disabled; supported pack → `available` → enabled,
-      other modes unaffected) is deferred until the toolchain is installed.
+      `npm run test:explore-offline-audio`) — now also asserts the number-generator
+      gating: audio-only levels degrade to `match_sample`, the on-screen
+      `hear_select` prompt never interpolates the answer, and the validator accepts
+      the audio-resolved mode set. Behavioral proof (empty pack → `missing` →
+      `hear_select` disabled; supported pack → `available` → enabled, other modes
+      unaffected) is deferred until the toolchain is installed.
 
 ## 2. Visual Offline Gameplay
 
-- [ ] 2.1 Filter `number_explorer` mode selection so visual modes generate offline while `hear_select` is unavailable without audio
+- [x] 2.1 Filter `number_explorer` mode selection so visual modes generate offline while `hear_select` is unavailable without audio (`resolveAvailableModes` + level-1 `match_sample` fallback)
 - [ ] 2.2 Make `tap_count` visual/icon instructions playable offline with replay controls disabled when prompt audio is missing
 - [ ] 2.3 Update bundled/server catalog manifests so game offline state and mode audio state are reported independently
 - [ ] 2.4 Add airplane-mode provider-to-renderer tests for every visual number/count level without audio

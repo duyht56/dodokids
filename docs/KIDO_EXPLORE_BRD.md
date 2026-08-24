@@ -346,9 +346,11 @@ không phụ thuộc kết quả chơi và không lưu lịch sử:
 - Tương tác 6–10: chỉ tách–gộp **số 10**.
 
 Trong mỗi tương tác, hệ thống đặt sẵn một phần dương ở ô `Có sẵn`; ô `Bé thêm`
-bắt đầu từ 0 và toàn bộ ô là vùng bấm. Mỗi lần chạm trực tiếp vào ô sẽ thêm một
-vật và tăng số đếm. Bên dưới chỉ có một nút `Kiểm tra`; không có nút thêm, bớt
-hoặc làm lại riêng. Giao diện không hiển thị phần bù hay số vật còn lại.
+bắt đầu từ 0 và toàn bộ ô là vùng bấm. Mỗi lần chạm vào chỗ trống trong ô sẽ
+thêm một vật và tăng số đếm; chạm vào một vật đã có trong ô `Bé thêm` sẽ bớt
+đúng vật đó và giảm số đếm. Bên dưới chỉ có một nút `Kiểm tra`; không có nút
+thêm, bớt hoặc làm lại riêng. Giao diện không hiển thị phần bù hay số vật còn
+lại, và không lặp lại lời hướng dẫn bằng chữ ngoài bong bóng lời của Đô Đô.
 
 Luồng hoàn thành của một tương tác tách trực tiếp là:
 
@@ -357,9 +359,10 @@ nhìn số cần tách và phần có sẵn → tự thêm/bớt → kiểm tra
 → “N gồm A và B” → gộp hai phần → đọc giải thích → tiếp tục
 ```
 
-Phần hệ thống đặt sẵn bị khóa. Nếu kiểm tra thiếu, trẻ tiếp tục chạm để đếm; nếu
-kiểm tra thừa, ô của bé trở về 0 để đếm lại còn phần có sẵn không đổi. Phản hồi
-không được tiết lộ số đúng. Khi kiểm tra đúng, quan hệ tách–gộp phải đứng yên
+Phần hệ thống đặt sẵn bị khóa. Nếu kiểm tra thiếu, trẻ tiếp tục chạm để thêm;
+nếu kiểm tra thừa, các vật giữ nguyên và trẻ chạm vào vật để bớt dần — ô của bé
+không bao giờ bị đưa về 0, còn phần có sẵn không đổi. Phản hồi không được tiết
+lộ số đúng. Khi kiểm tra đúng, quan hệ tách–gộp phải đứng yên
 cho tới khi trẻ bấm `Gộp lại`; màn giải thích sau khi gộp tiếp tục đứng yên cho
 tới khi trẻ chủ động bấm `Tiếp tục`.
 
@@ -379,8 +382,14 @@ Ví dụ:
 
 #### Sinh bài
 
-Tổng do slot cố định là 5 hoặc 10. Mỗi slot khai báo một phần có sẵn lớn hơn 0
-và nhỏ hơn tổng; phần trẻ cần thêm được tính độc lập bằng `tổng - phần có sẵn`.
+Tổng do slot cố định là 5 hoặc 10. Mỗi slot khai báo một **tập phần có sẵn**
+(mỗi giá trị lớn hơn 0 và nhỏ hơn tổng); phần có sẵn của từng bài được chọn từ
+tập đó bằng seed của bài, nên `Chơi lượt mới` không lặp lại đúng mười bài cũ và
+lượt kế tiếp không mở lại phần có sẵn vừa chơi ở cùng slot. Các tập được biên
+soạn sao cho với **mọi** cách chọn, mỗi block vẫn có ít nhất bốn phần có sẵn
+khác nhau (số 5 chỉ có bốn phần hợp lệ nên bốn slot cố định 1–4 và slot thứ năm
+ôn lại một trong số đó). Phần trẻ cần thêm được tính độc lập bằng
+`tổng - phần có sẵn`.
 
 #### Độ khó
 
@@ -479,6 +488,119 @@ soát giữa asset, không đến từ áp lực tốc độ.
 - Cấp thấp không dùng các variant quá giống nhau của cùng một object.
 - Không dùng asset có background hoặc chi tiết gây nhầm lẫn.
 
+> **Cập nhật (2026-08, Đợt 2 — openspec `add-explore-round-2-games`).** Catalog thêm
+> ba game sinh bài bằng thuật toán, chơi offline, không lưu gì: **Đô Đô nhảy lò
+> cò** (trục số, đếm tiếp/lùi), **Xếp tháp cho Đô Đô** (xếp theo cỡ/dài/cao/số
+> lượng) và **Ai lạc đàn?** (phân loại — tìm bạn khác). Đây là ba ý tưởng điểm cao
+> nhất của đợt soát catalog 2026-08-23; §6 "MVP khoảng 8 trò chơi" vì vậy mở
+> rộng lên 11 game hiển thị (Xưởng luyện nét vẫn ẩn).
+
+### 7.9. Game 9 — Đô Đô nhảy lò cò (`number_line_hop`)
+
+**Mục tiêu:** vị trí số trên trục số (`math_number_line` `_locate`/`_jump`) và đếm tiếp / đếm lùi (count on / count back) bằng cách điều khiển nhân vật — trẻ "lái" Đô Đô nên động lực tham gia cao nhất trong Đợt 2.
+
+#### Cách chơi
+
+- Màn hình là một dải viên đá đánh số `0..max` (mọi viên đều có nhãn, ≥ 48pt; dải dài hơn màn hình cuộn ngang và tự cuộn theo Đô Đô). Đô Đô đứng trên viên xuất phát.
+- Ba mode: **locate** "Đưa Đô Đô nhảy tới số N" (xuất phát từ 0); **add** "Đô Đô nhảy thêm K bước nhé"; **subtract** "Đô Đô nhảy bớt K bước nhé" (xuất phát từ một viên ≥ 1, có ghim đánh dấu).
+- Trẻ chạm một viên đá → Đô Đô nhảy **từng viên một** về phía đó (≈240 ms/viên, nảy + co giãn), **mỗi lần đáp xuống đều đếm to** số của viên đó bằng clip số đã bundled ("bốn, năm, sáu…").
+- Đáp đúng viên đích → Đô Đô reo vui, màn chơi tính đúng và chuyển bài. Đáp viên khác **không phải sai**: Đô Đô nói "Đây là số N", đứng lại đó và trẻ chạm tiếp; với add/subtract đề bài vẫn tính từ viên xuất phát có ghim.
+- Không có trạng thái thua, không đếm ngược, không reset; số lần đáp trượt chỉ giữ trong bộ nhớ để nâng hỗ trợ thị giác trong bài đó.
+
+#### Độ khó
+
+- L1: 0–5, locate, luôn hiện thẻ số đích.
+- L2: 0–10, locate.
+- L3: 0–10, locate + add (K ≤ 4).
+- L4: 0–15, locate + add + subtract (K ≤ 5).
+- L5: 0–20, add + subtract (K ≤ 5), vẫn ghi nhãn mọi viên (không nhãn thưa).
+- Chạy như game phạm vi liên tục: một bài mỗi lần đúng, 8 câu mỗi lượt, nhãn "Phạm vi {max}", thăng/hạ phạm vi trong bộ nhớ theo quy tắc chung.
+
+#### Sinh bài
+
+- Sinh cục bộ, deterministic theo seed; validator độc lập kiểm tra phạm vi, mode thuộc level, đích ≠ xuất phát, `start ± K = target`, `1 ≤ K ≤ maxSteps`, prompt và audioRefs rồi replay theo seed (byte-identical). Variety bucket = mode; mọi mode của level xuất hiện ≥ 20% trong các vòng một bài.
+- Không cần question bank hay asset theo đề: chỉ cần Đô Đô (bundled) và clip số 0–50.
+
+#### Hỗ trợ (support)
+
+- Đích **không bao giờ chỉ nằm trong audio**: thẻ số (locate) hoặc chip "+K"/"−K" kèm K chấm hiện khi L1, khi clip prompt chưa có trong pack, hoặc khi support ≥ 1.
+- Support 1: thẻ/chip và viên xuất phát nhấp nháy nhẹ; support 2: viên đích nhấp nháy nhẹ (không tự giải). Reduce-motion → highlight tĩnh, Đô Đô bước rời từng viên cùng nhịp đếm.
+
+#### Asset
+
+- `explore-dodo-mascot` (ExploreMascot, bundled); viên đá, ghim, thẻ là UI vẽ bằng token; không emoji làm icon.
+
+#### Audio
+
+- Prompt: `hop_to + số` hoặc `hop_steps + thêm/bớt + số + hop_steps_suffix` (batch v2, chưa bundled — game vẫn chơi được hoàn toàn bằng hình). Phản hồi: `hop_here_is + số` khi đáp trượt; đếm to bằng `number:name:n` đã bundled; khen/nhắc do màn chơi chung nói. Mọi clip best-effort, thiếu không chặn chơi.
+
+### 7.10. Game 10 — Xếp tháp cho Đô Đô (`stack_tower`)
+
+**Mục tiêu:** xếp thứ tự theo MỘT chiều đo đơn điệu (seriation) — to→nhỏ, ngắn→dài, thấp→cao, ít→nhiều — kỹ năng `math_seriation_size` (`_size` L2, `_length` L3, `_height` L3, `_quantity` L4); L1 là bài khởi động so sánh hai vật (`math_compare_size`). Construct logic mạnh nhất của domain `seq`: chỉ có một thứ tự đúng, neo ở hai đầu.
+
+#### Cách chơi
+
+- Các khối nằm ngổn ngang trên sàn (đã xáo trộn theo seed). Trẻ chạm từng khối theo đúng thứ tự; khối bay lên đúng chỗ: tháp xếp chồng lên cao và canh giữa (size), tàu nối toa từ trái sang phải (length, quantity), dãy nhà thấp→cao trên cùng một nền (height).
+- Chạm sai thứ tự được trả lời bằng **vật lý, không bằng chữ**: khối được "thử" lên đỉnh, cả công trình nghiêng 8° rồi lắc về, khối trượt xuống sàn kèm tiếng "thử lại". Không có trạng thái thua, không đếm sai, không báo `onAnswer(false)`; tàu chở chấm (quantity) chỉ trượt về, không nghiêng.
+- Xếp xong, Đô Đô leo từng khối (~250 ms/khối; với tàu: nhảy từng toa rồi cả tàu chạy khỏi màn hình) rồi vẫy tay. Chỉ lúc đó bài mới được tính hoàn thành (≤ 1,5 s sau chạm cuối). L1: chạm vào khối to hơn → Đô Đô nhảy lên khối đó.
+- Hỗ trợ: sau 2 lần trượt (hoặc hỗ trợ mức 1 của màn chơi) khối đúng tiếp theo nhấp nháy có viền; mức 2 làm mờ những khối rõ ràng sai để trẻ chọn giữa hai khối. Tôn trọng cài đặt giảm chuyển động: khối vào chỗ ngay, Đô Đô xuất hiện trên đỉnh, âm thanh như cũ.
+
+#### Độ khó
+
+- L1: 2 khối, "Bạn nào to hơn?", chênh ≥ 1,5 lần.
+- L2: 3 khối, to→nhỏ, chênh ≥ 1,4 lần.
+- L3: 4 khối, một trong ba chiều to→nhỏ / ngắn→dài / thấp→cao, chênh ≥ 1,25 lần.
+- L4: 4 toa tàu ít→nhiều, mỗi toa 1–6 chấm khác nhau (bắc cầu sang `num`, trẻ được đọc số chấm khi nối toa).
+- L5: 5 khối, một trong ba chiều đo, chênh ≥ 1,2 lần.
+
+Mỗi lượt chơi là chuỗi L1→L5 (5 bảng). Bước chênh luôn ≥ 20% theo catalog (dưới 20% là mơ hồ). Ở L3/L5 mỗi chiều đo phải đến được trẻ ≥ 20% số vòng.
+
+#### Sinh bài
+
+Deterministic theo seed: chọn chiều đo trong cấp, sinh chuỗi magnitude giảm dần từ 1 với tỉ lệ trong [minRatio, minRatio + 0,15] (làm tròn xuống 3 chữ số nên tỉ lệ lưu luôn đủ), gán màu khác nhau từ palette 6 màu (màu không bao giờ là gợi ý kích thước), xáo trộn sàn sao cho không trùng và không ngược thứ tự đáp án. Validator độc lập suy lại thứ tự từ magnitude, kiểm tra số khối, màu, tỉ lệ/chấm, sàn, prompt, audio và replay byte-identical. Bố cục cảnh là hàm thuần: khối ≤ 85% bề rộng, công trình + Đô Đô nằm trong chiều cao, không chồng lấn.
+
+#### Asset
+
+Chỉ primitive (khối màu bo góc, toa có bánh xe, chấm `DotGroup`) và mascot Đô Đô (`explore-dodo-mascot`, bundled). Không cần ảnh theo đề; không dùng emoji làm icon UI. Offline hoàn toàn (generator + validator + config + asset đều bundled, không phụ thuộc remote); toàn bộ trạng thái chỉ trong bộ nhớ.
+
+#### Audio
+
+Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đọc qua prompt-audio: "Xếp từ to đến nhỏ nhé.", "Xếp từ ngắn đến dài nhé.", "Xếp từ thấp đến cao nhé.", "Xếp từ ít đến nhiều nhé.", "Bạn nào to hơn?" (`tower_*`). Toa chấm được đếm to bằng clip số (`numberKey`). Khen/thử lại/gợi ý do màn chơi chung đọc. Audio là best-effort: thiếu clip không chặn chơi (pack v2 gen một lần sau).
+
+### 7.11. Game 11 — Ai lạc đàn? (`odd_one_out`)
+
+**Mục tiêu:** phân loại theo một thuộc tính (`math_odd_one_out`, nối với `math_classify_1attr`) — trẻ nhìn cả nhóm, nhận ra quy luật chung rồi chỉ ra "bạn" duy nhất không theo quy luật đó. Đây là game đầu tiên của Khám phá phủ domain phân loại.
+
+#### Cách chơi
+
+- Lưới 2×2 / 2×3 / 2×4 ô, mỗi ô một token: hình cơ bản, nhóm chấm hoặc đồ vật (emoji là nội dung, không phải icon).
+- Đúng một ô khác tất cả các ô còn lại trên đúng một chiều: màu, hình, kích cỡ, số chấm hoặc chủ đề đồ vật. Trẻ chạm vào ô đó.
+- Đúng: ô lạc "nhảy" ra khỏi lưới, các ô còn lại cùng gật một nhịp (nhấn mạnh quy luật chung), Đô Đô reo. Sai: ô vừa chạm rung, mờ và khóa; các ô khác vẫn chơi tiếp. Không có trạng thái thua, không đếm ngược, không streak.
+- Trợ giúp (do màn chơi chung chuyển xuống theo số lần sai): mức 1 viền xanh ngọc một cặp ô giống nhau ("hai bạn này giống nhau"); mức 2 làm mờ/khóa thêm tối đa hai ô chắc chắn cùng đàn. Không mức nào đánh dấu đáp án.
+- Một lượt = 5 bảng L1→L5 (progressive), toàn bộ trạng thái chỉ nằm trong bộ nhớ, không lưu lịch sử.
+
+#### Độ khó
+
+- L1: 2×2, chiều màu; mọi thuộc tính khác giống hệt.
+- L2: 2×2, chiều hình hoặc chủ đề (3 đồ vật cùng một loại lặp lại + 1 đồ vật khác nhóm).
+- L3: 2×3, chiều hình hoặc màu, có NHIỄU: thuộc tính không phải mục tiêu đổi 2–3 giá trị, mỗi giá trị xuất hiện trên ≥ 2 ô.
+- L4: 2×3, chiều kích cỡ (hai cỡ tỉ lệ 1 : 0.6, ô lạc có thể to hoặc nhỏ hơn) hoặc số chấm (≤ 4 chấm để nhìn là biết, ô lạc hơn/kém đúng 1 chấm).
+- L5: 2×4, chiều hình, màu hoặc chủ đề, có nhiễu (chủ đề: 2–3 đồ vật cùng nhóm, mỗi đồ vật ≥ 2 ô; đồ vật lạc là hình duy nhất chỉ xuất hiện một lần).
+
+#### Sinh bài
+
+- Generator deterministic theo seed; validator độc lập chứng minh: đúng một token duy nhất trên chiều mục tiêu và các ô còn lại chung một giá trị, KHÔNG token nào duy nhất trên bất kỳ chiều khác (chống lỗi "có hơn một thứ có thể gọi là lạc"), chỉ thuộc tính nhiễu của level mới được biến thiên, cùng một loại token trong lưới, replay theo seed byte-identical.
+- Ràng buộc: chỉ ba màu cam / xanh dương / xanh lá (an toàn mù màu, khác cả sắc lẫn độ sáng); bốn hình tròn / vuông / tam giác / thoi, không bao giờ để vuông và thoi cùng lưới; chủ đề chỉ fruit / animal / transport (các nhóm đủ xa để không cần kiến thức đời sống).
+- Variety: bucket = chiều mục tiêu, variant = tập token không phụ thuộc vị trí; mỗi chiều đạt ≥ 20% trong 300 lượt một-bài liên tiếp.
+
+#### Asset
+
+- Hình cơ bản vẽ bằng View (`explore-shape-primitives`), nhóm chấm dùng `DotGroup`, đồ vật lấy từ pool thẻ của Lật thẻ tìm cặp (`memory-match:card-assets`, validator kiểm tra lại từng assetId). Không có asset từ xa; chơi offline hoàn toàn.
+
+#### Audio
+
+- Đề: "Bạn nào khác với các bạn còn lại?" (key `phrase:odd_which_different`), luôn hiển thị trên màn hình; clip nằm trong batch audio v2, thiếu clip vẫn chơi bình thường. Khen / thử lại / gợi ý / lên bậc do màn chơi chung đọc.
+
 ---
 
 ## 8. MÔ HÌNH SINH BÀI VÀ QUẢN TRỊ NỘI DUNG
@@ -570,6 +692,16 @@ Nguồn tham số:
 Audio có thể được render trước hoặc sinh một lần rồi cache theo khóa ổn định như
 `templateId + params + voiceVersion`. Không gọi TTS không kiểm soát mỗi lần trẻ
 chơi và không yêu cầu đội content tạo audio cho từng lesson.
+
+**Cập nhật (2026-08, Đợt 2):** toàn bộ câu Khám phá — đề bài, phản hồi bằng
+giọng Đô Đô (khen xoay vòng, thử lại, gợi ý, lên phạm vi, "Mình thử bài dễ hơn
+nhé", kết lượt, nhắc nghỉ), tên game trên catalog và hướng dẫn của từng game —
+nằm trong **một inventory duy nhất** (`mobile/src/explore/promptAudio.ts`, mirror
+`kido-pipeline/src/explore/exploreAudioInventory.ts`). Mỗi đợt thêm câu mới được
+**gen/duyệt/export một lần** thành một pack (`explore-audio-vi-v2`); app chấp
+nhận pack cũ cho tới khi pack mới được bundle, câu chưa có clip thì im lặng và
+chữ/hình trên màn vẫn đủ để chơi. Chi tiết batch: openspec
+`add-explore-round-2-games/audio-batch-v2.md`.
 
 ---
 
