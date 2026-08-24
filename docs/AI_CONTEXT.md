@@ -189,6 +189,13 @@ Mobile:
   (per-card `scaleX` 1→0→1, face swapped at the mid-point, native driver,
   skipped under reduced motion) driven only by the reducer's `faceUp`/`matched`
   state — no `memoryGame.ts`/`memoryState` change, replay byte-identical.
+- Explore Đợt 3 feel (OpenSpec `polish-explore-round-3-feel`, 2026-08),
+  presentation-only: `ArithmeticRenderer`/`VisualMathScene` run the "máy cộng trừ"
+  machine (`MathMachine`) — operand groups feed in on `SemanticAnimationView`/
+  `addGroup`/`removeGroup` and the `?` result emerges from the funnel — and draw
+  the add/subtract number line as a ticked, labelled ruler with the `hopProgress`
+  hop; native driver, skipped under reduced motion (same gate, static end state),
+  `supportLevel` visuals unchanged, no `arithmeticGame.ts`/version change.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
