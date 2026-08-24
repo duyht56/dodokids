@@ -461,6 +461,22 @@ Một object sprite được clone; hai ô trực quan có nhãn `Có sẵn` và
 
 Phép tính được sinh từ constraint và công thức; không liệt kê thủ công từng đề.
 
+> **Cập nhật (2026-08, openspec `add-explore-arithmetic-brd-modes`).**
+> Năm mode §7.6 đã được nối vào engine như một `mode` discriminator sinh theo seed,
+> bên cạnh add/subtract sẵn có, theo đúng thang L1→L6: L1 phạm vi 5 (thêm/bớt vật),
+> L2 phạm vi 10 (đếm tất cả), L3 phạm vi 10 (`count_on` — đếm tiếp từ số lớn hơn),
+> L4 phạm vi 20 (`make_10` — tách để tạo 10, đáp án là phần còn thiếu, khung 10 làm
+> giàn giáo), L5 phạm vi 20 (`three_operand` — a + b + c, mỗi toán hạng ≤ 6), L6 =
+> Advanced phạm vi 50 (`tens_ones` — cộng/trừ chục–đơn vị cạnh number line). Mode
+> nâng cao chỉ xuất hiện khi trẻ leo tới cấp đó (5/7 câu đúng trong cửa sổ) — chính
+> việc đạt cấp là "gate ổn định với hai toán hạng", không cần cờ cấu hình ngoài.
+> Mỗi mode có validator ĐỘC LẬP tự suy lại đáp án + replay byte-identical theo seed,
+> và là một round-variety bucket phủ đủ trong lượt một-bài. `generatorVersion`
+> `arithmetic-machine-v3` → `v4`, `validatorVersion` `...-validator-v3` → `v4`
+> (mirror trong `kido-server/.../explore.registry.ts`). Clip âm `dem_tiep` ("đếm
+> tiếp") cho `count_on` là best-effort, đã ghi vào manifest chờ đợt tổng hợp âm tiếp
+> theo — chưa render âm.
+
 ### 7.7. Game 7 — Tìm quy luật
 
 **Mục tiêu:** nhận biết và hoàn thành pattern.

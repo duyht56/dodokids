@@ -223,6 +223,19 @@ Mobile:
   the add/subtract number line as a ticked, labelled ruler with the `hopProgress`
   hop; native driver, skipped under reduced motion (same gate, static end state),
   `supportLevel` visuals unchanged, no `arithmeticGame.ts`/version change.
+- Explore arithmetic BRD §7.6 modes (OpenSpec `add-explore-arithmetic-brd-modes`,
+  2026-08): `arithmetic_machine` (`games/arithmeticGame.ts`) wires the strategy
+  modes as a seed-deterministic `mode` discriminator alongside add/subtract on the
+  L1→L6 ladder — `count_on` (L3, count on from the larger), `make_10` (L4, complete
+  the ten, answer = the missing part, ten-frame scaffold), `three_operand` (L5,
+  a+b+c with each operand ≤6) and `tens_ones` (L6 = Advanced range 50, place value
+  beside the number line). Reachability is level-driven (reaching the level IS the
+  "stable with two operands" gate, no external config flag); each mode has an
+  INDEPENDENT validator + byte-identical seed replay, is a declared `variety.ts`
+  bucket (`arithmetic:<mode>`), and reuses `VisualMathScene`/`TensOnes`/number-line/
+  ten-frame primitives with `supportLevel` intact. `generatorVersion`/`validatorVersion`
+  bumped `arithmetic-machine-v3`→`v4` (mirrored in kido-server `explore.registry.ts`);
+  new best-effort `dem_tiep` count-on clip (next audio batch).
 - Explore pattern families + fix_error (OpenSpec
   `enhance-explore-pattern-families-fixerror`, 2026-08): `pattern_finder`
   (`games/patternGame.ts`) splits cycles into distinct, labelled grammar families
