@@ -19,6 +19,8 @@ export const EXPLORE_GAME_CODES = [
   'number_line_hop',
   'stack_tower',
   'odd_one_out',
+  'shape_hunt',
+  'candle_count',
 ] as const;
 
 export type ExploreGameCode = (typeof EXPLORE_GAME_CODES)[number];
