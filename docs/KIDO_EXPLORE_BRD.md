@@ -465,26 +465,54 @@ Phép tính được sinh từ constraint và công thức; không liệt kê th
 
 **Mục tiêu:** nhận biết và hoàn thành pattern.
 
-#### Pattern hỗ trợ
+#### Họ quy luật (grammar family) và pattern hỗ trợ
 
-- AB.
-- AAB.
-- ABB.
-- ABC.
-- Tăng hoặc giảm số lượng.
-- Dãy số bước 1 hoặc bước 2.
+Mỗi bài chỉ đọc MỘT thuộc tính, thành các họ quy luật RÕ RÀNG, TÁCH BIỆT để trẻ
+đọc được "quy luật màu" hay "quy luật hình" thay vì trộn thuộc tính trong một dãy:
+
+- `shape_cycle` — **quy luật hình:** cùng MỘT màu, lặp theo các HÌNH (AB/AAB/ABB).
+- `color_cycle` — **quy luật màu:** cùng MỘT hình, lặp theo các MÀU (AB/AAB/ABB/ABC).
+- `object_cycle` — **quy luật đồ vật:** lặp theo các emoji khác nhau (ABC).
+- `quantity` — tăng hoặc giảm số lượng (nhóm chấm).
+- `numeric` — dãy số bước 1 hoặc bước 2.
+
+Kho token được mở rộng cho tươi mới cả lượt chơi: 6 hình, 7 màu (bảng màu thân
+thiện người mù màu — Okabe–Ito), 10 emoji đồ vật, tất cả nét đơn, rõ ràng, phân
+biệt được không cần dựa vào màu (trừ họ `color_cycle` vốn là quy luật màu, dùng
+bảng màu an toàn cho người mù màu).
+
+#### Hai mode (`mode` discriminator)
+
+- `complete` — **hoàn thành quy luật:** ẩn một vị trí hợp lệ, trẻ chọn token đúng
+  (chạm hoặc kéo — cùng một `commit`).
+- `fix_error` — **tìm chỗ sai:** hiện một dãy đúng quy luật NGOẠI TRỪ đúng MỘT ô
+  làm hỏng quy luật; trẻ chạm vào ô sai, hệ thống tự sửa ô đó về token đúng. Đây
+  là tương tác một-chạm đơn giản nhất về mặt âm thanh.
 
 #### Sinh bài
 
-Engine chọn grammar, chọn token khác nhau, lặp pattern, ẩn một vị trí hợp lệ và
-tính đáp án từ chính grammar. Validator phải kiểm tra chuỗi sau khi sinh.
+Engine chọn grammar + family + mode, chọn token khác nhau trong cùng một thuộc
+tính, lặp pattern; ở `complete` ẩn một vị trí có đủ ngữ cảnh và tính đáp án từ
+chính grammar; ở `fix_error` thay đúng một ô bằng token sai (vẫn trong kho từ
+vựng/khoảng của bài). Validator ĐỘC LẬP kiểm tra: `complete` chứng minh có đúng
+một token hoàn thành ô trống; `fix_error` liệt kê MỌI phép sửa một-ô để chứng minh
+dãy đang sai và có đúng MỘT vị trí sai — trùng `errorIndex`/`correctToken` đã ghi.
 
 #### Guardrail
 
-- Một bài chỉ kiểm tra số thuộc tính phù hợp với cấp độ.
-- Đáp án phải suy ra duy nhất.
+- Mỗi bài chỉ đọc một thuộc tính (một họ quy luật), phù hợp cấp độ.
+- Đáp án / chỗ sai phải suy ra DUY NHẤT.
 - Không dùng background, vị trí hoặc kích thước như clue ngoài ý muốn.
 - Ưu tiên shape, color, number card và dot primitive.
+
+> **Cập nhật (2026-08, openspec `enhance-explore-pattern-families-fixerror`).**
+> Tách `color_cycle`/`shape_cycle`/`object_cycle` thành các họ riêng, mở rộng kho
+> token, thêm mode `fix_error` ("tìm chỗ sai"). `generatorVersion`
+> `pattern-finder-v3` → `v4`, `validatorVersion` `pattern-finder-validator-v2` →
+> `v3` (mirror trong `kido-server/.../explore.registry.ts`). Clip âm cho quy luật
+> màu và fix_error (`pattern_next_color`, `pattern_blank_color`,
+> `pattern_find_error`) là best-effort, đã ghi vào manifest chờ đợt tổng hợp âm
+> tiếp theo — chưa render âm.
 
 ### 7.8. Game 8 — Lật thẻ tìm cặp
 

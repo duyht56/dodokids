@@ -223,6 +223,18 @@ Mobile:
   the add/subtract number line as a ticked, labelled ruler with the `hopProgress`
   hop; native driver, skipped under reduced motion (same gate, static end state),
   `supportLevel` visuals unchanged, no `arithmeticGame.ts`/version change.
+- Explore pattern families + fix_error (OpenSpec
+  `enhance-explore-pattern-families-fixerror`, 2026-08): `pattern_finder`
+  (`games/patternGame.ts`) splits cycles into distinct, labelled grammar families
+  `shape_cycle`/`color_cycle`/`object_cycle` (colour rule vs shape rule vs object
+  rule) with a bigger colourblind-safe token pool (6 shapes, 7 colours, 10 emoji),
+  and adds a seed-deterministic `mode` discriminator — `complete` (hide a slot)
+  and `fix_error` ("tìm chỗ sai": tap the one rule-breaking cell, the independent
+  validator enumerates every single-cell repair to prove exactly one). Variety
+  buckets are the families + `fix_error`; `generatorVersion`/`validatorVersion`
+  bumped to `pattern-finder-v4`/`pattern-finder-validator-v3` (mirrored in
+  kido-server `explore.registry.ts`); new best-effort prompt keys
+  `pattern_next_color`/`pattern_blank_color`/`pattern_find_error` (next audio batch).
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
