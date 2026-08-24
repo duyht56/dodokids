@@ -23,6 +23,8 @@ export const EXPLORE_GAME_CODES = [
   'candle_count',
   'sort_bins',
   'missing_cell',
+  'peekaboo_recall',
+  'subitize_flash',
 ] as const;
 
 export type ExploreGameCode = (typeof EXPLORE_GAME_CODES)[number];
