@@ -534,6 +534,13 @@ xáo trộn bằng random seed.
 Không giới hạn thời gian. Độ khó đến từ số lượng thẻ và độ tương đồng có kiểm
 soát giữa asset, không đến từ áp lực tốc độ.
 
+**Đợt 3:** pool mở rộng 16 → 37 asset (mỗi asset là một vật đơn, nền trong,
+`similarityGroup` riêng nên luật "L1–L2 không ghép hai thẻ dễ nhầm" vẫn giữ) để
+mỗi lượt chơi tươi mới hơn. Sau vài lần lật sai liên tiếp, Đô Đô mở giúp bé MỘT
+cặp còn ẩn trong chốc lát (gợi ý nhẹ, không phải trạng thái thua, không kết thúc
+bảng, không lưu gì) — thuần trình bày ở renderer, không đổi generator/validator
+ngoài việc bump generatorVersion do pool đổi.
+
 #### Asset rule
 
 - Asset phải dễ nhận diện và có hình đơn lẻ.

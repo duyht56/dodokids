@@ -235,6 +235,16 @@ Mobile:
   bumped to `pattern-finder-v4`/`pattern-finder-validator-v3` (mirrored in
   kido-server `explore.registry.ts`); new best-effort prompt keys
   `pattern_next_color`/`pattern_blank_color`/`pattern_find_error` (next audio batch).
+- Explore memory pool + hint (OpenSpec `expand-explore-memory-pool-add-hint`,
+  2026-08): `MEMORY_ASSETS` expanded 16 → 37 (each a single, background-free,
+  distinct-`similarityGroup` object) so runs stay fresh; `generatorVersion`
+  bumped `memory-match-v3`→`v4` (pool changes the seeded draw; validator logic
+  unchanged, mirrored in kido-server `explore.registry.ts`, which also drifted
+  and is now realigned). `MemoryMatchRenderer` adds a presentation-only support
+  hint: after `HINT_AFTER_MISMATCHES` mismatches in a row, Đô Đô peeks one
+  still-hidden pair (`hintPair`) for `HINT_PEEK_MS`, armed from the resolve
+  timeout (deferred setState), never touching the reducer's matched set —
+  replay/scoring unaffected, skipped-friendly under reduced motion.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
