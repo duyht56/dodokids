@@ -135,6 +135,20 @@ Important schema rules:
 
 Mobile:
 
+- Responsive layout (OpenSpec `add-ipad-support`, 2026-09-06): `app.json` has
+  `ios.supportsTablet: true`, which makes Expo write all four iPad orientations
+  and `UIRequiresFullScreen = false` — so **layout is driven by the window size,
+  never by the device**. `mobile/src/constants/layout.ts` owns the single
+  breakpoint (`TABLET_BREAKPOINT = 700`, `LARGE_BREAKPOINT = 1024`), the content
+  measures, the scale ramp and `columnsFor`; `mobile/src/hooks/useResponsive.ts`
+  is the hook (`useIsTablet` is now a wrapper over it) and
+  `mobile/src/components/ui/ContentFrame.tsx` the capped/centred column.
+  `mobile/src/explore/layout.ts` caps the Khám phá play column
+  (`useExploreContentWidth`) and owns the play shell's chrome heights. Rules:
+  never read a viewport size at module scope; never pair a percentage cell width
+  with `aspectRatio`; widen a phone-tuned cap with `roomyMax` at the call site
+  rather than editing a constant the `verify-explore-*.cjs` scripts assert on
+  verbatim.
 - API client: `mobile/src/services/api.ts`.
 - Server lesson normalization: `mobile/src/types/lesson.ts`, especially
   `mapServerLesson`.

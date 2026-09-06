@@ -20,19 +20,54 @@ Developer name được set **lần đầu tiên anh tạo app record** và khô
 
 **Kết luận:** Individual là lựa chọn đúng cho v1. Chỉ cần biết trước rằng dòng developer name sẽ là tên anh.
 
-### 0.2 `supportsTablet` → **tắt cho v1**
+### 0.2 `supportsTablet` → **BẬT** (đổi quyết định, 2026-09-06)
 
-Đây không phải chuyện screenshot (screenshot iPad chụp trên Simulator được, xem §E). Lý do thật nằm trong chính config plugin của Expo trong `node_modules`:
+> Phiên bản trước của mục này chốt `supportsTablet: false` cho v1. Quyết định đã
+> đổi sau khi layout iPad được revamp — phần phân tích kỹ thuật bên dưới vẫn
+> đúng nguyên văn, nó chỉ chuyển từ "lý do để tắt" thành "điều kiện phải đạt
+> trước khi bật".
 
-`@expo/config-plugins/build/ios/RequiresFullScreen.js:55-70` — khi `ios.supportsTablet = true` và `ios.requireFullScreen` **không set** (đúng hiện trạng `app.json`), plugin ghi `UISupportedInterfaceOrientations~ipad` = **cả 4 hướng** và `UIRequiresFullScreen = false`.
+Ràng buộc kỹ thuật (đã xác minh lại trực tiếp trong `node_modules`):
 
-Tức là **`orientation: "portrait"` trong `app.json` KHÔNG khoá xoay trên iPad**. Reviewer mở app trên iPad, xoay ngang, và thấy một layout thiết kế cho dọc điện thoại — cộng thêm Split View / windowing của iPadOS 26 vì app resizable. Đây là rủi ro reject 2.1 mà anh không có cách nào kiểm trên máy thật.
+`@expo/config-plugins/build/ios/RequiresFullScreen.js:55-70` — khi
+`ios.supportsTablet = true` và `ios.requireFullScreen` **không set**, plugin ghi
+`UISupportedInterfaceOrientations~ipad` = **cả 4 hướng** và
+`UIRequiresFullScreen = false`.
 
-Guideline 2.4.1 chỉ nói "should run on iPad whenever possible" — là khuyến khích, không phải luật cứng. App iPhone-only vẫn cài và chạy trên iPad ở chế độ tương thích.
+Tức là **`orientation: "portrait"` trong `app.json` KHÔNG khoá xoay trên iPad**
+(key đó chỉ áp cho iPhone). Bật iPad = chấp nhận app xoay 4 hướng **và** cửa sổ
+resize được (Split View + windowing của iPadOS 26).
 
-**Thứ tự an toàn:** `supportsTablet: false` ở v1 → thêm iPad ở v1.1 khi đã có thiết bị. Chiều ngược lại (bật rồi tắt) sẽ **cắt update của người dùng iPad hiện có**, nên đừng bật trước.
+Không có đường tắt: `ios.requireFullScreen: true` chỉ là băng dán — TN3192 nói
+`UIRequiresFullScreen` đã deprecated ở iPadOS 26 và hết tác dụng ở iPadOS 27.
+Nên điều kiện duy nhất để bật là **layout phải adaptive theo bề rộng cửa sổ**.
 
-`ios.requireFullScreen: true` chỉ là băng dán tạm: TN3192 nói `UIRequiresFullScreen` đã deprecated ở iPadOS 26 và hết tác dụng ở iPadOS 27.
+**Điều kiện đó đã đạt.** OpenSpec `add-ipad-support`: hệ size class dùng chung
+(`mobile/src/constants/layout.ts` + `useResponsive`) thay cho breakpoint nhị
+phân, cột nội dung có trần bề rộng ở mọi màn, lưới tính bằng point thay vì phần
+trăm, và Paywall hết lỗi tràn khỏi mép phải (bug chặn phát hành, ghi ở commit
+`a9d040c` nhánh `test/ipad-layout`).
+
+Đã kiểm trên iPad Pro 13-inch (M5) Simulator ở các bề rộng:
+
+| viewport | size class | kết quả |
+|---|---|---|
+| 1032×1376 (13" dọc, full screen) | `large` | Home 2 pane, Khám phá 4 cột, Paywall split |
+| ~1010×1230 (cửa sổ iPadOS 26) | `regular` | Paywall xếp dọc, Home 2 pane |
+| 858×482 (cửa sổ ngang, thấp) | `regular` | lesson player split, không tràn |
+| ~600×1150 (cửa sổ hẹp) | `compact` | rơi về layout điện thoại, không vỡ |
+| iPhone 17 Pro 402×874 | `compact` | **không đổi** so với trước |
+
+Guideline 2.4.1 ("should run on iPad whenever possible") giờ được đáp ứng thật,
+không phải bằng chế độ tương thích.
+
+⚠️ **Một chiều:** bật rồi tắt lại sẽ **cắt update của người dùng iPad hiện có**.
+Đã bật thì không quay lại `false` nữa.
+
+⚠️ Còn nợ kiểm: **xoay thiết bị thật sang 1376×1032**. Simulator không xoay được
+bằng `simctl`, và AppleScript bị chặn assistive access trên máy này — hình dạng
+ngang đã kiểm bằng cửa sổ iPadOS 26 (858×482) chứ chưa phải bằng rotate. Trước
+khi submit, xoay Simulator bằng ⌘← rồi soát lại Home / Khám phá / Paywall.
 
 ### 0.3 EU → khai "not a trader" và loại EU khỏi territory ở v1
 
@@ -131,7 +166,7 @@ Cả ba mục Agreements / Bank Accounts / Tax Forms phải **Active** thì Stor
 
 ```jsonc
 "ios": {
-  "supportsTablet": false,                          // xem §0.2 — v1 iPhone-only
+  "supportsTablet": true,                           // xem §0.2 — iPad bật, layout đã adaptive
   "bundleIdentifier": "com.dodokids.app",
   "config": { "usesNonExemptEncryption": false }    // HTTPS chuẩn → exempt, khỏi khai mỗi lần upload
 }
@@ -262,7 +297,7 @@ Cloud device farm **không cứu được**: AWS Device Farm re-sign làm mất 
 | Simulator (Xcode 26.6) | Ảnh xuất ra | App Store |
 |---|---|---|
 | iPhone 17 Pro Max | **1320 × 2868** | đúng cỡ 6.9" |
-| iPad Pro 13-inch (M5) | **2064 × 2752** | đúng cỡ 13" (bỏ qua nếu `supportsTablet: false`) |
+| iPad Pro 13-inch (M5) | **2064 × 2752** | đúng cỡ 13" — **bắt buộc** vì `supportsTablet: true` |
 
 Xcode ghi rõ ảnh chụp từ simulated device dùng được cho *"sharing, review, or App Store submission"*. Chỉ cần upload bộ **cỡ lớn nhất**, Apple tự scale xuống cho máy nhỏ hơn.
 
@@ -297,7 +332,7 @@ Metadata còn lại: description phải nêu **giá + chu kỳ + tự động gi
 
 1. Bật 2FA + trusted phone + rescue email cho Apple Account `support@dodokids.vn` (§A bước 2–5).
 2. Enroll Individual, thanh toán bằng thẻ đứng tên anh.
-3. Sửa `app.json` (`supportsTablet: false`, `usesNonExemptEncryption`, `deploymentTarget`) và `eas.json` (§C).
+3. Sửa `app.json` (`supportsTablet: true`, `usesNonExemptEncryption`, `deploymentTarget`) và `eas.json` (§C).
 4. Sửa blocker D0 — không phụ thuộc Apple, không phụ thuộc thiết bị.
 5. Đặt mua một iPhone 11 / SE gen 2 cũ.
 

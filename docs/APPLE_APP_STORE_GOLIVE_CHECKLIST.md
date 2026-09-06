@@ -14,6 +14,7 @@
 ### 0.1 Đã sẵn sàng trong repo
 
 - [x] **Bundle identifier:** `com.dodokids.app`; app name `Dodokids`; `supportsTablet: true`; portrait; `userInterfaceStyle: light` (`mobile/app.json`). EAS project đã link bằng `projectId`.
+- [x] **Layout iPad đã adaptive** (OpenSpec `add-ipad-support`, 2026-09-06). `orientation: "portrait"` chỉ khoá iPhone: với `supportsTablet: true`, Expo ghi `UISupportedInterfaceOrientations~ipad` = cả 4 hướng và `UIRequiresFullScreen = false`, nên iPad xoay được và cửa sổ resize được. Đã dựng hệ size class dùng chung (`mobile/src/constants/layout.ts`, `useResponsive`), giới hạn bề rộng cột nội dung ở mọi màn, đổi lưới từ phần trăm sang point, và sửa bug Paywall tràn khỏi mép phải. Kiểm ở 1032×1376, ~1010×1230, 858×482, ~600×1150 và iPhone 402×874 (không đổi). Xem §0.2 của runbook.
 - [x] **iOS deployment target thật:** `IPHONEOS_DEPLOYMENT_TARGET = 16.4` trong `mobile/ios/Dodokids.xcodeproj/project.pbxproj`. Lưu ý `Info.plist` ghi `LSMinimumSystemVersion 12.0` là giá trị stale từ template — build thật dùng 16.4.
 - [x] **Privacy manifest:** `mobile/ios/Dodokids/PrivacyInfo.xcprivacy` đã tồn tại trong app target; Pods có 25 `*.xcprivacy`. Cần rà nội dung required-reason API + tracking domains ở AAB/archive cuối.
 - [x] **Apple purchase verify server-side (đã migrate 2026-09-05):** `/iap/verify-ios` xác thực **StoreKit 2 signed transaction (JWS)** cục bộ bằng `@apple/app-store-server-library` + Apple Root CA (`kido-server/src/modules/iap/apple-jws.verifier.ts`). Định tuyến Sandbox/Production theo claim `environment` đã được verifier kiểm lại sau khi xác thực chữ ký. `verifyReceipt` và `APPLE_SHARED_SECRET` đã bị loại bỏ.
@@ -210,7 +211,7 @@
 - [ ] P1 Keywords phù hợp, không nhồi nhét, không trùng tên đối thủ.
 - [ ] P1 App icon 1024×1024 PNG, không alpha, không bo góc thủ công.
 - [ ] P1 Screenshot **iPhone 6.9"** (và/hoặc 6.5") — tối thiểu theo yêu cầu Apple; khuyến nghị 4–8 ảnh: onboarding, bài học, tiến độ, parent dashboard.
-- [ ] P1 Screenshot **iPad 13"** — **bắt buộc** vì `supportsTablet=true`; test layout iPad thực tế (app hỗ trợ landscape trên iPad theo Info.plist).
+- [ ] P1 Screenshot **iPad 13"** — **bắt buộc** vì `supportsTablet=true`. Layout iPad đã revamp và kiểm trên Simulator (§0.1); **còn nợ** một lượt xoay ngang thật 1376×1032 trước khi chụp, vì Simulator trên máy này không xoay được bằng `simctl`.
 - [ ] P1 Support URL/email hoạt động; Privacy URL, EULA đều HTTPS/live.
 - [ ] P1 Nội dung listing/ảnh phù hợp trẻ em và khớp Age Rating/Kids answers.
 
