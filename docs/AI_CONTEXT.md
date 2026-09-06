@@ -148,7 +148,13 @@ Mobile:
   never read a viewport size at module scope; never pair a percentage cell width
   with `aspectRatio`; widen a phone-tuned cap with `roomyMax` at the call site
   rather than editing a constant the `verify-explore-*.cjs` scripts assert on
-  verbatim.
+  verbatim; and **never give two `flex: n` siblings to a row whose width is
+  capped** — once the row is not stretched to the full window (a `maxWidth`, an
+  explicit `width`, or a cap on any ancestor), Yoga measures the subtree
+  content-first and both columns collapse to their minimum. Give one column a
+  real width and let only the other flex (Home's map/panel split, and
+  `ActivityContainer` / `DashboardScreen` after 2026-09-06). This is invisible in
+  portrait whenever the cap is wider than the portrait window.
 - API client: `mobile/src/services/api.ts`.
 - Server lesson normalization: `mobile/src/types/lesson.ts`, especially
   `mapServerLesson`.

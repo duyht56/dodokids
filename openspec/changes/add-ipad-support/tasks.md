@@ -65,4 +65,10 @@
 - [x] 10.2 All Explore, performance, reward, audio, session and parent contract scripts pass. (`test:weekly-report` fails on `main` too — `src/services/achievements.ts` imports `@/constants/stickerCatalog` and the script has no alias resolution. Pre-existing, out of scope.)
 - [x] 10.3 Simulator pass on iPad Pro 13-inch (M5): 1032×1376 `large`, ~1010×1230 `regular`, 858×482 landscape-shaped, ~600×1150 `compact`.
 - [x] 10.4 iPhone 17 Pro (402×874) regression pass — Home and Khám phá unchanged.
-- [ ] 10.5 **Owed before submission:** rotate the Simulator to 1376×1032 (⌘←) and re-check Home, Khám phá and Paywall. `simctl` cannot rotate and AppleScript is blocked by assistive access on this machine.
+- [x] 10.5 Rotated to a real 1376×1032 on the iPad Pro 13-inch Simulator (the product owner rotated by hand — `simctl` cannot rotate and AppleScript is blocked by assistive access here). Checked Home, Khám phá, lesson player and Thành tích. Found and fixed two landscape-only defects, see task 11.
+- [ ] 10.6 **Still owed:** parent Dashboard and Paywall in landscape — both sit behind the parent-gate PIN, which the agent must not enter.
+
+## 11. Landscape-only defects found by that rotation pass
+
+- [x] 11.1 A row whose width is capped starves two `flex: n` sibling columns: they both collapse to their minimum, because Yoga then measures the subtree content-first. Invisible in portrait (1032 < the 1200 cap, so the clamp never engaged). Fixed by giving one column a real width and leaving only the other flexible, in `ActivityContainer` and `DashboardScreen`; `HomeScreen` moved from `maxWidth` to `width` for consistency. Rule recorded in `docs/AI_CONTEXT.md`.
+- [x] 11.2 The Home map kept a stale scroll offset across rotation — `onContentSizeChange` fires first while `scrollViewH` still holds the previous orientation's height and consumes the guard, so the corrected `onLayout` height is ignored and the current week lands behind the bottom nav. Guard now keys on map geometry AND viewport height.
