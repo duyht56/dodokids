@@ -35,7 +35,11 @@ Chọn skillCode **canonical, MVP-active** từ catalog. **Loại**: skill gắn
 **Quy tắc chọn:** mỗi tuần lấy **2–3 skill trọng tâm** của giai đoạn + **1–2 skill ôn tập** (spiral) từ các tuần trước (đọc metadata file cũ). ~70% activity là skill trọng tâm, ~30% ôn tập. Ghi lại danh sách skill đã dùng vào `metadata.chosenSkills` để lần sau nối mạch.
 
 ## 3. CẤU TRÚC 1 NGÀY (8 activity)
-- **difficulty** (field seed): Foundation/Core → `warmup×2, core×4, challenge×2`; Advanced → `warmup×1, core×5, challenge×2`; Mastery → `core×5, challenge×3`.
+- **difficulty** (field seed): **luôn luôn `warmup×2, core×4, challenge×2`** cho MỌI giai đoạn.
+  *(Sửa 2026-09-02: bản cũ ghi Advanced `1/5/2` và Mastery `0/5/3`, nhưng validator
+  `seed-week-validate.ts` (`EXPECTED_DIFFICULTY`) chặn cứng 2/4/2 và báo `WEEK_DIFFICULTY`
+  critical nếu lệch — code thắng. Độ khó của giai đoạn thể hiện ở **mức micro của skill**,
+  không ở phân bố difficulty; `difficulty` chỉ là VỊ TRÍ TRONG BUỔI.)*
 - `activityIndex` 1..8 theo thứ tự khó tăng dần (warmup trước, challenge cuối).
 - **Đa dạng actionType:** mỗi ngày dùng **≥3 loại actionType khác nhau** trong 5 MVP (`single_select, multi_select, sort_sequence, match_pair, count_tap`), và phải nằm trong **actionType hợp lệ của skill** (tra doc §catalog). Không lặp 1 loại quá 4/8.
 
@@ -89,12 +93,57 @@ Với skill dùng hình học/số (pattern_*, matrix_*, classify theo hình, su
 - `math_pattern_abc` = **ABC / ABCD** (đơn vị 3–4). Muốn quy luật phức hơn AB thì dùng skill này, KHÔNG nhồi vào `math_pattern_ab`.
 - `math_pattern_growing/shrinking` = tăng/giảm theo kích thước (cùng hình khác size sm/md/lg).
 
+## 7b. LUẬT CẤP CHƯƠNG TRÌNH (thêm 2026-09-02 — chỗ đợt sinh đầu đã sập)
+
+Mục 2–7 chỉ nói về MỘT tuần, nên một tuần có thể hợp lệ hoàn toàn mà cả 48 tuần vẫn hỏng.
+Đợt sinh 2026-09-02 hỏng đúng kiểu đó, và không luật nào ở trên bắt được:
+
+| Triệu chứng đã xảy ra | Con số thật |
+|---|---|
+| Đa dạng skill TỤT dần thay vì tăng | Q1 22 skill → Q2 21 → Q3 12 → **Q4 chỉ 7** |
+| Một skill nuốt cả quý | `math_conditional_count` 48/192 bài (25%) ở cả Q3 lẫn Q4 |
+| Kỹ năng nền chiếm quý cuối | `math_shape_recognize` 36 lần trong 12 tuần CUỐI |
+| Một khuôn bài nhân bản bằng cách đổi màu | 96 bài `conditional_count` cùng khuôn, 94 bài cùng MỘT câu hỏi |
+| Phép xoay vô nghĩa | 67 bài xoay ngũ giác 72° / lục giác 60° — bằng đúng chu kỳ đối xứng nên hình y hệt cũ |
+
+**Bốn luật bắt buộc:**
+
+1. **Đa dạng theo quý ≥ 14 skill khác nhau**, và **không skill nào quá 20%** số bài của quý.
+   Quý sau phải đa dạng bằng hoặc hơn quý trước — Mastery là "tích hợp đa kỹ năng" (mục 2),
+   không phải rút gọn còn vài skill.
+2. **Không nhân bản khuôn bài.** Đổi màu/hình/cỡ KHÔNG tạo ra bài mới. Một khuôn
+   (`answerSpec` sau khi bỏ màu/hình/cỡ, kèm cùng một `questionCore`) tối đa **12 lần**
+   trong cả chương trình. Muốn dùng lại skill thì đổi *cấu trúc* bài: đổi số bước, đổi
+   chiều đo, đổi số điều kiện, đổi vị trí ô trống, đổi số lượng option.
+3. **Không đọc một câu quá 12 lần** trong cả chương trình. Nếu tiêu chí lọc nằm trong
+   `answerSpec` thì `questionCore` phải NÓI RA tiêu chí đó (không lộ đáp án) — "Bé chạm hết
+   những hình nhỏ màu vàng nằm ngoài ô nhé!" chứ không phải "…thỏa đủ ba dấu điều kiện".
+   Câu sau vừa rỗng nghĩa vừa buộc mọi bài phải giống nhau.
+4. **Góc xoay không được là bội chu kỳ đối xứng của hình.** Ngũ giác 72°, lục giác 60°,
+   hình vuông 90°, tam giác 120° đều là xoay-về-chính-nó. Dùng nửa chu kỳ: ngũ giác 36°,
+   lục giác 30°, hình vuông 45°, tam giác 60°. Ưu tiên hình ít đối xứng (tam giác, trái
+   tim, ngôi sao) cho bài nhận diện hình đã xoay.
+
+**Kiểm bằng máy** (chạy khi đã có ≥24 file, tức lint cả bộ):
+
+```bash
+cd kido-pipeline && npx ts-node src/scripts/lint-seeds.ts 'seeds/w*.json'
+```
+
+Phần `KIỂM CẤP CORPUS` phải **0 critical**. Mã lỗi: `CORPUS_SKILL_DIVERSITY`,
+`CORPUS_SKILL_SHARE`, `CORPUS_TEMPLATE_CLONE`, `CORPUS_PROMPT_REUSE`,
+`CORPUS_DUP_ANSWERSPEC`, `SEED_DUP_OPTION`, `SEED_ROTATION_NOOP`.
+Nguồn luật: `kido-pipeline/src/pipeline/seed-corpus-validate.ts`.
+
 ## 8. TỰ KIỂM trước khi ghi (bỏ seed nào fail, sinh lại)
 - [ ] 16 seed, 2 ngày × 8, activityIndex 1..8 mỗi ngày, difficulty đúng phân bổ.
 - [ ] Mỗi ngày ≥3 actionType; actionType ∈ hợp lệ của skill.
 - [ ] questionCore không lộ asset/đáp án; answerSpec đúng grammar theo actionType.
 - [ ] Mỗi seed pass Logic Signature Test + không dính antiPattern của skill.
 - [ ] count_tap trong count range; object không lặp >2 lần.
+- [ ] **Không bài nào dùng lại khuôn của tuần trước chỉ bằng cách đổi màu** (§7b luật 2).
+- [ ] **questionCore nói ra tiêu chí lọc**, không dùng câu rỗng nghĩa (§7b luật 3).
+- [ ] **Góc xoay không bằng bội chu kỳ đối xứng** của hình (§7b luật 4).
 
 ## 9. GHI FILE
 Ghi `kido-pipeline/seeds/w{WW}.json` (2 chữ số):

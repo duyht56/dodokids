@@ -11,9 +11,13 @@
 > 1. `ActivitySeed.day` phải nhận `'D2' | 'D5'` (`kido-pipeline/src/types/seed.types.ts`) **và**
 >    enum `day` trong `src/db/models/seed.model.ts` cũng phải có D2/D5 — thiếu một trong hai
 >    thì import chết ở runtime dù TS compile qua.
-> 2. Skill 🔊 (`lang_rhyme_match`, `lang_onset_match`, `lang_tone_discriminate`,
->    `lang_oral_blend`, `lang_picture_to_word`) chỉ seed khi **`audio_library` đã có clip** cho
->    bộ từ liên quan. Chưa có → **chỉ làm Q1** (tuần 1–12, không có skill 🔊 nào).
+> 2. ~~Skill 🔊 chỉ seed khi `audio_library` đã có clip~~ — **GỠ 2026-09-02.** Luật cũ này
+>    sai hai lần: (a) seed chỉ là TEXT, không trỏ asset, nên audio chặn bước *generate* chứ
+>    không chặn *seed* (`KIDO_LANG_CURRICULUM.md` §6.2); (b) `audio_library` được tạo LƯỜI
+>    lúc generate (`getOrCreateLibraryClip`) — không có bộ clip nạp sẵn nào để chờ.
+>    Thứ THẬT SỰ từng chặn `pho` là **dữ liệu ngữ âm**, và nó đã có:
+>    **`kido-pipeline/src/curriculum/vi-phonetics.ts`** (kho từ + họ vần/âm đầu + bộ thanh +
+>    validator từng skill). Skill 🔊 seed được từ Q2. Xem §7b bên dưới.
 > 3. Ảnh: skill `voc`/`sem`/`lis`/`nar`/`syn`/`inf` cần asset có `viLabel` (tên tiếng Việt
 >    DUY NHẤT). Chưa có `viLabel` → vẫn seed được (seed chỉ *mô tả*), nhưng ghi cờ.
 
@@ -33,6 +37,8 @@ tuổi** Việt Nam). Nhiệm vụ: sinh seed môn Tư Duy Ngôn Ngữ, MỖI L�
    anti-pattern từng skill (§1–§7).
 3. `kido-pipeline/src/curriculum/lang-skill-catalog.ts` — bản code của construct/anti-pattern
    (nguồn chân lý cho reviewer; đọc để seed khớp thứ reviewer sẽ chấm).
+3b. `kido-pipeline/src/curriculum/vi-phonetics.ts` — **BẮT BUỘC khi buổi D2 có skill `pho`**
+   (Q2 trở đi). Kho từ + họ vần + họ âm đầu + bộ thanh + validator. Xem §7b.
 4. `kido-pipeline/src/types/seed.types.ts` — interface `ActivitySeed` (kiểm `day` có D2/D5).
 5. `docs/kido-activity-schema.ts` — payload từng actionType.
 6. `docs/KIDO_SEED_AUTHORING.md` — quy tắc `questionCore` vs `answerSpec`, KHÔNG nhãn A/B/C.
@@ -46,7 +52,7 @@ tuổi** Việt Nam). Nhiệm vụ: sinh seed môn Tư Duy Ngôn Ngữ, MỖI L�
   Đó là `W`.
 - Nếu đủ 48 tuần: in "✅ Đã đủ 48 tuần tiếng Việt" và DỪNG (nhắc user tắt routine).
 - `quarter` = ceil(W/12). Ngày cố định: **`D2` và `D5`**. 2 ngày × 8 activity = **16 seed**.
-- **Nếu `audio_library` chưa sẵn sàng và W > 12 → DỪNG và báo** (Q2 trở đi cần skill 🔊).
+- Không còn điều kiện dừng ở W12. Skill 🔊 từ Q2 lấy từ `vi-phonetics.ts` (§7b).
 
 ## 2. TRA SKILL ĐANG MỞ (§3 curriculum)
 
@@ -80,7 +86,9 @@ tuổi** Việt Nam). Nhiệm vụ: sinh seed môn Tư Duy Ngôn Ngữ, MỖI L�
   | Q4 | L2–L3 (skill cũ) | L4 | L4–L5 |
 
   **Trẻ 5–6: `L1` KHÔNG bao giờ là `core`** — chỉ dùng làm warmup.
-- **Đa dạng actionType:** ≥2 loại khác nhau mỗi buổi; KHÔNG lặp 1 loại quá 5/8.
+- **Đa dạng actionType:** ≥2 loại khác nhau mỗi buổi; KHÔNG lặp 1 loại quá **4/8**
+  (sửa 2026-09-02: bản cũ ghi 5/8 nhưng validator `seed-week-validate.ts` chặn ở 4 —
+  `MAX_SAME_ACTION`. Hai file `w01-vi`/`w02-vi` đang dính warning vì luật cũ.)
   **KHÔNG dùng `count_tap`/`compare_tap`** (hình dạng của Toán).
 
 ## 5. HỢP ĐỒNG MỖI SEED
@@ -170,6 +178,79 @@ CẤM ở `math_logic_causality`). Đừng tự loại seed vì lý do "bé tr�
 phải domino đổ) · `lang_verbal_analogy` (quan hệ nghe mới ra) · `lang_position_word` (hiểu
 **nghĩa của từ** chỉ vị trí) · `lang_story_sequence` (logic truyện, không phải to/nhỏ dần).
 
+## 7b. SKILL ÂM VỊ `pho` — DÙNG `vi-phonetics.ts`, ĐỪNG TỰ ĐOÁN (Q2 trở đi)
+
+Bài âm vị hỏng **im lặng**: nhìn seed thì hợp lý, nhưng nghe lên thì có hai đáp án đúng hoặc
+không có đáp án nào. Vì vậy mọi từ dùng cho `pho` phải lấy từ
+`kido-pipeline/src/curriculum/vi-phonetics.ts`, KHÔNG tự nghĩ ra.
+
+**Điều dễ sai nhất — giọng Bắc trung hoà ba nhóm âm đầu:**
+
+| Chữ viết | Nghe ra (giọng Bắc) |
+|---|---|
+| `d` · `gi` · `r` | cùng một âm `/z/` — "dao", "giày", "rắn" cùng âm đầu |
+| `ch` · `tr` | cùng một âm — "chó", "trâu" cùng âm đầu |
+| `s` · `x` | cùng một âm — "sao", "xe" cùng âm đầu |
+
+Nhìn mặt chữ mà tưởng chúng khác nhau ⇒ bài `lang_onset_match` có **hai đáp án đúng**.
+Module đã mã hoá việc này (`onsetSound`); cứ dùng validator thì không sập bẫy.
+
+**Cách làm cho mỗi bài `pho`:**
+
+1. Lấy từ bằng helper, không gõ tay: `rhymeFamilies()` / `onsetFamilies()` (mặc định chỉ trả
+   họ có ≥3 từ) · `PHO_TONE_SETS` / `toneSetsWithAtLeast(n)` · `wordsBySyllableCount(n)`.
+2. Dựng bài rồi **chạy validator tương ứng**, sửa đến khi trả về mảng rỗng:
+
+   | Skill | Hàm |
+   |---|---|
+   | `lang_rhyme_match` | `validateRhymeExercise(sample, options, { level })` |
+   | `lang_onset_match` | `validateOnsetExercise(sample, options, { level })` |
+   | `lang_tone_discriminate` | `validateToneExercise(options, { level })` |
+   | `lang_oral_blend` | `validateBlendExercise(answer, options, { level })` |
+   | `lang_syllable_count` | `validateSyllableCountExercise(word, { level })` |
+
+   Chọn `level` theo **mức micro của quý** (bảng §4), KHÔNG chỉ theo `difficulty`:
+
+   | Quý | warmup | core | challenge |
+   |---|---|---|---|
+   | Q2 | easy | easy | hard |
+   | Q3 | easy | hard | hard |
+   | Q4 | easy | hard | hard |
+
+   Lý do: `difficulty` là VỊ TRÍ TRONG BUỔI, không phải mức tuyệt đối. Một bài `core` ở
+   tuần 41 đứng sau 40 tuần luyện âm vị, nên dùng vần gần giống (`ăn` với `anh`) ở đó là
+   đúng lộ trình; cũng bài ấy ở tuần 14 thì quá sớm. Ghi rõ mức đã thẩm vào `answerSpec`.
+
+   Mức `easy` chặn thêm: vần gần giống, cặp âm đầu `l`/`n`, cặp thanh `hỏi`/`ngã`, từ láy
+   trong bài đếm tiếng.
+
+   "Vần gần giống" bắt **hai trục**, đừng chỉ nghĩ tới trục thứ nhất: khác **âm cuối**
+   (`an`/`ang`, `it`/`ich`) và khác **âm chính** (`ăn`/`ân` — khăn/cân · `ăt`/`ât` — mắt/mất ·
+   `ôi`/`uôi` — đôi/đuôi · `o`/`ơ` — bò/bơ). Trục thứ hai thường khó nghe hơn trục thứ nhất.
+
+   **Mảng rỗng = bài hợp lệ**, không có ngoại lệ. Riêng bài âm đầu, gọi thêm
+   `onsetSpellingNotes(sample, options)` để ĐỌC (không phải để sửa): nó chỉ ra cặp từ khác mặt
+   chữ nhưng cùng âm giọng Bắc — vd bài `chó` / `trăng` là HỢP LỆ dù nhìn chữ tưởng sai.
+
+   Chạy nhanh một bài để kiểm:
+
+   ```bash
+   cd kido-pipeline && npx ts-node -e "import('./src/curriculum/vi-phonetics').then(m=>console.log(m.validateRhymeExercise('lá',['cá','bò'])))"
+   ```
+
+3. Ghi `answerSpec` theo grammar `audio_select` ở §6, dùng đúng những từ đã qua validator.
+
+**Luật cứng:**
+
+- Chỉ dùng từ có trong `PHO_WORDS` / `PHO_MULTI_SYLLABLE_WORDS`. Từ ngoài kho chưa được khảo
+  sát nghĩa lẫn ngữ âm — validator sẽ chặn, và đó là cố ý.
+- Bài vần: đúng **một** option cùng vần với từ mẫu, và **không** option nào cùng âm đầu với
+  từ mẫu (nhiễu chéo sang skill âm đầu). Bài âm đầu: ngược lại.
+- Bài thanh: mọi option **cùng âm đầu + cùng vần**, chỉ khác thanh, và mọi biến thể phải có
+  nghĩa cụ thể — đó là lý do chỉ dùng `PHO_TONE_SETS` đã khảo sát tay, không tự ghép.
+- Thiếu từ cho một họ vần/âm đầu → **bổ sung vào `vi-phonetics.ts` rồi chạy
+  `npx vitest run src/curriculum/vi-phonetics.test.ts`**, đừng lách bằng từ bịa.
+
 ## 8. RÀNG BUỘC KHÁC
 
 - **Anti-pattern từng skill:** đọc `lang-skill-catalog.ts` và tránh đúng thứ ghi ở đó —
@@ -219,8 +300,8 @@ KHÔNG import DB (bước riêng). DỪNG — lần chạy sau tự làm tuần 
 ## Ghi chú vận hành
 
 - **Nhịp:** cần 48 lần fire (16 seed/lần → 768 seed).
-- **Phụ thuộc mở khoá dần:** Q1 (tuần 1–12) **không có skill 🔊 nào** → seed được ngay khi chưa
-  có `audio_library`. Từ Q2 phải có clip TTS cho bộ từ ngữ-âm (curriculum §6.2 bước 4).
+- **Phụ thuộc:** không còn. Q1 không có skill 🔊; từ Q2 skill 🔊 lấy từ `vi-phonetics.ts`.
+  Clip TTS sinh ở bước **generate**, không phải điều kiện của bước seed (curriculum §6.2).
 - **Nguồn chân lý:** đổi lộ trình → sửa `KIDO_LANG_CURRICULUM.md`; đổi construct/anti-pattern
   → sửa **cả** `KIDO_LANG_SKILL_CATALOG.md` **lẫn** `lang-skill-catalog.ts` (reviewer đọc bản code).
 - **Import:** `cd kido-pipeline && npm run import-seeds`.

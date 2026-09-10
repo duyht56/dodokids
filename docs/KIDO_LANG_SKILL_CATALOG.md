@@ -585,7 +585,7 @@ cho môn này. Ngoại lệ duy nhất: `number_card` dùng làm option cho
 
 | | Cần cho | Chi phí |
 |---|---|---|
-| **(A) Danh sách từ + chú giải ngữ âm** (vần / âm đầu / thanh) + clip `audio_library` (TTS) | domain **`pho`** | Rẻ — dữ liệu ngôn ngữ + TTS |
+| **(A) Danh sách từ + chú giải ngữ âm** (vần / âm đầu / thanh) ✅ **XONG 2026-09-02** (`vi-phonetics.ts`) + clip `audio_library` (TTS, sinh lười lúc generate) | domain **`pho`** | Rẻ — dữ liệu ngôn ngữ + TTS |
 | **(B) Bộ ẢNH có `viLabel`** | `voc` `sem` `lis` `nar` `syn` `inf` | Đắt — gen ảnh |
 
 > **`pho` KHÔNG cần (B).** Spec `audio-select-activity` cấm `assetRef` trên option — bài
@@ -611,6 +611,18 @@ có `viLabel` duy nhất. Phần (A) cần danh sách từ phủ đủ:
 Cả (A) và (B) nên là **epic riêng**. Thứ tự: **(B) chặn Q1** của
 `KIDO_LANG_CURRICULUM.md` (Q1 toàn skill dựa ảnh), còn **(A) chỉ chặn `pho` từ Q2**
 — nên Q1 seed được TRƯỚC khi có (A). Xem §6 của curriculum.
+
+> ✅ **(A) ĐÃ LAND 2026-09-02** — `kido-pipeline/src/curriculum/vi-phonetics.ts`
+> (+ `vi-phonetics.test.ts`). Nội dung: kho từ một tiếng có `gloss` là nghĩa cụ thể trẻ 5–6
+> nắm (tiêu chí của §9.2 này, KHÔNG phải "vẽ được"), họ vần và họ âm đầu đều ≥3 từ, bảng từ
+> 2–3 tiếng cho `lang_syllable_count` kèm cờ **từ láy** (bẫy của anti-pattern), và bộ khác
+> thanh **khảo sát tay** — đúng như đoạn trên cảnh báo, rất ít bộ đủ 3 thanh mà mọi biến thể
+> đều có nghĩa trội, nên bộ nào có một biến thể là hư từ thì cả bộ bị loại.
+>
+> Module cũng mã hoá **trung hoà âm đầu giọng Bắc** (`d`/`gi`/`r` → `/z/`, `ch`/`tr`, `s`/`x`):
+> `lang_onset_match` so bằng ÂM NGHE ĐƯỢC chứ không bằng con chữ. Kèm validator từng skill trả
+> về danh sách lỗi, và `auditPhoInventory()` tự kiểm chính kho từ — nó đã bắt hai bộ thanh sai
+> của bản nháp đầu (`mắt`/`mất` và `to`/`tổ` khác VẦN chứ không khác thanh).
 
 ---
 
