@@ -247,15 +247,15 @@ Lỗi cũ: client gửi `purchase.purchaseToken` (là **JWS** trên iOS) còn se
 - Guard mới: **hết hạn**, **revoked/refunded**, product qua `KIDO_PRODUCT_IDS.includes` (toán tử `in` cũ nhận cả key kế thừa như `constructor`).
 - Binding chống replay lấy `originalTransactionId` từ payload đã verify, **bỏ hẳn fallback về token thô** — Apple phát hành JWS mới mỗi lần gia hạn.
 - Field wire đổi `receiptData` → `signedTransactionJws` (cả verify lẫn restore), kèm guard hình dạng compact JWS. iOS chưa phát hành nên không có vấn đề tương thích.
-- Env: bỏ `APPLE_SHARED_SECRET`, thêm `APPLE_BUNDLE_ID` + `APPLE_APP_APPLE_ID`.
+- Env: bỏ `APPLE_SHARED_SECRET`. Bundle id và Apple ID của app lúc đầu đọc từ env `APPLE_BUNDLE_ID` + `APPLE_APP_APPLE_ID`; từ 14/09/2026 chúng là hằng số `DODOKIDS_APPLE_BUNDLE_ID` / `DODOKIDS_APPLE_APP_APPLE_ID` (6811548180) trong `apple-jws.verifier.ts`, server không đọc hai env này nữa.
 - Mobile: `restorePurchases` gọi `syncIOS()` trước khi đọc, dùng `onlyIncludeActiveItemsIOS: true`, loại bản ghi revoked, chọn theo thời hạn thay vì `kido[kido.length - 1]`.
 
 Kiểm chứng: `nest build` pass, **527/527 test server xanh**, `tsc --noEmit` mobile sạch. Test ghim đúng lỗi cũ — receipt base64 cũ bị từ chối mà không gọi Apple, và chuỗi JWS phải tới verifier nguyên vẹn từng byte.
 
 **Còn lại (không làm được trong repo):**
 
-- [ ] Set `APPLE_BUNDLE_ID=com.dodokids.app` và `APPLE_APP_APPLE_ID` trong env production. ⚠️ Thiếu `APPLE_APP_APPLE_ID` thì **sandbox vẫn xanh** còn mọi giao dịch Production trả 503 — kiểm bằng log boot, đừng suy ra từ test sandbox.
-- [ ] `APPLE_APP_APPLE_ID` phải **trùng** `submit.production.ios.ascAppId` trong `mobile/eas.json`. Lệch nhau là lỗi im lặng: build submit bình thường, mọi JWS production fail.
+- [x] Bundle id + Apple ID của app: hardcode trong `apple-jws.verifier.ts` từ 14/09/2026. Trước đó production thiếu `APPLE_BUNDLE_ID` nên mọi verify iOS trả 503 `iap_not_configured`. Kiểm từ ngoài bằng một JWS giả gửi `POST /iap/verify-ios`: 503 = chưa có verifier cho môi trường đó, 402 `receipt_invalid` = đã có.
+- [x] `DODOKIDS_APPLE_APP_APPLE_ID` phải **trùng** `submit.production.ios.ascAppId` trong `mobile/eas.json`, và bundle id phải trùng `ios.bundleIdentifier` trong `mobile/app.json`. Test `apple-jws.verifier.spec.ts` so các giá trị này khi có repo `mobile/` bên cạnh.
 - [ ] Mở egress HTTPS tới OCSP responder của Apple; thiếu là mọi verify cold-cache trả 502.
 
 Nợ còn lại: **App Store Server Notifications V2** để đối soát refund/renew/grace. Phase 1 chỉ đọc snapshot lúc mua — subscription bị refund sau đó chỉ phát hiện khi qua `expiresDate` (Android hiện cũng vậy, không phải hồi quy).

@@ -347,6 +347,26 @@ Mobile-relevant runtime contracts:
     idempotency, and returns `{ eventId, applied, eventResult, progress }`.
 - `GET /progress/:childId/achievements`
   - Returns six cumulative badges and all 48 stable stickers across four worlds.
+- `POST /anonymous-sessions/parental-consent` (change `add-parental-consent`)
+  - Body is `{ noticeVersion }` only. The server fills the policy version,
+    server-clock `grantedAt`, method, declared role, purposes and the session
+    `deviceId`. The same version again is idempotent (original `grantedAt`
+    kept). Returns 201 `{ parentalConsent: { noticeVersion, grantedAt } }`;
+    409 `household_deleted`; 409 `parental_consent_conflict` only if the write
+    keeps losing to concurrent consents (retry).
+  - `register`, `recover` and `status` return `parentalConsent` as that summary
+    or `null`. Mobile treats `null` as missing (the `ParentConsent` step before
+    Setup, or the one-time reconsent gate in `App.tsx`) and an ABSENT field as
+    unknown, which never gates.
+  - New builds send `X-Kido-Client-Features: parental-consent-v1` on every
+    request (`mobile/src/services/api.ts`). With that header, or with env
+    `PARENTAL_CONSENT_ENFORCE_ALL=true`, `POST /children` answers 409
+    `parental_consent_required` until consent is recorded, and mobile routes
+    that back to `ParentConsent`. Dropping the header silently turns
+    enforcement off for that build.
+  - Accepted versions: `PARENTAL_CONSENT_NOTICES` (server) and
+    `PARENTAL_CONSENT_NOTICE_VERSION` (mobile); the wording of each version is
+    kept in `docs/KIDO_PARENTAL_CONSENT_NOTICE.md`.
 - `POST /admin/publish`
   - Pipeline -> server content transfer.
   - Server runs deterministic guard and idempotent upsert.
