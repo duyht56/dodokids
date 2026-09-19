@@ -4,8 +4,20 @@
 - **Độ tuổi:** **5–6** (Age 5–6 · School-readiness track) — khớp `KIDO_MATH_SKILL_CATALOG_V2.md`
 - **Lịch phát:** 2 buổi/tuần, cố định **D2 + D5** → `lessonId` dạng `w{nn}-d2-tieng_viet` / `w{nn}-d5-tieng_viet`
 - **Quy mô:** 48 tuần × 2 buổi = **96 bài** × 8 activity = **768 activity** (16 seed/tuần — cùng nhịp môn Toán)
-- **Trạng thái:** DRAFT — rev sau Codex round 1 (sửa 3 blocker) + chốt độ tuổi 5–6 (2026-07-16)
-- **Phiên bản:** 2026-07-16-lang-curriculum-v1.2
+- **Trạng thái:** DRAFT — rev **bám đề thi vào lớp 1** (audit 2026-09-19) trên nền v1.2 (chốt độ tuổi 5–6)
+- **Phiên bản:** 2026-09-19-lang-curriculum-v1.3
+
+> **CẬP NHẬT 2026-09-19 — BÁM SÁT ĐỀ THI VÀO LỚP 1 (audit anh duyệt).** Giữ **audio-first,
+> KHÔNG mở mặt chữ** (§0.2 catalog nguyên vẹn). Năm thay đổi (chi tiết ở §3):
+> ① **Hạ** `lang_syllable_count` khỏi cửa vào Q1 (đếm tiếng không có trong đề).
+> ② **Thêm** `lang_initial_sound` — nghe âm đầu → chọn **ẢNH** (không cần `audio_library`) làm
+> cửa vào `pho` mới; theo **ÂM đầu, KHÔNG hiện chữ**.
+> ③ **Thêm** `lang_listen_word_count` — nghe câu/thơ → đếm số lần một *từ* lặp lại (đúng dạng đề).
+> ④ **Hạ** nhận-diện-vật-thô (`lang_word_to_picture._noun`, `lang_action_word` mức dễ) khỏi
+> `core`; vốn từ `core` chuyển sang `lang_riddle` + phân biệt hẹp.
+> ⑤ **Tăng tỷ trọng** `nar` (kể chuyện tranh) + `lis`+`inf` (nghe hiểu/suy luận) làm `core`
+> xuyên 48 tuần. Nguồn skill: `KIDO_LANG_SKILL_CATALOG.md` v1.2 (**35 skill**). Trần app: chỉ
+> phủ phần **tiếp nhận** — đề nặng NÓI, app không có mic/ASR.
 
 > **Chốt độ tuổi 5–6 (2026-07-16).** 48 tuần = **đúng năm trước lớp 1** (trẻ vào 5, ra 6).
 > Điều này làm định vị "school-readiness" sắc hẳn, và **khớp môn Toán** — catalog Toán V2 đã
@@ -22,7 +34,7 @@
 > việc nối tiếp, không phải doc này.
 >
 > Bộ skill + construct + anti-pattern nằm ở `KIDO_LANG_SKILL_CATALOG.md` (knowledge graph,
-> 33 skill) — doc này là *một* đường đi trên graph đó. Naming theo kido-server, xem
+> 35 skill) — doc này là *một* đường đi trên graph đó. Naming theo kido-server, xem
 > `docs/kido-activity-schema.ts`.
 
 ---
@@ -71,9 +83,10 @@ hiện đã thống nhất nói theo **năng lực**, nên chưa cần.*
 > (phần "nói" đẩy sang offline-task, không mic/ASR trong MVP). Tên buổi không được hứa thứ
 > sản phẩm không đo.
 
-Cân đối: D2 = 12 skill (voc 3 + lis 4 + pho 5) · D5 = 17 skill (sem 6 + nar 3 + syn 4 + inf 4)
-= **29 skill sẵn contract**. Số activity hai buổi bằng nhau (384 mỗi buổi) → D2 ≈ 32
-activity/skill, D5 ≈ 23 activity/skill. Chấp nhận được: `pho`/`voc` cần lặp nhiều hơn.
+Cân đối: D2 = 14 skill (voc 3 + lis 5 + pho 6) · D5 = 17 skill (sem 6 + nar 3 + syn 4 + inf 4)
+= **31 skill sẵn contract** (2026-09-19: +`lang_initial_sound`/`pho`, +`lang_listen_word_count`/`lis`,
+cả hai vào D2). Số activity hai buổi bằng nhau (384 mỗi buổi) → D2 ≈ 27 activity/skill, D5 ≈ 23
+activity/skill. Chấp nhận được: `pho`/`voc` cần lặp nhiều hơn.
 
 *Phân vai là trục **thiết kế**, không phải field. Seed chỉ khai `day: 'D2'|'D5'`.*
 
@@ -89,9 +102,11 @@ Với trẻ **đã 5 tuổi**, vốn từ mẹ đẻ đã dày → `L1` chỉ d�
 
 | Buổi | Skill mở mới | Micro |
 |---|---|---|
-| D2 | `lang_syllable_count` | `_2syl` (L1, warmup) → `_3syl` (L2) |
-| D2 | `lang_word_to_picture` | `_noun` (L1, warmup) → `_verb` (L2) → `_adjective` (L3, cuối Q1) |
-| D2 | `lang_action_word` | `_verb_in_scene` (L2) |
+| D2 | `lang_initial_sound` *(mới)* | `_consonant` (L2) — **cửa vào `pho` mới**, chọn ảnh theo âm đầu |
+| D2 | `lang_listen_word_count` *(mới)* | `_sentence` (L2) — nghe → đếm số lần một từ (kiểu đề) |
+| D2 | `lang_syllable_count` | `_2syl` (L1) — **chỉ warmup, không core** (hạ 2026-09-19) |
+| D2 | `lang_word_to_picture` | `_noun` (L1, **chỉ warmup**) → `_verb` (L2) → `_adjective` (L3, cuối Q1) |
+| D2 | `lang_action_word` | `_verb_in_scene` (L2) — mức dễ chỉ warmup; core dùng động từ tinh cùng họ |
 | D2 | `lang_follow_instruction` | `_2cond` (L2) — *`_1cond` (L1) chỉ dùng warmup tuần 1–2* |
 | D2 | `lang_listen_detail` | `_who_what` (L2) |
 | D5 | `lang_category_member` | `_basic` (L2) |
@@ -109,6 +124,11 @@ Với trẻ **đã 5 tuổi**, vốn từ mẹ đẻ đã dày → `L1` chỉ d�
 > `audio_library`). Chỗ Q1 D5 do `lang_odd_word_out` (cùng domain `sem`, single_select, mỗi
 > đáp án 1 vật đơn) lấp — xem review w01 §Renderability, catalog §0.6 Test 5.
 
+> **CẬP NHẬT 2026-09-19 — ĐOẠN DƯỚI ĐÃ HẠ.** `lang_syllable_count` KHÔNG còn là cửa vào
+> Q1/`pho` (đếm tiếng là kỹ năng siêu ngôn ngữ, không có trong đề vào lớp 1). Cửa vào `pho`
+> mới là `lang_initial_sound` (nghe âm đầu → chọn ảnh). Giữ `lang_syllable_count` ở vai
+> phụ/nâng, không `core`. Lập luận gốc bên dưới giữ lại làm bối cảnh lịch sử.
+>
 > **`lang_syllable_count` mở ở Q1 — hai lý do trùng nhau.**
 > ① **Sư phạm:** thứ tự phát triển nhận thức âm vị chuẩn là **âm tiết → vần → âm đầu → âm vị**.
 > Đếm tiếng là *cửa vào* của cả domain `pho`, và chín quanh 5 tuổi → hợp ngay tuần 1 khi trẻ
@@ -174,7 +194,7 @@ Với trẻ **đã 5 tuổi**, vốn từ mẹ đẻ đã dày → `L1` chỉ d�
 > nhưng mọi actionType đều là **chọn** — không có đường thu câu giải thích. Chỉ mở `_spot`.
 > Catalog cần đánh dấu `_explain_why` là không dựng được với contract hiện tại.
 
-**Kiểm phủ:** 29/29 skill sẵn contract đều được mở — `pho` 5 · `voc` 3 · `sem` 6 · `lis` 4 ·
+**Kiểm phủ:** 31/31 skill sẵn contract đều được mở — `pho` 6 · `voc` 3 · `sem` 6 · `lis` 5 ·
 `nar` 3 · `syn` 4 · `inf` 4. (`lang_word_match` ⛔ và 3 skill ⏸ nằm ngoài path, đúng §11 catalog.)
 
 ---
