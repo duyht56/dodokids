@@ -64,12 +64,14 @@ Sau khi chẻ `questionCore` → `questionCore` + `answerSpec` (change `seed-ans
 > `math_measurement_base`, `math_tangram_transform`,
 > `math_word_problems`, `math_verbal_math`.
 >
-> **Môn `tieng_viet` (D2/D5) — 29 skill.** Chi tiết construct/anti-pattern:
+> **Môn `tieng_viet` (D2/D5) — 31 skill sẵn contract.** Chi tiết construct/anti-pattern:
 > `docs/KIDO_LANG_SKILL_CATALOG.md`. Tuần nào mở skill nào: `docs/KIDO_LANG_CURRICULUM.md`.
-> - *Âm vị* (`pho`): `lang_syllable_count`, `lang_rhyme_match`🔊, `lang_onset_match`🔊, `lang_tone_discriminate`🔊, `lang_oral_blend`🔊
-> - *Từ vựng* (`voc`): `lang_word_to_picture`, `lang_picture_to_word`🔊, `lang_action_word`
+> *(2026-09-19 audit bám đề thi vào lớp 1: +`lang_initial_sound`, +`lang_listen_word_count`;
+> HẠ `lang_syllable_count` & `lang_word_to_picture._noun` & `lang_action_word` mức dễ khỏi `core`.)*
+> - *Âm vị* (`pho`): `lang_initial_sound` **(mới — nghe âm đầu → chọn ẢNH, không cần audio)**, `lang_syllable_count` *(chỉ warmup)*, `lang_rhyme_match`🔊, `lang_onset_match`🔊, `lang_tone_discriminate`🔊, `lang_oral_blend`🔊
+> - *Từ vựng* (`voc`): `lang_word_to_picture` *(`_noun` chỉ warmup)*, `lang_picture_to_word`🔊, `lang_action_word` *(mức dễ chỉ warmup)*
 > - *Ngữ nghĩa* (`sem`): `lang_antonym`🔊 (audio_select — KHÔNG vẽ đối cực bằng ảnh), `lang_category_member`, `lang_odd_word_out`, `lang_word_association`, `lang_part_whole`, `lang_verbal_analogy`
-> - *Nghe hiểu* (`lis`): `lang_follow_instruction`, `lang_listen_detail`, `lang_listen_inference`, `lang_riddle`
+> - *Nghe hiểu* (`lis`): `lang_listen_word_count` **(mới — nghe → đếm số lần một TỪ, thẻ số)**, `lang_follow_instruction`, `lang_listen_detail`, `lang_listen_inference`, `lang_riddle`
 > - *Tự sự* (`nar`): `lang_story_sequence`, `lang_story_causality`, `lang_story_character`
 > - *Cú pháp* (`syn`): `lang_classifier`, `lang_position_word`, `lang_word_order`, `lang_question_word`
 > - *Suy luận bằng lời* (`inf`): `lang_elimination`, `lang_if_then`, `lang_absurdity`, `lang_verbal_classification`

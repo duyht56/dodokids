@@ -5,13 +5,40 @@
   `KIDO_MATH_SKILL_CATALOG_V2.md`. Không làm phân hệ 4–5. `L1` chỉ là vai warmup,
   không phải tầng nội dung — xem `KIDO_LANG_CURRICULUM.md` §4.
 - **Trạng thái:** DRAFT — `audio_select` ĐÃ land (OpenSpec `add-audio-select-activity`, 2026-07-14); domain `pho` không còn bị chặn bởi contract (còn chặn bởi Bộ Từ Vựng Lõi, xem §8/§9)
-- **Phiên bản:** 2026-07-16-lang-catalog-v1.1 (sửa sau review: đếm lại 33 skill,
+- **Phiên bản:** 2026-09-19-lang-catalog-v1.2 (audit bám đề thi vào lớp 1: +`lang_initial_sound`,
+  +`lang_listen_word_count`, hạ `lang_syllable_count` & nhận-diện-vật-thô → **35 skill**; xem
+  khối CẬP NHẬT ngay dưới)
+- **Phiên bản trước:** 2026-07-16-lang-catalog-v1.1 (sửa sau review: đếm lại 33 skill,
   đồng bộ §8 với `audio_select` đã land, tách blocker ⛔ `lang_word_match`)
 
 > Catalog này là nguồn chân lý **bộ skill + micro-skill** của môn Tư Duy Ngôn Ngữ,
 > song song với `KIDO_MATH_SKILL_CATALOG_V2.md`. Nó dùng chung kiến trúc
 > knowledge-graph và cùng vòng đời pipeline, nhưng có **tiêu chuẩn hợp lệ riêng**
 > (§0.6) vì môn ngôn ngữ không thể thỏa Logic Signature Test của môn Toán.
+
+> **CẬP NHẬT 2026-09-19 — BÁM SÁT ĐỀ THI VÀO LỚP 1 (audit anh duyệt).** Sau khi soi khung
+> skill vào task thật của đề "định vị năng lực ngôn ngữ" (kiểu Vinschool) + khảo sát đầu năm,
+> chốt **giữ audio-first — KHÔNG mở mặt chữ, §0.2 nguyên vẹn** và làm lại theo **5 thay đổi**:
+> 1. **Hạ `lang_syllable_count`** (đếm tiếng) khỏi vai "cửa vào `pho`/Q1": kỹ năng siêu ngôn
+>    ngữ, KHÔNG có trong đề. (Đề có "nghe thơ đếm số lần một *TỪ* lặp lại" — là bài *nghe*,
+>    khác hẳn — xem #3.) Giữ ở vai phụ/nâng, không `core`.
+> 2. **Thêm `lang_initial_sound`** (§1) — nghe âm đầu → chọn **ẢNH**; cửa vào `pho` mới, seed
+>    được ngay Q1 (`single_select` + ảnh, **không cần `audio_library`**). Theo **ÂM đầu, KHÔNG
+>    hiện chữ** (chốt 2026-09-19) — giữ §0.2.
+> 3. **Thêm `lang_listen_word_count`** (§4) — nghe câu/thơ → đếm số lần từ X lặp lại (đúng dạng
+>    đề); đáp án là thẻ số, `single_select`, không cần audio_library.
+> 4. **Hạ nhận-diện-vật-thô** (`lang_word_to_picture._noun`, `lang_action_word` mức dễ) khỏi vai
+>    `core` — trượt Toddler Test; đẩy vốn từ mức `core` sang `lang_riddle` + phân biệt hẹp.
+> 5. **Tăng tỷ trọng** `nar` (kể chuyện tranh) + `lis`+`inf` (nghe hiểu/suy luận) làm `core`
+>    xuyên 48 tuần — xương sống của đề thi.
+>
+> **Trần của app — ghi thẳng khi marketing "bám đề thi":** đề nặng phần **NÓI** (hỏi-đáp, nhắc
+> lại dãy số, kể chuyện); app không có mic/ASR nên chỉ phủ được **phần tiếp nhận (nghe/nhận
+> diện)** — phần "nói" để offline/phụ huynh. Ranh giới "không đo nói" đã chốt từ tiếng Anh.
+>
+> **Chưa nạp vào code:** hai skill mới hiện **chỉ có trong doc** — còn phải thêm vào
+> `kido-pipeline/src/curriculum/lang-skill-catalog.ts`, `KIDO_SEED_AUTHORING.md` và routine
+> gen-seed trước khi seed được. Ra quyết định chi tiết: `KIDO_LANG_CURRICULUM.md` §3 (cùng ngày).
 
 ---
 
@@ -163,12 +190,39 @@ dạng / phong cách vẽ. Distractor phải chỉ khác nhau ở **nội dung n
 thanh điệu`. Thanh điệu là đặc thù không có trong phonics tiếng Anh và phải được
 dạy riêng.
 
+- **`lang_initial_sound +`** *(mới 2026-09-19)* — nghe âm đầu → chọn **ẢNH** có tên bắt đầu
+  bằng âm đó · `single_select`
+  - Construct: cô lập **âm đầu** của *tên vật* rồi đối chiếu âm mẫu nghe được ("Hình nào bắt
+    đầu bằng âm /bờ/?" → **bò**). Là skill `pho` **DUY NHẤT trả lời bằng ảnh** (option =
+    `assetRef`, âm mẫu đọc qua `promptAudio`) → **KHÔNG cần `audio_select`/`audio_library`**,
+    chỉ cần ảnh có `viLabel`; **seed/generate được NGAY Q1**.
+  - **Theo ÂM, KHÔNG theo CHỮ** (chốt 2026-09-19): âm mẫu chỉ đọc lên, **không hiện ký tự nào**
+    trên màn hình trẻ → giữ §0.2.
+  - **Cửa vào `pho` mới** — thay vai trò Q1 của `lang_syllable_count` (đã hạ, xem dưới).
+  - Quan hệ `lang_onset_match`: **bổ sung, không trùng** — onset_match so *hai từ audio*; skill
+    này *chọn ảnh* theo một âm mục tiêu (sát khuôn đề, rẻ hơn vì không cần `audio_library`). Đề
+    xuất: `lang_initial_sound` làm âm-đầu **chủ lực Q1–Q2**, `lang_onset_match` (audio) tầng nâng.
+  - Anti-pattern (bẫy tiếng Việt — bắt buộc):
+    - **ÂM không phải CHỮ**: mục tiêu /k/ thì *cá / kem / quả* đều đúng → tập vật phải để **chỉ
+      1 vật** mang âm mục tiêu (không lẫn `c`/`k`/`q`).
+    - âm ghép: *chó* bắt đầu bằng /ch/ ≠ /c/; distractor **không** được cùng âm đầu với mẫu
+      (nếu không → nhiều đáp án).
+    - nguyên âm đầu (a, o…) hiếm & dễ lẫn → để `_vowel_or_cluster` (L4); mở bằng phụ âm.
+    - distractor khác màu / kích thước / phong cách vẽ (anti-pattern chung) → cấm.
+  - Test: Mute Test ✅ (tắt tiếng không biết âm mẫu → không giải được). Miễn Toddler Test như
+    cả nhóm `pho` (cô lập âm đầu là kỹ năng siêu ngôn ngữ).
+  - Micro: `_consonant` (L2) · `_consonant_contrast` (L3) · `_vowel_or_cluster` (L4)
+
 - **`lang_syllable_count +`** — đếm số tiếng trong từ/cụm · `single_select`
   - Construct: tách dòng lời nói thành từng tiếng rời. Đáp án là **thẻ số**
     (tái dùng `number_card` trong Static Primitive Pack).
   - Anti-pattern: từ láy âm dễ nghe nhầm thành 1 tiếng ("lóng lánh"); ảnh minh
     họa vật gợi ý số lượng (2 con bướm cho "bươm bướm").
   - Micro: `_2syl` (L1) · `_3syl` (L2) · `_mixed` (L3)
+  - **HẠ 2026-09-19:** KHÔNG còn là cửa vào `pho`/Q1 (kỹ năng siêu ngôn ngữ, không có trong đề
+    vào lớp 1). Cửa vào `pho` mới là `lang_initial_sound`. Giữ ở vai phụ/nâng, **không làm
+    `core`**. Bài "đếm" đúng kiểu đề (đếm số lần một *từ* lặp lại khi nghe) nằm ở
+    `lang_listen_word_count` (§4), khác construct.
 
 - **`lang_rhyme_match + 🔊`** — tìm từ cùng vần · `audio_select`
   - Construct: so phần **vần** của tiếng, bỏ qua âm đầu và thanh điệu
@@ -226,6 +280,9 @@ dạy riêng.
     mèo / cái ghế / quả táo → bé loại bằng phỏng đoán thô). Distractor phải cùng
     nhóm ngữ nghĩa: mèo / chó / thỏ.
   - Micro: `_noun` (L1) · `_verb` (L2) · `_adjective` (L3)
+  - **HẠ 2026-09-19:** `_noun` KHÔNG làm `core` (trượt Toddler Test — "chỉ vào con mèo" là bài
+    tuổi lên 3); chỉ dùng vai `warmup`. Vốn từ mức `core` chuyển sang phân biệt hẹp (bò/bê/nghé)
+    + `lang_riddle`. Xem khối CẬP NHẬT đầu doc #4.
 
 - **`lang_picture_to_word + 🔊`** — nhìn ảnh → chọn từ nghe được · `audio_select`
   - Construct: chiều ngược của `lang_word_to_picture` — gọi tên vật.
@@ -247,6 +304,8 @@ dạy riêng.
     khác **hành động** (Đô Đô đang chạy / nhảy / ngủ / ăn).
   - Anti-pattern: đổi nhân vật giữa các option → bé chọn bằng nhân vật.
   - Micro: `_verb_in_scene` (L3)
+  - **HẠ 2026-09-19:** mức dễ (đổi 1 tư thế rõ) KHÔNG làm `core`; chỉ giữ biến thể **động từ
+    tinh cùng họ** (bò/trườn/leo/nhảy lò cò · rót/đổ/khuấy). Xem khối CẬP NHẬT đầu doc #4.
 
 ---
 
@@ -301,6 +360,19 @@ dạy riêng.
 
 ## 4 · LISTENING COMPREHENSION `lis`
 *Hiểu ngôn ngữ nói ở cấp câu và đoạn.*
+
+- **`lang_listen_word_count +`** *(mới 2026-09-19)* — nghe câu/đoạn thơ → đếm số lần một **TỪ**
+  lặp lại · `single_select`
+  - Construct: giữ chú ý qua cả câu/đoạn, **bắt & đếm** số lần nghe thấy từ mục tiêu. Đáp án là
+    **thẻ số** (tái dùng `number_card`). Đây là dạng có thật trong đề "định vị năng lực ngôn ngữ"
+    ("nghe *Mùa xuân là tết trồng cây…* — nghe được mấy chữ *xuân*?"). **KHÁC hẳn** đếm tiếng của
+    `lang_syllable_count`: ở đây đếm *lần lặp của một từ trong lời nói*, không tách âm tiết.
+  - Không cần `audio_library` (câu/thơ đọc qua `promptAudio`/`audioScript`); option là thẻ số.
+  - Anti-pattern: đoạn quá dài (>4 dòng) → thành bài trí nhớ; từ mục tiêu là từ chức năng khó bắt
+    (và, thì, của); số lần > 4 (quá tải với 5–6). Từ mục tiêu phải là **danh/động từ cụ thể**.
+  - Test: Mute Test ✅ (không có ảnh option, phải nghe mới đếm được). Miễn Toddler Test (chú ý
+    nghe-đếm là kỹ năng chú ý ngôn ngữ, không phải nhận diện vật).
+  - Micro: `_sentence` (L2) · `_poem` (L3)
 
 - **`lang_follow_instruction +`** — chọn đúng TẬP vật theo chỉ dẫn · `multi_select`
   - Construct: giữ nhiều điều kiện trong trí nhớ làm việc rồi chọn đúng **tập**
@@ -634,21 +706,23 @@ là bài toán, không phải bài ngôn ngữ.
 
 ## 11 · TRẠNG THÁI & VIỆC CẦN LÀM
 
-**Tổng: 33 skill · 7 domain.** Chưa skill nào có seed.
+**Tổng: 35 skill · 7 domain.** Chưa skill nào có seed. *(+2 vs v1.1: `lang_initial_sound` /
+`pho`, `lang_listen_word_count` / `lis` — audit bám đề thi 2026-09-19.)*
 
-Số skill mỗi domain (§1–§7): `pho` 6 · `voc` 4 · `sem` 7 · `lis` 4 · `nar` 4 ·
-`syn` 4 · `inf` 4 = **33**.
+Số skill mỗi domain (§1–§7): `pho` 7 · `voc` 4 · `sem` 7 · `lis` 5 · `nar` 4 ·
+`syn` 4 · `inf` 4 = **35**.
 
 | Trạng thái | Số | Skill |
 |---|---|---|
-| **Contract sẵn sàng — không cần audio** | **23** | `pho`: `lang_syllable_count` (1) · `voc`: `lang_word_to_picture`, `lang_action_word` (2) · `sem`: trừ `lang_synonym` ⏸ VÀ `lang_antonym` 🔊 (5) · `lis`: cả 4 (4) · `nar`: tất cả trừ `lang_story_retell` (3) · `syn`: cả 4 (4) · `inf`: cả 4 (4) |
+| **Contract sẵn sàng — không cần audio** | **25** | `pho`: `lang_syllable_count`, `lang_initial_sound` (2) · `voc`: `lang_word_to_picture`, `lang_action_word` (2) · `sem`: trừ `lang_synonym` ⏸ VÀ `lang_antonym` 🔊 (5) · `lis`: cả 5 gồm `lang_listen_word_count` (5) · `nar`: tất cả trừ `lang_story_retell` (3) · `syn`: cả 4 (4) · `inf`: cả 4 (4) |
 | **Contract sẵn sàng — dùng `audio_select` 🔊** (đã land 2026-07-14; chỉ còn chờ Bộ Từ Vựng Lõi + `audio_library`) | 6 | `lang_rhyme_match`, `lang_onset_match`, `lang_tone_discriminate`, `lang_oral_blend`, `lang_picture_to_word`, **`lang_antonym`** (đối cực → nghe, không vẽ; xem §0.6 Test 5) |
 | Chặn bởi contract khác ⛔ | 1 | `lang_word_match` (cần `match_pair` có `audioRef` trên item — xem §8.3) |
 | Post-MVP ⏸ | 3 | `lang_phoneme_delete`, `lang_synonym`, `lang_story_retell` |
 
-Kiểm: 23 + 6 + 1 + 3 = 33. ✓ → **29/33 skill đã sẵn contract** (không đổi — `lang_antonym`
-chuyển từ nhóm không-audio sang nhóm audio 2026-07-16, vẫn sẵn contract); chỉ 1 skill còn
-chờ mở rộng contract, 3 skill hoãn.
+Kiểm: 25 + 6 + 1 + 3 = 35. ✓ → **31/35 skill đã sẵn contract** (2 skill mới 2026-09-19 đều
+không cần audio, vào nhóm sẵn contract); chỉ 1 skill còn chờ mở rộng contract, 3 skill hoãn.
+*(Lưu ý: 2 skill mới hiện chỉ có trong doc — chưa nạp `lang-skill-catalog.ts`/authoring, xem
+khối CẬP NHẬT đầu doc.)*
 
 Thứ tự triển khai đề xuất:
 

@@ -25,6 +25,19 @@ tuổi** Việt Nam). Nhiệm vụ: sinh seed môn Tư Duy Ngôn Ngữ, MỖI L�
 
 **Môn này KHÔNG dạy mặt chữ.** Trẻ chưa biết đọc. Mọi bài đi qua **nghe – nhìn – chạm**.
 
+> **CẬP NHẬT 2026-09-19 — BÁM ĐỀ THI VÀO LỚP 1 (đọc trước khi chọn skill).**
+> - **Cửa vào `pho` mới `lang_initial_sound`** (nghe âm đầu → chọn **ẢNH**, `single_select`):
+>   theo **ÂM, KHÔNG hiện chữ**; KHÔNG cần `audio_library` (âm mẫu đọc qua `promptAudio`) NHƯNG
+>   **cần ảnh có `viLabel`** (như `voc`). Bẫy: /k/ = c/k/q đều đúng → chỉ 1 vật mang âm mục tiêu;
+>   "chó" = /ch/ ≠ /c/; distractor không cùng âm đầu với mẫu; nguyên âm đầu để mức khó nhất.
+> - **`lang_listen_word_count`** (`lis`, `single_select` + thẻ số): nghe câu/thơ → đếm số lần một
+>   **TỪ** lặp lại (đúng dạng đề). KHÁC `lang_syllable_count` (đếm tiếng). Không cần audio/ảnh.
+> - **HẠ khỏi `core`** (chỉ dùng `warmup`): `lang_syllable_count`, `lang_word_to_picture._noun`,
+>   `lang_action_word` mức dễ. Vốn từ mức `core` ưu tiên `lang_riddle` + phân biệt hẹp.
+> - **Tăng tỷ trọng `core`:** kể chuyện tranh (`nar`) + nghe hiểu/suy luận (`lis`+`inf`).
+> - Seed sinh/regenerate từ hôm nay ghi `metadata.version: "lang-v3"` (D2 đã làm lại toàn bộ 48 tuần
+>   sau review đa-agent: spiral thật, câu đố 2 manh mối, sửa vần/thanh, đưa lại syllable/action_word).
+
 ## 0. ĐỌC BỐI CẢNH TRƯỚC (bắt buộc)
 
 1. `docs/KIDO_LANG_CURRICULUM.md` — **§2** (phân vai D2/D5), **§3** (quý nào mở skill nào),
@@ -148,7 +161,8 @@ seed, áp **ba** test — cả ba phải đúng:
      **≥2 điều kiện hoặc có phủ định** (mỗi option vẫn là 1 vật đơn).
    - **`warmup` KHÔNG có nghĩa là dễ như tuổi lên 3** — chỉ là dễ hơn các bài khác trong
      cùng buổi.
-   - **Ngoại lệ:** skill âm vị (`lang_syllable_count`, vần, âm đầu, thanh) không áp test này.
+   - **Ngoại lệ:** skill âm vị (`lang_initial_sound`, `lang_syllable_count`, vần, âm đầu, thanh)
+     và `lang_listen_word_count` (chú ý nghe-đếm) không áp test này.
 5. **Renderability Test (MỖI OPTION = MỘT VẬT ĐƠN) — chống lỗi ảnh gen tệ nhất:**
    Pipeline ảnh chỉ vẽ **nhất quán** được vật đơn trên nền trơn. Nếu option là **cảnh** hay
    **quan hệ vị trí**, generator gen mỗi option ra một bối cảnh khác → phá phép so sánh (bé
@@ -205,7 +219,7 @@ Ghi `kido-pipeline/seeds/w{WW}-vi.json`:
     "stage": "<Q1..Q4>",
     "totalSeeds": 16,
     "chosenSkills": ["<skill đã dùng>"],
-    "generatedBy": "schedule-routine", "version": "lang-v1"
+    "generatedBy": "schedule-routine", "version": "lang-v3"
   },
   "seeds": [ /* 16 seed */ ]
 }
