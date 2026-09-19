@@ -16,6 +16,14 @@ export const EXPLORE_GAME_CODES = [
   'arithmetic_machine',
   'pattern_finder',
   'memory_match',
+  'stack_tower',
+  'odd_one_out',
+  'shape_hunt',
+  'sort_bins',
+  'missing_cell',
+  'peekaboo_recall',
+  'subitize_flash',
+  'mirror_build',
 ] as const;
 
 export type ExploreGameCode = (typeof EXPLORE_GAME_CODES)[number];

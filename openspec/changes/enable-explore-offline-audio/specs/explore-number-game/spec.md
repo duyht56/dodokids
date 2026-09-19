@@ -22,3 +22,7 @@ The game SHALL declare visual offline capability when its local generator, valid
 - **WHEN** the required audio-pack version and keys pass local capability verification
 - **THEN** `hear_select` can be generated and replayed without network access
 
+#### Scenario: Listen-select is the primary construct
+- **WHEN** the approved audio pack is bundled for a level that leads with `hear_select` (levels 1–2)
+- **THEN** the child hears the target number spoken, the on-screen prompt stays generic ("Con hãy nghe rồi chọn số đúng nhé."), and `match_sample` is emitted only as the offline fallback when audio is unavailable
+

@@ -291,11 +291,23 @@ và phần lớn D5.
 | 2 | ✅ `viLabel` (optional) + validator + `backfill-vi-labels.ts` | *(xong 2026-07-16)* — **generate ảnh cho lang** |
 | 3 | **Seed Q1** (w1–12 = 24 bài, 192 activity) — không cần `audio_library` | Chứng minh end-to-end |
 | 3b | Chạy `backfill-vi-labels.ts --dry-run` → bổ sung object còn thiếu vào map → chạy thật | Generate Q1 |
-| 4 | Danh sách từ ngữ-âm + nạp `audio_library` (TTS) | **Q2–Q4 `pho`** |
+| 4 | ✅ Danh sách từ ngữ-âm — `kido-pipeline/src/curriculum/vi-phonetics.ts` | *(xong 2026-09-02)* — **seed `pho` Q2–Q4 chạy được** |
+| 4b | Nạp `audio_library` (TTS) | **generate** bài `pho` — KHÔNG chặn seed |
 | 5 | *(tuỳ)* mở rộng `match_pair` mang `audioRef` | `lang_word_match` ⛔ |
 
 **Tính chất quan trọng:** Q1 hoàn toàn không có `audio_select` → **generate được** mà không
 cần epic `audio_library`. Chỉ cần ảnh có `viLabel`.
+
+> ✅ **Bước 4 xong 2026-09-02 — `pho` hết chặn ở khâu SEED.** Danh sách từ + chú giải ngữ âm
+> nay là `kido-pipeline/src/curriculum/vi-phonetics.ts`: kho từ một tiếng (họ vần và họ âm đầu
+> đều ≥3 từ), bảng từ 2–3 tiếng cho `lang_syllable_count` (có cờ từ láy), bộ khác thanh đã
+> khảo sát tay, và **validator riêng cho từng skill `pho`** mã hoá đúng các anti-pattern của
+> catalog. Điểm cốt lõi: module phân biệt **con chữ** âm đầu với **âm nghe được giọng Bắc**
+> (`d`/`gi`/`r` → `/z/`, `ch`/`tr`, `s`/`x` trung hoà) — nhìn mặt chữ mà soạn bài `lang_onset_match`
+> thì bài có hai đáp án đúng. Cách dùng: routine `gen-lang-seed.routine.md` §7b.
+>
+> `audio_library` (bước 4b) vẫn cần cho **generate**, nhưng nó không phải điều kiện của seed và
+> cũng không có gì để "chuẩn bị trước": clip sinh lười lúc generate qua `getOrCreateLibraryClip`.
 
 > ✅ **Phương ngữ: CHỐT MIỀN BẮC** (2026-07-16) — `lợn`, `ngô`, `dứa`, `bát`, `thìa`, `ô`, `mũ`,
 > `tất`, `dưa chuột`. Bắc/Nam khác **vần** và **số tiếng** → đổi sau khi seed `pho` là phải audit

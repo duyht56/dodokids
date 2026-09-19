@@ -572,6 +572,11 @@ export const isCountTap = (
 ): a is ActivityBase & { actionType: 'count_tap'; payload: CountTapPayload } =>
   a.actionType === 'count_tap'
 
+export const isCompareTap = (
+  a: Activity
+): a is ActivityBase & { actionType: 'compare_tap'; payload: CompareTapPayload } =>
+  a.actionType === 'compare_tap'
+
 export const isAudioSelect = (
   a: Activity
 ): a is ActivityBase & { actionType: 'audio_select'; payload: AudioSelectPayload } =>

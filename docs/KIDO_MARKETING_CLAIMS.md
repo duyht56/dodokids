@@ -2,9 +2,9 @@
 
 - **Mục đích**: mỗi claim công khai về sản phẩm → nguồn sự thật → trạng thái đối chiếu.
 - **Phạm vi dùng chung**: landing page, store listing (Play/App Store), copy trong app, quảng cáo. Đây là nguồn duy nhất; không claim ở bất kỳ kênh nào mà không có dòng tương ứng ở đây.
-- **Trạng thái**: 🚧 KHUNG — cột *Nguồn* đã điền phần đối chiếu được bằng code/docs; các dòng ❓ **chờ owner xác nhận**.
-- **Task liên quan**: `T-3` trong `landing/docs/SEO_PLAN.md`. Chặn Phase D (content routes).
-- **Ngày lập**: 2026-07-29.
+- **Trạng thái**: ACTIVE — chỉ các dòng ✅, hoặc phạm vi hẹp đã ghi rõ ở dòng 🟡, được dùng cho public copy; các dòng ❓ **chờ owner xác nhận**.
+- **Task liên quan**: `T-3` trong `landing/docs/SEO_PLAN.md`. Content route chỉ được dùng claim đã đạt điều kiện ở bảng này.
+- **Ngày lập**: 2026-07-29 · cập nhật gần nhất: 2026-09-05.
 
 > ⚠️ File này nằm ở `kido-app/docs/` chứ không ở `landing/docs/` vì landing là repo git riêng, còn claim thì dùng chung nhiều kênh. Ngoại lệ đã ghi trong G-5 của SEO plan. Hệ quả: plan và truth matrix **không bao giờ nằm chung một PR** — nhớ khi review.
 
@@ -80,8 +80,8 @@
 |---|---|---|---|
 | C-18 | Tiếng Anh: **12 chủ đề** gần gũi | `KIDO_ENGLISH_CURRICULUM.md:7` — "48 tuần = 48 bài = 12 chủ đề × 4 bài" | ✅ |
 | C-19 | Tiếng Anh: **phần nói tiếp tục cùng ba mẹ ngoài màn hình** | `KIDO_ENGLISH_CURRICULUM.md:47` — trẻ chỉ *nhận ra/chọn*, phần nói xử lý ở lớp offline-task, **không** dùng mic/ASR trong MVP; `:83` — "App không có mic" | ✅ |
-| C-20 | Tư duy ngôn ngữ: **không dạy mặt chữ hay đánh vần trên màn hình** | ❓ Không tìm thấy phát biểu chính sách tường minh trong `KIDO_LANG_CURRICULUM.md`. Doc tập trung vào nhận thức **âm vị** (`:113`, `:139`) — *nhất quán* với claim, nhưng "doc không nhắc tới mặt chữ" là bằng chứng yếu hơn "doc tuyên bố không dạy mặt chữ". Cần owner chốt | ❓ |
-| C-21 | Toán tư duy: so sánh, phân loại, quy luật, không gian, giải quyết vấn đề | ❓ cần đối chiếu `KIDO_MATH_SKILL_CATALOG_V2.md` theo từng domain | ❓ |
+| C-20 | Tư duy ngôn ngữ: **không dạy mặt chữ hay đánh vần trên màn hình** | `KIDO_LANG_SKILL_CATALOG.md:25-35` chốt phạm vi thuần nghe/tư duy; pipeline còn cưỡng chế Ear Test tại `seed-review.prompts.ts` | ✅ |
+| C-21 | Khung Toán tư duy gồm: số và lượng; quy luật/phân loại; hình–không gian; logic/giải quyết vấn đề | `KIDO_MATH_CURRICULUM.md` (FREEZE) §2–§3; `KIDO_MATH_SKILL_CATALOG_V2.md` theo các domain; corpus `kido-pipeline/seeds/w01..w48.json` có các skill tương ứng. Chỉ dùng để mô tả **khung chương trình**, không suy ra mọi activity đã imported | ✅ |
 
 ### 2.5 Khu vực phụ huynh
 
@@ -90,6 +90,15 @@
 | C-22 | Xem **tuần hiện tại, bài đã hoàn thành, chuỗi ngày học** | `parent.service.ts:112-118` — `streakCount`, `completedLessons`, `currentWeek` | ✅ |
 | C-23 | Xem **sao và thành tích** | 🟡 `progress.service.ts:212-215` có `stickersEarned` (sticker theo tuần). Cần chốt: "sao" trong copy có phải chính là sticker không, hay là hai thứ khác nhau | 🟡 |
 | C-24 | "Nhận **tổng kết**" về việc duy trì học | ❓ cần xác nhận tính năng này tồn tại | ❓ |
+
+### 2.6 Khu Khám phá
+
+| # | Claim | Nguồn sự thật | TT |
+|---|---|---|---|
+| C-25 | Khu Khám phá cho trẻ **tự chọn trò, chơi lại không giới hạn và thoát bất kỳ lúc nào** | `KIDO_EXPLORE_BRD.md:14-18,58-61`; catalog và luồng chơi hiện có tại `mobile/src/screens/child/ExploreCatalogScreen.tsx` + `ExplorePlayScreen.tsx` | ✅ |
+| C-26 | Khu Khám phá **không có XP/sao/huy hiệu/streak/leaderboard** và không ghi thay tiến độ lộ trình | `KIDO_EXPLORE_BRD.md:61-62,69-70`; `docs/kido-explore-contract.ts:4-6`; guard cấm play-history tại `mobile/src/explore/privacy.ts` | ✅ |
+| C-27 | Khu Khám phá **không có đồng hồ đếm ngược hoặc trạng thái thua**; khi trẻ gặp khó có thể tăng gợi ý/giảm độ phức tạp | `KIDO_EXPLORE_BRD.md:137-170,584,911-914`; logic `hintLevel`/demotion trong `mobile/src/screens/child/ExplorePlayScreen.tsx` | ✅ |
+| C-28 | Khu Khám phá không gọi AI sinh nội dung tự do khi trẻ chơi; bài được sinh bằng generator/validator và tài nguyên đã duyệt | `KIDO_EXPLORE_BRD.md:66-68`; registry generator/validator tại `mobile/src/explore/registry.ts`; request stateless được giới hạn tại `mobile/src/explore/privacy.ts` | ✅ |
 
 ---
 
@@ -126,7 +135,7 @@ Rút ra từ §1: mọi phát biểu về phạm vi truy cập phải nêu rõ n
 | Việc | Owner | Hạn |
 |---|---|---|
 | Chốt Q-6 — quyền lợi chính thức gói Tháng (§1) | | |
-| Xác nhận 8 dòng ❓ ở §2 | | |
+| Xác nhận các dòng ❓ còn lại ở §2 | | |
 | Chốt C-16 — "không quảng cáo" áp cho toàn app hay chỉ Khu Khám phá | | |
 | Chốt C-23 — "sao" và `stickersEarned` có phải một không | | |
 | Rà lại claim trên store listing và trong app theo cùng matrix này | | |
