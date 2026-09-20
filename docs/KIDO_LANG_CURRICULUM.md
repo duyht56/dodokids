@@ -335,7 +335,7 @@ cần epic `audio_library`. Chỉ cần ảnh có `viLabel`.
 | `seed-file.ts` / `generate-math-seeds.ts` | Hard-code `subject: 'toan'`, `DAYS=['D1','D4']`. **KHÔNG chặn** — đó là đường *tự động* của Toán; seed lang đi đường viết-tay-rồi-import như tiếng Anh. |
 | `viLabel` | ✅ **Xong 2026-07-16** — optional ở `attributes`, authoring-only (KHÔNG thêm vào `kido-server`: publish không mang `attributes`, và `LibraryAsset` bên server là mirror không ai dùng). Kèm `vi-label.ts` (validator + map ~90 object) và `backfill-vi-labels.ts --dry-run`. Xem catalog §9.1. |
 | Phương ngữ | ✅ **Chốt miền Bắc 2026-07-16**, khoá bằng test. Còn phải nghe xác nhận giọng TTS ở bước 4. |
-| **Còn lại** | Chạy `backfill-vi-labels.ts` (bỏ `--dry-run`) để ghi thật; rồi **seed Q1**. |
+| **Trạng thái seed** | ✅ Buổi D2 cả 48 tuần đã seed (lang-v3, 384 seed); D5 vẫn lang-v1. Còn lại trước generate: bổ sung ~32 nhãn còn thiếu vào `vi-label-map.ts` (chạy `labels-missing.ts`), rồi generate ảnh/audio. |
 
 ---
 
@@ -346,7 +346,8 @@ cần epic `audio_library`. Chỉ cần ảnh có `viLabel`.
    `lang_syllable_count` đưa về Q1; trọng tâm Q1 vào thẳng L2.
    *Rủi ro còn lại:* nếu sau này sản phẩm nhận trẻ 4 tuổi, path này KHÔNG dùng lại được —
    phải làm phân hệ riêng, không phải sửa vá.
-2. **`domainCode` cho seed lang** — chọn (a)/(b)/(c) ở §7. **Đây là việc treo lớn nhất còn lại.**
+2. ~~**`domainCode` cho seed lang**~~ — **ĐÃ CHỐT (a) (§7):** seed lang để `domainCode` undefined;
+   `LangDomainCode` chỉ sống trong catalog cho review/report (tra `getLangDomainCode()`). 0/384 seed D2 khai `domainCode`.
 3. **Chủ đề (theme):** có cần liệt kê ~12 chủ đề làm hướng dẫn chọn object cho người viết
    seed không, hay để tự do dưới `SEED_OBJECT_DIVERSITY`?
 4. **Gán cứng 96 bài?** Doc này dừng ở luật (§4–§5). Nếu muốn kiểm chứng spiral bằng máy

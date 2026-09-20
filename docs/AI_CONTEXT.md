@@ -31,14 +31,20 @@ When sources disagree, use this order:
 7. `docs/KIDO_MATH_SKILL_CATALOG_V2.md` - canonical math skill graph.
 8. `docs/KIDO_MATH_CURRICULUM.md` - curriculum freeze and naming reconciliation.
 9. `docs/KIDO_LANG_SKILL_CATALOG.md` - canonical language (`tieng_viet`) skill
-   graph (33 skills, 7 domains). DRAFT: no seeds yet. Its `pho` domain is no
-   longer blocked by the contract — `audio_select` landed (OpenSpec
-   `add-audio-select-activity`, 2026-07-14); 29/33 skills are contract-ready.
+   graph (**35 skills, 7 domains** — code mirror `kido-pipeline/src/curriculum/lang-skill-catalog.ts`).
+   Its `pho` domain is no longer blocked by the contract — `audio_select` landed
+   (OpenSpec `add-audio-select-activity`, 2026-07-14); **31/35 skills are
+   contract-ready** (only `lang_word_match` is contract-blocked; `lang_phoneme_delete`,
+   `lang_synonym`, `lang_story_retell` are post-MVP). **Seeds now exist**: the D2
+   session of all 48 weeks was authored as `metadata.version: "lang-v3"` (384 D2
+   seeds); the D5 session is still the earlier lang-v1 corpus.
 10. `docs/KIDO_LANG_CURRICULUM.md` - the `tieng_viet` learning path over that
-    graph. DRAFT PROPOSAL: 2 lessons/week on **D2 + D5**, 48 weeks, 16
-    seeds/week; organised by skill (like math), not by theme (like English).
-    Note: it argues `pho` needs only a word list + `audio_library` (TTS), not the
-    image vocabulary pack — which contradicts skill-catalog §9.2 (unresolved).
+    graph: 2 lessons/week on **D2 + D5**, 48 weeks, 16 seeds/week; organised by
+    skill (like math), not by theme (like English). The old `pho` "word list vs
+    image pack" question is resolved: `pho` seeds are TEXT-only (`questionCore` +
+    `answerSpec`), pull their word/phonetics data from
+    `kido-pipeline/src/curriculum/vi-phonetics.ts` (authoring-only), and mint TTS
+    clips lazily at generate — no image vocabulary pack, no preloaded audio.
 11. `docs/KIDO_ENGLISH_CURRICULUM.md` - English (`tieng_anh`) framework. DRAFT:
     theme/pattern/skill axes, 12 themes over 48 weeks (day 3), 14 skills. Its
     `en_phonics_initial`/`en_rhyme`/`en_dialogue_response` skills use
@@ -286,9 +292,12 @@ Mobile:
   odd_one_out tokens),
   `sort_bins` (tap-only classify into 2–3 bins), `missing_cell` (2-D Raven matrix,
   reuses pattern hidden-slot), `peekaboo_recall` (what's-missing, reuses memory
-  cover/reveal), `subitize_flash` (flash N 1–6 then Đô Đô auto-hides ~1s — approved,
-  no countdown clock; supportLevel re-peeks/stays-open), `mirror_build` (build the
-  symmetric right half). All tap-only, progressive L1→L5, deterministic generator +
+  cover/reveal), `subitize_flash` (N 1–6 at a glance, then Đô Đô auto-hides;
+  supportLevel re-peeks/stays-open), `mirror_build` (build the
+  symmetric right half). `peekaboo_recall` and `subitize_flash` show their set for
+  a ~3s look window timed by the shared, numeral-free
+  `explore/components/SandTimer.tsx` (owner-approved 2026-09-13; answering stays
+  untimed and running out fails nothing). All tap-only, progressive L1→L5, deterministic generator +
   independent validator (byte-identical replay), Đô Đô mascot, React-Compiler-safe
   (setState deferred in callbacks/timeouts). Registration points per game: codes in
   the 3 EXPLORE_GAME_CODES, games/renderers/rendererRegistry, registry.ts,
@@ -309,6 +318,14 @@ Mobile:
   retained-but-hidden game.
 - Auth/progress state: `mobile/src/store/authStore.ts` and
   `mobile/src/types/store.ts`.
+- Parent area (`mobile/src/navigation/ParentStack.tsx`) is pushed over the Child
+  root screen after the PIN gate. Leaving it goes through `leaveParentArea`
+  (`mobile/src/navigation/leaveParentArea.ts`), used by `ParentExitButton` at the
+  head of every parent tab header and by the relock gate's cancel; it `popTo`s
+  back to the child's Home, which unmounts ParentStack and ends the parent
+  session. Never `navigate('Child')` from the parent area: in React Navigation 7,
+  `navigate` to an EARLIER stack screen pushes a new copy, leaving ParentStack
+  mounted underneath — unlocked, or with its RN `Modal` gate stuck on top.
 - Canonical lesson completion is first persisted to the typed `rewardSyncStore`,
   then sent to `PATCH /progress/:childId/complete-lesson`; mobile reconciles the
   returned canonical snapshot. Mock/demo fallback is non-persistent practice.

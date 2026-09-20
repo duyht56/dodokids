@@ -36,9 +36,10 @@
 > lại dãy số, kể chuyện); app không có mic/ASR nên chỉ phủ được **phần tiếp nhận (nghe/nhận
 > diện)** — phần "nói" để offline/phụ huynh. Ranh giới "không đo nói" đã chốt từ tiếng Anh.
 >
-> **Chưa nạp vào code:** hai skill mới hiện **chỉ có trong doc** — còn phải thêm vào
-> `kido-pipeline/src/curriculum/lang-skill-catalog.ts`, `KIDO_SEED_AUTHORING.md` và routine
-> gen-seed trước khi seed được. Ra quyết định chi tiết: `KIDO_LANG_CURRICULUM.md` §3 (cùng ngày).
+> **Đã nạp vào code (2026-09-19/20):** hai skill mới đã có đủ construct + antiPattern trong
+> `kido-pipeline/src/curriculum/lang-skill-catalog.ts`, đã vào routine gen-seed và seed-review
+> prompt (miễn Toddler Test), và **đã được seed** ở buổi D2 của cả 48 tuần (lang-v3). Ra quyết
+> định chi tiết: `KIDO_LANG_CURRICULUM.md` §3 (cùng ngày).
 
 ---
 
@@ -244,14 +245,15 @@ dạy riêng.
   - **Tiêu chí chọn từ (KHÔNG phải "một nghĩa").** Tiếng Việt đơn âm đồng âm tràn
     lan — `cà` còn là động từ và nằm trong loạt ghép (cà phê, cà rốt), `cá` còn
     nghĩa "cá cược" — nên đòi "một nghĩa" là bất khả thi. Yêu cầu thực tế: mỗi
-    biến thể thanh phải có **một nghĩa danh từ cụ thể TRỘI rõ**, vẽ được, và được
-    chốt bằng **`viLabel` duy nhất** (§9.1). Chính `viLabel` khử đồng âm, không
-    phải bản thân từ.
+    biến thể thanh phải có **một nghĩa cụ thể TRỘI rõ mà trẻ 5–6 nắm**. **CHỐT
+    2026 (§9.2):** tiêu chí là "nghĩa trẻ nắm", **KHÔNG phải "vẽ được"** — bài tone
+    là `audio_select`, option là CLIP ÂM THANH, KHÔNG hiển thị ảnh (không dùng
+    `viLabel`). Bộ thanh đã khảo sát tay ở `vi-phonetics.ts` (`PHO_TONE_SETS`).
   - Anti-pattern: cặp `hỏi`/`ngã` ở L1–L3 (nhiều phương ngữ không phân biệt);
-    cặp thanh mà một trong hai không tạo thành từ có nghĩa/có ảnh minh họa.
-    **TRÁNH bộ `ma/má/mà/mạ`** làm ví dụ: `mà` là liên từ không vẽ được, `má/mạ`
-    đa nghĩa/lệ thuộc phương ngữ — vi phạm chính ràng buộc "mỗi biến thể phải là
-    từ rõ nghĩa, minh họa được" ở §9.
+    cặp thanh mà một trong hai không tạo thành từ có nghĩa cụ thể trẻ nắm.
+    **TRÁNH bộ `ma/má/mà/mạ`** làm ví dụ: `mà` là liên từ không có nghĩa cụ thể,
+    `má/mạ` đa nghĩa/lệ thuộc phương ngữ — vi phạm ràng buộc "mỗi biến thể phải là
+    từ rõ nghĩa trẻ nắm" ở §9.2.
   - Micro: `_2tone_far` (L3) · `_minimal_pair` (L4)
   - *Lưu ý: bộ tối thiểu 4 thanh mà cả 4 đều vẽ được rất hiếm — L4 nên dừng ở cặp
     2 thanh, chỉ mở 3–4 thanh khi §9 xác nhận đủ asset.*
@@ -718,8 +720,9 @@ là bài toán, không phải bài ngôn ngữ.
 
 ## 11 · TRẠNG THÁI & VIỆC CẦN LÀM
 
-**Tổng: 35 skill · 7 domain.** Chưa skill nào có seed. *(+2 vs v1.1: `lang_initial_sound` /
-`pho`, `lang_listen_word_count` / `lis` — audit bám đề thi 2026-09-19.)*
+**Tổng: 35 skill · 7 domain.** Buổi D2 của cả 48 tuần đã được seed (lang-v3, 384 seed);
+buổi D5 vẫn là corpus lang-v1. *(+2 vs v1.1: `lang_initial_sound` / `pho`,
+`lang_listen_word_count` / `lis` — audit bám đề thi 2026-09-19.)*
 
 Số skill mỗi domain (§1–§7): `pho` 7 · `voc` 4 · `sem` 7 · `lis` 5 · `nar` 4 ·
 `syn` 4 · `inf` 4 = **35**.
@@ -733,8 +736,8 @@ Số skill mỗi domain (§1–§7): `pho` 7 · `voc` 4 · `sem` 7 · `lis` 5 ·
 
 Kiểm: 25 + 6 + 1 + 3 = 35. ✓ → **31/35 skill đã sẵn contract** (2 skill mới 2026-09-19 đều
 không cần audio, vào nhóm sẵn contract); chỉ 1 skill còn chờ mở rộng contract, 3 skill hoãn.
-*(Lưu ý: 2 skill mới hiện chỉ có trong doc — chưa nạp `lang-skill-catalog.ts`/authoring, xem
-khối CẬP NHẬT đầu doc.)*
+*(2 skill mới đã nạp `lang-skill-catalog.ts` + routine + seed-review prompt và đã seed ở D2 —
+xem khối CẬP NHẬT đầu doc.)*
 
 Thứ tự triển khai đề xuất:
 
