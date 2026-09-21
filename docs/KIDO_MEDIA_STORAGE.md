@@ -223,6 +223,9 @@ xoá, và bỏ `GCP_BUCKET_*` khỏi `.env`.
 
 ## 5. Liên quan
 
+- `docs/KIDO_MEDIA_MIGRATION_HANDOFF.md` — **đang ở đâu, làm gì tiếp**: trạng
+  thái, việc phải dựng trước (R2, allowlist), runbook theo thứ tự, rollback,
+  việc treo. File này trả lời "tại sao"; file kia trả lời "giờ sao".
 - `docs/KIDO_CONTENT_PIPELINE.md` — vòng đời nội dung (bước Image/Audio).
 - `docs/KIDO_PIPELINE.md` — runbook vận hành, bảng biến môi trường.
 - `docs/KIDO_VISUAL_ASSET_SYSTEM.md` — hệ thống asset hình ảnh.

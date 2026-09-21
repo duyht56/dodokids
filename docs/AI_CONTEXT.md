@@ -49,7 +49,11 @@ When sources disagree, use this order:
 13. `docs/KIDO_MEDIA_STORAGE.md` - CHỐT 2026-09-21: where published media
     lives (Cloudflare R2, not GCS), the shipping clip format (AAC-LC `.m4a`),
     and the per-language TTS split (`vi` → VieNeu, `en` → Gemini). Authoritative
-    over any "GCS" wording still left in items 5-6.
+    over any "GCS" wording still left in items 5-6. Its companion
+    `docs/KIDO_MEDIA_MIGRATION_HANDOFF.md` carries the LIVE state: as of
+    2026-09-21 the code is merged but NOTHING has run against production yet,
+    and VieNeu has never been called end-to-end by the pipeline. Read it before
+    assuming any of this migration has happened.
 14. `docs/KIDO_BACKLOG.md` - story-level backlog and acceptance criteria.
 
 Note: `KIDO_SOT_FINAL_v2 (1).pdf` was provided outside the repo, but in this
