@@ -367,11 +367,16 @@ không phụ thuộc kết quả chơi và không lưu lịch sử:
 - Tương tác 1–5: chỉ tách–gộp **số 5**.
 - Tương tác 6–10: chỉ tách–gộp **số 10**.
 
-Trong mỗi tương tác, hệ thống đặt sẵn một phần dương ở ô `Có sẵn`; ô `Bé thêm`
-bắt đầu từ 0 và toàn bộ ô là vùng bấm. Mỗi lần chạm vào chỗ trống trong ô sẽ
-thêm một vật và tăng số đếm; chạm vào một vật đã có trong ô `Bé thêm` sẽ bớt
-đúng vật đó và giảm số đếm. Bên dưới chỉ có một nút `Kiểm tra`; không có nút
-thêm, bớt hoặc làm lại riêng. Giao diện không hiển thị phần bù hay số vật còn
+Bảng chơi là một **ngôi nhà**: số cần tách nằm trên **mái**, hai ô `Có sẵn` và
+`Bé thêm` là hai phòng dưới mái (mái = tổng, hai phòng = hai phần). Trong mỗi
+tương tác, hệ thống đặt sẵn một phần dương ở ô `Có sẵn`; ô `Bé thêm` bắt đầu từ
+0 và có **một ô trống viền đứt với dấu +** nằm ngay sau vật cuối cùng — đây là
+chỗ bấm duy nhất để thêm: mỗi lần chạm ô trống sẽ đặt một vật vào đó và tăng số
+đếm. Chạm vào một vật đã có trong ô `Bé thêm` sẽ bớt đúng vật đó và giảm số đếm.
+Nền ô không phải vùng bấm, nên khi ô gần đầy trẻ không thể lỡ bớt một vật trong
+lúc định thêm; ô trống biến mất khi ô đã chứa đủ bằng tổng. Bên dưới chỉ có một
+nút `Kiểm tra` (các nút `Kiểm tra`/`Gộp lại`/`Tiếp tục` cao tối thiểu 64pt);
+không có nút thêm, bớt hoặc làm lại riêng. Giao diện không hiển thị phần bù hay số vật còn
 lại, và không lặp lại lời hướng dẫn bằng chữ ngoài bong bóng lời của Đô Đô.
 
 Luồng hoàn thành của một tương tác tách trực tiếp là:
@@ -420,7 +425,8 @@ khác nhau (số 5 chỉ có bốn phần hợp lệ nên bốn slot cố địn
 
 #### Asset
 
-Một object sprite được clone; hai ô trực quan có nhãn `Có sẵn` và `Bé thêm`.
+Một object sprite được clone; hai ô trực quan có nhãn `Có sẵn` và `Bé thêm`
+nằm dưới một mái nhà vẽ bằng vector (react-native-svg) chứa số tổng.
 
 ### 7.6. Game 6 — Máy cộng trừ
 
