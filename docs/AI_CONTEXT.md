@@ -52,7 +52,15 @@ When sources disagree, use this order:
     item 9).
 12. `docs/KIDO_SEED_AUTHORING.md` and `docs/prompts/gen-math-seed.routine.md` -
     seed creation rules.
-13. `docs/KIDO_BACKLOG.md` - story-level backlog and acceptance criteria.
+13. `docs/KIDO_MEDIA_STORAGE.md` - CHỐT 2026-09-21: where published media
+    lives (Cloudflare R2, not GCS), the shipping clip format (AAC-LC `.m4a`),
+    and the per-language TTS split (`vi` → VieNeu, `en` → Gemini). Authoritative
+    over any "GCS" wording still left in items 5-6. Its companion
+    `docs/KIDO_MEDIA_MIGRATION_HANDOFF.md` carries the LIVE state: as of
+    2026-09-21 the code is merged but NOTHING has run against production yet,
+    and VieNeu has never been called end-to-end by the pipeline. Read it before
+    assuming any of this migration has happened.
+14. `docs/KIDO_BACKLOG.md` - story-level backlog and acceptance criteria.
 
 Note: `KIDO_SOT_FINAL_v2 (1).pdf` was provided outside the repo, but in this
 environment it appears image-based or otherwise not text-extractable. If it is
@@ -340,6 +348,26 @@ Server:
 
 Pipeline:
 
+- Media storage (OpenSpec-free change, 2026-09-21): published images and audio
+  live in **Cloudflare R2**, not GCS — egress is ~the whole bill because every
+  device prefetches and caches the catalog, and R2 charges $0 for it at equal
+  measured latency from Vietnamese ISPs. `storage.service.ts` speaks S3;
+  `R2_PUBLIC_BASE_*` must be a custom domain (never `r2.dev`) and a missing
+  bucket now throws instead of being auto-created. Object keys are unchanged, so
+  the GCS move was a host swap (`asset-url-rewrite.ts`,
+  `scripts/migrate-images-to-r2.ts`). If `PUBLISH_ASSET_ALLOWED_HOSTS` is set on
+  kido-server it must list the R2 domains. Details: `docs/KIDO_MEDIA_STORAGE.md`.
+- Audio (same change): lesson clips ship as **AAC-LC 32k `.m4a`**
+  (`LESSON_CLIP_FORMAT`), ~20 KB instead of ~197 KB per clip. NOT Opus — iOS
+  AVFoundation has no Ogg/WebM demuxer so `expo-audio` cannot play it. The
+  bundled Explore pack deliberately stays WAV, which is why the format is a
+  parameter of `getOrCreateLibraryClip` rather than a global.
+- TTS (same change): `lesson-audio.ts` picks a language per slot,
+  `tts.service.ts` picks an engine per language — `vi` → VieNeu-TTS v3 Turbo
+  over its local OpenAI-compatible server, `en` → Gemini (unchanged; the app
+  *teaches* English). VieNeu must NOT receive the `TTS_*_PREFIX` strings: they
+  are unspoken control instructions on Gemini's path and a plain TTS reads them
+  aloud. Locked by `src/services/tts-routing.test.ts`.
 - Seed review: `kido-pipeline/src/pipeline/seed-review`.
 - Runner: `kido-pipeline/src/pipeline/runner.ts`.
 - Generation steps: `kido-pipeline/src/pipeline/steps`.
@@ -465,6 +493,10 @@ npm run trigger:seed-review
 npm run pipeline:week -- --week 1
 npm run publish:week -- 1
 npm run admin:dev
+
+# Media migration / regeneration (2026-09-21, see docs/KIDO_MEDIA_STORAGE.md)
+npm run migrate:images-r2 -- --dry-run   # copy GCS images → R2 + rewrite URLs
+npm run regen:audio -- --dry-run         # rebuild every clip on the new voice/format
 ```
 
 ## Agent Notes

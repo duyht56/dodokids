@@ -125,8 +125,9 @@ Match `assets_library` (reuse) or create `activity_assets` for each `assetRef`.
 
 ### Step 4 — Media (async workers)
 
-- **Image** (`4-image.ts` / `image.worker`): Imagen → GCS; asset `status: pending_review`, `imageUrl` set.
-- **Audio** (`4-audio.ts` / `audio.worker`): TTS → GCS for 5 fields (`question, correct, hint1, hint2, explain`); writes `audioFiles.<field>`.
+- **Image** (`4-image.ts` / `image.worker`): Imagen → staged locally; asset `status: pending_review`, `imageUrl` set. Uploaded to **Cloudflare R2** at publish.
+- **Audio** (`4-audio.ts` / `audio.worker`): TTS → staged locally as **AAC-LC `.m4a`** for 5 fields (`question, correct, hint1, hint2, explain`); writes `audioFiles.<field>`. Uploaded to **R2** at publish.
+  - Engine is chosen by the clip's language, not by the call site: `vi` → **VieNeu-TTS**, `en` → **Gemini**. See `docs/KIDO_MEDIA_STORAGE.md`.
 
 ### Step 5 — Ready for Human Gate
 

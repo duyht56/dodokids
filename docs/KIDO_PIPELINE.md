@@ -2,7 +2,7 @@
 
 `kido-pipeline` là hệ thống **sản xuất nội dung học tập** cho app Kido (trẻ 4–6 tuổi): từ seed JSON → activity hoàn chỉnh (text, ảnh, audio) → human review → publish sang `kido-server` cho mobile app.
 
-**Stack:** Next.js 14 admin UI + Bull/Redis workers + MongoDB + Vertex AI (Gemini, Imagen, TTS) + Google Cloud Storage.
+**Stack:** Next.js 14 admin UI + Bull/Redis workers + MongoDB + Vertex AI (Gemini, Imagen, TTS tiếng Anh) + VieNeu-TTS (tiếng Việt) + **Cloudflare R2** (media đã publish). Xem `docs/KIDO_MEDIA_STORAGE.md`.
 
 ---
 
@@ -137,8 +137,8 @@ flowchart TB
 
 #### Step 4 — Media (async workers)
 
-- **Image:** Imagen → GCS
-- **Audio:** TTS → GCS (5 fields: question, correct, hint1, hint2, explain)
+- **Image:** Imagen → staging cục bộ → **R2** lúc publish
+- **Audio:** TTS → staging cục bộ (AAC-LC `.m4a`) → **R2** lúc publish (5 fields: question, correct, hint1, hint2, explain). `vi` đi VieNeu, `en` đi Gemini.
 
 #### Step 5 — Human Gate (quality gate chính cho activity)
 
@@ -269,8 +269,11 @@ Xem `kido-pipeline/.env.example`:
 
 | Nhóm | Biến chính |
 |---|---|
-| GCP | `GCP_PROJECT`, `GCP_BUCKET_IMAGES`, `GCP_BUCKET_AUDIO` |
-| Models | `GEMINI_MODEL`, `IMAGEN_MODEL`, `TTS_MODEL`, `TTS_VOICE` |
+| GCP (Vertex) | `GCP_PROJECT`, `GCP_LOCATION` |
+| GCP (legacy buckets — chỉ dùng cho `migrate:images-r2`) | `GCP_BUCKET_IMAGES`, `GCP_BUCKET_AUDIO` |
+| Cloudflare R2 | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_IMAGES`, `R2_BUCKET_AUDIO`, `R2_PUBLIC_BASE_IMAGES`, `R2_PUBLIC_BASE_AUDIO` |
+| Models | `GEMINI_MODEL`, `IMAGE_MODEL`, `TTS_MODEL`, `TTS_VOICE`, `TTS_VOICE_EN` |
+| TTS tiếng Việt | `TTS_VI_PROVIDER`, `VIENEU_BASE_URL`, `VIENEU_VOICE`, `VIENEU_SAMPLE_RATE`, `VIENEU_CONCURRENCY`, `AUDIO_AAC_BITRATE` |
 | DB | `MONGODB_URI` (default `kido_pipeline`) |
 | Queue | `REDIS_URL` |
 | Telegram | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `TELEGRAM_WEBHOOK_SECRET` |
@@ -321,7 +324,7 @@ Xem `kido-pipeline/.env.example`:
 ```
 seeds/*.json
     ↓
-kido-pipeline (authoring, MongoDB kido_pipeline, GCS assets)
+kido-pipeline (authoring, MongoDB kido_pipeline, media → Cloudflare R2)
     ↓ publish (POST /admin/publish)
 kido-server (NestJS, MongoDB kido, API lessons)
     ↓
