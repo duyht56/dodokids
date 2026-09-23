@@ -1,11 +1,7 @@
 ## MODIFIED Requirements
 
 ### Requirement: Transient play run
-Starting a game SHALL create a new in-memory run. A finite game-owned run policy SHALL contain 5–10 interactions; games without an explicit policy retain their existing run-size behavior. A game MAY instead declare a continuous one-at-a-time run whose level progression and replay exclusions exist only while its play route is mounted. `number_bond` SHALL declare exactly 10 interactions: five for whole 5 followed by five for whole 10. All run state SHALL NOT be persisted to local storage, secure storage, database, analytics or a remote service.
-
-#### Scenario: Number-bond run starts
-- **WHEN** the registered `number_bond` game is opened
-- **THEN** the shell resolves its ten-slot plan and displays progress against 10 rather than a global five-interaction constant
+Starting a game SHALL create a new in-memory run. A finite game-owned run policy SHALL contain 5–10 interactions; games without an explicit policy retain their existing run-size behavior. A game MAY instead declare a continuous one-at-a-time run whose level progression and replay exclusions exist only while its play route is mounted. All run state SHALL NOT be persisted to local storage, secure storage, database, analytics or a remote service.
 
 #### Scenario: Existing five-interaction game starts
 - **WHEN** a registered game without a finite or continuous game-owned policy is opened

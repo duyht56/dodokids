@@ -32,8 +32,8 @@
 - [x] 5.2 `ExplorePlayScreen`: keep the shell full-bleed (background and exit scrim) and cap/centre an inner play column.
 - [x] 5.3 Move `PLAY_SCREEN_TOP_BAR` / `PLAY_SCREEN_FEEDBACK_AREA` out of `RoutePlannerRenderer` into `explore/layout.ts` so the shell and the renderer cannot drift.
 - [x] 5.4 Route thirteen renderers' width reads through `useExploreContentWidth`, keeping `useWindowDimensions` for height where a contract script asserts on it.
-- [x] 5.5 Cap the tap-count, shape-hunt and sort-bins scenes; the tracing canvas; the arithmetic column; and the number line in `VisualMathPrimitives`.
-- [x] 5.6 Widen the missing-cell and seesaw caps for bigger size classes without renaming or changing the asserted constants.
+- [x] 5.5 Cap the sort-bins scene; the tracing canvas; and the number line in `VisualMathPrimitives`.
+- [x] 5.6 Widen the missing-cell caps for bigger size classes without renaming or changing the asserted constants.
 - [x] 5.7 `ExploreCatalogScreen`: replace the fixed 47% cards with a 2/3/4-column pixel grid and cap the header, banner and content column.
 
 ## 6. Rewards, practice, tracing

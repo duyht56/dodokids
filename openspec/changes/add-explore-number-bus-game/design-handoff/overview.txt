@@ -1,0 +1,125 @@
+ 
+ KIDO · KHÁM PHÁ · GIAI ĐOẠN 1
+ Xe buýt hai tầng · Thiết kế chi tiết
+ Hướng hình ảnh: 1a Sơ đồ phẳng . Với 4 hàng ghế ở L3–L4, hướng này có ít chi tiết thừa nhất nên giữ được ô chạm 64pt và dễ đếm. Mọi màn hình dưới đây dựng từ cùng hai component Bus và Screen, dùng chung Tweaks (emoji ↔ mặt thú vector, loài).
+ 1 · Sức chứa theo cấp
+ L1 4 ghế rời/tầng · L2 1×5/tầng · L3–L4 2×5/tầng, lấp hàng đầu trước. Ghế trống là ghế trung tính, không viền đứt. Ngoại lệ: make_ten.
+ 2 · Trợ giúp mức 2
+ missing_part: biển tổng hiện N chấm mờ theo hàng 5, không có chấm nào trong rèm. count_on: cửa trong dần, hiện a chấm mờ.
+ 3 · Bỏ ô "+", dùng bến xe
+ Luôn đúng một bạn chờ ở bến 88pt cạnh nút "Tập tầm vông!". Chạm bến → bạn trốn sau rèm. Chạm bóng mờ → bạn về bến. Cùng thao tác với board_all và count_on.
+ A · Component · B1 board_all B2 free_split B3 next_number B4 missing_part B5 count_on · C · Trợ giúp Motion spec D · Cấp độ E · Giai đoạn 2 iPad / SE F · Phụ huynh Accessibility Câu hỏi mở 
+ A Bộ component kích thước tính bằng pt 
+ {{ bc.name }}
+ {{ bc.size }}
+[IMPORT name="Bus" b="{{ bc.b }}" hint-size="334px,340px"]
+ {{ bc.note }}
+ Ghế · Seat
+ 56 hình · bước 64 · vùng chạm 64×64
+ trống 
+[IMPORT name="Passenger" kind="{{ kind }}" em="🐱" size="46" hint-size="46px,46px"]
+ có bạn 
+[IMPORT name="Passenger" kind="{{ kind }}" em="🐱" sil="{{ true }}" size="46" hint-size="46px,46px"]
+ bóng mờ 
+ chấm mờ 
+ Ghế trống luôn trắng đặc, không viền đứt: không đọc thành "ô cần lấp".
+ Bạn thú · Passenger
+ 46 trong ghế · 48 ở bến · 52 ở bến lớn
+ (a) emoji 
+[IMPORT name="Passenger" kind="emoji" em="{{ sp }}" size="36" hint-size="36px,36px"]
+ (b) vector 
+[IMPORT name="Passenger" kind="vector" size="36" hint-size="36px,36px"]
+[IMPORT name="Passenger" kind="vector" sil="{{ true }}" size="36" hint-size="36px,36px"]
+ gấu mẫu · chỉ hình tròn · 5 loài còn lại cùng hệ 
+ Một bài chỉ một loài. Bóng mờ = cùng hình, tint #242631 · 50%.
+ Biển tổng trên nóc · RoofSign
+ tròn 76 · viền 3 · pill 76 cao (L4)
+ 7 
+ 7 
+ trống (L1, count_on trước khi chọn) · chấm · số · đang đọc thần chú. Nóc chỉ dành cho tổng, không đặt gì khác cạnh biển.
+ Bến xe · Stop
+ ô bạn 64×64 · viền 3 theo tầng đích
+[IMPORT name="Passenger" kind="{{ kind }}" em="🐰" size="48" hint-size="48px,48px"]
+[IMPORT name="Passenger" kind="{{ kind }}" em="🐰" size="48" hint-size="48px,48px"]
+[IMPORT name="Passenger" kind="{{ kind }}" em="🐰" size="48" hint-size="48px,48px"]
+ 2 bến (board_all): trái → tầng dưới (cam), phải → tầng trên (xanh). Đang được chỉ: nền tint + vòng coral. 1 bến (count_on): viền theo tầng đích.
+ Bến chờ một bạn · StationSlot
+ 88×88 · bo 24 · missing_part
+[IMPORT name="Passenger" kind="{{ kind }}" em="🐱" size="52" hint-size="52px,52px"]
+ {{ ss.l }} 
+ Không bao giờ hiện hàng đợi. Tầng trên đầy → bến mờ 40%, chạm không phản hồi.
+ Thẻ số · NumberCard
+ 96×112 · số Baloo 800 48 · dải chấm 7pt · 35%
+ 7 
+ {{ c.l }} 
+ Nút · Buttons
+ CTA 88 cao · Xong 80 · Tiếp 160×80 · pill
+ Tập tầm vông!
+ Tập tầm vông!
+ Xong
+ Xong
+ thường · nhấn (dịch 4pt, bóng mất) · Xong thường / chờ · Tiếp (chỉ icon). Chờ = nền sunk, không mờ opacity để vẫn đạt tương phản.
+ Bong bóng số · bàn tay gợi ý · ảnh cách chia
+ bóng 26 · tay 44 · 80% · ảnh 52
+ 6
+ Ảnh cách chia (free_split lượt 2) lưu mỗi cách đã chia thành một thẻ nhỏ ở góc bảng. Đây là tín hiệu không lời cho "còn cách khác".
+ {{ g.tag }} {{ g.title }} {{ g.meta }} 
+ {{ g.sub }}
+ {{ fr.no }} {{ fr.label }} 
+[IMPORT name="Screen" f="{{ fr.f }}" hint-size="393px,852px"]
+ {{ fr.t }}
+ {{ fr.a }} 
+ {{ fr.v }} 
+ C Trợ giúp dùng chung 
+ Luật chung: mức 1 chỉ trỏ vào chỗ chạm, không đếm hộ. Mức 2 mở đường đếm tất cả, không bao giờ để lộ phần là đáp án. Phản hồi "chưa đúng" luôn là vật lý nhẹ, không X đỏ, không rung màn. Các khung minh hoạ nằm trong storyboard từng mode (nhãn "Trợ giúp").
+ Mode
+ Gợi ý lần đầu (bàn tay, 2,5s)
+ Mức 1 · sau 1 lần chưa đúng
+ Mức 2 · sau 2 lần
+ {{ h.m }}
+ {{ h.a }}
+ {{ h.b }}
+ {{ h.c }}
+ M Motion spec chỉ translate / scale / opacity / rotate · useNativeDriver: true 
+ Tên
+ Thuộc tính
+ Thời lượng
+ Easing
+ Giảm chuyển động
+ {{ m.n }}
+ {{ m.p }}
+ {{ m.d }}
+ {{ m.e }}
+ {{ m.r }}
+ D Tiến trình cấp độ · cùng bài "5 gồm 2 và 3" 
+ {{ lv.l }} {{ lv.name }} 
+[IMPORT name="Bus" b="{{ lv.b }}" hint-size="334px,340px"]
+ · {{ p }}
+ F Màn phụ huynh · Cài đặt Khám phá 
+ 9:41 
+ Cài đặt Khám phá
+ Chọn cấp bắt đầu cho từng trò. Bé luôn được chơi lại cấp dễ hơn.
+ Xe buýt hai tầng
+ Tách – gộp, đếm thêm trong phạm vi 10
+ {{ p.l }}
+ Khi nào bé đã vững?
+ {{ c.l }} {{ c.t }} 
+ {{ o.n }}
+ {{ o.l }}
+ Ghi chú
+ · Cấp đang chọn tô nền coral tint, tiêu chí của cấp đó sáng lên để phụ huynh biết cần quan sát gì.
+ · Không nâng cấp tự động, không điểm số, không so sánh với bé khác.
+ · Tiêu chí giữ nguyên nội dung đặc tả. Đề xuất đổi "L1…L5" thành "Cấp 1…5" ở danh sách game khác cho dễ đọc.
+ · L5 hiện trong bộ chọn nhưng chỉ bật khi giai đoạn 2 ra mắt.
+ A11Y Nhãn đọc màn hình 
+ Thành phần
+ accessibilityLabel
+ Ghi chú
+ {{ r.c }}
+ "{{ r.l }}"
+ {{ r.n }}
+ ? Câu hỏi mở và chỗ đề xuất khác đặc tả 
+ {{ q.i }} {{ q.t }} 
+ {{ q.d }}
+ Made with Claude Design 
+ 

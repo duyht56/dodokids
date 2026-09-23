@@ -8,7 +8,7 @@
 
 ## 2. Giọng Đô Đô + batch audio v2 (gom gen một lần)
 
-- [x] 2.1 `promptAudio.ts` + mirror pipeline: 13 câu feedback, 11 tên game, 6 mảnh feedback tách gộp, 6 hướng dẫn tracing, 5 tower, 1 odd; builder `praiseKeys/retryKeys/hintKeys/levelUpKeys/easierKeys/runCompleteKeys/breakReminderKeys/gameNameKeys/numberBondFeedbackKeys/tracingGuidanceKeys/stackTowerKeys/oddOneOutKeys`
+- [x] 2.1 `promptAudio.ts` + mirror pipeline: 13 câu feedback, 11 tên game, 6 hướng dẫn tracing, 5 tower, 1 odd; builder `praiseKeys/retryKeys/hintKeys/levelUpKeys/easierKeys/runCompleteKeys/breakReminderKeys/gameNameKeys/tracingGuidanceKeys/stackTowerKeys/oddOneOutKeys`
 - [x] 2.2 Pack v2: pipeline `EXPLORE_AUDIO_PACK_VERSION = 'explore-audio-vi-v2'`; mobile chấp nhận v1 + v2
 - [x] 2.3 `audio-batch-v2.md`: 58 clip cần gen (trong 152 key inventory) + lệnh chạy một lần
 - [ ] 2.4 (anh Duy / pipeline) `npm run explore-audio:generate` → `review` → `approve -- --all` → `export -- ../mobile`; chạy lại `npm run test:explore-offline-audio` + `test:explore-prompt-audio` sau export
@@ -18,9 +18,8 @@
 ## 3. supportLevel + hạ độ khó
 
 - [x] 3.1 `ExploreRendererProps.supportLevel` (0/1/2 = hintLevel của màn chơi)
-- [x] 3.2 `demoteRangeProgress` / `demoteArithmeticProgress`; màn chơi hạ 1 phạm vi sau 3 lần sai liên tiếp + "Mình thử bài dễ hơn nhé"; `advanceRangeProgress(…, game.levels)` cho thang 5 level
+- [x] 3.2 `demoteRangeProgress`; màn chơi hạ 1 phạm vi sau 3 lần sai liên tiếp + "Mình thử bài dễ hơn nhé"; `advanceRangeProgress(…, game.levels)` cho thang 5 level
 - [x] 3.3 Khám phá số: supportLevel 1 chấm/khung 10 dưới thẻ, 2 còn 2 lựa chọn
-- [x] 3.4 Máy cộng trừ + So sánh: supportLevel 1 hiện số đếm, 2 chạy animation giải thích / pulse bên đúng
 
 ## 4. Hai game mới
 
@@ -60,15 +59,6 @@ Mức 2: thu hẹp bộ chọn còn đáp án + 1 distractor giữ lại (tất 
 Giữ nguyên ListenButton của hear_select, đọc số khi chạm (`onSpeakFeedback([numberKey(n)])`), mascot Đô Đô; mọi hỗ trợ hoạt động im lặng khi thiếu clip.
 Thêm delta OpenSpec `specs/explore-number-game/spec.md` (ADDED: Support level visuals, 8 scenario cho mức 1/mức 2/không audio/không đổi exercise).
 Xác minh: tsc 0 lỗi, eslint sạch, test:explore-variety-buckets / test:explore-prompt-audio / test:explore-number pass; kido-server jest explore.variety.spec + explore.number-count.spec 94/94 pass (không cần sửa spec server).
-
-### support_arith_compare (báo cáo agent)
-ArithmeticRenderer: nhận supportLevel; mức 1 đổi lời nhắc thành 'Con đếm mỗi nhóm rồi chọn nhé!' và tô sáng dòng phép tính (equationPanelHint, amber); mức 2 chỉ giữ đáp án + 1 thẻ nhiễu, thẻ còn lại mờ/khóa (status 'dimmed', không rung), chọn xác định từ randomSeed qua supportDimmedOptions (export)
-VisualMathPrimitives: VisualMathScene nhận supportLevel; mức 1 hiện CountChip dưới từng nhóm toán hạng / CountStrip (toán hạng + dấu, không bao giờ in kết quả; make_10 chỉ hiện toán hạng đầu); mức 2 phát bước ngữ nghĩa addGroup (nhóm 2 trượt vào), removeGroup (ô bị bớt rơi xuống, ObjectGroup.removeProgress), number line (NumberLine.hopProgress phồng bước nhảy + nút theo thứ tự), ten frame replay pulse; SemanticAnimationView thêm replayKey và tôn trọng reduce motion; tách numberLineHops() thuần
-QuantityComparisonBoard: thêm 2 prop tùy chọn, chỉ cộng thêm: revealCounts (bộ đếm hiện đủ số lượng, style amber, nhãn a11y 'Bên trái có N') và pulseSide (PulseView scale 1→1.03 loop + viền gợi ý cho khung hoặc nút Bằng nhau; tắt khi solved và khi reduce motion)
-QuantityCompareRenderer: nhận supportLevel; revealCounts={supportLevel >= 1}, pulseSide = correctSide khi supportLevel >= 2 và chưa giải; helper text theo mức hỗ trợ; mascot 'think' khi có hỗ trợ
-kido-server explore.number-bond-arithmetic.spec.ts: thêm test source-text 'layers support visuals on the same exercise without touching the generator'
-OpenSpec: specs/explore-arithmetic-game/spec.md và specs/explore-quantity-compare-game/spec.md (## ADDED Requirements — Support level visuals, 6 scenario mỗi file)
-Xác minh: tsc sạch cho 4 file, eslint 0 lỗi, test:explore-variety-buckets / prompt-audio / arithmetic / compare pass, jest 3 spec server 103/103 pass
 
 ### scripts_memory_pattern (báo cáo agent)
 Thêm `mobile/scripts/verify-explore-memory-contracts.cjs` (`npm run test:explore-memory`): 200 seed/level validate + replay byte-identical, số cặp 2/3/4/6/8 theo MEMORY_LEVELS, mọi thẻ là MEMORY_ASSETS với cờ memoryEligible/singleObject/recognizable/backgroundFree, mỗi asset đúng 2 lần (một bản mỗi mặt), L1–L2 không ghép cùng similarityGroup (trực tiếp + memoryAssetsAreCompatible), checksum bảng tái tính độc lập, layout 375×667 (budget = 667 − MEMORY_BOARD_CHROME_HEIGHT) và 768×1024 không cuộn, thẻ ≥ 48pt, ≤ 16 thẻ, tamper (trùng cardId / số thẻ lẻ / sai pairCount / checksum cũ / asset lạ) bị từ chối, reducer lật thẻ, progressive run createExploreRunBatch + LocalExploreProvider từ L1/L3/L5 → 3 level liên tiếp kẹp trong 1..5, 60 vòng một-bài/level.

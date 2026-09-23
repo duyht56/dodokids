@@ -16,7 +16,6 @@ npm run explore-audio:export -- ../mobile   # ghi wav + exploreAudioRegistry.gen
 
 | Key | Transcript |
 |---|---|
-| `phrase:arith_remain_q:v1` | Còn lại bao nhiêu? |
 | `phrase:route_fb_edge:v1` | Chỗ này là mép bảng rồi, con thử hướng khác nhé. |
 | `phrase:route_fb_locked_door:v1` | Cửa đang khóa, con lấy chìa khóa trước nhé. |
 | `phrase:route_fb_obstacle:v1` | Có chướng ngại ở đây, con đi vòng nhé. |
@@ -40,23 +39,13 @@ npm run explore-audio:export -- ../mobile   # ghi wav + exploreAudioRegistry.gen
 | `phrase:fb_run_complete:v1` | Mình luyện xong rồi! |
 | `phrase:fb_play_again:v1` | Con muốn chơi lại không? |
 | `phrase:fb_break:v1` | Con chơi được một lúc rồi, nghỉ mắt chút nhé! |
-| `phrase:game_tap_count:v1` | Chạm và đếm |
-| `phrase:game_quantity_compare:v1` | Bên nào nhiều hơn? |
 | `phrase:game_number_explorer:v1` | Khám phá số |
 | `phrase:game_pattern_finder:v1` | Tìm quy luật |
 | `phrase:game_memory_match:v1` | Lật thẻ tìm cặp |
-| `phrase:game_number_bond:v1` | Ngôi nhà tách gộp |
-| `phrase:game_arithmetic_machine:v1` | Máy cộng trừ |
 | `phrase:game_route_planner:v1` | Dẫn đường cho Đô Đô |
 | `phrase:game_tracing_workshop:v1` | Xưởng luyện nét |
 | `phrase:game_stack_tower:v1` | Xếp tháp cho Đô Đô |
 | `phrase:game_odd_one_out:v1` | Ai lạc đàn? |
-| `phrase:bond_room_full:v1` | Ô của bé đã đầy. Con bấm Kiểm tra nhé. |
-| `phrase:bond_not_enough:v1` | Chưa đủ để tạo thành |
-| `phrase:bond_try_adding:v1` | Con thêm thử nhé. |
-| `phrase:bond_too_many:v1` | Nhiều quá rồi. Con chạm vào lá để bớt nhé. |
-| `phrase:bond_consists:v1` | gồm |
-| `phrase:bond_recombined:v1` | gộp lại thành |
 | `phrase:tracing_start_star:v1` | Bắt đầu ở ngôi sao rồi đi theo mũi tên nhé. |
 | `phrase:tracing_continue_glow:v1` | Mình tiếp tục từ vùng đang sáng nhé. |
 | `phrase:tracing_next_stroke:v1` | Mình sang nét tiếp theo nhé. |

@@ -12,14 +12,12 @@
 
 - [x] 1.1 Enumerate every game's prompt grammar: cataloged all 9 generators —
       fixed phrases + parametric templates with slot domains (numbers 0–50, the 5
-      `COUNTABLE_ASSETS` object labels, before/after, more/less, add/subtract,
-      totals). Reachability caveats recorded (hear_select, arithmetic make_10,
-      number-bond plates are defined but not currently generated).
+      `COUNTABLE_ASSETS` object labels, before/after). Reachability caveats
+      recorded (hear_select is defined but not currently generated).
 - [x] 1.2 Define the stable key scheme in `mobile/src/explore/promptAudio.ts`
       (aligns with existing `explore-audio:vi:...:v1`): `phrase:<id>`,
       `number:name:<n>`, `label:<assetId>`, `word:<id>`.
-- [x] 1.3 Provide pure per-prompt key builders (`tapCountKeys`, `compareKeys`,
-      `arithmeticKeys`, `numberBondKeys`, `patternKeys`, `routePlannerKeys`,
+- [x] 1.3 Provide pure per-prompt key builders (`patternKeys`, `routePlannerKeys`,
       `numberBeforeAfterKeys`, …) that return the ordered key list; number-name
       keys reuse the `enable-explore-offline-audio` 0–50 pack. Generators do not
       yet call these (see §1a).
@@ -32,24 +30,24 @@
 
 ## 1a. Generator emission + playback (mobile)
 
-- [x] 1a.1 All 8 child-visible generators set `audioRefs` from the matching
+- [x] 1a.1 The child-visible generators set `audioRefs` from the matching
       `promptAudio` builder where they build `promptVi` (numberGame select/order,
-      countGame, numberBondGame, patternGame, compareGame, arithmeticGame,
-      routePlannerGame, memoryGame). Tracing keeps its existing category key.
-- [x] 1a.1a Fixed two validators (`validateNumberExercise`,
-      `validateCompareExercise`) that hard-required `audioRefs.length === 0` — that
-      invariant would have rejected every prompt-audio exercise and broken
-      generation. Dropped the guard (requiring audio would make it a required
-      dependency, which the Explore contract forbids).
+      patternGame, routePlannerGame, memoryGame). Tracing keeps its existing
+      category key.
+- [x] 1a.1a Fixed the `validateNumberExercise` validator that hard-required
+      `audioRefs.length === 0` — that invariant would have rejected every
+      prompt-audio exercise and broken generation. Dropped the guard (requiring
+      audio would make it a required dependency, which the Explore contract
+      forbids).
 - [x] 1a.2 Central mount playback: `ExplorePlayScreen` plays the current
       exercise's `audioRefs` via `playExplorePromptAudio` when the exercise
       changes and calls `stopExplorePromptAudio` on unmount. Removed Route
       Planner's local playback so it does not double-play.
-- [x] 1a.3 Replay control: the 🔊 `AudioPlaceholder` in the 5 renderers that have
-      it (Number Explorer, Tap Count, Number Bond, Pattern Finder, Quantity
-      Compare) is now an interactive replay button wired to `onReplayPrompt`
+- [x] 1a.3 Replay control: the 🔊 `AudioPlaceholder` in the renderers that have
+      it (Number Explorer, Pattern Finder) is now an interactive replay button
+      wired to `onReplayPrompt`
       (memoized `handleReplayPrompt` → `playExplorePromptAudio(current.audioRefs)`),
-      with an accessible "Nghe lại câu hỏi" label. Route Planner / Arithmetic /
+      with an accessible "Nghe lại câu hỏi" label. Route Planner /
       Memory have no 🔊 affordance and still speak on mount only — adding a button
       there is a separate small UI task.
 

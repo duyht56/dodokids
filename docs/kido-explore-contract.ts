@@ -6,24 +6,21 @@
  * memory-only and is never submitted or persisted.
  */
 
+// Must equal EXPLORE_GAME_CODES in mobile/src/types/explore.ts and
+// kido-server/src/modules/explore/explore.types.ts (same codes, same order).
 export const EXPLORE_GAME_CODES = [
   'tracing_workshop',
   'route_planner',
-  'number_explorer',
-  'tap_count',
-  'quantity_compare',
-  'number_bond',
-  'arithmetic_machine',
   'pattern_finder',
   'memory_match',
   'stack_tower',
-  'odd_one_out',
-  'shape_hunt',
-  'sort_bins',
   'missing_cell',
   'peekaboo_recall',
-  'subitize_flash',
   'mirror_build',
+  'ordinal_position',
+  'number_chain',
+  'spin_pattern',
+  'number_bus',
 ] as const;
 
 export type ExploreGameCode = (typeof EXPLORE_GAME_CODES)[number];
@@ -51,6 +48,12 @@ export interface ExploreDependencyManifest {
 
 export interface ExploreRunSlot<Constraints = unknown> {
   slotKey: string;
+  /**
+   * Declared default level; must be one of the game's `levels`. The mobile
+   * authored-run branch plays the slot at the effective level
+   * clamp(startingLevel + (constraints.levelOffset ?? 0), game.levels), so a
+   * per-game starting level is not overridden by this static value.
+   */
   level: number;
   constraints?: Constraints;
 }

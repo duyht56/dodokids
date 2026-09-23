@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="position:relative;width:{{ px }};height:{{ px }};display:flex;align-items:center;justify-content:center;opacity:{{ op }};filter:{{ filt }}">
+<sc-if value="{{ isE }}" hint-placeholder-val="{{ true }}"><span style="font-size:{{ fs }};line-height:1">{{ em }}</span></sc-if>
+<sc-if value="{{ isV }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;width:86%;height:86%">
+<div style="position:absolute;left:2%;top:2%;width:34%;height:34%;border-radius:50%;background:#C98A55"></div>
+<div style="position:absolute;right:2%;top:2%;width:34%;height:34%;border-radius:50%;background:#C98A55"></div>
+<div style="position:absolute;left:8%;top:14%;width:84%;height:84%;border-radius:50%;background:#D99C66"></div>
+<div style="position:absolute;left:31%;top:54%;width:38%;height:30%;border-radius:50%;background:#F5E1C8"></div>
+<div style="position:absolute;left:30%;top:42%;width:10%;height:10%;border-radius:50%;background:#242631"></div>
+<div style="position:absolute;right:30%;top:42%;width:10%;height:10%;border-radius:50%;background:#242631"></div>
+<div style="position:absolute;left:44%;top:58%;width:12%;height:9%;border-radius:50%;background:#242631"></div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:80,&quot;height&quot;:80},&quot;kind&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;emoji&quot;,&quot;vector&quot;],&quot;default&quot;:&quot;emoji&quot;,&quot;tsType&quot;:&quot;'emoji'|'vector'&quot;},&quot;em&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;🐱&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sil&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;size&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:48,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const s = Number(this.props.size ?? 48), sil = !!this.props.sil, v = this.props.kind === 'vector';
+    return { px: s + 'px', fs: Math.round(s * 0.74) + 'px', em: this.props.em ?? '🐱', isE: !v, isV: v,
+      op: sil ? 0.8 : 1, filt: sil ? 'grayscale(1) brightness(0.15)' : 'none' };
+  }
+}
+</script>
+</body>
+</html>

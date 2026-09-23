@@ -25,7 +25,7 @@ The privacy contract forbids persisted or transmitted play history, recent games
 
 ### D1 — Game-owned `variantKey`, not a generic envelope hash
 
-Each registered game SHALL expose or validate a deterministic `variantKey` derived only from learning-relevant fields. Examples include tracing `itemId`, pattern grammar plus vocabulary identity, arithmetic mode plus normalized operands/result, and memory asset-set identity rather than shuffled card positions.
+Each registered game SHALL expose or validate a deterministic `variantKey` derived only from learning-relevant fields. Examples include tracing `itemId`, pattern grammar plus vocabulary identity, and memory asset-set identity rather than shuffled card positions.
 
 A generic JSON hash was rejected because cosmetic option order, board layout or presentation metadata would make repeated learning content appear new. Using `randomSeed` was rejected because every draw already has a new seed and would not detect the observed repetition.
 

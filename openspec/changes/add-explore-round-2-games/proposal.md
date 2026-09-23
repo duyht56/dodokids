@@ -31,14 +31,13 @@ per-exercise content:
   range promotion line, "Mình thử bài dễ hơn nhé", the run-complete line and the
   break reminder; the catalog speaks a game's name when its card is tapped.
 - **`supportLevel` renderer contract** (0/1/2 from the play screen's miss count)
-  implemented in Khám phá số, Máy cộng trừ, Bên nào nhiều hơn and the three new
-  games; **in-memory demotion** one range down after three misses in a row for
-  range/arithmetic games.
+  implemented in Khám phá số and the three new games; **in-memory demotion** one
+  range down after three misses in a row for range games.
 - **One audio batch**: every new sentence (feedback ×13, 11 game names, 6
-  number-bond feedback fragments, 6 tracing guidance lines, 5 + 1 new-game
-  prompts, plus the 10 Route Planner feedback lines and `arith_remain_q` that
-  were never bundled) is in the mobile inventory and the pipeline mirror; pack
-  version bumps to `explore-audio-vi-v2` (mobile accepts v1 and v2).
+  tracing guidance lines, 5 + 1 new-game prompts, plus the 10 Route Planner
+  feedback lines that were never bundled) is in the mobile inventory and the
+  pipeline mirror; pack version bumps to `explore-audio-vi-v2` (mobile accepts
+  v1 and v2).
 - Conformance scripts for memory and pattern (`test:explore-memory`,
   `test:explore-pattern`).
 - Catalog: four child-facing groups including the new games; a vector icon
@@ -58,15 +57,14 @@ per-exercise content:
 - `explore-session-runtime`: spoken feedback voice, `supportLevel` contract,
   in-memory demotion, one-batch audio pack v2.
 - `explore-catalog`: spoken game names, new groups, icon fallback.
-- `explore-number-game`, `explore-arithmetic-game`,
-  `explore-quantity-compare-game`: support-level visuals.
+- `explore-number-game`: support-level visuals.
 
 ## Impact
 
 - `mobile/src/explore/{games,renderers}/{stackTower,oddOneOut}*`,
   `variety.ts`, `registry.ts`, `rendererRegistry.tsx`, `thumbnails.ts`,
   `promptAudio.ts`, `exploreAudioCapability.ts`, `games/rangeProgress.ts`,
-  `games/arithmeticGame.ts`, `screens/child/Explore{Play,Catalog}Screen.tsx`,
+  `screens/child/Explore{Play,Catalog}Screen.tsx`,
   `types/explore.ts`; five new `scripts/verify-explore-*.cjs`.
 - `docs/kido-explore-contract.ts` (two codes), `docs/KIDO_EXPLORE_BRD.md`
   (§7.10–7.11), `docs/AI_CONTEXT.md`.

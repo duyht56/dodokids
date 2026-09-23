@@ -15,6 +15,10 @@ The system SHALL display the `payload.items` (3–5) using a two-row layout: a *
 - **WHEN** a target slot has no card placed in it
 - **THEN** the slot displays its position number and a dashed border
 
+#### Scenario: Vertical direction payload rendered as two-row
+- **WHEN** `payload.direction` is `vertical`
+- **THEN** the activity ignores the value and renders the horizontal two-row layout (source row + numbered slot row)
+
 ### Requirement: Drag and drop reorder
 The system SHALL let the child drag a card from the source row into a target slot, or drag a placed card back to the source row / to a different slot. Dragging SHALL start after a drag threshold of ≥8pt, show a lifted/floating state (scale ~1.05, raised shadow, coral accent) while dragging, and drop into a slot when released over that slot's bounds.
 
@@ -43,8 +47,18 @@ A "Kiểm tra thứ tự" confirm button SHALL be disabled until every slot is f
 
 #### Scenario: Some positions wrong
 - **WHEN** at least one slot holds a card in the wrong position
-- **THEN** correct slots show green, wrong slots show amber and shake, and a wrong outcome is reported
+- **THEN** correct slots show green, wrong slots show amber and shake, and a wrong outcome is reported (on an explain turn the cards instead go straight into their correct slots in the neutral state, see below)
 
-#### Scenario: Vertical direction payload rendered as two-row
-- **WHEN** `payload.direction` is `vertical`
-- **THEN** the activity ignores the value and renders the horizontal two-row layout (source row + numbered slot row)
+### Requirement: Đô Đô demonstrates the order on the explain turn
+Each time the activity container plays the `explain` feedback after a wrong answer (the third wrong answer and every later one), the activity SHALL move every card into the slot matching its `correctPosition` (neutral state, source row empty) so the screen shows the order Đô Đô describes. The child then presses "Kiểm tra thứ tự" to finish, or "Xáo lại" to try again unaided.
+
+#### Scenario: Explain turn shows the sorted order
+- **WHEN** the third wrong answer triggers the `explain` feedback
+- **THEN** the cards move into their correct slots while Đô Đô speaks, and pressing "Kiểm tra thứ tự" afterwards reports a correct outcome
+
+### Requirement: Cards scale with the board
+Card size SHALL be derived from the measured board so all N cards fit on one row and both card rows plus the fixed chrome fit its height (phone cap 130pt, tablet cap 150pt, floor 56pt), and the card picture SHALL grow with the card instead of staying a fixed 46pt. Cards SHALL show the picture only: the item label is exposed as the card's accessibility label and is not drawn, because pre-readers cannot use it and a legible label can state the answer. A card placed in a slot SHALL announce its slot number with the label.
+
+#### Scenario: Four cards on a 375pt phone
+- **WHEN** a 4-item activity renders on a board 335pt wide
+- **THEN** each card is 76pt, all four sit on one row, and each shows only its picture, with the item label as its accessibility label

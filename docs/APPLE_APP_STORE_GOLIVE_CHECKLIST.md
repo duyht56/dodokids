@@ -52,6 +52,17 @@
 - [ ] P0 Legal/product sign-off ba trang pháp lý. Privacy hiện mô tả thao tác xoá dữ liệu có trong app sau PIN, nhưng source mobile chưa có luồng/link xoá — phải triển khai hoặc sửa policy cho đúng hành vi thật.
 - [ ] Submit for Review; theo dõi App Review, xử lý rejection nếu có.
 
+#### Khi ship tính năng Luyện phỏng vấn cùng Đô Đô (change add-dodo-interview-practice)
+
+> Các mục dưới đây chỉ áp dụng cho bản submit đầu tiên có tính năng phỏng vấn (mic + chấm audio qua Vertex AI). Bản submit không chứa tính năng này không bị chặn bởi mục này. Chi tiết App Privacy/Kids Category nền tảng xem §2.4.
+
+- [ ] **Thay** chuỗi `NSMicrophoneUsageDescription` (key đã khai từ bản 1.0.0 với nội dung "không bật micro", xem §2.4) bằng string tiếng Việt giải thích rõ mic chỉ thu khi bé chủ động bấm push-to-talk trong phiên luyện phỏng vấn.
+- [ ] Cập nhật App Privacy nutrition label: thêm **Audio Data** → purpose **App Functionality**, **Not linked to user**, **No tracking** (audio đi qua kido-server tới Google Vertex AI, xóa ngay sau khi chấm).
+- [ ] Rà lại `PrivacyInfo.xcprivacy` (app target + Pod manifests) sau khi bật mic: required-reason API mới (nếu có), `NSPrivacyTracking` vẫn `false`, tracking domains vẫn rỗng.
+- [ ] App Review notes: mô tả consent phụ huynh (sau parental gate, opt-in theo bé, thu hồi được) + demo path tới màn phỏng vấn cho reviewer + nêu rõ cấu hình Vertex AI zero-retention/no-training và việc xóa audio sau chấm.
+- [ ] Chuẩn bị sẵn kịch bản kháng nghị Resolution Center cho **Guideline 1.3 / 5.1.1(i) / 5.1.2(i)** — có tiền lệ reject app trẻ em gửi dữ liệu sang AI bên thứ ba; luận điểm: consent phụ huynh nêu đích danh provider, proxy 100% qua kido-server, không kèm định danh trẻ/thiết bị, audio xóa sau chấm.
+- [ ] Xác nhận việc **audio xóa ngay sau khi chấm** đã được ghi trong privacy policy đang publish trước khi submit bản có mic (policy hiện tại cam kết "Không ghi âm" nên bắt buộc thay trước).
+
 ### 0.3 Việc có thể bắt đầu ngay
 
 1. Enroll/kiểm tra Apple Developer Program + Paid Applications Agreement + 2FA.
@@ -79,7 +90,7 @@
 | Privacy manifest | PASS / VERIFY | `PrivacyInfo.xcprivacy` có trong app target + 25 Pod manifest. Cần rà required-reason API + tracking domains trên archive cuối. |
 | Apple IAP verify (server) | PASS (CODE) / RUNTIME PENDING | Xác thực chữ ký JWS StoreKit 2 cục bộ (`@apple/app-store-server-library@3.1.0`), guard revoked + hết hạn + product, bind theo `originalTransactionId`. 43 test IAP xanh. Chưa có App Store Server Notifications V2 (đối soát refund/renew) — xem §2.6. |
 | Apple env (bundle id + app id) | **BLOCKER (PROVISION)** | Code đọc `APPLE_BUNDLE_ID` + `APPLE_APP_APPLE_ID`. `APPLE_APP_APPLE_ID` chỉ bắt buộc cho Production, nên thiếu nó **chỉ lộ ra ở lần mua thật đầu tiên** — sandbox vẫn chạy. Phải trùng `submit.production.ios.ascAppId` trong `mobile/eas.json`. |
-| IAP client iOS | PARTIAL | `react-native-iap ^15.3.4`; purchase/verify/restore theo platform; chưa có sandbox license test evidence. |
+| IAP client iOS | PARTIAL | `react-native-iap ^15.3.4`; purchase/verify/restore theo platform. **Sandbox E2E PASS 2026-09-14** trên app iOS chạy trên Mac (Debug từ Xcode, server local): mua, tự gia hạn, hết hạn, mua lại, restore — xem §2.6. Còn thiếu nghiệm thu trên build TestFlight. |
 | EAS iOS build/submit | **BLOCKER** | `mobile/eas.json` không có khối `ios` ở bất kỳ profile nào và không có `submit.*.ios`. Chưa build/submit iOS được. |
 | iOS signing / credentials | **BLOCKER** | Chưa có evidence Distribution certificate / App Store provisioning profile do EAS quản lý. |
 | Export compliance | **PARTIAL** | Chưa set `usesNonExemptEncryption`; sẽ bị hỏi Export Compliance mỗi lần upload cho tới khi khai. |
@@ -147,6 +158,13 @@
 - [ ] P0 Khai **Age Rating** chính xác cho nội dung trẻ 4–6.
 - [ ] P0 Xác nhận **PrivacyInfo.xcprivacy** khai đúng: required-reason API (nếu dùng), `NSPrivacyTracking=false` (nếu không tracking), tracking domains rỗng; đối chiếu với 25 Pod manifest.
 - [ ] P0 Chỉ khai "data encrypted in transit" sau khi toàn bộ luồng production đã dùng HTTPS.
+- [x] **Purpose string micro (từ bản 1.0.0, 2026-09-14):**
+  - `mobile/app.json` → `ios.infoPlist.NSMicrophoneUsageDescription` = "Dodokids chỉ phát âm thanh bài học. Ứng dụng không bật micro và không ghi âm giọng nói của bé."
+  - **App không dùng micro.** Key chỉ khai vì `expo-audio` (dùng để phát âm thanh) biên dịch sẵn code ghi âm vào binary: `AVAudioRecorder`, và `AudioStream` thu micro từ SDK 56. Bước quét lúc upload của Apple (ITMS-90683) có thể từ chối binary có code này mà thiếu key.
+  - Key **không** làm iOS hỏi quyền, vì app không gọi API xin quyền.
+  - Privacy policy "Không ghi âm" vẫn đúng. App Privacy không thêm Audio Data. Preflight `IOS_BASELINE` đã gồm key này.
+  - Không bật plugin `expo-audio` với cấu hình mặc định: nó tự thêm quyền chạy âm thanh nền và quyền `RECORD_AUDIO` trên Android.
+  - **Không khai quyền Ảnh.** iOS tự ẩn nút "Lưu hình ảnh" trong share sheet (Báo cáo → Chia sẻ) khi app không có key, nên không crash. Chỉ thêm `NSPhotoLibraryAddUsageDescription` nếu muốn có tính năng lưu ảnh một chạm.
 
 ### 2.5 Account/Data deletion (Guideline 5.1.1(v))
 
@@ -171,6 +189,32 @@
   - restore sau reinstall/đổi máy (dùng "Restore Purchases");
   - renew, expire, cancel, grace period / billing retry, refund/revoke;
   - duplicate callback không cấp quyền hai lần.
+  - *Tiền kiểm 2026-09-14 (không thay nghiệm thu TestFlight):*
+    - **Setup:** app iOS chạy trên Mac (Designed for iPad, Debug từ Xcode) với Metro, kido-server và Mongo local. Dùng Sandbox tester vùng Việt Nam, gói `kido_monthly_139k` (1 tháng sandbox = 5 phút). Giờ ghi dưới đây là giờ VN.
+    - **Load product + giá localized:** PASS từ khoảng 09:24, khi sandbox catalog VN đồng bộ xong. Tối 13/9 catalog còn trả rỗng.
+    - **Mua mới:** PASS lúc 09:26. Server verify rồi app mới `finishTransaction`. Có 1 binding iOS, bind theo `originalTransactionId`. Child ở trạng thái `monthly/active/paidWeeksUnlocked 5/source iap`.
+    - **Renew:** PASS. Cả 11 lần gia hạn đều được verify:
+      - 6 lần do listener verify khi app đang mở;
+      - 5 lần lỡ khi app tắt, được verify bù lúc mở lại (09:57), sau đó không còn transaction treo.
+    - **Không cấp quyền trùng:** sau các lần replay, restore và mua lại vẫn chỉ có 1 binding và 1 `iapReceipts`.
+    - **Expire:** PASS. Sandbox tự dừng sau 11 lần gia hạn và hết hạn lúc 10:26:11.
+      - API trả `expired` và chỉ mở tối đa tuần 2. Mongo vẫn lưu `active` vì expiry chỉ được tính khi đọc.
+      - App không gọi server.
+      - Cài đặt hiện "Gói Tháng — đã hết hạn …" và dòng "Mua gói học cho bé".
+    - **Restore:** PASS.
+      - Khi đã hết hạn: "Không tìm thấy", không ghi DB.
+      - Khi còn hạn: "Thành công — Đã khôi phục gói đăng ký của bé.", cùng binding, `rebindCount` 0.
+    - **Mua lại sau khi hết hạn:** PASS lúc 14:48. Vẫn cùng binding vì Apple giữ nguyên `originalTransactionId`.
+    - **Chưa test:**
+      - cancel thật (Apple không hỗ trợ màn quản lý gói sandbox trên Mac);
+      - pending/interrupted;
+      - kill giữa purchase và verify;
+      - restore sang hộ khác;
+      - grace/billing retry;
+      - refund/revoke.
+    - **Phát hiện:**
+      - Restore luôn gọi `AppStore.sync()` trước, nên lần nào cũng hỏi mật khẩu Apple. Nếu huỷ hộp thoại thì app báo "Lỗi", dù StoreKit đang có gói.
+      - Sau khi gói hết hạn, `GET /lessons/prefetch-manifest` và `findToday` vẫn đọc entitlement lưu thô (còn `active`).
 - [x] P0 **Migrate verify khỏi API deprecated** (2026-09-05): đã bỏ `verifyReceipt`, xác thực JWS StoreKit 2 cục bộ. Xem OpenSpec change `fix-ios-iap-jws-verification`.
 - [ ] P0 **App Store Server Notifications V2:** cấu hình endpoint nhận ASSN V2 để đồng bộ lifecycle (renew/expire/refund/grace/revoke) thay vì chỉ tin expiry lưu từ lần verify đầu.
 - [ ] P0 Quy trình revoke entitlement khi refund/chargeback/cancel-expired.
@@ -273,7 +317,7 @@ Chỉ **GO** khi tất cả câu dưới đây trả lời `YES`:
 | Version / build number | |
 | Archive / build URL | |
 | TestFlight build link | |
-| Sandbox IAP test evidence | |
+| Sandbox IAP test evidence | Tiền kiểm 2026-09-14 trên app iOS chạy trên Mac (không phải TestFlight): mua / renew / expire / mua lại / restore PASS — chi tiết §2.6. Nghiệm thu TestFlight: chưa có. |
 | App Privacy / Age Rating evidence | |
 | Account/data deletion evidence | |
 | Security test evidence | |

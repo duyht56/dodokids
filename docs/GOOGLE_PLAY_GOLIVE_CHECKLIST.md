@@ -167,6 +167,17 @@
 
 **Lưu ý account deletion:** Google yêu cầu in-app path và web deletion URL nếu app cho tạo app account. Dodokids hiện tạo child profile nhưng chưa có auth account hoàn chỉnh; vẫn phải trả lời phần Data deletion trong Data safety. Hướng an toàn là cung cấp xoá hồ sơ/dữ liệu dù Console có phân loại child profile là account hay không.
 
+#### 2.4b Khi ship tính năng Luyện phỏng vấn cùng Đô Đô (change add-dodo-interview-practice)
+
+> Các mục dưới đây chỉ áp dụng cho bản release đầu tiên có tính năng phỏng vấn (mic + chấm audio qua Vertex AI). Bản release không chứa tính năng này không bị chặn bởi 2.4b.
+
+- [ ] Khai báo `RECORD_AUDIO` trong merged manifest của AAB chứa tính năng, khớp 100% với permission/SDK inventory §2.5 (mục "không còn `RECORD_AUDIO`" ở §2.5 chỉ đúng cho bản chưa có mic — cập nhật inventory khi ship).
+- [ ] Cập nhật Data safety: thêm data type **Audio** (voice recordings), purpose **App functionality**, processor **Google Vertex AI** (proxy 100% qua kido-server), tính chất **ephemeral** — file audio xóa ngay sau khi chấm xong, chỉ lưu kết quả chấm có cấu trúc.
+- [ ] Khai báo **AI-generated content** trên Play Console theo declaration hiện hành (feedback/nhận xét do model sinh trong báo cáo phụ huynh).
+- [ ] Publish privacy policy bản đã có mục dữ liệu giọng nói (thu gì, xử lý ở đâu, retention xóa-sau-chấm, quyền thu hồi consent) **TRƯỚC** khi release bản có mic; policy hiện tại cam kết "Không ghi âm" nên bắt buộc thay trước.
+- [ ] Lưu evidence consent flow phụ huynh: screenshot màn consent (sau parental gate, opt-in theo bé, thu hồi được) + mô tả cơ chế trong Families declaration.
+- [ ] Xác nhận entry point tính năng nằm **ngoài Khám phá** và sau paywall/lượt trải nghiệm 1 phiên miễn phí; store listing/Data safety mô tả đúng phạm vi này.
+
 ### 2.5 Android permission và SDK inventory
 
 - [x] P0 Expo prebuild audit ngày 31/08/2026 không còn `RECORD_AUDIO` hoặc foreground service trong generated manifest.

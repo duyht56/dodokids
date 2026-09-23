@@ -155,7 +155,9 @@ Mở Khám phá
 - Game ordered-track có thể đánh dấu item đã luyện trong lần đang mở route, nhưng
   mọi dấu này phải bị xóa khi thoát và không được dùng làm lịch sử hay mở khóa.
 - Không có trạng thái “Thua”.
-- Không dùng countdown trong MVP.
+- Không dùng countdown trong MVP: không trò nào giới hạn thời gian trả lời.
+  Ngoại lệ đã duyệt (2026-09-13): đồng hồ cát không số của Ú òa
+  (§7.12) chỉ đo thời gian được NHÌN nhóm vật; hết cát không thua, không khóa gì.
 - Sau khi trẻ chưa làm đúng nhiều lần, hệ thống tăng trợ giúp hoặc giảm độ phức
   tạp thay vì tiếp tục báo sai.
 - Không hiển thị điểm, phần thưởng hoặc màn nhận vật phẩm.
@@ -287,199 +289,29 @@ quá xa hoặc vô nghĩa.
 
 Number card SVG/primitive; không cần ảnh mới.
 
-### 7.3. Game 3 — Chạm và đếm
+### 7.3. Game 3 — (đã gỡ)
 
-**Mục tiêu:** tương ứng một–một giữa vật và số đếm.
+> Game 3 ("Chạm và đếm") đã được gỡ hoàn toàn khỏi catalog Khám phá. Số thứ tự
+> các game sau giữ nguyên để tránh xáo trộn tham chiếu; không còn game nào mang mã
+> game đã gỡ này.
 
-#### Cách chơi
+### 7.4. Game 4 — (đã gỡ)
 
-- Chọn một object đã approved từ asset library.
-- Sinh số lượng mục tiêu.
-- Clone object và xếp bằng seeded, non-overlapping layout.
-- Trẻ chạm từng vật rồi chọn thẻ số tương ứng.
+> Game 4 ("Bên nào nhiều hơn?") đã được gỡ hoàn toàn khỏi catalog Khám phá. Số
+> thứ tự các game sau giữ nguyên để tránh xáo trộn tham chiếu; không còn game nào
+> mang mã game đã gỡ này.
 
-#### Mode
+### 7.5. Game 5 — (đã gỡ)
 
-Hai mode tương tác, chọn theo seed (deterministic, ~50/50); mode là round-variety
-bucket nên round planning phủ cả hai:
+> Game 5 ("Ngôi nhà tách gộp") đã được gỡ hoàn toàn khỏi catalog Khám phá. Số thứ
+> tự các game sau giữ nguyên để tránh xáo trộn tham chiếu; không còn game nào mang
+> mã game đã gỡ này.
 
-- `count_all` — đếm tất cả vật mục tiêu rồi chọn thẻ số (mode gốc). Có thể có
-  distractor (L5+) và trẻ chỉ đếm loại vật được yêu cầu.
-- `count_target` — "chạm đúng N": tất cả vật cùng một loại, trẻ chạm **đúng N**
-  vật trong một tập lớn hơn rồi bấm **Xong**. N sinh theo seed trong phạm vi của
-  level; independent validator kiểm tra tập luôn lớn hơn N (không có thẻ số, không
-  có distractor) và renderer kiểm tra trẻ đã chọn đúng N vật riêng biệt. Màn hình
-  không bao giờ đánh dấu đáp án hay tiết lộ N ngoài câu hỏi.
+### 7.6. Game 6 — (đã gỡ)
 
-#### Độ khó
-
-Thang level phủ 1–20 (L1→L4) rồi mở rộng tới 1–50 (L1→L10); cả hai mode đều rút
-mục tiêu trong phạm vi của level.
-
-- L1: 1–5 vật xếp hàng.
-- L2: 1–10 vật rải nhẹ.
-- L3: 6–15 vật rải rác.
-- L4: 10–20 vật chia nhóm.
-- L5: hai loại vật nhưng chỉ đếm loại được yêu cầu (count_all).
-
-#### Asset rule
-
-Chỉ chọn asset có tag phù hợp để đếm, là một vật đơn lẻ, rõ ràng và không có
-background gây nhầm. Một sprite được clone nhiều lần; không tạo ảnh theo đề.
-
-### 7.4. Game 4 — Bên nào nhiều hơn?
-
-**Mục tiêu:** so sánh số lượng và phát triển number sense.
-
-#### Mode
-
-- Chọn bên nhiều hơn.
-- Chọn bên ít hơn.
-- Nhận biết hai bên bằng nhau.
-
-Hai bên phải dùng cùng một object sprite, chỉ khác số lượng. Layout không được
-trở thành clue ngoài ý muốn.
-
-#### Độ khó
-
-Thang độ khó giới hạn ở phạm vi 20 cho lứa 4–6 (đúng 4 cấp, không vượt quá 20):
-
-- L1: phạm vi 5, chênh lệch ít nhất 2.
-- L2: phạm vi 10, có chênh lệch 1.
-- L3: phạm vi 15, thêm trường hợp bằng nhau.
-- L4: phạm vi 20, giữ trường hợp bằng nhau và thêm bố trí hai nhóm khác nhau
-  (grouped) nhưng vẫn nhìn và đếm rõ.
-
-#### Effort nội dung
-
-Sinh từ hai số và một approved sprite; không cần question bank.
-
-### 7.5. Game 5 — Ngôi nhà tách gộp
-
-**Mục tiêu:** hiểu số 5 và số 10 được tạo bởi hai phần và khi gộp hai phần thì
-vẫn giữ nguyên số ban đầu.
-
-#### Cấu trúc một lượt chơi
-
-Một lượt `Ngôi nhà tách gộp` có **đúng 10 tương tác** theo progression cố định,
-không phụ thuộc kết quả chơi và không lưu lịch sử:
-
-- Tương tác 1–5: chỉ tách–gộp **số 5**.
-- Tương tác 6–10: chỉ tách–gộp **số 10**.
-
-Bảng chơi là một **ngôi nhà**: số cần tách nằm trên **mái**, hai ô `Có sẵn` và
-`Bé thêm` là hai phòng dưới mái (mái = tổng, hai phòng = hai phần). Trong mỗi
-tương tác, hệ thống đặt sẵn một phần dương ở ô `Có sẵn`; ô `Bé thêm` bắt đầu từ
-0 và có **một ô trống viền đứt với dấu +** nằm ngay sau vật cuối cùng — đây là
-chỗ bấm duy nhất để thêm: mỗi lần chạm ô trống sẽ đặt một vật vào đó và tăng số
-đếm. Chạm vào một vật đã có trong ô `Bé thêm` sẽ bớt đúng vật đó và giảm số đếm.
-Nền ô không phải vùng bấm, nên khi ô gần đầy trẻ không thể lỡ bớt một vật trong
-lúc định thêm; ô trống biến mất khi ô đã chứa đủ bằng tổng. Bên dưới chỉ có một
-nút `Kiểm tra` (các nút `Kiểm tra`/`Gộp lại`/`Tiếp tục` cao tối thiểu 64pt);
-không có nút thêm, bớt hoặc làm lại riêng. Giao diện không hiển thị phần bù hay số vật còn
-lại, và không lặp lại lời hướng dẫn bằng chữ ngoài bong bóng lời của Đô Đô.
-
-Luồng hoàn thành của một tương tác tách trực tiếp là:
-
-```text
-nhìn số cần tách và phần có sẵn → tự thêm/bớt → kiểm tra
-→ “N gồm A và B” → gộp hai phần → đọc giải thích → tiếp tục
-```
-
-Phần hệ thống đặt sẵn bị khóa. Nếu kiểm tra thiếu, trẻ tiếp tục chạm để thêm;
-nếu kiểm tra thừa, các vật giữ nguyên và trẻ chạm vào vật để bớt dần — ô của bé
-không bao giờ bị đưa về 0, còn phần có sẵn không đổi. Phản hồi không được tiết
-lộ số đúng. Khi kiểm tra đúng, quan hệ tách–gộp phải đứng yên
-cho tới khi trẻ bấm `Gộp lại`; màn giải thích sau khi gộp tiếp tục đứng yên cho
-tới khi trẻ chủ động bấm `Tiếp tục`.
-
-Ví dụ:
-
-```text
-      5
-    /   \
-   2     3
-```
-
-#### Mode
-
-- Hoàn thành phần còn lại để tạo số 5.
-- Hoàn thành phần còn lại để tạo số 10.
-- Gộp hai phần để trở lại số ban đầu.
-
-#### Sinh bài
-
-Tổng do slot cố định là 5 hoặc 10. Mỗi slot khai báo một **tập phần có sẵn**
-(mỗi giá trị lớn hơn 0 và nhỏ hơn tổng); phần có sẵn của từng bài được chọn từ
-tập đó bằng seed của bài, nên `Chơi lượt mới` không lặp lại đúng mười bài cũ và
-lượt kế tiếp không mở lại phần có sẵn vừa chơi ở cùng slot. Các tập được biên
-soạn sao cho với **mọi** cách chọn, mỗi block vẫn có ít nhất bốn phần có sẵn
-khác nhau (số 5 chỉ có bốn phần hợp lệ nên bốn slot cố định 1–4 và slot thứ năm
-ôn lại một trong số đó). Phần trẻ cần thêm được tính độc lập bằng
-`tổng - phần có sẵn`.
-
-#### Độ khó
-
-- Block 1: năm tương tác với tổng cố định là 5.
-- Block 2: năm tương tác với tổng cố định là 10.
-
-#### Asset
-
-Một object sprite được clone; hai ô trực quan có nhãn `Có sẵn` và `Bé thêm`
-nằm dưới một mái nhà vẽ bằng vector (react-native-svg) chứa số tổng.
-
-### 7.6. Game 6 — Máy cộng trừ
-
-**Mục tiêu:** cộng trừ trực quan bằng thêm/bớt, đếm tăng và tách gộp.
-
-#### Mode
-
-1. Thêm vật rồi đếm tổng.
-2. Bớt vật rồi đếm phần còn lại.
-3. Đếm tăng từ số lớn hơn.
-4. Tách để tạo 10.
-5. Phép tính hai hoặc ba toán hạng.
-
-#### Ràng buộc sinh bài
-
-- Không sinh kết quả âm.
-- Không vượt phạm vi đang luyện.
-- Ba toán hạng chỉ xuất hiện sau khi trẻ ổn định với hai toán hạng.
-- Cộng trừ phạm vi 20 cần visual scaffolding.
-- Phạm vi 50 là nhánh nâng cao và phải dùng nhóm chục–đơn vị, number line hoặc
-  biểu diễn trực quan tương đương.
-- Không mặc định đưa phép tính trừu tượng phạm vi 50 cho trẻ 4 tuổi.
-
-#### Độ khó
-
-| Cấp | Phạm vi | Phương pháp |
-|---|---:|---|
-| L1 | 5 | Thêm/bớt vật |
-| L2 | 10 | Thêm/bớt và đếm tất cả |
-| L3 | 10 | Đếm tăng |
-| L4 | 20 | Tách gộp và tạo 10 |
-| L5 | 20 | Hai hoặc ba toán hạng |
-| Advanced | 50 | Chục–đơn vị và number line |
-
-#### Effort nội dung
-
-Phép tính được sinh từ constraint và công thức; không liệt kê thủ công từng đề.
-
-> **Cập nhật (2026-08, openspec `add-explore-arithmetic-brd-modes`).**
-> Năm mode §7.6 đã được nối vào engine như một `mode` discriminator sinh theo seed,
-> bên cạnh add/subtract sẵn có, theo đúng thang L1→L6: L1 phạm vi 5 (thêm/bớt vật),
-> L2 phạm vi 10 (đếm tất cả), L3 phạm vi 10 (`count_on` — đếm tiếp từ số lớn hơn),
-> L4 phạm vi 20 (`make_10` — tách để tạo 10, đáp án là phần còn thiếu, khung 10 làm
-> giàn giáo), L5 phạm vi 20 (`three_operand` — a + b + c, mỗi toán hạng ≤ 6), L6 =
-> Advanced phạm vi 50 (`tens_ones` — cộng/trừ chục–đơn vị cạnh number line). Mode
-> nâng cao chỉ xuất hiện khi trẻ leo tới cấp đó (5/7 câu đúng trong cửa sổ) — chính
-> việc đạt cấp là "gate ổn định với hai toán hạng", không cần cờ cấu hình ngoài.
-> Mỗi mode có validator ĐỘC LẬP tự suy lại đáp án + replay byte-identical theo seed,
-> và là một round-variety bucket phủ đủ trong lượt một-bài. `generatorVersion`
-> `arithmetic-machine-v3` → `v4`, `validatorVersion` `...-validator-v3` → `v4`
-> (mirror trong `kido-server/.../explore.registry.ts`). Clip âm `dem_tiep` ("đếm
-> tiếp") cho `count_on` là best-effort, đã ghi vào manifest chờ đợt tổng hợp âm tiếp
-> theo — chưa render âm.
+> Game 6 ("Máy cộng trừ") đã được gỡ hoàn toàn khỏi catalog Khám phá. Số thứ tự
+> các game sau giữ nguyên để tránh xáo trộn tham chiếu; không còn game nào mang mã
+> game đã gỡ này.
 
 ### 7.7. Game 7 — Tìm quy luật
 
@@ -649,7 +481,7 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 
 ### 7.12. Nhóm game tier-2 (Đợt 3)
 
-> Bảy game bổ sung ở Đợt 3, cùng một khuôn: offline / stateless / no-reward,
+> Bốn game bổ sung ở Đợt 3, cùng một khuôn: offline / stateless / no-reward,
 > generator deterministic + validator ĐỘC LẬP (replay theo seed byte-identical),
 > Đô Đô làm mascot, tương tác CHẠM (không kéo-thả), một lượt = 5 bảng L1→L5
 > (progressive), tái dùng engine / pool / asset đã có (KHÔNG thêm art mới). Spec
@@ -659,11 +491,6 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 > tiếp; chữ trên màn luôn là chuẩn. Trạng thái sai luôn nhẹ (Đô Đô "nghĩ", thử
 > lại, tăng trợ giúp), không đánh dấu đáp án, không kết thúc lượt, không đếm ngược.
 
-- **Săn hình (`shape_hunt`)** — quét thị giác + chú ý một-đối-một: trẻ chạm HẾT
-  các vật đúng loại (theo hình / màu / đồ vật) trong một trường rồi "Xong".
-  Validator: tập đã chọn = đúng tập khớp thuộc tính (không thừa, không thiếu), chỉ
-  một thuộc tính biến thiên. L1→L5 tăng cỡ trường (5→15) và độ đa dạng nhiễu. Tái
-  dùng layout `tap_count` + token của `odd_one_out`.
 - **Dọn đồ (`sort_bins`)** — phân loại: từng vật một, trẻ chạm THÙNG (2–3 nhóm
   theo màu / hình / chủ đề) mà vật thuộc về; đúng → thả + vật kế, sai → nhắc nhẹ.
   Validator: thùng = đúng tập nhóm có mặt, mọi vật vào đúng nhóm. L1→L5 tăng số vật
@@ -673,17 +500,14 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
   thuộc tính khác, một ô trống; trẻ chọn token đúng từ options. Validator: CHỈ MỘT
   option thỏa CẢ luật hàng lẫn cột. L1→L5 tăng cỡ lưới + độ phức tạp. Tái dùng
   hidden-slot của `pattern_finder` + lưới `odd_one_out`.
-- **Ú òa (`peekaboo_recall`)** — trí nhớ làm việc ("cái gì biến mất"): hiện 2–5
-  vật → Đô Đô che (peekaboo, KHÔNG đồng hồ) → bớt 1 vật → lộ lại kèm 1 ô trống →
-  trẻ chạm vật bị thiếu từ options. Validator: phần còn lại = tập gốc trừ đúng 1,
-  options gồm vật bị thiếu thật. L1→L5 tăng cỡ tập (2→5). Tái dùng cover/reveal +
-  pool thẻ của Lật thẻ.
-- **Nhìn nhanh (`subitize_flash`)** — subitize (nhận số lượng nhỏ trong nháy mắt):
-  nháy N vật (1–6) khoảng 1 giây rồi Đô Đô che (auto-hide đã được product owner
-  duyệt — KHÔNG phải đếm ngược: không đồng hồ, không số tích tắc, chỉ là Đô Đô
-  che nhóm), trẻ chọn N. `supportLevel`: mức 1 Đô Đô hé lại, mức 2 để mở luôn cho
-  bé đếm — không mức nào đánh dấu đáp án. L1→L5 tăng phạm vi N trong 1–6 + cách sắp
-  xếp. Tái dùng `DotGroup` + `buildNearTargetOptions`.
+- **Ú òa (`peekaboo_recall`)** — trí nhớ làm việc ("cái gì biến mất"): cho bé nhìn
+  2–5 vật khoảng 3 giây kèm đồng hồ cát không số → Đô Đô che
+  (peekaboo) → bớt 1 vật → lộ lại kèm 1 ô trống → trẻ chạm vật bị thiếu từ
+  options. Đồng hồ cát chỉ đo thời gian NHÌN, trả lời không giới hạn thời gian
+  (product owner duyệt 2026-09-13, thay bản hiện 1,5 giây). `supportLevel` làm mờ
+  bớt lựa chọn sai; mức 2 cho nhìn lại cả tập thêm một lượt (có đồng hồ cát).
+  Validator: phần còn lại = tập gốc trừ đúng 1, options gồm vật bị thiếu thật.
+  L1→L5 tăng cỡ tập (2→5). Tái dùng cover/reveal + pool thẻ của Lật thẻ.
 - **Soi gương (`mirror_build`)** — đối xứng / không gian: lưới có trục gương giữa,
   nửa trái có sẵn hình; trẻ chạm ô nửa phải để dựng ảnh phản chiếu rồi "Xong".
   Validator: nửa phải = đúng ảnh gương của nửa trái (suy từ nửa trái nhìn thấy,
@@ -693,13 +517,192 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 
 **Hoãn / bỏ:** `tangram_assemble` (ghép hình) HOÃN vì cần kéo–xoay–ghép hình học,
 không hợp ràng buộc chạm-only và tái dùng engine thấp nhất — để làm riêng sau.
-`balance_scale` (cân) BỎ vì "Bên nào nhiều hơn?" (§7.4) đã có bập bênh thật ở Đợt 3,
-game cân sẽ trùng.
+`balance_scale` (cân) BỎ vì trùng cơ chế so sánh số lượng, không đủ khác biệt để
+làm game riêng.
 
-**Cần designer (PNG thumbnail):** shape-hunt, sort-bins, missing-cell,
-peekaboo-recall, subitize-flash, mirror-build — cùng hai game Đợt 2 (stack-tower,
+**Cần designer (PNG thumbnail):** sort-bins, missing-cell,
+peekaboo-recall, mirror-build — cùng hai game Đợt 2 (stack-tower,
 odd-one-out). Tới khi có PNG, catalog dùng icon vector fallback trong
 `thumbnails.ts` (`EXPLORE_FALLBACK_ICONS`), không cần đổi code khi art về.
+
+### 7.13. Game 13 — Xe buýt hai tầng (`number_bus`)
+
+**Mục tiêu:** cảm nhận cấu trúc phần–toàn thể trong phạm vi 10 (**tách – gộp**)
+và chiến lược **đếm thêm** (counting on), hội tụ ở cặp-của-10; construct
+`math_compose_decompose` (`_within_5`, `_within_10`), bổ trợ
+`math_arithmetic_1_50` và `math_missing_number._add_slot`. Đây là nơi ĐẦU TIÊN
+trong Kido dạy tường minh chiến lược đếm thêm (graph lesson không có node
+riêng — không giẫm lesson nào), và là bản thay thế có tiến trình sư phạm thật
+cho hai game đã gỡ (`number_bond`, `arithmetic_machine`): MỘT card, MỘT
+exerciseType `number_bus`, BẢY mode qua `params.mode`. Spec đầy đủ + bản thiết
+kế hợp nhất (đã qua vòng phản biện 26 issue): OpenSpec
+`add-explore-number-bus-game` (`design.md`). Tiền đề hạ tầng: OpenSpec
+`add-explore-parent-starting-levels` (GĐ0, xem Giai đoạn).
+
+#### Fantasy và khuôn chung
+
+Chiếc xe buýt của Đô Đô đón các bạn thú ở bến. Khung mọc từ fantasy: L1 xe nhỏ
+hai tầng thấp, 4 ghế rời mỗi tầng; L2 mỗi tầng là hàng 5 ghế (five-frame); từ
+L3 mỗi tầng là 2 hàng × 5 ghế = một ten-frame riêng (phần tới 9 vẫn vừa một
+tầng, và mỗi phần tự mang cấu trúc "5 và mấy"). **Sức chứa mỗi tầng cố định
+theo level, không bao giờ theo đáp án** — ghế trống khi đúng là bình thường,
+số ghế không bao giờ lộ phần thiếu. **Biển số
+trên nóc = tổng, hai tầng = hai phần** — đúng sơ đồ tách-gộp SGK lớp 1; ẩn dụ
+tầng-là-phần dùng nhất quán cho MỌI mode. Khoảnh khắc che–mở đọc nhịp "Tập tầm
+vông, tay không tay có!" (clip đọc-nhịp, có tiêu chí cắt ở Human Gate). Chạm-only
+theo khuôn tier-2, CTA ≥ 64pt, reduce-motion luôn có đường tĩnh, offline,
+stateless, no-reward.
+
+#### Mode (7 — GĐ1 ship 5, GĐ2 thêm `five_and` + `make_ten`)
+
+- **`board_all` — Mời bạn lên xe (gộp, L1, không-thể-sai):** hai nhóm thú ở hai
+  bến (Đô Đô đếm mẫu từng bến trước); bé chạm từng bạn → bến 1 lên TẦNG DƯỚI,
+  bến 2 lên TẦNG TRÊN — sau khi gộp hai phần vẫn nhìn thấy được; mỗi chạm phát
+  một tiếng đếm. Đủ khách → mantra "Gộp [A] và [B] được [N]" đồng bộ highlight
+  từng tầng. Không có thẻ ở L1.
+- **`free_split` — Chia hai tầng (tách tự do, có lượt chia lại):** N bạn tầng
+  dưới, chạm để chuyển tầng, bấm Xong — MỌI phân hoạch p, q ≥ 1 đều đúng, đọc
+  trân trọng "[N] gồm [A] và [B]". "Còn cách chia nào nữa nhỉ?" là lời mời
+  THẬT: bảng giữ nguyên, bé chia lượt 2 (bố cục khác theo cặp có thứ tự — 1–6
+  và 6–1 là hai cách); Xong với bố cục cũ → kết bài bình thường, không tính miss.
+- **`next_number` — Bến kế tiếp (tiên quyết Baroody, warm-up L2–L3):** tái dùng
+  clip `number_which_after` sẵn có; 3 thẻ {n+1, n+2, n−1}; n=1 → {2, 3, 4}
+  (không render thẻ "0" trước L3).
+- **`missing_part` — Bạn trốn sau rèm (dựng-rồi-kiểm, KHÔNG thẻ):** biển ghi
+  tổng, audio LUÔN công bố tổng («Có tất cả [N] bạn nhé.») rồi mới hỏi; tầng
+  dưới thấy k bạn, tầng trên rèm bán trong suốt — đường thêm duy nhất là BẾN
+  XE: luôn một bạn chờ, chạm → bạn nhảy lên trốn sau rèm (cùng ngữ pháp chạm
+  với `board_all`/`count_on`; không glyph "+", không đặt trên nóc). Silhouette
+  sau rèm đếm được, chạm để về bến. CTA "Tập tầm vông!" → đúng: rèm mở, đếm
+  kiểm chứng + mantra; thiếu: MỘT cái đuôi ló dưới rèm; thừa: MỘT silhouette
+  lắc lư ngơ ngác — tín hiệu giống nhau bất kể lệch bao nhiêu, giữ nguyên cho
+  bé tự sửa, câu báo không chứa số. Bond đôi (whole = 2×shown) hợp lệ tường
+  minh.
+- **`five_and` *(GĐ2)*:** hàng đầu tầng dưới đầy 5 (khóa), n bạn tầng trên → 3 thẻ tổng;
+  distractor ≠ n.
+- **`count_on` — Cửa đóng (đếm thêm):** trên cửa CHỈ numeral a ("bears in a
+  cave"); b bạn chờ (1–3, subitize được); bé chạm từng bạn → phát [a+1]…[a+b];
+  3 thẻ tổng BẮT BUỘC chứa a+b−1 (bẫy off-by-one chẩn đoán). L3 forced-tap, L4
+  thẻ hiện ngay. Chọn a+b−1 → re-model NGAY TRONG bài: thẻ tạm ẩn, chuyển
+  forced-tap đếm mẫu, thẻ hiện lại. GĐ2: cổng MIN `chooseStart` (chọn nhóm lên
+  trước — cả hai lựa chọn đều tiến hành được, kinh tế tự lộ bằng vật lý).
+- **`make_ten` *(GĐ2)*:** ten-frame của tầng dưới đổ sẵn k ∈ 5–9 (ngoại lệ có chủ
+  đích: ở đây đọc ô trống CHÍNH LÀ chiến lược make-ten), biển "10" numeral;
+  đáp án 10−k LUÔN có trong options — kể cả k=5 (cặp 5–5); anti-copy chỉ áp cho
+  distractor. Đúng → các bạn còn lại bay vào từng ghế, đếm [k+1]… — đếm thêm
+  nhúng trong tách gộp.
+
+#### Độ khó (mỗi run neo MỘT level, tối đa 3 mode/lượt)
+
+| L | Bậc mastery | Họ tách–gộp | Họ đếm thêm | Biểu diễn (CPA) |
+|---|---|---|---|---|
+| L1 | Gộp cảm nhận + tách tự do | `board_all` (3–4), `free_split` (3–4) | — | sprite/chấm to, không numeral |
+| L2 | Composer to 5 | `free_split` (5), `missing_part` (4–5) | `next_number` (n 1–4) | numeral mờ chồng chấm |
+| L3 | Cấu trúc 5 + đếm thêm khởi động | `missing_part` (6–7); *(GĐ2)* `five_and` | `count_on` (a 3–5, b 1–2, forced-tap), `next_number` (4–8, TRƯỚC bài cửa đóng) | mỗi tầng một ten-frame 2×5, numeral rõ |
+| L4 | Đếm thêm thành thạo + tách trong 10 | `missing_part` (6–9), `free_split` (6–9, chứa bond đôi) | `count_on` (a ≤ 9, b 1–3, tổng ≤ 10) | chấm + numeral song song |
+| L5 *(GĐ2)* | Cặp của 10 + chọn chiến lược | `make_ten` (k 5–9), `missing_part` (10), `free_split` (10), ôn trộn bond của 5 | `count_on` trộn | numeral chính; "a + b = N" chỉ hiện SAU khi đúng |
+
+Counting-all không bị cấm mà được dùng trọn L1–L2; L3 làm counting-on *rẻ hơn*
+bằng cấu trúc đề, không ép. Tiêu chí "đã vững" từng bậc viết thành lời trong màn
+phụ huynh; lên bậc qua nhiều phiên do phụ huynh đặt
+`startingLevelByGame.number_bus` (GĐ0) — cách hợp lệ duy nhất trong khuôn
+zero-history.
+
+#### Cách dạy (trẻ chưa biết đọc)
+
+GĐ1 dùng **micro-cue**: lần đầu mỗi mode trong run → ghost-hand ~2–3 giây gợi
+chạm đầu tiên, chạm màn là hủy (reduce-motion: highlight tĩnh); demo I-do/We-do
+đầy đủ chuyển GĐ2. **Mô hình tự nói thay lời giảng** — audio chỉ đọc lại điều
+mắt thấy; một thần chú lặp mọi mode mọi lượt: "[N] gồm [A] và [B]" / "Gộp [A]
+và [B] được [N]", đồng bộ highlight phần đang đọc. Audio đếm-theo-chạm dùng
+thẳng clip số sẵn có (gộp đếm từ 1, đếm thêm từ a+1, make-ten từ k+1). **Luật
+sắt:** câu báo thừa/thiếu và câu hint không bao giờ chứa chữ số lẫn từ chỉ số
+lượng — hai ngoại lệ documented: distractor b=1 (chính nó là lỗi chẩn đoán) và
+câu re-model «Số [a] ở trong xe rồi, mình đếm thêm nha!» (a đang hiển thị trên
+cửa).
+
+#### Sinh bài
+
+Generator deterministic theo seed (`generateNumberBusExercise(level, seed,
+runSlot?)`), replay byte-identical; validator ĐỘC LẬP tự tính bằng số học,
+reject `params.options` ở mode dựng (`board_all`/`free_split`/`missing_part`).
+**Luật anti-copy tổng quát: chỉ áp cho DISTRACTOR, không bao giờ áp cho đáp án
+đúng.** Bảng mode↔level + bảng vai-trò-slot là nguồn duy nhất chọn mode;
+contract script assert coverage HAI CHIỀU (mọi mode declared reachable, mọi
+exercise đúng bảng) — đóng vĩnh viễn vết xe dead-mode của game cũ. Variety:
+`bucketKey = params.mode` (≥ 20%/bucket), `variantKey` theo mode, cửa sổ 8 bài.
+Không gian bài ≥ 200/level theo chuẩn §8.4.
+
+#### runPolicy & thích ứng
+
+Game đầu tiên dùng nhánh **authored runPolicy** của `createExploreRunBatch`
+(6 slot PHẲNG, mọi slot cùng level hiệu dụng; vai trò slot qua
+`generatorHint` trong `runSlot.constraints` — KHÔNG đổi shape contract). MỘT mở
+rộng engine duy nhất ở GĐ1: nhánh authored resolve level hiệu dụng =
+clamp(startingLevel + levelOffset, game.levels) thay vì đọc `runSlot.level`
+tĩnh (kèm smoke test riêng — nhánh này chưa từng chạy với game thật). Warm-up
+`next_number` ghim ở s2, count_on chấm điểm chỉ từ s3. Nghi thức mở màn: s1
+prepend «Hôm nay mình chơi với số [W]!» từ generator, deterministic.
+De-scaffold dùng nguyên cơ chế leo thang sẵn có (miss 1 → support 1, miss 2 →
+support 2): support 1 = chỉ TRỎ, không ĐẾM hộ; support 2 = mở đường đếm-tất-cả
+nhưng KHÔNG BAO GIỜ lộ phần chính là đáp án — `count_on`: cửa trong dần hiện a
+chấm mờ (a vốn đang hiển thị); `missing_part`: biển tổng hiện N chấm mờ, không
+chấm nào trong vùng rèm; mode thẻ: mờ option không thể đúng. Đây là quyền quay
+về đếm-tất-cả, không phải phạt. Cấm lộ đáp án ở support 1.
+
+#### Asset
+
+Không art mới ngoài 1 thumbnail clay (`number_bus.png`, xe đưa đón kiểu VN,
+prompt trong `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md`; vector fallback chờ PNG). Xe
++ ghế + rèm + cửa = vector trong renderer; hành khách = sprite thú pool
+approved, fallback `DotGroup`/primitive; Đô Đô = `ExploreMascot`; màu hai tầng
+Okabe–Ito. Offline hoàn toàn, mọi dependency bundled.
+
+#### Audio
+
+Một batch duy nhất → pack `explore-audio-vi-v4` (thu TRỌN inventory kể cả câu
+GĐ2): ~32 clip mới namespace `nb_*` (~20 câu tĩnh + ~12 mảnh ghép), mọi câu
+≤ 12 từ, đúng persona; tái dùng nguyên 51 clip số 0–50, `va`, `nhe`,
+`make_10_q`, `number_which_after`, toàn bộ `fb_*`. Danh sách clip chốt tại
+`design.md` của OpenSpec change. `nb_chant` ("Tập tầm vông…") là clip đọc-nhịp
+— Human Gate nghe robot/nhạt thì cắt khỏi export, game không phụ thuộc. Câu
+công-bố-tổng của `missing_part` bắt buộc có mặt trong audioRefs (không rơi vào
+im lặng); còn lại best-effort chuẩn, promptVi + hình luôn tự đứng.
+
+#### Ranh giới sư phạm
+
+- Ký hiệu +/−/= cấm trước L5; ở L5 chỉ hiện SAU khi đúng, lớp phủ tĩnh "a + b
+  = N" đọc thành lời — cầu "áp dụng vào phép tính" duy nhất được phép.
+- Không ép đếm thêm: bé còn counting-all thì đó là chiến lược đúng; không drill
+  "mẹo nói số to". Clip `nb_big_first` CHỈ phát trong demo I-do của chooseStart
+  (GĐ2), không bao giờ là phản ứng với lựa chọn của bé.
+- Không: phép trừ hình thức, bảng cộng học vẹt, nhẩm không hình, thuật ngữ học
+  thuật (kể cả "số liền sau/liền trước" — dùng "đứng sau", "đếm thêm", "gồm",
+  "gộp", "tách"), phạm vi > 10, đọc–viết chữ số, timer/tốc độ, so sánh trẻ, bắt
+  nói/thu âm, lưu lịch sử/analytics.
+- Không bắt tìm "cách chia đẹp nhất" — mọi cách tách đều đọc to trân trọng.
+
+#### Effort nội dung
+
+Tạo một lần: config + generator + validator + pool tái dùng + 1 thumbnail + 1
+batch audio. **Nội dung định kỳ: Không.**
+
+#### Giai đoạn
+
+- **GĐ0 — `add-explore-parent-starting-levels` (change riêng, trước GĐ1):**
+  `ExploreParentConfig.startingLevelByGame` per-game + persistence ngoài
+  Explore play store (đúng `EXPLORE_ZERO_HISTORY`) + màn phụ huynh tối thiểu +
+  `resolveStartingLevel` clamp về level lớn nhất ≤ giá trị chọn.
+- **GĐ1 — `add-explore-number-bus-game`:** 5 mode (`board_all`, `free_split`
+  kèm lượt-chia-lại, `next_number`, `missing_part`, `count_on` kèm re-model
+  off-by-one), L1–L4 xác định đầy đủ, authored 6 slot phẳng, micro-cue, reorder
+  catalog có chủ đích (`…stack_tower → number_bus → number_chain…`), batch
+  audio v4 trọn, thumbnail, đồng bộ `EXPLORE_GAME_CODES` ba nơi đang lệch.
+  **Chốt GĐ1 bằng chơi thử với bé thật trước khi nới.**
+- **GĐ2 — sau playtest:** `five_and` + `make_ten` + L5 + lớp phủ "a + b = N" +
+  ôn trộn; demo I-do/We-do; cổng MIN `chooseStart` + bài chẩn đoán; mở kênh
+  `onAnswer(correct, detail?)` + `runFlags`; slot `variants` + `s6_stretch`.
+  Không batch audio mới.
 
 ---
 
@@ -737,10 +740,6 @@ Playable exercise
 | Xưởng luyện nét (ẩn khỏi catalog) | Vector path + config | Pack vector | Không |
 | Dẫn đường cho Đô Đô | Grid generator + solver độc lập | Thumbnail | Không |
 | Khám phá số | Công thức số | Không | Không |
-| Chạm và đếm | Count + layout | Không | Không |
-| Bên nào nhiều hơn | Hai số + clone sprite | Không | Không |
-| Ngôi nhà tách gộp | Partition algorithm | Không | Không |
-| Máy cộng trừ | Arithmetic constraints | Không | Không |
 | Tìm quy luật | Pattern grammar | Không | Không |
 | Lật thẻ tìm cặp | Sample asset + shuffle | Không | Không |
 
@@ -890,19 +889,15 @@ runtime production.
 ### Phase A — Engine đơn giản, reuse cao
 
 1. Khám phá số.
-2. Chạm và đếm.
-3. Bên nào nhiều hơn.
-4. Lật thẻ tìm cặp.
+2. Lật thẻ tìm cặp.
 
 ### Phase B — Toán sâu hơn
 
-5. Ngôi nhà tách gộp.
-6. Máy cộng trừ.
-7. Tìm quy luật.
+3. Tìm quy luật.
 
 ### Phase C — Interaction mới
 
-8. Xưởng luyện nét, gồm nét, hình, tracing number và tracing letter.
+4. Xưởng luyện nét, gồm nét, hình, tracing number và tracing letter.
 
 Phase C đứng sau về thứ tự kỹ thuật vì cần renderer và cách đánh giá đường đi
 mới, dù effort sản xuất nội dung định kỳ thấp.

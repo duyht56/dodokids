@@ -208,27 +208,6 @@ Mobile:
   covers the range, keeping each level's visual modes for the audio-missing
   profile; declared buckets/capacity in `variety.ts` cover both profiles and
   `generatorVersion` bumped to `number-explorer-v4` (seeded stream changed).
-- Explore count second mode (OpenSpec `add-explore-count-target-mode`, 2026-08):
-  `tap_count` (`games/countGame.ts`) now has a seed-deterministic `mode`
-  discriminator — `count_all` (count all, pick the number) and `count_target`
-  ("chạm đúng N": tap exactly N of a larger single-asset set and submit, checked
-  by the independent validator + `TapCountRenderer`); both declared as
-  `variety.ts` buckets `count_all`/`count_target` (variantKey `count:<mode>:<N>`),
-  `generatorVersion`/`validatorVersion` bumped to `tap-count-v4`, ladder still
-  L1(1–5)→L4(1–20)→L10(1–50); new best-effort audio keys `count_target_*`.
-- Explore compare range cap (OpenSpec `cap-explore-compare-range`, 2026-08):
-  `quantity_compare` (`games/compareGame.ts`) is capped at range 20 per BRD §7.4
-  via a compare-specific `COMPARE_LEVEL_ORDER = [1,2,3,4]` — L1(5)/L2(10)/L3(15)/
-  L4(20), equal re-homed to L3 and the grouped arrangement to L4; `variety.ts`
-  buckets trimmed to four levels; `generatorVersion` bumped to `quantity-compare-v4`
-  (mirrored in kido-server `explore.registry.ts`). The shared `RANGE_LEVEL_ORDER`
-  ten-range ladder other range games use is untouched. The Explore presentation is
-  a "bập bênh" seesaw (`explore/components/SeesawComparisonBoard.tsx`, wired from
-  `QuantityCompareRenderer.tsx`) — presentation only, reusing the seeded
-  counts/side/slots/assets with no version change; the plank rests level until a
-  correct pick then tilts toward the side with MORE (native driver, static under
-  reduced motion). The shared `components/activities/QuantityComparisonBoard.tsx`
-  (lesson `compare_tap`) is not touched.
 - Explore Đợt 2 (OpenSpec `add-explore-round-2-games`, 2026-08): two more
   local games — `stack_tower` and `odd_one_out` (progressive five-board runs)
   — each owning its variety
@@ -240,38 +219,11 @@ Mobile:
   `promptAudio.ts` mirrored by `kido-pipeline/src/explore/exploreAudioInventory.ts`,
   pack `explore-audio-vi-v2` (mobile accepts v1+v2); see
   `openspec/changes/add-explore-round-2-games/audio-batch-v2.md` for the run.
-- Explore Đợt 3 feel pass (OpenSpec `polish-explore-round-3-feel`, 2026-08):
-  presentation-only motion + best-effort voice, no generator/validator/version or
-  audio-pack change. `NumberBondRenderer` slides leaves into/out of the "Bé thêm"
-  box, settles the two parts on "Gộp lại", and speaks the bundled
-  `numberBondFeedbackKeys` + number clips via `onSpeakFeedback`; all animations use
-  the native driver and are skipped under reduced motion (same gate as
-  `MemoryMatchRenderer`), resting in today's static end state.
 - Explore Đợt 3 feel (OpenSpec `polish-explore-round-3-feel`, 2026-08),
   presentation-only: `MemoryMatchRenderer` turns each card with a real flip
   (per-card `scaleX` 1→0→1, face swapped at the mid-point, native driver,
   skipped under reduced motion) driven only by the reducer's `faceUp`/`matched`
   state — no `memoryGame.ts`/`memoryState` change, replay byte-identical.
-- Explore Đợt 3 feel (OpenSpec `polish-explore-round-3-feel`, 2026-08),
-  presentation-only: `ArithmeticRenderer`/`VisualMathScene` run the "máy cộng trừ"
-  machine (`MathMachine`) — operand groups feed in on `SemanticAnimationView`/
-  `addGroup`/`removeGroup` and the `?` result emerges from the funnel — and draw
-  the add/subtract number line as a ticked, labelled ruler with the `hopProgress`
-  hop; native driver, skipped under reduced motion (same gate, static end state),
-  `supportLevel` visuals unchanged, no `arithmeticGame.ts`/version change.
-- Explore arithmetic BRD §7.6 modes (OpenSpec `add-explore-arithmetic-brd-modes`,
-  2026-08): `arithmetic_machine` (`games/arithmeticGame.ts`) wires the strategy
-  modes as a seed-deterministic `mode` discriminator alongside add/subtract on the
-  L1→L6 ladder — `count_on` (L3, count on from the larger), `make_10` (L4, complete
-  the ten, answer = the missing part, ten-frame scaffold), `three_operand` (L5,
-  a+b+c with each operand ≤6) and `tens_ones` (L6 = Advanced range 50, place value
-  beside the number line). Reachability is level-driven (reaching the level IS the
-  "stable with two operands" gate, no external config flag); each mode has an
-  INDEPENDENT validator + byte-identical seed replay, is a declared `variety.ts`
-  bucket (`arithmetic:<mode>`), and reuses `VisualMathScene`/`TensOnes`/number-line/
-  ten-frame primitives with `supportLevel` intact. `generatorVersion`/`validatorVersion`
-  bumped `arithmetic-machine-v3`→`v4` (mirrored in kido-server `explore.registry.ts`);
-  new best-effort `dem_tiep` count-on clip (next audio batch).
 - Explore pattern families + fix_error (OpenSpec
   `enhance-explore-pattern-families-fixerror`, 2026-08): `pattern_finder`
   (`games/patternGame.ts`) splits cycles into distinct, labelled grammar families
@@ -295,14 +247,11 @@ Mobile:
   timeout (deferred setState), never touching the reducer's matched set —
   replay/scoring unaffected, skipped-friendly under reduced motion.
 - Explore tier-2 games (Đợt 3 Slice 3, OpenSpec `add-explore-<code>-game` each):
-  six new offline/stateless/no-reward games registered end-to-end exactly like
-  the Đợt 2 games — `shape_hunt` (tap all of a kind, reuses tap_count field +
-  odd_one_out tokens),
-  `sort_bins` (tap-only classify into 2–3 bins), `missing_cell` (2-D Raven matrix,
-  reuses pattern hidden-slot), `peekaboo_recall` (what's-missing, reuses memory
-  cover/reveal), `subitize_flash` (N 1–6 at a glance, then Đô Đô auto-hides;
-  supportLevel re-peeks/stays-open), `mirror_build` (build the
-  symmetric right half). `peekaboo_recall` and `subitize_flash` show their set for
+  four new offline/stateless/no-reward games registered end-to-end exactly like
+  the Đợt 2 games — `sort_bins` (tap-only classify into 2–3 bins),
+  `missing_cell` (2-D Raven matrix, reuses pattern hidden-slot),
+  `peekaboo_recall` (what's-missing, reuses memory cover/reveal), `mirror_build`
+  (build the symmetric right half). `peekaboo_recall` shows its set for
   a ~3s look window timed by the shared, numeral-free
   `explore/components/SandTimer.tsx` (owner-approved 2026-09-13; answering stays
   untimed and running out fails nothing). All tap-only, progressive L1→L5, deterministic generator +
@@ -314,11 +263,28 @@ Mobile:
   PUBLIC_GAMES + bundled def + explore.service.spec catalog count, a
   verify-explore-<game> script, a kido-server spec, and best-effort audio keys
   mirrored to promptAudio + exploreAudioInventory (silent until next audio batch).
-  Server registered-public catalog count is 17, and as of 2026-08-25 all 17 are
-  catalog-visible (tracing re-enabled + smoothed to pack v5). Deferred:
+  Server registered-public catalog count was 11 then (12 now, see the game-codes
+  entry below), and as of 2026-08-25 all were catalog-visible (tracing
+  re-enabled + smoothed to pack v5). Deferred:
   `tangram_assemble` (needs drag/rotate, not tap-only); dropped: `balance_scale`
   (redundant with the compare seesaw). Also pending: catalog PNG art for all Đợt-2
-  and tier-2 games; route predict-ahead mode; number_bond slot shuffle.
+  and tier-2 games; route predict-ahead mode.
+- Explore game codes (2026-09-23, OpenSpec `add-explore-number-bus-game`):
+  `EXPLORE_GAME_CODES` is identical — same 12 codes, same order — in
+  `docs/kido-explore-contract.ts`, `mobile/src/types/explore.ts` and kido-server
+  `explore.types.ts`: `tracing_workshop`, `route_planner`, `pattern_finder`,
+  `memory_match`, `stack_tower`, `missing_cell`, `peekaboo_recall`,
+  `mirror_build`, `ordinal_position`, `number_chain`, `spin_pattern`,
+  `number_bus`. The legacy `number_explorer`/`odd_one_out`/`sort_bins` are gone
+  from docs/server as well (their server specs removed). kido-server
+  `explore.registry.ts` mirrors each bundled local game through
+  `BUNDLED_LOCAL_GAMES` (prefix, assets, levels); `number_bus` ("Xe buýt hai
+  tầng") is local-only and offline with levels L1–L4 (GĐ1) and is never
+  generated server-side. `explore.contract-codes.spec.ts` guards the three-way
+  code equality and the server↔mobile mirror (`memory_match`/`pattern_finder`
+  excepted: legacy server manifests). Public server catalog count is 12.
+  `ExploreRunSlot.level` is the declared default; the mobile authored-run
+  branch plays clamp(startingLevel + `constraints.levelOffset`, game levels).
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/

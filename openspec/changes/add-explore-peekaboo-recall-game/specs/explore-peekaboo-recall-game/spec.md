@@ -1,8 +1,9 @@
 ## Purpose
 
 Defines "Ú òa" (`peekaboo_recall`), the offline working-memory game in which a
-small set of distinct objects is shown in slots, Đô Đô covers them (peekaboo —
-not a countdown), ONE object is taken away, the cover lifts to reveal the
+small set of distinct objects is shown in slots for a ~3s look window beside a
+numeral-free sand timer, Đô Đô covers them (peekaboo), ONE object is taken away,
+the cover lifts to reveal the
 remaining objects plus one empty slot, and the child taps, from an options row,
 which object is now missing. A generator and an independent validator guarantee
 the original set is distinct real objects, that exactly one was removed, and that
@@ -52,7 +53,7 @@ The answer options SHALL be `optionCount` distinct real objects that INCLUDE the
 - **THEN** the missing object appears at more than one option position across the corpus
 
 ### Requirement: Five levels scaling set size and options
-The game SHALL define five levels whose set size scales from 2 to 5 objects and whose option count grows, never shrinking with level. The round-variety bucket of a board SHALL be its set size and every declared bucket SHALL be reachable at its level, and the declared round-variety capacity per level SHALL be reachable. A run SHALL play one board per level from L1 to L5 as a progressive run without streaks, countdowns or a lose state.
+The game SHALL define five levels whose set size scales from 2 to 5 objects and whose option count grows, never shrinking with level. The round-variety bucket of a board SHALL be its set size and every declared bucket SHALL be reachable at its level, and the declared round-variety capacity per level SHALL be reachable. A run SHALL play one board per level from L1 to L5 as a progressive run without streaks, an answer time limit or a lose state.
 
 #### Scenario: Set size scales across the ladder
 - **WHEN** the levels are inspected
@@ -66,16 +67,20 @@ The game SHALL define five levels whose set size scales from 2 to 5 objects and 
 - **WHEN** chained one-exercise rounds are requested at a level
 - **THEN** every served board's bucket is the declared set-size bucket and more than one variant reaches the child
 
-### Requirement: A peekaboo cover, not a countdown
-The renderer SHALL play a peekaboo sequence: a brief show of the full set, then Đô Đô (`ExploreMascot`) covers the slots, then the cover lifts to reveal the remaining objects plus one empty slot. The cover SHALL be Đô Đô playing peekaboo and SHALL NOT show any timer numeral or countdown. All motion SHALL use the native animation driver and SHALL be instant when the system requests reduced motion. Objects SHALL be drawn from the memory-asset glyph data and NO emoji SHALL be used as a UI icon or as the mascot.
+### Requirement: A sand-timed look, then a peekaboo cover
+The renderer SHALL play a peekaboo sequence: a look window of about three seconds on the full set, then Đô Đô (`ExploreMascot`) covers the slots, playing peekaboo, then the cover lifts to reveal the remaining objects plus one empty slot. While a look window runs — the first look and the level-2 memory-aid re-show — the renderer SHALL show the shared sand timer (an hourglass glyph beside a bar that drains linearly) and SHALL NOT show any numeral ticking down. The sand timer SHALL only measure how long the set stays visible: it SHALL NOT limit the time to answer, and running out SHALL NOT fail, lock or end anything. All motion SHALL use the native animation driver; when the system requests reduced motion the cover and pop SHALL appear without animation, while the sand timer SHALL still drain because it is a progress indicator, not decoration. Objects SHALL be drawn from the memory-asset glyph data and NO emoji SHALL be used as a UI icon or as the mascot.
 
-#### Scenario: The cover is Đô Đô, never a timer
-- **WHEN** the set is covered between the show and the reveal
-- **THEN** Đô Đô plays peekaboo over the slots and no countdown numeral is shown
+#### Scenario: The look window is timed without numerals
+- **WHEN** a board starts
+- **THEN** the full set stays visible for about three seconds beside a draining sand timer, no numeral is shown, and Đô Đô covers the slots when the sand runs out
+
+#### Scenario: Running out of sand fails nothing
+- **WHEN** the sand timer runs out
+- **THEN** the set is covered, then revealed with one empty slot, and the options can be tapped with no time limit
 
 #### Scenario: Reduced motion is enabled
 - **WHEN** the system reports reduced motion
-- **THEN** the show, cover and reveal still happen but without the cover/pop animation
+- **THEN** the look window, sand timer, cover and reveal still happen, but without the cover/pop animation
 
 ### Requirement: Tap-an-option feedback that never ends the run
 The renderer SHALL let the child tap an answer option once the set is revealed: an option equal to the answer SHALL pop the missing object back into its slot, make Đô Đô cheer, mark the board solved and report `onAnswer(true)`. A wrong option SHALL play a gentle "try again" shake, make Đô Đô think, emit the `onTryAgainSound` cue and report `onAnswer(false)` WITHOUT ending the run, filling in the missing object, or locking the option — the child simply tries another. The renderer SHALL NOT carry its own prompt-replay control and SHALL NOT persist or report anything beyond `onAnswer`.
@@ -89,7 +94,7 @@ The renderer SHALL let the child tap an answer option once the set is revealed: 
 - **THEN** a gentle shake plays, `onAnswer(false)` is called, nothing locks and the missing object is not filled in
 
 ### Requirement: Support dims distractors without revealing the answer
-At support level 1 or higher the renderer SHALL dim one or more distractor options, and it SHALL never dim the answer and SHALL always leave at least one distractor live beside the answer, so support narrows the choice without handing the answer over. At support level 0 no option SHALL be dimmed.
+At support level 1 or higher the renderer SHALL dim one or more distractor options, and it SHALL never dim the answer and SHALL always leave at least one distractor live beside the answer, so support narrows the choice without handing the answer over. At support level 2 the renderer SHALL also show the full set once more for one sand-timed look window as a memory aid, with the options disabled meanwhile. At support level 0 no option SHALL be dimmed.
 
 #### Scenario: Raised support dims a distractor
 - **WHEN** the play screen passes `supportLevel` 1 or 2
@@ -107,7 +112,7 @@ The on-screen prompt SHALL be shown and, together with the board itself, SHALL b
 - **THEN** the prompt is still shown on screen and the board is fully playable in silence
 
 ### Requirement: Conformance checks
-The contract SHALL be enforced by `mobile/scripts/verify-explore-peekaboo-contracts.cjs` (`npm run test:explore-peekaboo`: at least 200 seeds per level, replay equality, an independent re-derivation of the original set, the exactly-one-removed and only-foreign-distractor rules, the answer-position-not-fixed rule, tamper rejection, chained one-exercise rounds and renderer presentation rules) and by `kido-server/src/modules/explore/explore.peekaboo-recall.spec.ts` (corpus conformance with an independent what's-missing proof, tamper rejection, the server catalog mirror and renderer source rules). The game SHALL also be covered by the shared `npm run test:explore-variety-buckets` contract.
+The contract SHALL be enforced by `mobile/scripts/verify-explore-peekaboo-contracts.cjs` (`npm run test:explore-peekaboo`: at least 200 seeds per level, replay equality, an independent re-derivation of the original set, the exactly-one-removed and only-foreign-distractor rules, the answer-position-not-fixed rule, tamper rejection, chained one-exercise rounds and renderer presentation rules, including the at-least-three-second look window and the shared sand timer) and by `kido-server/src/modules/explore/explore.peekaboo-recall.spec.ts` (corpus conformance with an independent what's-missing proof, tamper rejection, the server catalog mirror and renderer source rules). The game SHALL also be covered by the shared `npm run test:explore-variety-buckets` contract.
 
 #### Scenario: Contract script runs
 - **WHEN** `npm run test:explore-peekaboo` runs in `mobile/`

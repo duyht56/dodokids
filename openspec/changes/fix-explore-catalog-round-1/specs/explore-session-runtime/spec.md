@@ -1,18 +1,14 @@
 ## MODIFIED Requirements
 
 ### Requirement: Transient play run
-Starting a game SHALL create a new in-memory run whose validated game-owned policy contains 5–10 interactions. Games without an explicit policy retain their existing run size, except that progressive games MAY declare a shorter run (memory match plays three boards). `number_bond` SHALL declare exactly 10 interactions: five for whole 5 followed by five for whole 10. A continuous game (range games, arithmetic) SHALL end its run naturally after 8 correct answers, and Route Planner after the Stage-5 board succeeds; wrong answers never count toward or end a run. Every run SHALL start from the parent's static starting level (or the game's first level) — continuous games carry that level into their in-memory progress and progressive games play a consecutive window of levels from it. Run state SHALL NOT be persisted to local storage, secure storage, database, analytics or a remote service.
-
-#### Scenario: Number-bond run starts
-- **WHEN** the registered `number_bond` game is opened
-- **THEN** the shell resolves its ten-slot plan and displays progress against 10 rather than a global five-interaction constant
+Starting a game SHALL create a new in-memory run whose validated game-owned policy contains 5–10 interactions. Games without an explicit policy retain their existing run size, except that progressive games MAY declare a shorter run (memory match plays three boards). A continuous game (range games) SHALL end its run naturally after 8 correct answers, and Route Planner after the Stage-5 board succeeds; wrong answers never count toward or end a run. Every run SHALL start from the parent's static starting level (or the game's first level) — continuous games carry that level into their in-memory progress and progressive games play a consecutive window of levels from it. Run state SHALL NOT be persisted to local storage, secure storage, database, analytics or a remote service.
 
 #### Scenario: Existing five-interaction game starts
-- **WHEN** a registered game without the number-bond policy or a progressive run size is opened
+- **WHEN** a registered game without an explicit run policy or a progressive run size is opened
 - **THEN** its current run-size and level-selection behavior remain unchanged apart from starting at the parent's static level
 
 #### Scenario: Continuous run reaches its natural end
-- **WHEN** the child answers the eighth correct exercise of a range or arithmetic run
+- **WHEN** the child answers the eighth correct exercise of a range run
 - **THEN** the shell shows the run-complete screen with "Chơi lượt mới" and "Chọn trò khác" instead of generating another exercise, and a new run starts fresh with no memory of the previous one
 
 #### Scenario: Parent chose a starting level

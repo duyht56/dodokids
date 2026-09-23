@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="position:relative;width:{{ W }};display:flex;flex-direction:column;align-items:center;font-family:'Baloo 2',sans-serif">
+<div style="position:relative;z-index:2;height:62px;width:100%;display:flex;align-items:flex-end;justify-content:center">
+<sc-if value="{{ sNum }}" hint-placeholder-val="{{ false }}"><div style="width:76px;height:76px;margin-bottom:-18px;border-radius:50%;background:#FFFFFF;border:3px solid #242631;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:{{ signSh }}"><span style="font:800 40px/1 'Baloo 2';color:#242631;margin-top:6px">{{ total }}</span></div></sc-if>
+<sc-if value="{{ sNumDots }}" hint-placeholder-val="{{ false }}"><div style="width:76px;height:76px;margin-bottom:-18px;border-radius:50%;background:#FFFFFF;border:3px solid #242631;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:{{ signSh }}"><span style="font:800 30px/1 'Baloo 2';color:#242631;margin-top:5px">{{ total }}</span><div style="display:flex;flex-direction:column;gap:3px"><sc-for list="{{ dotRows }}" as="r" hint-placeholder-count="2"><div style="display:flex;gap:3px"><sc-for list="{{ r }}" as="d" hint-placeholder-count="5"><div style="width:7px;height:7px;border-radius:50%;background:#8C8F9C;opacity:.6"></div></sc-for></div></sc-for></div></div></sc-if>
+<sc-if value="{{ sDim }}" hint-placeholder-val="{{ false }}"><div style="position:relative;width:76px;height:76px;margin-bottom:-18px;border-radius:50%;background:#FFFFFF;border:3px solid #242631;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:{{ signSh }}"><div style="display:flex;flex-direction:column;gap:4px"><sc-for list="{{ dotRows }}" as="r" hint-placeholder-count="2"><div style="display:flex;gap:4px"><sc-for list="{{ r }}" as="d" hint-placeholder-count="5"><div style="width:9px;height:9px;border-radius:50%;background:#4C5060"></div></sc-for></div></sc-for></div><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:800 42px/1 'Baloo 2';color:#242631;opacity:.3;padding-top:6px">{{ total }}</span></div></sc-if>
+<sc-if value="{{ sDots }}" hint-placeholder-val="{{ false }}"><div style="width:76px;height:76px;margin-bottom:-18px;border-radius:50%;background:#FFFFFF;border:3px solid #242631;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:{{ signSh }}"><div style="display:flex;flex-direction:column;gap:4px"><sc-for list="{{ dotRows }}" as="r" hint-placeholder-count="2"><div style="display:flex;gap:4px"><sc-for list="{{ r }}" as="d" hint-placeholder-count="5"><div style="width:9px;height:9px;border-radius:50%;background:#4C5060"></div></sc-for></div></sc-for></div></div></sc-if>
+<sc-if value="{{ sBoth }}" hint-placeholder-val="{{ false }}"><div style="height:76px;margin-bottom:-18px;padding:0 16px;border-radius:38px;background:#FFFFFF;border:3px solid #242631;box-sizing:border-box;display:flex;align-items:center;gap:12px;box-shadow:{{ signSh }}"><span style="font:800 40px/1 'Baloo 2';color:#242631;margin-top:6px">{{ total }}</span><div style="width:2px;height:36px;background:#EFE9DF"></div><div style="display:flex;flex-direction:column;gap:4px"><sc-for list="{{ dotRows }}" as="r" hint-placeholder-count="2"><div style="display:flex;gap:4px"><sc-for list="{{ r }}" as="d" hint-placeholder-count="5"><div style="width:9px;height:9px;border-radius:50%;background:#4C5060"></div></sc-for></div></sc-for></div></div></sc-if>
+<sc-if value="{{ sBlank }}" hint-placeholder-val="{{ true }}"><div style="width:76px;height:76px;margin-bottom:-18px;border-radius:50%;background:#FFFFFF;border:3px solid #242631;box-sizing:border-box;box-shadow:{{ signSh }}"></div></sc-if>
+</div>
+<div style="width:100%;box-sizing:border-box;border:3px solid #242631;border-radius:26px;background:#FFFFFF;padding:4px;display:flex;flex-direction:column;gap:6px;box-shadow:0 8px 18px rgba(42,27,16,.08)">
+<sc-if value="{{ hasUp }}" hint-placeholder-val="{{ true }}">
+<div style="position:relative;border-radius:22px;background:#D8EEFB;padding:4px;display:flex;flex-direction:column;gap:8px;box-shadow:{{ upSh }};overflow:hidden">
+<sc-for list="{{ upRows }}" as="row" hint-placeholder-count="2">
+<div style="display:flex;gap:{{ gap }};justify-content:center">
+<sc-for list="{{ row }}" as="s" hint-placeholder-count="5">
+<div style="position:relative;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center">
+<sc-if value="{{ s.f }}" hint-placeholder-val="{{ false }}"><div style="transform:{{ s.t }};opacity:{{ s.o }}"><dc-import name="Passenger" kind="{{ kind }}" em="{{ em }}" sil="{{ s.sil }}" size="46" hint-size="46px,46px"></dc-import></div></sc-if>
+<sc-if value="{{ s.wob }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(36,38,49,.28);transform:rotate(-14deg)"></div></sc-if>
+<sc-if value="{{ s.bub }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:-5px;top:-5px;min-width:26px;height:26px;padding:0 4px;box-sizing:border-box;border-radius:13px;background:#242631;color:#FFFFFF;font:800 15px/27px 'Baloo 2';text-align:center;z-index:3">{{ s.n }}</div></sc-if>
+<sc-if value="{{ s.hand }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:-22px;bottom:-26px;z-index:6;opacity:.85"><svg width="44" height="44" viewBox="0 0 24 24" fill="#FFFFFF" stroke="#242631" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg></div></sc-if>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<sc-if value="{{ curShow }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:0;right:0;top:0;bottom:{{ curBottom }};pointer-events:none;background-color:rgba(150,200,234,.58);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.14) 0 11px,rgba(255,255,255,0) 11px 22px);border-top:6px solid #2B86BF;box-shadow:{{ curSh }};transform:{{ curT }};transform-origin:50% 0;border-radius:0 0 10px 10px"></div></sc-if>
+<sc-if value="{{ curOpen }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:0;right:0;top:0;height:14px;pointer-events:none;background-color:rgba(150,200,234,.9);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.3) 0 5px,rgba(255,255,255,0) 5px 10px);border-top:6px solid #2B86BF"></div></sc-if>
+<sc-if value="{{ tail }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:92px;bottom:2px;width:10px;height:22px;border-radius:6px;background:#3E4254;opacity:.75;transform:rotate(18deg);transform-origin:50% 0"></div></sc-if>
+</div>
+</sc-if>
+<div style="position:relative;border-radius:22px;background:#FBE8C2;padding:4px;display:flex;flex-direction:column;gap:8px;box-shadow:{{ lowSh }};overflow:hidden">
+<sc-for list="{{ lowRows }}" as="row" hint-placeholder-count="2">
+<div style="display:flex;gap:{{ gap }};justify-content:center">
+<sc-for list="{{ row }}" as="s" hint-placeholder-count="5">
+<div style="position:relative;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center">
+<sc-if value="{{ s.f }}" hint-placeholder-val="{{ false }}"><div style="transform:{{ s.t }};opacity:{{ s.o }}"><dc-import name="Passenger" kind="{{ kind }}" em="{{ em }}" size="46" hint-size="46px,46px"></dc-import></div></sc-if>
+<sc-if value="{{ s.dot }}" hint-placeholder-val="{{ false }}"><div style="width:22px;height:22px;border-radius:50%;background:#B87A00;opacity:.4"></div></sc-if>
+<sc-if value="{{ s.bub }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:-5px;top:-5px;min-width:26px;height:26px;padding:0 4px;box-sizing:border-box;border-radius:13px;background:#242631;color:#FFFFFF;font:800 15px/27px 'Baloo 2';text-align:center;z-index:3">{{ s.n }}</div></sc-if>
+<sc-if value="{{ s.hand }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:-22px;bottom:-26px;z-index:6;opacity:.85"><svg width="44" height="44" viewBox="0 0 24 24" fill="#FFFFFF" stroke="#242631" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg></div></sc-if>
+<sc-if value="{{ s.shrug }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:-6px;top:-8px;display:flex;gap:3px;transform:rotate(-20deg)"><div style="width:3px;height:9px;border-radius:2px;background:#242631;opacity:.45"></div><div style="width:3px;height:12px;border-radius:2px;background:#242631;opacity:.45"></div></div></sc-if>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<sc-if value="{{ hasDoor }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;border-radius:22px;background:{{ doorBg }};border:3px solid #B87A00;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><div style="position:absolute;top:10px;bottom:10px;left:50%;width:3px;margin-left:-1.5px;background:#B87A00;opacity:.35;border-radius:2px"></div><div style="position:relative;width:68px;height:68px;border-radius:50%;background:#FFFFFF;border:3px solid #242631;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:{{ doorSh }}"><span style="font:800 40px/1 'Baloo 2';color:#242631;margin-top:6px">{{ door }}</span></div></div></sc-if>
+</div>
+</div>
+<div style="width:100%;display:flex;justify-content:space-between;padding:0 {{ wheelPad }};box-sizing:border-box;margin-top:-14px"><div style="width:34px;height:34px;border-radius:50%;background:#242631;display:flex;align-items:center;justify-content:center"><div style="width:12px;height:12px;border-radius:50%;background:#EFE9DF"></div></div><div style="width:34px;height:34px;border-radius:50%;background:#242631;display:flex;align-items:center;justify-content:center"><div style="width:12px;height:12px;border-radius:50%;background:#EFE9DF"></div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:360,&quot;height&quot;:380},&quot;b&quot;:{&quot;editor&quot;:null,&quot;default&quot;:{&quot;lv&quot;:3,&quot;low&quot;:4,&quot;up&quot;:2,&quot;total&quot;:7,&quot;upSil&quot;:true,&quot;cur&quot;:&quot;closed&quot;,&quot;sign&quot;:&quot;num&quot;},&quot;tsType&quot;:&quot;object&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const b = this.props.b || {};
+    const lv = b.lv ?? 3, per = lv === 1 ? 4 : 5, nrows = lv >= 3 ? 2 : 1;
+    const low = b.low ?? 0, up = b.up ?? 0, total = b.total ?? low + up;
+    const lowStart = b.lowStart ?? 1, upStart = b.upStart ?? low + 1;
+    const rows = (n, isUp) => {
+      const out = [];
+      for (let r = 0; r < nrows; r++) {
+        const row = [];
+        for (let c = 0; c < per; c++) {
+          const i = r * per + c, f = i < n;
+          const bubN = isUp ? (b.bubUp ?? 0) : (b.bubLow ?? 0);
+          const wob = isUp && b.wob && f && i === n - 1;
+          const doorHidden = !isUp && b.door != null;
+          row.push({
+            f: f && !doorHidden, sil: isUp && !!b.upSil,
+            dot: f && doorHidden && !!b.doorDots,
+            bub: f && i < bubN && i >= (isUp ? 0 : (b.bubFrom ?? 0)), n: (isUp ? upStart : lowStart) + i,
+            t: wob ? 'rotate(-14deg) translateX(-3px)' : (!isUp && b.shrug === i) ? 'rotate(-8deg) translateY(-3px)' : 'none',
+            o: (!isUp && b.dimLow) ? 0.35 : 1,
+            wob, hand: (isUp ? b.handUp : b.handLow) === i, shrug: !isUp && b.shrug === i
+          });
+        }
+        out.push(row);
+      }
+      return out;
+    };
+    const N = b.signN ?? total, dotRows = [];
+    for (let r = 0; r < Math.ceil(N / 5); r++) dotRows.push(Array.from({ length: Math.min(5, N - r * 5) }, (_, j) => j));
+    const sm = b.sign ?? 'num', hl = b.hl ?? '';
+    const cur = b.cur ?? 'none';
+    const ring = c => `0 0 0 4px ${c}`, none = '0 0 0 0 rgba(0,0,0,0)';
+    return {
+      W: (lv === 1 ? 300 : 334) + 'px', gap: lv === 1 ? '18px' : '8px', wheelPad: lv === 1 ? '44px' : '52px',
+      kind: b.kind ?? 'emoji', em: b.em ?? '🐱', total,
+      upRows: rows(up, true), lowRows: rows(low, false), dotRows,
+      hasUp: !b.single,
+      sNum: sm === 'num' && !b.signDots, sNumDots: sm === 'num' && !!b.signDots, sDim: sm === 'dim', sDots: sm === 'dots', sBoth: sm === 'both', sBlank: sm === 'blank',
+      signSh: hl === 'sign' || hl === 'all' ? '0 0 0 7px rgba(255,107,53,.35)' : '0 3px 0 rgba(42,27,16,.08)',
+      upSh: hl === 'up' || hl === 'all' ? ring('#2B86BF') : none,
+      lowSh: hl === 'low' || hl === 'all' ? ring('#B87A00') : none,
+      curShow: cur === 'closed' || cur === 'sway' || cur === 'blink',
+      curOpen: cur === 'open',
+      curT: cur === 'sway' ? 'rotate(1.4deg) translateX(3px)' : 'none',
+      curSh: cur === 'blink' ? 'inset 0 0 0 4px #2B86BF' : 'none',
+      curBottom: b.tail ? '10px' : '0px', tail: !!b.tail,
+      hasDoor: b.door != null, door: b.door,
+      doorBg: b.doorDots ? 'rgba(246,211,142,.45)' : '#F6D38E',
+      doorSh: hl === 'door' ? '0 0 0 7px rgba(255,107,53,.35)' : 'none'
+    };
+  }
+}
+</script>
+</body>
+</html>

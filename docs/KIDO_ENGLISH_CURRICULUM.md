@@ -46,6 +46,8 @@ Kế thừa nguyên tắc cốt lõi trong `docs/AI_CONTEXT.md`: audio-first, vi
 
 **Ranh giới trung thực (in-app vs ngoài app):** với bộ actionType hiện có (kể cả `audio_select`), trẻ chỉ **nhận ra / chọn** — không **phát âm thành tiếng**. Phần "nói" (giới thiệu bản thân, trả lời phỏng vấn thật) được xử lý ở lớp **offline-task** cho phụ huynh (xem §6), KHÔNG bằng mic/ASR trong MVP. ASR chấm giọng trẻ Việt nói tiếng Anh báo sai nhiều → vi phạm no-stress → loại khỏi MVP.
 
+> **Cập nhật 2026-09-11 — đảo có điều kiện (change `add-dodo-interview-practice`):** quyết định loại mic/ASR được đảo **cho riêng tính năng "Luyện phỏng vấn cùng Đô Đô"** (module riêng, không phải actionType trong lesson), với điều kiện gate Phase 0: POC trên ≥20 bản ghi giọng trẻ 5–6 tuổi thật đạt ≥85% hiểu đúng nội dung và **0 false-negative gắt** (câu đúng bị chấm sai). Rubric "hào phóng mặc định": máy không chắc → "chưa nghe rõ", không bao giờ là "sai" — giữ nguyên nguyên tắc no-stress. POC không đạt → lùi về bản ghi + checklist phụ huynh (không AI). Lesson curriculum trong doc này giữ nguyên ranh giới cũ.
+
 ---
 
 ## 2. BA TRỤC (KHÔNG TRỘN LẪN)

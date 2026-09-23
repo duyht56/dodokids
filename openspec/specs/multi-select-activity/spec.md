@@ -4,11 +4,15 @@
 TBD - created by archiving change epic-005-activity-types. Update Purpose after archive.
 ## Requirements
 ### Requirement: Multi-toggle option selection
-The system SHALL use the same image-grid layout as single-select but allow multiple options to be toggled on and off. A selected option SHALL show a brandTeal (#4ECDC4) border and a checkmark; an unselected option SHALL show the default card.
+The system SHALL use the same image-grid layout as single-select but allow multiple options to be toggled on and off. A selected option SHALL show a brandOrange (#FF6B35) border with no checkmark and no success color, so a pending selection never reads as "correct" before "Xong!" is pressed; an unselected option SHALL show the default card.
 
 #### Scenario: Toggle selection on and off
 - **WHEN** the child taps an unselected option then taps it again
-- **THEN** the option becomes selected (teal border + checkmark) and then returns to the default state
+- **THEN** the option becomes selected (orange border, no checkmark) and then returns to the default state
+
+#### Scenario: A wrong pick looks the same as a right one until confirm
+- **WHEN** the child selects one correct and one wrong option and has not pressed "Xong!"
+- **THEN** both show the same neutral selected state, and correctness is shown only after confirm
 
 ### Requirement: Confirm button gating
 A full-width "Xong!" confirm button (brandOrange #FF6B35, 56pt height) SHALL appear only after at least one option is selected, and submitting the answer SHALL require pressing it.

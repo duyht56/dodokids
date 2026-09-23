@@ -3,14 +3,14 @@
 Every Khám Phá (Explore) game renders a Vietnamese question (`promptVi`) as text
 only. For non-reading children age 4–6 the instruction is the primary channel,
 yet no game reads its question aloud. `enable-explore-offline-audio` starts the
-spoken layer but only for `number_explorer` and `tap_count`, and leaves open
+spoken layer but only for `number_explorer`, and leaves open
 "which approved voice/recording source" produces the pack.
 
 The Explore prompts are not free-form: they are a finite set of fixed phrases
 (e.g. `'Con hãy tìm số giống mẫu.'`, `'Con hãy xếp các số từ bé đến lớn.'`,
 `RoutePlanner PROMPTS[level]`) plus a small number of parametric templates with
-enumerable slots (`Con hãy chọn số ${answer}`, `chạm và đếm ${label}`,
-`Số nào đứng ${trước|sau} số ${reference}?`, `Còn thiếu mấy … để đủ ${total}?`).
+enumerable slots (`Con hãy chọn số ${answer}`,
+`Số nào đứng ${trước|sau} số ${reference}?`).
 That makes the whole prompt space coverable by a finite, composable clip
 inventory rather than per-prompt recordings — and kido-pipeline already has the
 generator for it: `tts.service.synthesize(text, 'vi', { wrap:false })` plus a

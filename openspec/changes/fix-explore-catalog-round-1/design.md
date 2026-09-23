@@ -23,9 +23,8 @@ in-progress audio work; this change layers on top of it rather than reverting it
 
 **Non-Goals:**
 
-- Level/range redesigns (number 5-level ladder, compare cap 20, arithmetic BRD
-  §7.6 modes), animations, Đô Đô voice feedback, supportLevel contract, new
-  games, tracing re-enable — all Đợt 2/3.
+- Level/range redesigns (number 5-level ladder), animations, Đô Đô voice
+  feedback, supportLevel contract, new games, tracing re-enable — all Đợt 2/3.
 - Server-side round planner (`kido-server/.../explore.variety.ts`) has the same
   first-bucket bias but serves no production game; left for the server change
   that next touches it.
@@ -47,12 +46,12 @@ in-progress audio work; this change layers on top of it rather than reverting it
   window. The target is in the middle ≈30% of the time (uniform would be 33%)
   while every distractor stays "near" as the BRD requires. `exclude[]` is the
   generic hook for "values the child can already see".
-- **Promotion window 5-of-7 replaces the streak.** `RangeProgress` /
-  `ArithmeticProgress` become `{ level, recent: boolean[] }`. The UI shows only
+- **Promotion window 5-of-7 replaces the streak.** `RangeProgress` becomes
+  `{ level, recent: boolean[] }`. The UI shows only
   the range and forward-only progress dots (`correctCount / 8`). This changes the
   kido-server specs that asserted `{ level, correctStreak }`; they are updated in
   this change.
-- **Natural end = 8 correct answers** for range/arithmetic runs and the Stage-5
+- **Natural end = 8 correct answers** for range runs and the Stage-5
   board for Route Planner: 2–5 minutes of play, then the existing
   "Mình luyện xong rồi!" screen with "Chơi lượt mới". Wrong answers do not count
   and never end a run.
@@ -69,8 +68,8 @@ in-progress audio work; this change layers on top of it rather than reverting it
   bundled `GAME_COPY` order, which server config cannot override.
 - **Per-game work is split by file ownership** (one agent per game, shared files
   owned by the lead) so nine fixes can land concurrently in one working tree;
-  shared kido-server specs (`explore.number-bond-arithmetic.spec.ts`,
-  `explore.mobile-runtime.spec.ts`, …) are reconciled by the lead at the end.
+  shared kido-server specs (`explore.mobile-runtime.spec.ts`, …) are reconciled
+  by the lead at the end.
 
 ## Risks / Trade-offs
 
@@ -80,8 +79,7 @@ in-progress audio work; this change layers on top of it rather than reverting it
 - Pattern's five restored question clips are bundled but were absent from the
   generated registry; they are re-added by hand with a note. The next pipeline
   export will regenerate the file; the phrase mirror keeps both sides aligned.
-- The subtraction question (`arith_remain_q`) and restored pattern phrases play
-  silently until the pipeline exports them — the on-screen sentence stays
-  authoritative, as for every Explore prompt.
+- The restored pattern phrases play silently until the pipeline exports them —
+  the on-screen sentence stays authoritative, as for every Explore prompt.
 - Runtime bucket rotation uses `Math.random`; determinism is preserved at the
   exercise level (seed → exercise) and in contract scripts (explicit rotation).

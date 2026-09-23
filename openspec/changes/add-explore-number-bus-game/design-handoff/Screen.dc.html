@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="position:relative;width:{{ Wpx }};height:{{ Hpx }};border-radius:{{ radius }};background:#FFFBF5;box-shadow:0 0 0 9px #221E1B,0 24px 50px rgba(42,27,16,.2);overflow:hidden;display:flex;flex-direction:column;font-family:'Baloo 2',sans-serif;color:#242631">
+<div style="height:{{ statusH }};flex:none;display:flex;align-items:center;justify-content:space-between;padding:4px 30px 0;font:700 15px 'Baloo 2';color:#242631;box-sizing:border-box"><span>9:41</span><div style="width:25px;height:12px;border-radius:4px;border:1.5px solid #242631;padding:1.5px;box-sizing:border-box"><div style="width:80%;height:100%;background:#242631;border-radius:2px"></div></div></div>
+<div style="flex:1;min-height:0;width:100%;max-width:940px;margin:0 auto;box-sizing:border-box;padding:0 20px;display:flex;flex-direction:column">
+<div style="height:{{ topH }};flex:none;display:flex;align-items:center;gap:14px">
+<div aria-label="Thoát trò chơi" style="width:48px;height:48px;border-radius:50%;background:#FFFFFF;border:1.5px solid #EFE9DF;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(42,27,16,.06);flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4C5060" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></div>
+<div style="flex:1;display:flex;align-items:center;gap:10px"><div style="flex:1;display:flex;gap:5px"><sc-for list="{{ segs }}" as="g" hint-placeholder-count="6"><div style="flex:1;height:8px;border-radius:99px;background:{{ g.c }}"></div></sc-for></div><span style="font:800 15px 'Baloo 2';color:#8C8F9C">{{ progTxt }}</span></div>
+<div aria-label="Nghe lại câu hỏi" style="width:48px;height:48px;border-radius:50%;background:#FF6B35;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(255,107,53,.3);flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></div>
+</div>
+<sc-if value="{{ showPrompt }}" hint-placeholder-val="{{ true }}"><div style="flex:none;font:700 {{ promptFs }}/1.6 'Baloo 2';color:#242631;padding-top:2px">{{ prompt }}</div></sc-if>
+<div style="position:relative;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{{ boardGap }}">
+<sc-if value="{{ showMemo }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:0;top:6px;display:flex;gap:6px;z-index:4"><sc-for list="{{ memo }}" as="m" hint-placeholder-count="1"><div style="width:52px;padding:6px;border-radius:12px;background:#FFFFFF;border:2px solid #242631;box-sizing:border-box;display:flex;flex-direction:column;gap:3px;box-shadow:0 3px 8px rgba(42,27,16,.1)"><div style="display:flex;gap:2px;padding:3px;border-radius:5px;background:#D8EEFB;min-height:8px"><sc-for list="{{ m.up }}" as="d" hint-placeholder-count="3"><div style="width:6px;height:6px;border-radius:50%;background:#2B86BF"></div></sc-for></div><div style="display:flex;gap:2px;padding:3px;border-radius:5px;background:#FBE8C2;min-height:8px"><sc-for list="{{ m.low }}" as="d" hint-placeholder-count="2"><div style="width:6px;height:6px;border-radius:50%;background:#B87A00"></div></sc-for></div></div></sc-for></div></sc-if>
+<div style="position:relative;width:{{ busW }};height:{{ busH }};transform:{{ busX }};flex:none">
+<div style="position:absolute;left:0;top:0;transform:scale({{ busScale }});transform-origin:0 0"><dc-import name="Bus" b="{{ bus }}" hint-size="334px,340px"></dc-import></div>
+<sc-if value="{{ drive }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:-46px;top:45%;display:flex;flex-direction:column;gap:12px"><div style="width:34px;height:4px;border-radius:2px;background:#8C8F9C;opacity:.5"></div><div style="width:24px;height:4px;border-radius:2px;background:#8C8F9C;opacity:.5;margin-left:10px"></div><div style="width:34px;height:4px;border-radius:2px;background:#8C8F9C;opacity:.5"></div></div></sc-if>
+</div>
+<sc-if value="{{ showStops }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:12px;justify-content:center;width:100%">
+<sc-for list="{{ stops }}" as="st" hint-placeholder-count="2">
+<div style="position:relative;padding:6px 8px 6px 6px;border-radius:24px;background:{{ st.bg }};border:3px solid {{ st.bd }};box-sizing:border-box;display:flex;align-items:center;gap:4px;box-shadow:{{ st.sh }};opacity:{{ st.o }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:0;align-self:stretch;justify-content:center;padding:0 2px"><div style="width:16px;height:16px;border-radius:50%;background:#FFFFFF;border:3px solid #242631;box-sizing:border-box"></div><div style="width:3px;height:14px;background:#242631;border-radius:2px"></div><div style="width:18px;height:5px;border-radius:3px;background:{{ st.tag }}"></div></div>
+<div style="display:grid;grid-template-columns:repeat({{ st.cols }},64px);gap:0;min-height:64px">
+<sc-for list="{{ st.fr }}" as="p" hint-placeholder-count="2"><div style="position:relative;width:64px;height:64px;display:flex;align-items:center;justify-content:center"><sc-if value="{{ p.on }}" hint-placeholder-val="{{ true }}"><dc-import name="Passenger" kind="{{ kind }}" em="{{ em }}" size="48" hint-size="48px,48px"></dc-import></sc-if><sc-if value="{{ p.hand }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:-14px;bottom:-18px;z-index:6;opacity:.85"><svg width="44" height="44" viewBox="0 0 24 24" fill="#FFFFFF" stroke="#242631" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg></div></sc-if></div></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ showOverlay }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:14px 30px;border-radius:24px;background:#FFFFFF;box-shadow:0 10px 30px rgba(42,27,16,.14);font:800 52px/1.3 'Baloo 2';color:#242631;white-space:nowrap;z-index:5">{{ overlay }}</div></sc-if>
+</div>
+<div style="flex:none;padding-top:10px;display:flex;gap:12px;align-items:stretch;justify-content:center">
+<sc-if value="{{ showStation }}" hint-placeholder-val="{{ false }}"><div aria-label="Bạn ở bến, chạm để mời lên xe" style="position:relative;width:88px;height:88px;flex:none;border-radius:24px;background:#FFFFFF;border:2px solid #EFE9DF;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:{{ stSh }};opacity:{{ stO }}"><div style="position:absolute;left:8px;top:7px;width:14px;height:14px;border-radius:50%;background:#FFFFFF;border:3px solid #242631;box-sizing:border-box"></div><div style="position:absolute;left:14px;top:20px;width:3px;height:16px;background:#242631;border-radius:2px"></div><div style="position:absolute;left:10px;right:10px;bottom:9px;height:6px;border-radius:3px;background:#F6F0E6"></div><div style="margin-top:-2px"><dc-import name="Passenger" kind="{{ kind }}" em="{{ em }}" size="52" hint-size="52px,52px"></dc-import></div><sc-if value="{{ stHand }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:-18px;bottom:-16px;z-index:6;opacity:.85"><svg width="44" height="44" viewBox="0 0 24 24" fill="#FFFFFF" stroke="#242631" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg></div></sc-if></div></sc-if>
+<sc-if value="{{ showCta }}" hint-placeholder-val="{{ false }}"><div style="flex:1;max-width:520px;height:88px;border-radius:999px;background:#FF6B35;color:#FFFFFF;font:800 26px/1 'Baloo 2';display:flex;align-items:center;justify-content:center;box-shadow:0 6px 0 #E85328;opacity:{{ ctaO }};margin-bottom:6px">Tập tầm vông!</div></sc-if>
+<sc-if value="{{ showXong }}" hint-placeholder-val="{{ false }}"><div style="flex:1;max-width:520px;height:80px;border-radius:999px;background:{{ xongBg }};color:{{ xongFg }};font:800 26px/1 'Baloo 2';display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:{{ xongSh }};margin-bottom:6px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Xong</div></sc-if>
+<sc-if value="{{ showNext }}" hint-placeholder-val="{{ false }}"><div aria-label="Bài tiếp theo" style="width:160px;height:80px;border-radius:999px;background:#FF6B35;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 0 #E85328;margin-bottom:6px"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></div></sc-if>
+<sc-if value="{{ showCards }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:14px;justify-content:center;padding-bottom:6px"><sc-for list="{{ cards }}" as="c" hint-placeholder-count="3"><div style="position:relative;width:96px;height:112px;border-radius:24px;background:{{ c.bg }};border:3px solid {{ c.bd }};box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:{{ c.sh }};opacity:{{ c.o }};transform:{{ c.t }}"><sc-if value="{{ c.vis }}" hint-placeholder-val="{{ true }}"><span style="font:800 48px/1 'Baloo 2';color:{{ c.fg }};margin-top:8px">{{ c.n }}</span><div style="display:flex;flex-direction:column;gap:3px;opacity:.35"><sc-for list="{{ c.rows }}" as="r" hint-placeholder-count="1"><div style="display:flex;gap:3px"><sc-for list="{{ r }}" as="d" hint-placeholder-count="5"><div style="width:7px;height:7px;border-radius:50%;background:#242631"></div></sc-for></div></sc-for></div></sc-if><sc-if value="{{ c.hand }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:-14px;bottom:-18px;z-index:6;opacity:.85"><svg width="44" height="44" viewBox="0 0 24 24" fill="#FFFFFF" stroke="#242631" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg></div></sc-if></div></sc-for></div></sc-if>
+</div>
+<div style="flex:none;padding:10px 0 {{ insetB }}">
+<div style="min-height:{{ fbH }};background:#FFFFFF;border-radius:24px;box-shadow:0 4px 14px rgba(42,27,16,.07);display:flex;align-items:center;gap:12px;padding:6px 14px;box-sizing:border-box">
+<div style="width:44px;height:44px;flex:none;border-radius:50%;background:#FFEBE1;overflow:hidden;transform:{{ dodoT }}"><img src="assets/dodo.png" alt="Đô Đô" style="width:100%;height:100%;object-fit:cover;object-position:50% 12%;transform:scale(1.5) translateY(10%)"></div>
+<sc-if value="{{ bulb }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="#FDECC8" stroke="#F4A825" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg></sc-if>
+<sc-if value="{{ showFb }}" hint-placeholder-val="{{ true }}"><div style="font:600 16px/1.6 'Baloo 2';color:#4C5060;text-wrap:pretty">{{ fb }}</div></sc-if>
+<sc-if value="{{ showMantra }}" hint-placeholder-val="{{ false }}"><div style="font:800 22px/1.6 'Baloo 2';color:#242631;display:flex;gap:6px;align-items:baseline;flex-wrap:wrap"><sc-for list="{{ mantra }}" as="w" hint-placeholder-count="5"><span style="color:{{ w.c }}">{{ w.t }}</span></sc-for></div></sc-if>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:420,&quot;height&quot;:880},&quot;f&quot;:{&quot;editor&quot;:null,&quot;default&quot;:{&quot;dev&quot;:&quot;phone&quot;,&quot;prompt&quot;:&quot;Mấy bạn đang trốn sau rèm nhỉ?&quot;,&quot;bus&quot;:{&quot;lv&quot;:3,&quot;low&quot;:4,&quot;up&quot;:2,&quot;total&quot;:7,&quot;upSil&quot;:true,&quot;cur&quot;:&quot;closed&quot;},&quot;station&quot;:{&quot;hand&quot;:true},&quot;cta&quot;:&quot;on&quot;,&quot;fb&quot;:&quot;Có tất cả 7 bạn nhé.&quot;},&quot;tsType&quot;:&quot;object&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const f = this.props.f || {};
+    const D = { phone: [393, 852, 54, 64, 34, 1, '54px'], se: [375, 667, 20, 56, 10, 1, '12px'], ipad: [834, 1194, 30, 76, 24, 1.4, '32px'], ipadL: [1194, 834, 30, 76, 20, 1, '32px'] }[f.dev || 'phone'];
+    const [W, H, sH, tH, inB, sc, rad] = D;
+    const b = f.bus || {};
+    const lv = b.lv ?? 3, rows = b.single ? (lv >= 3 ? 2 : 1) : (lv >= 3 ? 4 : 2);
+    const bw = lv === 1 ? 300 : 334;
+    const bh = 44 + 3 * 2 + 8 + (b.single ? 0 : 6) + (b.single ? 1 : 2) * 8 + rows * 56 + (rows - (b.single ? 1 : 2)) * 8 + 20;
+    const prog = f.prog ?? 3;
+    const segs = [1, 2, 3, 4, 5, 6].map(i => ({ c: i < prog ? '#FF6B35' : i === prog ? '#FFC4A8' : '#F6F0E6' }));
+    const kind = b.kind ?? 'emoji', em = b.em ?? '🐱';
+    const stops = (f.stops || []).map(s => {
+      const col = { low: ['#FBE8C2', '#E69F00', '#E69F00'], up: ['#D8EEFB', '#56B4E9', '#56B4E9'], none: ['#FFFFFF', '#EFE9DF', '#8C8F9C'] }[s.tint || 'none'];
+      const n = s.n ?? 0, cap = s.cap ?? Math.max(n, 1);
+      return {
+        bg: s.lit ? col[0] : '#FFFFFF', bd: col[1], tag: col[2],
+        sh: s.lit ? '0 0 0 6px rgba(255,107,53,.22)' : '0 3px 10px rgba(42,27,16,.06)', o: s.dim ? 0.45 : 1,
+        cols: Math.min(cap, s.cols ?? (cap > 2 ? 3 : 2)),
+        fr: Array.from({ length: cap }, (_, i) => ({ on: i < n, hand: s.hand && i === 0 }))
+      };
+    });
+    const st = f.station;
+    const cards = (f.cards || []).map(c => {
+      const s = c.st || 'idle';
+      const rowsD = []; for (let r = 0; r < Math.ceil(c.n / 5); r++) rowsD.push(Array.from({ length: Math.min(5, c.n - r * 5) }, (_, j) => j));
+      return {
+        n: c.n, rows: rowsD, vis: s !== 'hidden', hand: !!c.hand,
+        bg: s === 'correct' ? '#E4F5EC' : s === 'hidden' ? '#F6F0E6' : '#FFFFFF',
+        bd: s === 'correct' ? '#2FA46A' : s === 'pressed' ? '#FF6B35' : s === 'hidden' ? '#EFE9DF' : '#EFE9DF',
+        fg: s === 'correct' ? '#1E7A4C' : '#242631',
+        sh: s === 'hidden' ? 'none' : s === 'pressed' ? '0 1px 0 rgba(42,27,16,.12)' : '0 5px 0 rgba(42,27,16,.08)',
+        o: s === 'dim' ? 0.3 : 1, t: s === 'pressed' ? 'translateY(4px)' : s === 'sink' ? 'translateY(8px)' : 'none'
+      };
+    });
+    const MC = { total: '#E85328', low: '#B87A00', up: '#2B86BF', ink: '#242631' };
+    const x = f.xong;
+    return {
+      Wpx: W + 'px', Hpx: H + 'px', radius: rad, statusH: sH + 'px', topH: tH + 'px', insetB: inB + 'px',
+      segs, progTxt: prog + '/6',
+      showPrompt: !f.compact, prompt: f.prompt ?? '', promptFs: f.dev === 'ipad' || f.dev === 'ipadL' ? '22px' : '18px',
+      boardGap: f.compact ? '8px' : '14px',
+      bus: b, busScale: sc, busW: bw * sc + 'px', busH: bh * sc + 'px',
+      busX: f.drive ? 'translateX(46px)' : 'none', drive: !!f.drive,
+      showStops: stops.length > 0, stops, kind, em,
+      showMemo: !!(f.memo && f.memo.length), memo: (f.memo || []).map(m => ({ low: Array.from({ length: m[0] }, (_, i) => i), up: Array.from({ length: m[1] }, (_, i) => i) })),
+      showOverlay: !!f.overlay, overlay: f.overlay,
+      showStation: !!st, stO: st && st.dim ? 0.4 : 1, stSh: st && st.hi ? '0 0 0 5px #12A79B' : '0 4px 12px rgba(42,27,16,.08)', stHand: !!(st && st.hand),
+      showCta: !!f.cta, ctaO: f.cta === 'dis' ? 0.45 : 1,
+      showXong: !!x, xongBg: x === 'dis' ? '#F6F0E6' : '#FF6B35', xongFg: x === 'dis' ? '#8C8F9C' : '#FFFFFF', xongSh: x === 'dis' ? 'none' : '0 6px 0 #E85328',
+      showNext: !!f.next, showCards: cards.length > 0, cards,
+      fbH: f.compact ? '56px' : '64px', bulb: !!f.bulb,
+      showFb: !f.mantra, fb: f.fb ?? '',
+      showMantra: !!f.mantra, mantra: (f.mantra || []).map(w => ({ t: w[0], c: MC[w[1] || 'ink'] })),
+      dodoT: f.dodo === 'cheer' ? 'translateY(-4px)' : f.dodo === 'think' ? 'rotate(-10deg)' : 'none'
+    };
+  }
+}
+</script>
+</body>
+</html>

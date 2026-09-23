@@ -10,10 +10,6 @@ Representative level-1 exhaustion expectations for device review:
 | --- | ---: | --- |
 | Xưởng luyện nét | 8 | 3 unseen paths first, then up to 2 valid repeats after exhaustion |
 | Khám phá số | 10 | 5 unseen variants |
-| Chạm và đếm | 5 | The five-item pool is exhausted, so valid repeats are expected |
-| Bên nào nhiều hơn? | 12 | 5 unseen variants |
-| Ngôi nhà tách gộp | 10 | 5 unseen variants |
-| Máy cộng trừ | 20 | 5 unseen variants |
 | Tìm quy luật | 30 | 5 unseen variants |
 | Lật thẻ tìm cặp | 20 | 5 unseen asset-set variants |
 

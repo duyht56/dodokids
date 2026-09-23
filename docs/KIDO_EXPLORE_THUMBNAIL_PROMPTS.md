@@ -2,7 +2,7 @@
 
 - **Version:** 1.0
 - **Updated:** 2026-07-14
-- **Output:** 8 square thumbnails for the Kido Explore games
+- **Output:** 4 square thumbnails for the Kido Explore games
 - **Recommended size:** 1024 × 1024 px, 1:1
 
 ## Shared art direction
@@ -47,64 +47,11 @@ tracing line/letter/number nhưng không biến thumbnail thành trang tập vi�
 Three large freestanding clay number blocks showing the exact Arabic numerals 1, 2, and 3 in correct ascending order, arranged like friendly stepping stones; the number 2 is slightly raised with a soft warm glow to suggest discovery and recognition, while all three numerals remain equally clear and correctly formed; add two tiny round counting beads near the base as a subtle number-sense detail; 3D clay render illustration, smooth rounded surfaces with soft highlights, gentle contact shadows, centered composition, slightly elevated 3/4 camera angle, very pale mint background (#F2FAF6), vibrant coral, sky blue, and sunny yellow number blocks, minimal uncluttered scene, generous safe margins, strong readability at small mobile thumbnail size, preschool educational app thumbnail, square 1:1 framing, no extra numerals, no mathematical operators, no words, no title, no logo, no watermark, no border, no app UI, high quality, clean and playful
 ```
 
-**Ý nghĩa hình ảnh:** nhận diện số và thứ tự số; không mô tả phép tính để tránh
-trùng với Máy cộng trừ.
+**Ý nghĩa hình ảnh:** nhận diện số và thứ tự số; không mô tả phép tính.
 
 ---
 
-## 3. Chạm và đếm
-
-**File suggestion:** `explore-tap-and-count.png`
-
-```text
-Exactly five identical red clay apples, each with one small green leaf, arranged in a spacious non-overlapping semicircle; one apple has a soft circular touch ripple beneath it and a tiny sparkle above it to communicate tapping each object while counting; every apple must be fully visible, clearly separated, and equally sized; 3D clay render illustration, smooth rounded surfaces, soft highlights, gentle contact shadows, centered composition, slightly elevated 3/4 camera angle, very pale pink background (#FFF5F7), vibrant child-friendly colors, simple uncluttered scene, generous safe margins, strong readability at small mobile thumbnail size, preschool educational app thumbnail, square 1:1 framing, exactly five apples, no baskets, no hands, no number cards, no words, no title, no logo, no watermark, no border, no app UI, high quality, clean and playful
-```
-
-**Ý nghĩa hình ảnh:** nhiều object giống nhau, tách rời rõ ràng và có tín hiệu
-“chạm từng vật”.
-
----
-
-## 4. Bên nào nhiều hơn?
-
-**File suggestion:** `explore-compare-quantities.png`
-
-```text
-A clear side-by-side quantity comparison using the same identical orange clay fish on both sides: exactly three fish on the left and exactly five fish on the right, separated by a soft vertical divider made of light; both groups use the same fish size, color, orientation, spacing style, and visual treatment so quantity is the only meaningful difference; the right group has a subtle mint halo beneath it to suggest choosing the larger quantity without using an arrow; 3D clay render illustration, smooth rounded surfaces, soft highlights, gentle contact shadows, centered balanced composition, slightly elevated 3/4 camera angle, very pale sky blue background (#F3F9FF), vibrant child-friendly colors, uncluttered scene, generous safe margins, strong readability at small mobile thumbnail size, preschool educational app thumbnail, square 1:1 framing, exactly eight fish total, no numerals, no greater-than or less-than symbols, no words, no title, no logo, no watermark, no border, no app UI, high quality, clean and playful
-```
-
-**Ý nghĩa hình ảnh:** cùng một object, chỉ khác số lượng; không để màu sắc hoặc
-kích thước trở thành clue.
-
----
-
-## 5. Ngôi nhà tách gộp
-
-**File suggestion:** `explore-number-bonds.png`
-
-```text
-A charming small clay house used as a visual number-bond machine: exactly seven purple clay berries enter together through one opening at the roof, then visibly split into two open rounded trays below, with exactly three berries in the left tray and exactly four berries in the right tray; use a simple Y-shaped glowing path inside the house to show one group separating into two parts; all berries must be identical, fully visible, and countable; 3D clay render illustration, smooth rounded surfaces, soft highlights, gentle contact shadows, centered composition, slightly elevated 3/4 camera angle, very pale cream background (#FFFCF5), vibrant lavender, coral, and mint accents, simple uncluttered scene, generous safe margins, strong readability at small mobile thumbnail size, preschool educational app thumbnail, square 1:1 framing, exactly seven berries total, no numerals, no equation, no plus sign, no words, no title, no logo, no watermark, no border, no app UI, high quality, clean and playful
-```
-
-**Ý nghĩa hình ảnh:** một tổng được tách thành hai phần, dùng hành động trực
-quan thay cho công thức chữ.
-
----
-
-## 6. Máy cộng trừ
-
-**File suggestion:** `explore-add-subtract-machine.png`
-
-```text
-A friendly rounded clay math machine showing the idea of adding and subtracting with objects: on the left, two red apples and one additional red apple move along a short conveyor into the machine; on the right, exactly three red apples roll out together; include one large clean clay plus symbol on the front of the machine and one smaller clay minus symbol on a side dial to represent both operations, with both symbols geometrically correct; keep the process instantly understandable and avoid displaying a written equation; 3D clay render illustration, smooth rounded surfaces, soft highlights, gentle contact shadows, centered composition, slightly elevated 3/4 camera angle, very pale lavender background (#F7F2FB), vibrant coral, mint, yellow, and sky blue accents, simple uncluttered scene, generous safe margins, strong readability at small mobile thumbnail size, preschool educational app thumbnail, square 1:1 framing, exactly six apples visible in total as described, no numerals, no equals sign, no words, no title, no logo, no watermark, no border, no app UI, high quality, clean and playful
-```
-
-**Ý nghĩa hình ảnh:** object đi vào/đi ra máy thể hiện thao tác thêm–bớt; không
-biến thumbnail thành bài toán cần giải.
-
----
-
-## 7. Tìm quy luật
+## 3. Tìm quy luật
 
 **File suggestion:** `explore-patterns.png`
 
@@ -117,7 +64,7 @@ trống.
 
 ---
 
-## 8. Lật thẻ tìm cặp
+## 4. Lật thẻ tìm cặp
 
 **File suggestion:** `explore-memory-match.png`
 
@@ -130,6 +77,20 @@ hiện đúng memory matching mà không tạo cảm giác thắng/thưởng.
 
 ---
 
+## 5. Xe buýt hai tầng
+
+**File suggestion:** `number_bus.png`
+
+```text
+A friendly preschool double-decker bus made of chunky rounded clay, seen from the side at a slightly elevated 3/4 angle; the lower deck holds exactly three round window seats with three small cheerful clay animal passengers, the upper deck holds exactly two round window seats with two more animal passengers, and a simple rounded rooftop sign shows a large clear numeral 5; the two decks are tinted in two clearly different soft colors (warm orange lower deck, soft blue upper deck) so the two groups read as two parts of one whole; a small empty bus stop sign stands beside the bus; 3D clay render illustration, smooth rounded surfaces, soft highlights, gentle contact shadows, centered composition, very pale mint background (#F2FBF6), vibrant child-friendly colors, clean uncluttered scene, generous safe margins, strong readable silhouette at small mobile thumbnail size, preschool educational app thumbnail, square 1:1 framing, exactly five passengers total, no other numbers or symbols, no hands, no words, no title, no logo, no watermark, no border, no app UI, high quality, clean and playful
+```
+
+**Ý nghĩa hình ảnh:** xe hai tầng với hai nhóm hành khách hai màu tầng + biển
+tổng "5" trên nóc — đúng ẩn dụ "biển số = tổng, hai tầng = hai phần" của game
+tách gộp, số lượng 3 + 2 = 5 phải tuyệt đối chính xác.
+
+---
+
 ## Generation and review checklist
 
 Mỗi ảnh chỉ được duyệt khi đạt các điều kiện sau:
@@ -137,8 +98,9 @@ Mỗi ảnh chỉ được duyệt khi đạt các điều kiện sau:
 - Đúng tỷ lệ 1:1 và không bị crop chủ thể ở thumbnail nhỏ.
 - Không có chữ, title, logo, watermark hoặc UI giả.
 - Không tự thêm mascot hoặc nhân vật không được yêu cầu.
-- Số lượng object đúng tuyệt đối ở các prompt 3, 4, 5, 6 và 8.
-- Chữ/số/ký hiệu trong prompt 1, 2 và 6 không méo hoặc sai hình dạng.
+- Số lượng object đúng tuyệt đối ở prompt 4 (Lật thẻ tìm cặp) và prompt 5
+  (Xe buýt hai tầng: 3 tầng dưới + 2 tầng trên = biển "5").
+- Chữ/số/ký hiệu trong prompt 1 và 2 không méo hoặc sai hình dạng.
 - Các object cần đếm không chồng lấp.
 - Mỗi thumbnail truyền đạt một game khác biệt khi xem cả bộ cùng nhau.
 - Background pastel nhẹ; chủ thể có độ tương phản đủ cao.
@@ -149,7 +111,7 @@ Mỗi ảnh chỉ được duyệt khi đạt các điều kiện sau:
 
 1. Sinh 3–4 phương án cho từng prompt.
 2. Loại ngay ảnh sai số lượng, sai ký hiệu hoặc thêm chữ.
-3. Xem toàn bộ tám ảnh ở kích thước hiển thị thực tế trước khi chọn.
+3. Xem toàn bộ bốn ảnh ở kích thước hiển thị thực tế trước khi chọn.
 4. Chọn một ảnh chuẩn style làm reference cho các lượt sinh còn lại.
 5. Sau khi chốt, xuất cùng kích thước, color profile và safe margin.
 

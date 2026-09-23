@@ -8,14 +8,10 @@ stateless server-provided games.
 ## Requirements
 
 ### Requirement: Transient play run
-Starting a game SHALL create a new in-memory run whose validated game-owned policy contains 5–10 interactions. Games without an explicit policy retain their existing run size. `number_bond` SHALL declare exactly 10 interactions: five for whole 5 followed by five for whole 10. Run state SHALL NOT be persisted to local storage, secure storage, database, analytics or a remote service.
-
-#### Scenario: Number-bond run starts
-- **WHEN** the registered `number_bond` game is opened
-- **THEN** the shell resolves its ten-slot plan and displays progress against 10 rather than a global five-interaction constant
+Starting a game SHALL create a new in-memory run whose validated game-owned policy contains 5–10 interactions. Games without an explicit policy retain their existing run size. Run state SHALL NOT be persisted to local storage, secure storage, database, analytics or a remote service.
 
 #### Scenario: Existing five-interaction game starts
-- **WHEN** a registered game without the number-bond policy is opened
+- **WHEN** a registered game without an explicit run policy is opened
 - **THEN** its current run-size and level-selection behavior remain unchanged
 
 #### Scenario: Child exits during an interaction

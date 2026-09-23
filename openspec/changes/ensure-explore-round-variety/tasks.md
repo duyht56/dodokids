@@ -7,9 +7,8 @@
 
 ## 2. Enabled Game Variety Policies
 
-- [x] 2.1 Define and test variant/bucket identity for number explorer, tap count and quantity compare while ignoring presentation-only option/layout changes
+- [x] 2.1 Define and test variant/bucket identity for number explorer while ignoring presentation-only option/layout changes
 - [x] 2.2 Define and test variant/bucket identity for memory match and pattern finder using learning content rather than card positions or cosmetic token order
-- [x] 2.3 Define and test variant/bucket identity for number bond and arithmetic machine using normalized mode, operands and result
 - [x] 2.4 Define and test tracing identity/capacity from path `itemId` and category, including digit/letter category coverage where enabled
 - [x] 2.5 Bump affected generator/validator/config versions and keep deterministic replay validation compatible with the new metadata
 

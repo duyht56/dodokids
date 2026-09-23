@@ -7,13 +7,10 @@ a finite grammar:
 
 - Fixed, parameterless phrases — e.g. `numberGame` `'Con hãy tìm số giống mẫu.'`,
   `'Số nào còn thiếu?'`, `'Con hãy xếp các số từ bé đến lớn.'`; `memoryGame`
-  `'Con hãy lật thẻ và tìm các cặp giống nhau.'`; `numberBondGame`
-  `'Cần thêm mấy để đủ 10?'`; `routePlannerGame` `PROMPTS[level]`; the
-  `arithmeticGame`, `compareGame` and `patternGame` prompt heads.
+  `'Con hãy lật thẻ và tìm các cặp giống nhau.'`; `routePlannerGame`
+  `PROMPTS[level]`; the `patternGame` prompt heads.
 - Parametric templates with enumerable slots — `Con hãy chọn số ${answer}`,
-  `Con hãy chạm và đếm ${label}`, `Số nào đứng ${trước|sau} số ${reference}?`,
-  `Đã có ${partA} lá. Còn thiếu mấy lá để đủ ${total}?`,
-  `Con chọn một cách tách số ${total} nhé.`
+  `Số nào đứng ${trước|sau} số ${reference}?`
 
 kido-pipeline already generates Vietnamese TTS: `tts.service.synthesize(text,
 'vi', { wrap })` (Google GenAI, PCM→WAV 24 kHz, throttled), with `wrap:false`

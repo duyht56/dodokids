@@ -1,9 +1,9 @@
 ## Why
 
-Khám phá (Explore) can now spot the odd one out (`odd_one_out`) and sweep a field
-for every instance of a kind (`shape_hunt`), but it has nothing that trains the
-core school-readiness skill those two build toward: **classification** — deciding,
-item by item, which of several groups a thing belongs to and putting it there.
+Khám phá (Explore) can now spot the odd one out (`odd_one_out`), but it has
+nothing that trains the core school-readiness skill it builds toward:
+**classification** — deciding, item by item, which of several groups a thing
+belongs to and putting it there.
 This is the "bỏ đồ vào đúng ngăn / dọn đồ theo nhóm" worksheet task every preschool
 uses (fruit vs animal vs xe cộ, or by colour), and it is the natural tier-2 partner
 to Ai lạc đàn?.
@@ -42,7 +42,7 @@ which is far more reliable for a 4–6 year old and for tests.
   honours the `supportLevel` contract through a pure cue helper (level 1 only NAMES
   the item's category, level 2 points at the correct bin), is reduced-motion
   friendly and uses emoji only as puzzle content.
-- A progressive one-board-per-level L1→L5 run (like `odd_one_out` and `shape_hunt`):
+- A progressive one-board-per-level L1→L5 run (like `odd_one_out`):
   no XP, streak, countdown or lose state; levels scale item count
   (4→8), bin count (2→3) and category subtlety.
 - Best-effort audio: one new generic instruction phrase `sort_bins_sort` and the

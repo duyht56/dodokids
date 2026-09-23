@@ -42,8 +42,10 @@ còn bài toán backfill:
 - **VieNeu chưa từng được pipeline gọi thật lần nào.** Test định tuyến
   (`tts-routing.test.ts`) mock `vieneuTtsService`, nó chỉ chứng minh *đúng
   provider được gọi với đúng text*, không chứng minh server trả về audio dùng
-  được. Lần gọi end-to-end đầu tiên là ở bước §2.1 bên dưới.
-- **R2 chưa từng nhận một byte nào.** `storage.service.ts` chưa chạy ngoài test.
+  được. Lần gọi end-to-end **qua pipeline** đầu tiên vẫn là ở bước §2.1 bên dưới
+  (đã gọi thật *standalone* 2026-09-21 — xem §2.1).
+- **R2 đã dựng xong + verify 2026-09-21** (xem §1.1). Qua *pipeline*
+  (`storage.service.ts`) thì vẫn chưa chạy — mới smoke test bằng SDK cô lập.
 - **5 test fail sẵn** từ trước đợt này (đã stash code rồi chạy lại trên cây sạch
   để xác nhận): `vi-label.test.ts` (3), `review.prompt.test.ts` (1),
   `visual-presentation.test.ts` (1). Xem §6.
@@ -55,6 +57,15 @@ còn bài toán backfill:
 Không có bước nào ở §2 chạy được trước khi xong mục này.
 
 ### 1.1 Dựng R2
+
+> ✅ **ĐÃ XONG 2026-09-21.** Account `Duyht56@gmail.com` (ID
+> `831e180441e731b05c8aaa06f29cc6d7`). Hai bucket `kido-assets-images` /
+> `kido-assets-audio` (Standard, APAC, Public Access mặc định *Disabled* → không có
+> anonymous LIST). Custom domain `assets.dodokids.vn` / `audio.dodokids.vn` đã bind
+> + SSL live. Account API token *Object Read & Write* scope đúng 2 bucket, TTL
+> Forever → `R2_*` đã điền vào `kido-pipeline/.env`. Smoke test
+> PUT/HEAD/GET/LIST/DELETE + public read qua custom domain đều PASS; root trả 404
+> (không lộ listing). Các bước dưới giữ lại làm hồ sơ "đã làm gì / vì sao".
 
 1. Tạo 2 bucket: `kido-assets-images`, `kido-assets-audio`.
 2. **Bind custom domain** cho từng bucket (vd `assets.dodokids.vn`,
@@ -72,6 +83,9 @@ Không có bước nào ở §2 chạy được trước khi xong mục này.
 
 ### 1.2 Mở allowlist trên kido-server
 
+> ✅ **ĐÃ XONG 2026-09-21.** Đã thêm dòng dưới vào `kido-server/.env` (gitignored).
+> Giữ `storage.googleapis.com` tới khi app refetch xong URL ảnh đã migrate.
+
 ```
 PUBLISH_ASSET_ALLOWED_HOSTS=assets.dodokids.vn,audio.dodokids.vn,storage.googleapis.com
 ```
@@ -85,8 +99,12 @@ URL ảnh đã migrate.
 
 ### 1.3 Bật VieNeu
 
+> ✅ **ĐÃ CÀI TRÊN MAC 2026-09-21** tại `~/Documents/projects/vieneu-tts`
+> (uv + Python 3.12, bản ONNX torch-free). Lệnh chạy trên máy này (Windows path cũ
+> `D:/project/vieneu-tts` không còn dùng):
+
 ```bash
-cd D:/project/vieneu-tts && uv run python -m apps.openai_speech
+cd ~/Documents/projects/vieneu-tts && VIENEU_BACKEND=onnx uv run python -m apps.openai_speech
 ```
 
 Phải chạy trước **mọi** job audio. Pipeline cố ý **fail clip + ghi log** khi
@@ -102,6 +120,13 @@ Muốn quay về giọng cũ toàn bộ: `TTS_VI_PROVIDER=gemini`.
 ### 2.1 Pilot VieNeu — làm TRƯỚC MỌI THỨ
 
 Đây là việc quan trọng nhất còn lại, và là lần đầu tiên VieNeu được gọi thật.
+
+> ✅ **2026-09-21: đã gọi VieNeu thật lần đầu** (standalone, chưa qua pipeline) —
+> giọng `Ngọc Huyền`, `vieneu-v3-turbo`, 24 kHz WAV: audio hợp lệ (3,76 s, không
+> câm), TTFA ~292 ms, **RTF ≈ 0,22** đo trên M2 (nhanh hơn nhiều con số suy luận
+> 0,76) → ~10.000 clip cỡ vài tiếng, không phải 8–9h. **Còn nợ:** nghe tai giọng
+> `Ngọc Huyền` + clip EN, và chạy pilot **xuyên pipeline**
+> `regen:audio --week 1 --limit 3`.
 
 ```bash
 cd kido-pipeline

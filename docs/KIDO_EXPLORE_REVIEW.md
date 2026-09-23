@@ -10,7 +10,7 @@
 > số), `odd_one_out` (Ai lạc đàn), `sort_bins` (Dọn đồ), `number_between` (Số ở giữa),
 > `visual_analogy` (Cặp đôi hoàn hảo), `balance_scale` (Cân thăng bằng), `shadow_match`
 > (Tìm bóng). Đã gỡ toàn bộ module + renderer + contract + wiring; tách `shapePrimitives.ts`
-> cho `mirror_build`/`shape_hunt`; đồng bộ prompt-audio mobile↔pipeline. Catalog còn **17 game
+> cho `mirror_build`; đồng bộ prompt-audio mobile↔pipeline. Catalog còn **17 game
 > đăng ký (16 hiển thị + Xưởng luyện nét ẩn)**; 18/18 explore contract PASS, không lỗi lint mới.
 > Danh mục "giữ/cải tiến/game mới" bên dưới là bản khảo sát TRƯỚC đợt xóa — giữ lại làm lịch sử.
 
@@ -24,28 +24,22 @@
 ## 0. ĐÍNH CHÍNH HIỆN TRẠNG (BRD đã cũ)
 
 `KIDO_EXPLORE_BRD.md` (v0.4) mô tả **8 trò**. Thực tế `mobile/src/explore/registry.ts`
-đã có **17 game** (16 hiển thị + `tracing_workshop` ẩn). **Việc #1: cập nhật BRD lên
-đúng 17 game.** Danh mục thực tế (thứ tự sư phạm trong catalog):
+đã có **11 game** (10 hiển thị + `tracing_workshop` ẩn). **Việc #1: cập nhật BRD lên
+đúng 11 game.** Danh mục thực tế (thứ tự sư phạm trong catalog):
 
 | # | gameCode | Tên | Construct (năng lực) |
 |--|--|--|--|
-|1|`tap_count`|Chạm và đếm|Tương ứng 1-1 vật↔số|
-|2|`subitize_flash`|Nhìn nhanh|Tri giác số lượng ≤5 tức thì|
-|3|`quantity_compare`|Bên nào nhiều hơn?|So sánh số lượng|
-|4|`number_explorer`|Khám phá số|Nhận số, thứ tự, trước–sau|
-|5|`pattern_finder`|Tìm quy luật|Hoàn thành pattern|
-|6|`missing_cell`|Ô thiếu|Suy ô khuyết theo hàng & cột (ma trận)|
-|7|`peekaboo_recall`|Ú òa|Trí nhớ làm việc — vật vừa biến mất|
-|8|`odd_one_out`|Ai lạc đàn?|Tìm phần tử vi phạm nhóm|
-|9|`shape_hunt`|Săn hình|Lọc & chạm hết vật thỏa điều kiện|
-|10|`sort_bins`|Dọn đồ|Phân loại vào nhóm|
-|11|`memory_match`|Lật thẻ tìm cặp|Trí nhớ vị trí cặp|
-|12|`number_bond`|Ngôi nhà tách gộp|**Tách–gộp số 5/10**|
-|13|`arithmetic_machine`|Máy cộng trừ|Cộng/trừ trực quan|
-|14|`stack_tower`|Xếp tháp cho Đô Đô|Seriation theo kích thước|
-|15|`mirror_build`|Soi gương|Đối xứng qua gương|
-|16|`route_planner`|Dẫn đường cho Đô Đô|Lập kế hoạch không gian trên lưới|
-|17|`tracing_workshop`|Xưởng luyện nét|Vận động tinh (ĐANG ẨN — `catalogVisible:false`)|
+|1|`number_explorer`|Khám phá số|Nhận số, thứ tự, trước–sau|
+|2|`pattern_finder`|Tìm quy luật|Hoàn thành pattern|
+|3|`missing_cell`|Ô thiếu|Suy ô khuyết theo hàng & cột (ma trận)|
+|4|`peekaboo_recall`|Ú òa|Trí nhớ làm việc — vật vừa biến mất|
+|5|`odd_one_out`|Ai lạc đàn?|Tìm phần tử vi phạm nhóm|
+|6|`sort_bins`|Dọn đồ|Phân loại vào nhóm|
+|7|`memory_match`|Lật thẻ tìm cặp|Trí nhớ vị trí cặp|
+|8|`stack_tower`|Xếp tháp cho Đô Đô|Seriation theo kích thước|
+|9|`mirror_build`|Soi gương|Đối xứng qua gương|
+|10|`route_planner`|Dẫn đường cho Đô Đô|Lập kế hoạch không gian trên lưới|
+|11|`tracing_workshop`|Xưởng luyện nét|Vận động tinh (ĐANG ẨN — `catalogVisible:false`)|
 
 Nhận định chung: **khu Khám phá đã phủ RẤT tốt trục số học & tri giác** (đếm, số, so sánh,
 tách gộp, cộng trừ, quy luật, phân loại, trí nhớ, đối xứng, seriation, không gian). Đối chiếu
@@ -58,16 +52,16 @@ dụ tương tự, cân thăng bằng/tương đương, số liền kề–số 
 
 | Dạng đề trường (nguồn) | Lesson 48 tuần | Khám phá hiện có | Trạng thái |
 |---|---|---|---|
-| Đếm trong tranh / đếm ứng dụng (BTTC #1,5,24) | ✅ `count_tap` | ✅ `tap_count` | Đủ |
+| Đếm trong tranh / đếm ứng dụng (BTTC #1,5,24) | ✅ `count_tap` | ❌ (đã gỡ) | Đủ (lesson) |
 | Nhận số / thứ tự / trước–sau (Tách gộp B3) | ✅ | ✅ `number_explorer` | Đủ (thiếu "số ở giữa") |
-| So sánh số lượng | ✅ `compare_tap` | ✅ `quantity_compare` | Đủ |
+| So sánh số lượng | ✅ `compare_tap` | ❌ (đã gỡ) | Đủ (lesson) |
 | So sánh bằng KÝ HIỆU `< > =` (Tách gộp B2) | ⚠️ chưa | ❌ | **Thiếu** |
-| Tách–gộp trong 10 (Tách gộp B1) | ⚠️ `compose_decompose` (trial) | ✅ `number_bond` | Đủ |
-| Cộng/trừ trực quan; **chuỗi phép tính** (Tách gộp B3') | ✅ `arithmetic_1_50` | ✅ `arithmetic_machine` | Đủ (thiếu chế độ "chuỗi") |
+| Tách–gộp trong 10 (Tách gộp B1) | ⚠️ `compose_decompose` (trial) | ❌ (đã gỡ) | ⚠️ (chỉ lesson trial) |
+| Cộng/trừ trực quan; **chuỗi phép tính** (Tách gộp B3') | ✅ `arithmetic_1_50` | ❌ (đã gỡ) | Đủ (lesson) |
 | Quy luật lặp / xoay (BTTC #12,15,16,22) | ✅ | ✅ `pattern_finder` | Đủ (thiếu "xoay") |
 | Ma trận 2×2/3×3 (BTTC #8,21) | ✅ matrix | ✅ `missing_cell` | Đủ |
 | **Sudoku / latin square con vật (BTTC #13)** | ❌ | ⚠️ `missing_cell` gần | **Thiếu (mở rộng)** |
-| Phân loại 1–2 thuộc tính (BTTC) | ✅ | ✅ `sort_bins`,`shape_hunt` | Đủ |
+| Phân loại 1–2 thuộc tính (BTTC) | ✅ | ✅ `sort_bins` | Đủ |
 | Tìm vật lạc nhóm (BTTC) | ✅ | ✅ `odd_one_out` | Đủ |
 | Trí nhớ / chú ý (Chim Đa Đa) | — | ✅ `memory_match`,`peekaboo_recall` | Đủ (trùng lặp) |
 | Đối xứng (BTTC #11) | ✅ | ✅ `mirror_build` | Đủ |
@@ -86,8 +80,7 @@ dụ tương tự, cân thăng bằng/tương đương, số liền kề–số 
 
 ### 2.1. GIỮ NGUYÊN (đúng construct, đúng đề trường)
 
-`tap_count`, `subitize_flash`, `quantity_compare`, `sort_bins`, `odd_one_out`,
-`shape_hunt`, `number_bond`, `mirror_build`, `route_planner`, `missing_cell`.
+`sort_bins`, `odd_one_out`, `mirror_build`, `route_planner`, `missing_cell`.
 → Không cần đổi. Đây là lõi khớp trực tiếp taxonomy thi lớp 1.
 
 ### 2.2. CẢI TIẾN (giữ engine, thêm mode — effort thấp, giá trị cao)
@@ -95,7 +88,6 @@ dụ tương tự, cân thăng bằng/tương đương, số liền kề–số 
 | Game | Cải tiến đề xuất | Bám tài liệu |
 |---|---|---|
 | `number_explorer` | Thêm mode **"số ở giữa"** (`3 < □ < 8`) và **số liền trước/liền sau** dạng thẻ số | Tách gộp B2/B3, BTTC |
-| `arithmetic_machine` | Thêm mode **"chuỗi phép tính"** (máy nối tiếp: 6 →−4→ □ →+2→ □), gồm cả suy ngược tìm số đầu | Tách gộp B3' |
 | `missing_cell` | Nâng thành **sudoku/latin-square 3×3–4×4** (mỗi biểu tượng xuất hiện 1 lần/hàng & cột) | BTTC3 #13 |
 | `pattern_finder` | Thêm grammar **xoay/lật** (pentagon màu quay 1 bước) | BTTC3 #12, BTTC2 #16 |
 | `stack_tower` | Thêm biến thể seriation theo **cân nặng** (dùng cân trực quan, xếp nhẹ→nặng) | BTTC2 #17 |
@@ -202,7 +194,7 @@ deterministic generator → exercise → deterministic validator`. Ưu tiên tá
 
 | Đợt | Hạng mục | Lý do |
 |---|---|---|
-| **P0 (cải tiến rẻ)** | "chuỗi phép tính" (`arithmetic_machine`), sudoku (`missing_cell`); **gom catalog 4 hàng**; giữ ẩn tracing | Chỉ thêm mode/UX, không renderer mới |
+| **P0 (cải tiến rẻ)** | sudoku (`missing_cell`); **gom catalog 4 hàng**; giữ ẩn tracing | Chỉ thêm mode/UX, không renderer mới |
 | **P1 (game mới, reuse cao)** | `shadow_match`, `balance_scale` | Đề thi lớp 1 kinh điển, chi phí asset ~0, offline |
 | **P2** | `visual_analogy`, `ordinal_position`, `maze` | Cần relation table / interaction mới |
 | **P3 (biên)** | `number_compare_symbol` (ưu tiên đưa vào lesson), `odd_even_superlative`, `picture_algebra` | Trừu tượng hơn / vướng ranh giới hiển thị chữ |
@@ -212,7 +204,7 @@ deterministic generator → exercise → deterministic validator`. Ưu tiên tá
 > - ✅ `ordinal_position` (Đúng vị trí, "hàng m thứ n từ trái/phải" — BTTC3 #10) — P2.
 > - ✅ `visual_analogy` (Cặp đôi hoàn hảo, A:B::C:? tri giác) — P2.
 > - ✅ `number_between` (Số ở giữa `a<□<b` — Tách gộp Bài 2) — thay cho "số ở giữa" ở P0, làm **standalone** (không đụng contract 456 dòng của `number_explorer`).
-> - ✅ `number_chain` (Máy nối tiếp — chuỗi phép tính 2 chặng, xuôi + suy ngược — Tách gộp Bài 3) — thay cho "chuỗi phép tính (`arithmetic_machine`)" ở P0, làm **standalone** (không đụng contract 403 dòng của `arithmetic_machine`).
+> - ✅ `number_chain` (Máy nối tiếp — chuỗi phép tính 2 chặng, xuôi + suy ngược — Tách gộp Bài 3) — làm **standalone** ngay từ đầu.
 > - ✅ `spin_pattern` (Xoay hình — quy luật xoay mũi tên 90°/bước — BTTC3 #12) — thay cho "pattern_finder + xoay" ở §2.2, làm **standalone** (không đụng contract 804 dòng của `pattern_finder`).
 > - ✅ `shadow_match` (Tìm bóng — Chim Đa Đa / BTTC3 #23) — KHÔNG còn chặn: dùng **react-native-svg** vẽ vật bằng primitive (`shadowAssets.ts`, 12 vật), bóng = cùng primitive tô tối ⇒ khớp outline, offline, **không cần art ngoài**. (Bản "con vật thật" clay-style là Tier 2 tùy chọn: sprite PNG + `<Image tintColor>`.)
 > - ⏸ `maze`: đã cân nhắc BỎ (trùng `route_planner`).

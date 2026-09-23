@@ -4,11 +4,15 @@
 TBD - created by archiving change epic-005-activity-types. Update Purpose after archive.
 ## Requirements
 ### Requirement: Two-column matching layout
-The system SHALL render `payload.leftItems` (2–4) in a left column and `payload.rightItems` (2–4, shuffled) in a right column, each item showing its image at a minimum of 88×88pt with a connection dot on the facing edge, plus a "x/total cặp" progress label.
+The system SHALL render `payload.leftItems` (2–4) in a left column and `payload.rightItems` (2–4, shuffled) in a right column, each item showing its picture only, with a connection dot on the facing edge, plus a "x/total cặp" progress label. The picture SHALL be sized so every row fits the play zone, up to 88×88pt on phones (96×96pt on tablets) and never below 40pt; at that floor the rows may overflow. The size is taken while the child is answering and kept through feedback. Item captions SHALL NOT be drawn, because pre-readers cannot use them and they truncate. The item label SHALL be exposed as the item's accessibility label instead.
 
 #### Scenario: Columns rendered with connection dots
 - **WHEN** a match-pair activity mounts
 - **THEN** left and right items render in two columns with connection dots, and the pair counter shows `0/<total> cặp`
+
+#### Scenario: Labels are for screen readers only
+- **WHEN** an item carries a label such as "cái kìm"
+- **THEN** the card shows only the picture, and VoiceOver/TalkBack reads the label
 
 ### Requirement: Tap-to-connect interaction
 The system SHALL connect items by tapping a left item to select it (brandOrange border + pulsing dot) then tapping a right item to form a pair, drawing a connection line between them with `react-native-svg`. Item positions SHALL be measured so the line endpoints track the dots.

@@ -50,9 +50,9 @@ be able to build in the same working tree concurrently.
   counts, pulsing next slot) at 1; reduced choices or an auto-played
   explanation at 2. Level 2 may never mark the answer itself.
 - **Demotion is in-memory and range-only.** After three misses in a row a
-  range/arithmetic run steps down one level (`demoteRangeProgress` /
-  `demoteArithmeticProgress`) and presents a fresh exercise with "Mình thử bài
-  dễ hơn nhé"; nothing outside the mounted run changes.
+  range run steps down one level (`demoteRangeProgress`) and presents a fresh
+  exercise with "Mình thử bài dễ hơn nhé"; nothing outside the mounted run
+  changes.
 - **`stack_tower` and `odd_one_out` are progressive five-board runs** from the
   parent's starting level. (`advanceRangeProgress`/`demoteRangeProgress` take a
   game's own `levels`, so a range game can run its own ladder.)

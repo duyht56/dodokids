@@ -74,3 +74,23 @@
 - [ ] 8.2 `npm run explore-audio:review` and LISTEN to both
 - [ ] 8.3 `npm run explore-audio:approve` (Human Gate; never automatic)
 - [ ] 8.4 `npm run explore-audio:export -- ../mobile` — ships the approved pack
+
+## 9. Look-window tune (2026-09-13, product owner)
+
+- [x] 9.1 `PeekabooRecallRenderer`: `SHOW_MS` 1500 → 3000 (too fast for 4–6 year
+      olds, the same call as `subitize_flash`); the level-2 memory-aid re-show
+      `PEEK_MS` (was 1100) follows it
+- [x] 9.2 The numeral-free sand timer, extracted from `subitize_flash` into the
+      shared `mobile/src/explore/components/SandTimer.tsx`, sits above the board
+      during both look windows; its row stays laid out (invisible) the rest of the
+      time so the board never jumps; answering stays untimed. Presentation only —
+      no generator/validator/version change
+- [x] 9.3 Contract script asserts the ≥3 s look window and the sand timer; spec,
+      proposal, `docs/KIDO_EXPLORE_BRD.md` §6.2/§7.12 and `docs/AI_CONTEXT.md`
+      reworded
+- [ ] 9.4 Owner: claim C-27 check — the same open item as
+      `add-explore-subitize-flash-game` 9.5
+- [x] 9.5 Verification: eslint on changed files, `npx tsc --noEmit`,
+      `npm run test:explore-peekaboo` + `npm run test:explore-subitize-flash`,
+      `npx jest src/modules/explore/explore.peekaboo-recall.spec.ts`,
+      `openspec validate add-explore-peekaboo-recall-game --strict`, simulator check

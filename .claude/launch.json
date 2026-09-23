@@ -13,6 +13,47 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "landing"],
       "port": 3002
+    },
+    {
+      "name": "kido-server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:dev", "--prefix", "kido-server"],
+      "port": 3001
+    },
+    {
+      "name": "kido-server-3011",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd kido-server && PORT=3011 npm run start:dev"],
+      "port": 3011,
+      "autoPort": false
+    },
+    {
+      "name": "mobile-metro-emulator-3011",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd mobile && KIDO_API_URL=http://10.0.2.2:3011 npx expo start --dev-client --port 8088"],
+      "port": 8088,
+      "autoPort": false
+    },
+    {
+      "name": "mobile-metro-emulator",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd mobile && KIDO_API_URL=http://10.0.2.2:3001 npx expo start --dev-client --port 8088"],
+      "port": 8088,
+      "autoPort": false
+    },
+    {
+      "name": "mobile-metro-ios-prod",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd mobile && KIDO_API_URL=https://api.dodokids.vn npx expo start --dev-client --port 8081"],
+      "port": 8081,
+      "autoPort": false
+    },
+    {
+      "name": "mobile-metro-mac",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd mobile && KIDO_API_URL=http://localhost:3001 npx expo start --dev-client --port 8090"],
+      "port": 8090,
+      "autoPort": false
     }
   ]
 }
