@@ -79,14 +79,14 @@ Sửa đúng trường `"version"` trong `mobile/app.json` bằng Edit. Đừng 
 ```bash
 cd mobile && eas build --platform all --profile production \
   --auto-submit --non-interactive --freeze-credentials --no-wait --json \
-  --message "v<version> $(git log -1 --format=%h)" \
-  --what-to-test "$(cat <notes-file>)"
+  --message "v<version> $(git log -1 --format=%h)"
 ```
 
 - `--auto-submit` gắn submission vào build ngay lúc tạo, và EAS tự submit phía server khi build xong. Vì vậy `--no-wait` không làm mất bước submit. Android đi theo `submit.production.android` (track `internal`, `releaseStatus: draft` khi app còn draft); iOS lên App Store Connect/TestFlight.
 - `--freeze-credentials` chặn EAS tự tạo hay đổi credential ở chế độ non-interactive. Keystore Android bị đổi thì Play từ chối mọi bản sau.
 - stdout là một mảng JSON các build. Lấy `id` và `platform` của từng build rồi dựng link trang build.
-- Chỉ một nền tảng: dùng `--platform android` hoặc `--platform ios` (với Android thì bỏ `--what-to-test`).
+- Chỉ một nền tảng: dùng `--platform android` hoặc `--platform ios`.
+- **Đừng thêm `--what-to-test`**: EAS gửi nó thành `changelog` của submission iOS, mà changelog chỉ có ở gói Enterprise. Build vẫn được tạo, submission Android vẫn lên lịch, nhưng submission iOS bị từ chối ("Changelog submission is currently available for Enterprise plan only", gặp 2026-10-05). Khi đó build iOS xong thì nộp tay: `eas submit -p ios --profile production --id <build-id> --non-interactive`. Ghi chú TestFlight "What to Test" thì dán trên App Store Connect.
 - Lệnh fail trước khi tạo được build (thiếu credential, thiếu key submit…): đọc `references/first-time-setup.md`.
 
 ### 7. Chờ build
