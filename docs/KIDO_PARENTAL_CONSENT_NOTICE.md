@@ -29,7 +29,7 @@
 
 | `noticeVersion` | `policyVersion` | Trạng thái |
 |---|---|---|
-| `2026-09-15` | `2026-09-15` | Bản nháp, chưa phát hành. |
+| `2026-09-15` | `2026-09-15` | Đã phát hành 15/09/2026 (Android vc4 Closed, iOS build 1); đóng băng. Ngày 05/10/2026 trang Chính sách bảo mật được cập nhật (bên xử lý media đổi từ Google Cloud Storage sang Cloudflare, `LEGAL_UPDATED` = 05/10/2026). Owner quyết định 05/10/2026 **không** ra phiên bản đồng ý mới và không hỏi lại: bản ghi đồng ý sau ngày đó vẫn mang `policyVersion` `2026-09-15`. |
 
 ---
 

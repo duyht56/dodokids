@@ -26,7 +26,8 @@ Each slide SHALL display: clay illustration (top ~55% of screen), title (h1 28px
 
 #### Scenario: Slide 2 content is correct
 - **WHEN** slide 2 is displayed
-- **THEN** title is "Học Toán, Tiếng Việt & Tiếng Anh" with 3 subject icons
+- **THEN** title names the three pillars of C-03 in the short form of C-29 (`docs/KIDO_MARKETING_CLAIMS.md`): "Toán tư duy, Tư duy ngôn ngữ, Tiếng Anh" (phone: two lines, break after "Tư duy"; tablet: one pillar per line), with 3 subject icons
+- **AND** the title does not say "Tiếng Việt"
 
 #### Scenario: Slide 3 content is correct
 - **WHEN** slide 3 is displayed

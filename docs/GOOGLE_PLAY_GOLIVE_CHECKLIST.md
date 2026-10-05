@@ -290,6 +290,8 @@
 
 ## 5. Backend/operations trước khi mở Production
 
+> Giám sát (`kido-server/.github/workflows/monitor.yml`), ngưỡng kích hoạt, cần gạt rollback/hotfix (cả §4.3) và người trực: xem [`KIDO_INCIDENT_PLAYBOOK.md`](./KIDO_INCIDENT_PLAYBOOK.md).
+
 - [ ] Production DB/Redis có backup, restore drill, retention và monitoring.
 - [ ] Có `/health`/readiness check, uptime alert, latency/error-rate dashboard và on-call contact.
 - [ ] Có crash reporting mobile và server alerting phù hợp privacy trẻ em; không gửi PII/purchase token trong event/log.

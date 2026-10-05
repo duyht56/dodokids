@@ -13,16 +13,20 @@ The system SHALL display a pastel-orange radial gradient zone (height 260pt mobi
 - **WHEN** PaywallScreen mounts
 - **THEN** illustration zone shows mascot with kido-float, twinkling elements, and gold glow circle
 
-### Requirement: Feature checklist
-The system SHALL list 4 features with coral ✓ badges on lavender circles:
-- "48 tuần nội dung học"
-- "Toán, Tiếng Việt & Tiếng Anh"
-- "Báo cáo hàng tuần cho ba mẹ"
-- "Không quảng cáo"
+### Requirement: Feature checklist and plan lines follow the claim matrix
+The paywall's feature checklist (✓ badges) and the access line under each plan name are claims to paying parents. Their text SHALL come from `docs/KIDO_MARKETING_CLAIMS.md`, the only source for claim wording, and SHALL be kept in `mobile/src/constants/planCopy.ts` (`PAYWALL_FEATURES`, `PLAN_ACCESS`), checked by `npm run test:paywall-claims` in `mobile/`. As of 2026-10-05:
+- Features: "Toán tư duy, Tư duy ngôn ngữ & Tiếng Anh nền tảng" (C-03) and "Ba mẹ vẫn xem được báo cáo tuần khi con hoàn thành ngày học thứ 5" (C-42).
+- Plan lines: C-11b. Each states that lessons play in order, only weeks already published, and only within the plan term ("trong thời hạn gói", R-3).
 
-#### Scenario: Feature list renders completely
+The paywall SHALL NOT say "48 tuần" (C-37: weeks are published gradually), "Không quảng cáo" (C-16 covers Khu Khám phá only) or "Tiếng Việt" as a pillar name (C-03), and SHALL NOT say a plan opens weeks ahead of the child, because the map opens one week at a time.
+
+#### Scenario: Feature list renders the claim-matrix text
 - **WHEN** PaywallScreen renders
-- **THEN** all 4 feature items appear with ✓ icons and correct label text
+- **THEN** each feature item appears with a ✓ icon and the text from `PAYWALL_FEATURES`, and each plan card shows its `PLAN_ACCESS` line
+
+#### Scenario: A banned claim is reintroduced
+- **WHEN** a paywall feature, plan line or other visible paywall string contains "48 tuần", "Không quảng cáo" or "Tiếng Việt", or a plan line drops "trong thời hạn gói"
+- **THEN** `npm run test:paywall-claims` fails
 
 ### Requirement: Annual plan card (highlighted)
 The system SHALL display the annual plan in a gradient-bordered card (gradient #A674FF→#FFD23F, 2.5pt border-radius 20pt) with "★ PHỔ BIẾN NHẤT" badge on top-right, plan name "👑 Gói Hàng năm", "Tiết kiệm 40%" in green, price "199k/tháng".
