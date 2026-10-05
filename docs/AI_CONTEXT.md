@@ -219,6 +219,31 @@ Mobile:
   `promptAudio.ts` mirrored by `kido-pipeline/src/explore/exploreAudioInventory.ts`,
   pack `explore-audio-vi-v2` (mobile accepts v1+v2); see
   `openspec/changes/add-explore-round-2-games/audio-batch-v2.md` for the run.
+  Later batches: v3 (go-live re-record), v4 (`number_bus` `nb_*`), v5 (whole
+  lines, below); `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
+  `explore/exploreAudioCapability.ts` lists every accepted pack.
+- Explore whole-line audio ("câu liền", OpenSpec `add-explore-whole-line-audio`,
+  2026-10, in progress): every composed SENTENCE (a number/word stitched into a
+  phrase fragment, e.g. "Có tất cả" + "sáu" + "bạn nhé.") gets one clip rendered
+  whole at authoring time (VieNeu `dodo-clone2`, `VIENEU_TEMPERATURE=0.7`, Human
+  Gate) and bundled as pack `explore-audio-vi-v5`; NO runtime/server TTS.
+  Mobile is the source of truth: `mobile/src/explore/promptLines.ts` (pure)
+  defines line templates whose refs come only from the `promptAudio.ts` key
+  builders, keys `explore-audio:vi:line:<templateId>:<params '-'-joined>:v1`,
+  and `resolvePromptSegments` (longest line match, left to right). It is dumped
+  to the committed `mobile/src/explore/explorePromptLines.generated.json`
+  (`npm run explore-lines:dump`), which kido-pipeline reads — never hand-mirror
+  line transcripts. `explore/audio.ts` plays a bundled line as ONE clip and
+  otherwise the stitched clips exactly as before (automatic fallback), with a
+  cancellable 280 ms gap after each sentence. `exercise.audioRefs`,
+  generators, validators and key builders are unchanged (no contract change).
+  The generated registry also exports `EXPLORE_AUDIO_DURATIONS_MS` (trimmed PCM,
+  empty until the v5 export), used by the `number_bus` speech estimate and mantra
+  timing; a hand rollback must keep that export (even `{}`) because `audio.ts`
+  imports it. Line clips are `.m4a`; phrase/word/number/label clips stay WAV.
+  The answer echo «N! Có tất cả N bạn nhé.» (`next_number`, `count_on`) is its
+  own two-sentence line `nb_count_finish`; a line that opens on a number never
+  takes the number that ends a stitched fragment before it.
 - Explore Đợt 3 feel (OpenSpec `polish-explore-round-3-feel`, 2026-08),
   presentation-only: `MemoryMatchRenderer` turns each card with a real flip
   (per-card `scaleX` 1→0→1, face swapped at the mid-point, native driver,
@@ -327,7 +352,9 @@ Pipeline:
   (`LESSON_CLIP_FORMAT`), ~20 KB instead of ~197 KB per clip. NOT Opus — iOS
   AVFoundation has no Ogg/WebM demuxer so `expo-audio` cannot play it. The
   bundled Explore pack deliberately stays WAV, which is why the format is a
-  parameter of `getOrCreateLibraryClip` rather than a global.
+  parameter of `getOrCreateLibraryClip` rather than a global (exception: Explore
+  whole-line clips from `add-explore-whole-line-audio` are staged as WAV and
+  exported as `.m4a`).
 - TTS (same change): `lesson-audio.ts` picks a language per slot,
   `tts.service.ts` picks an engine per language — `vi` → VieNeu-TTS v3 Turbo
   over its local OpenAI-compatible server, `en` → Gemini (unchanged; the app

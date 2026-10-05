@@ -486,8 +486,7 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 > Đô Đô làm mascot, tương tác CHẠM (không kéo-thả), một lượt = 5 bảng L1→L5
 > (progressive), tái dùng engine / pool / asset đã có (KHÔNG thêm art mới). Spec
 > đầy đủ nằm ở các OpenSpec capability change `add-explore-<code>-game`. Thumbnail
-> hiện dùng icon vector fallback — cần PNG do designer giao (xem danh sách ở cuối
-> mục). Clip audio (đề + tên game) là best-effort, im lặng tới batch audio kế
+> là PNG clay, đã giao đủ (xem cuối mục). Clip audio (đề + tên game) là best-effort, im lặng tới batch audio kế
 > tiếp; chữ trên màn luôn là chuẩn. Trạng thái sai luôn nhẹ (Đô Đô "nghĩ", thử
 > lại, tăng trợ giúp), không đánh dấu đáp án, không kết thúc lượt, không đếm ngược.
 
@@ -520,10 +519,10 @@ không hợp ràng buộc chạm-only và tái dùng engine thấp nhất — đ
 `balance_scale` (cân) BỎ vì trùng cơ chế so sánh số lượng, không đủ khác biệt để
 làm game riêng.
 
-**Cần designer (PNG thumbnail):** sort-bins, missing-cell,
-peekaboo-recall, mirror-build — cùng hai game Đợt 2 (stack-tower,
-odd-one-out). Tới khi có PNG, catalog dùng icon vector fallback trong
-`thumbnails.ts` (`EXPLORE_FALLBACK_ICONS`), không cần đổi code khi art về.
+**Thumbnail PNG:** sort-bins, missing-cell, peekaboo-recall, mirror-build —
+cùng hai game Đợt 2 (stack-tower, odd-one-out) — đã có PNG clay từ 2026-08.
+Game mới lên trước art thì catalog dùng icon vector trong `thumbnails.ts`
+(`EXPLORE_FALLBACK_ICONS`) tới khi PNG về.
 
 ### 7.13. Game 13 — Xe buýt hai tầng (`number_bus`)
 
@@ -652,8 +651,8 @@ về đếm-tất-cả, không phải phạt. Cấm lộ đáp án ở support 1
 
 #### Asset
 
-Không art mới ngoài 1 thumbnail clay (`number_bus.png`, xe đưa đón kiểu VN,
-prompt trong `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md`; vector fallback chờ PNG). Xe
+Không art mới ngoài 1 thumbnail clay (`number-bus.png`, giao 2026-10-05,
+prompt mục 5 trong `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md`). Xe
 + ghế + rèm + cửa = vector trong renderer; hành khách = sprite thú pool
 approved, fallback `DotGroup`/primitive; Đô Đô = `ExploreMascot`; màu hai tầng
 Okabe–Ito. Offline hoàn toàn, mọi dependency bundled.
@@ -802,6 +801,18 @@ nhận pack cũ cho tới khi pack mới được bundle, câu chưa có clip th
 chữ/hình trên màn vẫn đủ để chơi. Chi tiết batch: openspec
 `add-explore-round-2-games/audio-batch-v2.md`.
 
+**Cập nhật (2026-10-05, câu liền):** câu có số ghép từ nhiều clip
+(«Có tất cả» + «sáu» + «bạn nhé.») nghe rời và phẳng — 128/213 lượt nói đọc
+được là ghép nhiều clip, 381 mối nối. Quyết định: mọi câu (cấp câu) có số/từ
+chèn vào mảnh câu — 93 line — được **render nguyên câu lúc authoring** trong
+kido-pipeline (VieNeu, giọng `dodo-clone2`, temperature 0.7 — chủ sản phẩm chốt
+sau pilot 90 take), qua Human Gate, bundle thành pack `explore-audio-vi-v5`.
+Khóa line theo đúng mẫu trên: `explore-audio:vi:line:<templateId>:<params>:v1`,
+`voiceVersion` là version pack. Câu cố định giữ một clip như cũ; lượt nói nhiều
+câu vẫn phát nhiều đoạn, có nghỉ 280 ms giữa câu; clip ghép cũ vẫn được bundle
+và tự làm fallback khi thiếu line. Không TTS lúc chạy (§3 mục 8, offline, không
+gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
+
 ---
 
 ## 10. ĐỘ KHÓ VÀ CẤU HÌNH KHỞI ĐẦU
@@ -940,7 +951,7 @@ Khám phá MVP được xem là đạt khi:
 | Tracing chấm quá khắt khe | Tolerance theo tuổi/level, partial guidance và không reset toàn bộ |
 | Tracing letter bị hiểu thành dạy đọc | Ranh giới sư phạm và wording rõ ràng; không có reporting |
 | Phạm vi 50 quá khó | Chỉ mở ở advanced với visual scaffolding |
-| Audio template nghe rời rạc | Render/cache theo câu hoàn chỉnh và version giọng đọc |
+| Audio template nghe rời rạc | Render/cache theo câu hoàn chỉnh và version giọng đọc — từ 2026-10 mọi câu có số/từ chèn vào mảnh câu render nguyên câu lúc authoring, clip ghép làm fallback (`add-explore-whole-line-audio`, pack v5) |
 | Khám phá cạnh tranh với lesson chính | Không reward, không thay đổi lesson progress, session ngắn |
 | Content operation tăng dần | Không question bank, đo cost metric và reuse asset bắt buộc |
 

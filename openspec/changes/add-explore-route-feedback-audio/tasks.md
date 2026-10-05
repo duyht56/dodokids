@@ -9,6 +9,12 @@
 - [x] 1.3 Add `routeFeedbackKeys(kind, checkArrowStep?)`, reusing the shared
       number-name slot clip and `nhe` for the escalated support line
 
+Note (2026-10-05): `add-explore-whole-line-audio` turns the escalated "Xem lại
+mũi tên thứ N nhé." into a whole-line clip per step (`route_check_arrow`) read
+with the Vietnamese ordinal — "thứ nhất", "thứ tư" instead of the stitched "thứ
+một", "thứ bốn". `routeFeedbackKeys` and the on-screen step text are unchanged;
+the stitched clips above remain the fallback.
+
 ## 2. Runtime wiring (mobile)
 
 - [x] 2.1 Add `onSpeakFeedback?: (refs) => void` to `ExploreRendererProps`

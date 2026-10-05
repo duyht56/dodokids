@@ -81,9 +81,14 @@
       `fb_*`
 - [x] 6.2 Mirror inventory trong
       `kido-pipeline/src/explore/exploreAudioInventory.ts`
-- [ ] 6.3 Chạy batch TTS pack `explore-audio-vi-v4` (VieNeu, giọng
+- [x] 6.3 Chạy batch TTS pack `explore-audio-vi-v4` (VieNeu, giọng
       dodo-clone2); Human Gate duyệt — tiêu chí cắt `nb_chant` nếu
-      robot/nhạt; export pack
+      robot/nhạt; export pack (2026-09-23: 31 clip mới, temp 0.7, "Gộp"/"cộng"
+      gen lại vì cụt; product owner nghe + duyệt cả 31 kể cả chant; export 185
+      clip, v4 thêm vào SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS). vc7 (mobile
+      d6a4fe7) ra trước khi export nên KHÔNG có clip nb_*; audio v4 commit ở
+      mobile 38090fd (2026-10-01, đã push) + kido-pipeline 40eac4b (bump v4),
+      đi theo build vc8 (Android versionCode 8 / iOS build 4)
 
 ## 7. kido-server
 
