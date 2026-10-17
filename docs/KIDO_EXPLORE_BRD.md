@@ -517,7 +517,8 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 **Hoãn / bỏ:** `tangram_assemble` (ghép hình) HOÃN vì cần kéo–xoay–ghép hình học,
 không hợp ràng buộc chạm-only và tái dùng engine thấp nhất — để làm riêng sau.
 `balance_scale` (cân) BỎ vì trùng cơ chế so sánh số lượng, không đủ khác biệt để
-làm game riêng.
+làm game riêng. (Làm lại 2026-10-16 với construct khác — suy luận thay thế, xem
+§7.14.)
 
 **Thumbnail PNG:** sort-bins, missing-cell, peekaboo-recall, mirror-build —
 cùng hai game Đợt 2 (stack-tower, odd-one-out) — đã có PNG clay từ 2026-08.
@@ -702,6 +703,47 @@ batch audio. **Nội dung định kỳ: Không.**
   ôn trộn; demo I-do/We-do; cổng MIN `chooseStart` + bài chẩn đoán; mở kênh
   `onAnswer(correct, detail?)` + `runFlags`; slot `variants` + `s6_stretch`.
   Không batch audio mới.
+
+### 7.14. Game 14 — Cân thăng bằng (`balance_scale`)
+
+**Mục tiêu:** dạy dạng toán tư duy "cân nặng" của phiếu bài tập mầm non/lớp 1
+(cân mẫu "1 quả lê = 2 quả táo", hỏi "2 quả lê = ? quả táo", chọn A/B/C; bắc
+cầu ô tô → xe máy → xe đạp). Construct là **suy luận thay thế ("đổi")** trên
+một quan hệ bằng nhau, khác hẳn so sánh số lượng (lý do `balance_scale` bị bỏ ở
+Đợt 3 không còn đúng: game so sánh đã gỡ 2026-09-22, dạng bài này mới). Owner
+yêu cầu 2026-10-16, chốt 6 bậc và hình emoji. Thiết kế đầy đủ: OpenSpec
+`add-explore-balance-scale-game` (`design.md`).
+
+**Câu thần chú:** "1 quả lê nặng bằng 2 quả táo, nên đổi 1 quả lê lấy 2 quả
+táo thì cân vẫn thăng bằng." Mỗi bậc gỡ một nấc hỗ trợ:
+
+| Bậc | Mode | Bé làm |
+|---|---|---|
+| 1 | `balance`, `heavier` | Cân sống: thả món cho thăng bằng; chạm bên chìm (nặng hơn) |
+| 2 | `measure` | Tự thả món nhỏ tới khi 1 món to thăng bằng (tìm ra cân mẫu) |
+| 3 | `exchange` | Chạm từng món to để đổi ra k món nhỏ, rồi xếp đĩa kia, **Thả cân** |
+| 4 | `predict` | Đổi trong đầu: cân được giữ tới khi bé thả |
+| 5 | `predict`, `choose` | Dạng phiếu A/B/C; thẻ chép-cân-mẫu là bẫy bắt buộc |
+| 6 | `chain`, `reverse` | Hai cân mẫu (đổi hai lần) và đổi ngược (nhiều nhỏ → to) |
+
+**Hướng dẫn trong game:** Đô Đô đọc cân mẫu trước rồi mới hỏi (như người lớn
+đọc phiếu cho bé), bàn tay gợi ý khi bé chưa chạm, cân nghiêng thật khi sai và
+câu nhắc không có số ("Đĩa này còn nhẹ quá, bé thêm nữa nhé."), trợ giúp mức 1
+chỉ trỏ (cân mẫu nhịp sáng), mức 2 mở chạm-để-đổi / bóng mờ nhóm (không
+làm mờ thẻ: thẻ sai tự khoá). **Sau mỗi bài đúng**, cân diễn lại phép đổi và Đô Đô chốt câu kết luận
+("2 quả lê nặng bằng 4 quả táo.") — bé nghe lại cách giải mỗi lần.
+
+**Lượt:** authored 6 slot với `levelOffset` [0,0,1,2,3,4], nên bé mới (bậc 1)
+đi trọn cung balance → heavier → measure → exchange → predict → choose trong
+một lượt; phụ huynh nâng bậc bắt đầu ở cài đặt Khám phá (6 tiêu chí "khi nào
+bé vững").
+
+**Đồ vật:** 9 emoji theo 3 thang nặng (dưa hấu/lê/táo, chó/mèo/chuột, ô tô/xe
+máy/xe đạp); tỉ lệ k ∈ {2,3} theo seed; mỗi đĩa ≤ 10 món nhỏ, ≤ 4 món to.
+
+**Audio:** pack `explore-audio-vi-v6` = 13 câu cố định `bal_*`, 9 nhãn đồ vật,
+2 từ, 114 câu liền (`bal_ask`/`bal_is`/`bal_tap`). Thiếu clip thì im lặng, chữ
+và hình vẫn đủ để chơi.
 
 ---
 

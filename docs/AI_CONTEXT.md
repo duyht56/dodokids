@@ -291,25 +291,58 @@ Mobile:
   Server registered-public catalog count was 11 then (12 now, see the game-codes
   entry below), and as of 2026-08-25 all were catalog-visible (tracing
   re-enabled + smoothed to pack v5). Deferred:
-  `tangram_assemble` (needs drag/rotate, not tap-only); dropped: `balance_scale`
-  (redundant with the compare seesaw). Also pending: catalog PNG art for all Đợt-2
+  `tangram_assemble` (needs drag/rotate, not tap-only); `balance_scale` was dropped
+  then (redundant with the compare seesaw) and rebuilt 2026-10-16 as a different
+  construct (see the Cân thăng bằng entry below). Also pending: catalog PNG art for all Đợt-2
   and tier-2 games; route predict-ahead mode.
-- Explore game codes (2026-09-23, OpenSpec `add-explore-number-bus-game`):
-  `EXPLORE_GAME_CODES` is identical — same 12 codes, same order — in
+- Explore game codes (2026-09-23, OpenSpec `add-explore-number-bus-game`;
+  `balance_scale` appended 2026-10-16): `EXPLORE_GAME_CODES` is identical —
+  same 13 codes, same order — in
   `docs/kido-explore-contract.ts`, `mobile/src/types/explore.ts` and kido-server
   `explore.types.ts`: `tracing_workshop`, `route_planner`, `pattern_finder`,
   `memory_match`, `stack_tower`, `missing_cell`, `peekaboo_recall`,
   `mirror_build`, `ordinal_position`, `number_chain`, `spin_pattern`,
-  `number_bus`. The legacy `number_explorer`/`odd_one_out`/`sort_bins` are gone
+  `number_bus`, `balance_scale`. The legacy `number_explorer`/`odd_one_out`/`sort_bins` are gone
   from docs/server as well (their server specs removed). kido-server
   `explore.registry.ts` mirrors each bundled local game through
   `BUNDLED_LOCAL_GAMES` (prefix, assets, levels); `number_bus` ("Xe buýt hai
   tầng") is local-only and offline with levels L1–L4 (GĐ1) and is never
   generated server-side. `explore.contract-codes.spec.ts` guards the three-way
   code equality and the server↔mobile mirror (`memory_match`/`pattern_finder`
-  excepted: legacy server manifests). Public server catalog count is 12.
+  excepted: legacy server manifests). Public server catalog count is 13.
   `ExploreRunSlot.level` is the declared default; the mobile authored-run
   branch plays clamp(startingLevel + `constraints.levelOffset`, game levels).
+- Cân thăng bằng (`balance_scale`, OpenSpec `add-explore-balance-scale-game`,
+  2026-10-16): local, offline, L1–L6, teaches the worksheet "cân nặng"
+  substitution ("1 quả lê nặng bằng 2 quả táo, đổi 1 lê lấy 2 táo"). Game module
+  `mobile/src/explore/games/balanceScaleGame.ts` (generator, independent
+  validator, pure weights/tilt/`balanceSupportCue`, line builders that return
+  on-screen text + clip keys together); renderer
+  `renderers/BalanceScaleRenderer.tsx` + `renderers/balanceScale/*` (pure layout
+  in `layout.ts`, `ScaleView`, basket/cards). Live scale in `balance`/`measure`
+  (cannot be missed), HELD scale + "Thả cân" elsewhere; tapping a big item swaps
+  it for its small items (required in `exchange`, always in `chain`, support 2
+  in `predict`/`choose`). Second authored-run game, and the first whose slots
+  climb: `levelOffset` [0,0,1,2,3,4], so a new child plays balance → heavier →
+  measure → exchange → predict → choose. The play shell skips its generic
+  retry/hint voice and hint row for it (`SELF_VOICED_MISS_GAMES`): the renderer
+  says its own number-free miss line. Audio pack `explore-audio-vi-v6`
+  (`bal_*` phrases, nine `balance-*` labels, `nang_bang`/`may` words, whole
+  lines `bal_ask`/`bal_is`/`bal_tap` whose item params are 1-based
+  `BALANCE_ITEMS` numbers — append-only order). Contract:
+  `npm run test:explore-balance-scale`. Thumbnail pending (vector `scale`).
+  Authored runs (`createExploreRunBatch`) generate slots in order and exclude
+  every board already picked this run, so no run repeats a board (applies to
+  `number_bus` too). Shared audio (`explore/audio.ts`, 2026-10-16):
+  `playExploreFeedbackAudio(refs, { onStart })` reports when a line really
+  starts, and `playExploreGentleFeedbackAudio` plays a reminder only once no
+  prompt is pending or sounding (a 🔊 replay included) and no feedback is in
+  flight, dropping itself via `stillWanted`; renderers reach both through
+  `onSpeakFeedback(refs, { gentle, onStart, stillWanted })`, which now returns a
+  promise that settles when the line has played. Other feedback never cancels a
+  gentle line; leaving Explore does. The play screen's timed break reminder is
+  spoken as a gentle line (it used to cut off the board's question); every
+  other existing caller is unchanged.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/

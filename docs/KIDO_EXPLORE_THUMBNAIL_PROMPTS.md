@@ -190,6 +190,31 @@ số thứ tự vì game cũng không ghi.
 
 ---
 
+## 9. Cân thăng bằng
+
+**File:** `balance-scale.png` (chưa giao — catalog đang dùng icon vector `scale`)
+
+```text
+Square 1:1 thumbnail for a preschool "balance scale" logic game.
+
+Scene: a cheerful chunky clay balance scale, front view with a slight elevation, centered (about 75% of the width): a sturdy warm-brown clay stand with a round pivot, a thick level beam, and two shallow sunny-yellow clay pans hanging from it on thin strings. The beam is perfectly LEVEL. On the left pan sits one plump green clay pear. On the right pan sit exactly two shiny red clay apples side by side. The scene clearly says "one pear weighs the same as two apples".
+
+Background: soft mint (#D6F2E6).
+
+Style: handmade modeling-clay (plasticine) 3D illustration, soft matte clay with subtle handmade texture, chunky rounded shapes, soft studio light, gentle highlights and soft contact shadows, vibrant child-friendly colors. One flat solid pastel background color from edge to edge: no gradient, no vignette, no rounded-square tile, no frame, no border.
+
+Composition: square 1:1, centered, generous margins. The app crops this image to a circle, so keep every element inside the central circle (about the middle 75% of the frame) and leave the four corners as plain background. Clear silhouettes, readable at small mobile thumbnail size.
+
+Exactly one pear and two apples. No numbers, no letters, no question mark, no equals sign, no hands, no characters, no reward icons, no app UI, no title, no logo, no watermark.
+```
+
+**Ý nghĩa hình ảnh:** đúng cân mẫu của bài — đòn NGANG (thăng bằng), 1 lê = 2
+táo. Đòn không được nghiêng, vì nghiêng là dạng "bên nào nặng hơn". Giao xong
+thì đặt file vào `mobile/src/assets/images/explore/`, thêm vào
+`EXPLORE_THUMBNAILS` và xoá dòng `balance_scale` trong `EXPLORE_FALLBACK_ICONS`.
+
+---
+
 ## Generation and review checklist
 
 Mỗi ảnh chỉ được duyệt khi đạt các điều kiện sau:
