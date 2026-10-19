@@ -45,7 +45,7 @@ from its initial state. There is no "Chơi tiếp" (resume) affordance.
 
 | Excluded | Reason |
 | --- | --- |
-| Adaptive levels / proficiency labels | Require play-history retention |
+| Adaptive levels / proficiency labels | Require play-history retention (leveled rounds move up a level only inside the open run, from that run's first-try count held in memory; nothing carries to the next run) |
 | Weekly Explore report / skill rows / hint trends | Require play evidence |
 | Daily accumulated duration limit | Requires cross-run time history |
 | Recent-game / resume UX | Requires stored run state |

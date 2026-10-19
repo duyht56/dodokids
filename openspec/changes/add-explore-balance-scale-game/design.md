@@ -99,33 +99,60 @@ Một exerciseType `balance_scale`, mode ở `params.mode`.
   sau ~1,4 s khối chèn đỡ lại, đồ trên đĩa giữ nguyên để bé sửa. Bé phải đoán
   trước rồi mới kiểm, không mò được bằng cách thêm tới khi cân dừng.
 
-## 5. Run policy (authored, 6 slot, có levelOffset)
+## 5. Lượt chơi: từng vòng 6 bài, lên bậc khi làm tốt
 
-Bé mới (bậc bắt đầu 1) đi trọn cung dạy trong MỘT lượt; ba mẹ nâng bậc bắt đầu
-ở màn phụ huynh khi bé vững (cơ chế `startingLevelByGame` sẵn có, không lưu
-lịch sử chơi). Level hiệu dụng của slot = clamp(start + offset) (đã có ở
-`resolveExploreRunSlotLevel`). Mode của slot CHỈ đến từ bảng vai trò × level:
+Owner chốt 2026-10-17 (thay cách cũ "một lượt 6 bài leo từ bậc 1 lên bậc 5"):
+một lượt gồm nhiều **vòng**, mỗi vòng **6 bài cùng một bậc**.
 
-| slot | offset | L1 | L2 | L3 | L4 | L5 | L6 |
-|---|---|---|---|---|---|---|---|
-| s1 | 0 | balance | measure | exchange | predict | predict | chain |
-| s2 | 0 | heavier | measure | exchange | predict | choose | reverse |
-| s3 | +1 | — | measure | exchange | predict | choose | chain |
-| s4 | +2 | — | — | exchange | predict | choose | reverse |
-| s5 | +3 | — | — | — | predict | choose | chain |
-| s6 | +4 | — | — | — | — | choose | chain |
+- Bắt đầu ở bậc phụ huynh đặt (`startingLevelByGame`, mặc định bậc 1).
+- Hết vòng: nếu **ít nhất 4/6 bài đúng ngay lần đầu** thì **lên bậc** (tiếng
+  `level_up`, Đô Đô "Giỏi quá! Mình lên bậc mới nhé!" rồi câu giới thiệu điều
+  mới ở bậc đó); nếu chưa thì **luyện thêm một vòng cùng bậc** với bài mới hoàn
+  toàn ("Mình luyện thêm bậc này nhé!").
+- Mỗi bậc chỉ luyện thêm **tối đa 1 vòng**: vòng luyện thêm vẫn chưa đạt thì lượt
+  kết thúc nhẹ nhàng ("Mình luyện xong rồi! Bé muốn chơi lại không?"), không
+  bắt bé lặp mãi một bậc (BRD §6.1 kết thúc tự nhiên, §6.2).
+- **Qua bậc 6 thì kết thúc lượt** ("Mình luyện xong rồi!"). Từ bậc 1 tới hết là
+  khoảng 36 bài.
+- Lúc chuyển vòng, bài mới hiện sau ~1,2 s nhưng **khoá tới khi Đô Đô nói xong**
+  câu lên bậc và câu giới thiệu; câu đề đọc ngay sau đó. Trong lúc khoá, thẻ
+  `choose` mờ như rổ, chạm vào bàn không tính là đã bắt đầu; nhịp sáng mời chạm
+  món to và bàn tay gợi ý đều tính từ lúc bàn chơi mở.
+- Trên cùng hiện "Bậc N/6" và 6 chấm của vòng đang chơi; xong bài cuối thì cả 6
+  chấm sáng tới khi vòng mới hiện.
+- Vòng cần dùng cả kho bài (vòng luyện lại ở bậc 2: 12 bài, 11 đã ra) thì
+  `planExploreRound` rút tới 50 lần mỗi bài thay vì 80 lần cả vòng, để không bỏ
+  sót bài cuối chưa ra (trước đó ~1/1000 vòng lặp bài).
+- Mọi trạng thái (bậc, số bài đúng lần đầu) chỉ nằm trong màn chơi đang mở,
+  không lưu (zero history). Luật vòng là hàm thuần `nextExploreRound` ở
+  `registry.ts`; game khai `getExploreLeveledRounds` (mức qua `BALANCE_ROUND_PASS`
+  = 4, câu giới thiệu `balanceLevelIntroLine`).
 
-Lượt theo bậc bắt đầu:
+Câu giới thiệu khi lên bậc (bậc 1 là nơi bắt đầu nên không có):
 
-- L1: balance, heavier, measure, exchange, predict, choose (trọn cung)
-- L2: measure, measure, exchange, predict, choose, chain
-- L3: exchange, exchange, predict, choose, chain, chain
-- L4: predict, predict, choose, reverse, chain, chain
-- L5: predict, choose, chain, reverse, chain, chain
-- L6: chain, reverse, chain, reverse, chain, chain
+| Bậc | Câu |
+|---|---|
+| 2 | Bây giờ bé tìm xem một món to nặng bằng mấy món nhỏ nhé! |
+| 3 | Bây giờ bé chạm vào món to để đổi ra món nhỏ nhé! |
+| 4 | Bây giờ bé tự đổi trong đầu rồi bấm thả cân nhé! |
+| 5 | Bây giờ bé chọn thẻ cho cân thăng bằng nhé! |
+| 6 | Bây giờ có hai cân mẫu, bé đổi hai lần nhé! |
 
-Các slot được sinh lần lượt; mỗi slot tránh mọi bài đã ra trong lượt (và bài
-cùng slot của lượt trước), nên một lượt không bao giờ lặp lại đúng một bài. Thay
+Mode của từng bài trong vòng CHỈ đến từ bảng vai trò × bậc (`runPolicy` 6 slot,
+không có `levelOffset`):
+
+| slot | L1 | L2 | L3 | L4 | L5 | L6 |
+|---|---|---|---|---|---|---|
+| s1 | balance | measure | exchange | predict | choose | chain |
+| s2 | heavier | measure | exchange | predict | predict | reverse |
+| s3 | balance | measure | exchange | predict | choose | chain |
+| s4 | heavier | measure | exchange | predict | choose | reverse |
+| s5 | balance | measure | exchange | predict | predict | chain |
+| s6 | heavier | measure | exchange | predict | choose | reverse |
+
+Các slot được sinh lần lượt; mỗi slot tránh mọi bài đã ra trong vòng và các bài
+của vòng trước, nên một vòng không lặp lại đúng một bài và vòng luyện thêm phần
+lớn là bài mới. Thay
 đổi này nằm ở `createExploreRunBatch`, áp cho mọi game có runPolicy (Xe buýt
 cũng hết lặp bài trong lượt).
 
@@ -239,6 +266,8 @@ v5. Xưng "Đô Đô", gọi "bé".
   - `bal_tap` [X] "Bé chạm vào quả lê để đổi nhé!"
 - Ước lượng: 39 + 69 + 6 = 114 câu liền + ~24 clip ngắn. Thiếu clip thì im
   lặng như mọi game Khám phá; chữ trên màn và hình vẫn đủ để chơi.
+- Lượt theo bậc (§5) thêm 7 câu cố định: `fb_level_next`, `fb_level_again`,
+  `bal_intro_2..6` (owner duyệt 18/10, cùng pack v6: 424 clip).
 
 ## 10. Đăng ký
 
@@ -249,8 +278,7 @@ Mã `balance_scale`, exerciseType `balance_scale`, generator
 - Catalog: tên "Cân thăng bằng", mô tả "Đọc cân và đổi đồ cho cân thăng
   bằng", đứng sau `number_bus` (trục toán: đếm → tách gộp → đổi → chuỗi phép).
 - Nhóm catalog "Sắp xếp và dẫn đường" (cùng nhóm các game số).
-- Thumbnail: icon vector `scale` tới khi có PNG clay (prompt thêm vào
-  `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md`).
+- Thumbnail: đã có PNG `balance-scale.png`.
 - Tiêu chí "khi nào bé vững" cho 6 bậc ở `masteryCriteria.ts`.
 - Ba danh sách `EXPLORE_GAME_CODES` (docs, mobile, server) thêm mã ở cuối
   (13 mã); kido-server mirror vào `BUNDLED_LOCAL_GAMES` + `PUBLIC_GAMES`.

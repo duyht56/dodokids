@@ -53,7 +53,7 @@ The answer options SHALL be `optionCount` distinct real objects that INCLUDE the
 - **THEN** the missing object appears at more than one option position across the corpus
 
 ### Requirement: Five levels scaling set size and options
-The game SHALL define five levels whose set size scales from 2 to 5 objects and whose option count grows, never shrinking with level. The round-variety bucket of a board SHALL be its set size and every declared bucket SHALL be reachable at its level, and the declared round-variety capacity per level SHALL be reachable. A run SHALL play one board per level from L1 to L5 as a progressive run without streaks, an answer time limit or a lose state.
+The game SHALL define five levels whose set size scales from 2 to 5 objects and whose option count grows, never shrinking with level. The round-variety bucket of a board SHALL be its set size and every declared bucket SHALL be reachable at its level, and the declared round-variety capacity per level SHALL be reachable. A run SHALL play leveled rounds — 6 boards at one level, moving up a level when at least 4 were right on the first try, with at most one extra round (requirement "Leveled rounds" of explore-session-runtime, change update-explore-leveled-rounds) — without streaks, an answer time limit or a lose state. The look window SHALL start only once the board is playable.
 
 #### Scenario: Set size scales across the ladder
 - **WHEN** the levels are inspected
@@ -110,6 +110,14 @@ The on-screen prompt SHALL be shown and, together with the board itself, SHALL b
 #### Scenario: Prompt clip is not bundled
 - **WHEN** the `peekaboo_recall_which` clip is absent from the bundled pack
 - **THEN** the prompt is still shown on screen and the board is fully playable in silence
+
+#### Scenario: The question is spoken only once the gap is revealed
+- **WHEN** a board opens (owner 2026-10-19)
+- **THEN** the play screen does not read the prompt on mount; the renderer cues `peekaboo_look` («Bé nhìn kỹ các món đồ nhé!») as the look window opens and `peekaboo_recall_which` only when the cover lifts and the empty slot shows, each once per board, and the 🔊 button repeats the last cued line
+
+#### Scenario: Support lines fit the memory task
+- **WHEN** support rises after a miss
+- **THEN** the play screen says and shows `peekaboo_hint_recall` at level 1 and `peekaboo_hint_peek` at level 2 (when the whole set is shown again) instead of the generic «nghe lại / nhìn kỹ từng lựa chọn» line
 
 ### Requirement: Conformance checks
 The contract SHALL be enforced by `mobile/scripts/verify-explore-peekaboo-contracts.cjs` (`npm run test:explore-peekaboo`: at least 200 seeds per level, replay equality, an independent re-derivation of the original set, the exactly-one-removed and only-foreign-distractor rules, the answer-position-not-fixed rule, tamper rejection, chained one-exercise rounds and renderer presentation rules, including the at-least-three-second look window and the shared sand timer) and by `kido-server/src/modules/explore/explore.peekaboo-recall.spec.ts` (corpus conformance with an independent what's-missing proof, tamper rejection, the server catalog mirror and renderer source rules). The game SHALL also be covered by the shared `npm run test:explore-variety-buckets` contract.

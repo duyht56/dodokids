@@ -44,7 +44,7 @@ generator, an independent 2-D validator and a tap-an-option renderer.
   fills; wrong → a gentle no-mark retry (nothing locks, the answer is never filled
   in); `supportLevel` dims distractor options (never the answer, always leaving a
   live distractor); reduced-motion-friendly, native-driver motion, emoji-free UI.
-- A progressive one-board-per-level L1→L5 run (like `odd_one_out`): no XP, streak,
+- (2026-10-18: now leveled rounds, change `update-explore-leveled-rounds`.) Originally a progressive one-board-per-level L1→L5 run (like `odd_one_out`): no XP, streak,
   countdown or lose state; levels scale the grid
   (2×2 → 3×3) and the rule complexity (shape×colour, then count×colour, then a
   3×3 mixing both kinds).
@@ -61,7 +61,8 @@ generator, an independent 2-D validator and a tap-an-option renderer.
 - `explore-missing-cell-game`: 2-D matrix-completion puzzles with a deterministic
   generator, an independent "well-formed matrix + unique row-and-column
   completion" validator, vocabulary-only options, a distractor-dimming support
-  level, and a progressive L1→L5 run.
+  level, and leveled rounds of 6 boards per level (since 2026-10-18,
+  `update-explore-leveled-rounds`; originally a progressive L1→L5 run).
 
 ## Impact
 

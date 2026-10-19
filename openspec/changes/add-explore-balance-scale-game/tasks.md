@@ -11,7 +11,7 @@
 ## 2. Game module (mobile)
 
 - [x] 2.1 `games/balanceScaleGame.ts`: 9 món, thang nặng, cặp/bộ ba, bảng
-      level↔mode, runPolicy 6 slot (levelOffset + generatorHint), versions,
+      level↔mode, runPolicy 6 slot (generatorHint; một vòng cùng bậc), versions,
       `BALANCE_SCALE_GAME`, `BALANCE_SCALE_VARIETY`
 - [x] 2.2 Generator deterministic 8 mode (balance, heavier, measure, exchange,
       predict, choose, chain, reverse), stamp `runSlotKey`
@@ -73,3 +73,24 @@
 - [x] 8.3 Ba vòng kiểm chéo lại + mô phỏng đồng hồ ảo 6000 chuỗi (0 vi phạm);
       lớp âm thanh dùng chung xác nhận không đổi hành vi game khác, trừ câu
       nhắc nghỉ mắt của màn chơi giờ là câu nhắc nhẹ (trước đây cắt ngang đề)
+
+## 9. Lượt theo bậc (owner chốt 2026-10-17)
+
+- [x] 9.1 Vòng 6 bài cùng bậc (bảng slot × bậc mới, bỏ levelOffset)
+- [x] 9.2 `registry.ts`: `getExploreLeveledRounds` + luật `nextExploreRound`
+      (≥ 4/6 đúng lần đầu thì lên bậc, chưa thì luyện lại, qua bậc 6 thì hết)
+- [x] 9.3 `ExplorePlayScreen`: chuyển vòng (tiếng level_up, câu Đô Đô, câu giới
+      thiệu bậc), thanh "Bậc N/6" + chấm của vòng; vòng sau tránh bài vòng trước
+- [x] 9.4 Câu mới `fb_level_next`, `fb_level_again`, `bal_intro_2..6` (mirror
+      pipeline), gen VieNeu dodo-clone2 temp 0.7
+- [x] 9.5 Owner duyệt 7 câu mới (18/10, không nghe từng câu) → approve đúng 7
+      audioId, export pack v6 (424 clip, 7 mới), offline-audio + prompt xanh
+- [x] 9.6 Contract script: vòng cùng bậc, luật vòng, câu giới thiệu, vòng lặp lại
+      không dùng lại bài vòng trước (bậc 3–6)
+- [x] 9.7 Review workflow (3 góc nhìn, kiểm chéo 3 phiếu): sửa lặp vòng vô hạn
+      (tối đa 1 vòng luyện thêm), khoá vòng mới tới khi nói xong, vòng luyện
+      thêm còn lặp bài 30% (cửa sổ loại trừ 8 khoá), "Giỏi quá!" bị nói đôi
+- [x] 9.8 Kiểm lại (18/10, 3 phiếu mỗi lỗi): 3 lỗi cũ hết; sửa vòng luyện lại
+      bậc 2 sót bài cuối (~1/1000, rút tới 50 lần mỗi bài + test seed cố định),
+      chạm lúc khoá tắt bàn tay gợi ý, nhịp mời chạm chạy hết trong lúc khoá,
+      thẻ `choose` trông bấm được lúc khoá, chấm cuối vòng không sáng

@@ -220,8 +220,21 @@ Mobile:
   pack `explore-audio-vi-v2` (mobile accepts v1+v2); see
   `openspec/changes/add-explore-round-2-games/audio-batch-v2.md` for the run.
   Later batches: v3 (go-live re-record), v4 (`number_bus` `nb_*`), v5 (whole
-  lines, below); `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
+  lines, below), v6 (`balance_scale`), v7 (2026-10-19: Ú òa look/support lines,
+  Đúng vị trí question lines `ord_tap`/`ord_tap_row`; 2026-10-20 its level intros
+  `ordinal_intro_2..5`); `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
   `explore/exploreAudioCapability.ts` lists every accepted pack.
+- Explore prompt timing: the play shell reads `exercise.audioRefs` on mount,
+  except `RENDERER_CUED_PROMPT_GAMES` (`peekaboo_recall`), whose renderer cues
+  each line through `onPromptCue` when it fits the board (Ú òa: the look line,
+  then the question only once the gap is revealed; 🔊 repeats the last cue).
+  The support hint row/voice comes from `supportHintPhraseId` (a game's own line
+  where the generic «nghe lại / nhìn kỹ từng lựa chọn» does not fit).
+  `ordinal_position` speaks its actual question (`ordinalPositionKeys(isGrid,
+  row, ordinal, fromLeft)`), no longer one generic sentence, and as a
+  `BOARD_QUESTION_PROMPT_GAMES` member every board reads it (never skipped as a
+  repeat of the previous board's sentence). The cue reset is a `useLayoutEffect`
+  so it runs before the new board's own cue effect.
 - Explore whole-line audio ("câu liền", OpenSpec `add-explore-whole-line-audio`,
   2026-10, in progress): every composed SENTENCE (a number/word stitched into a
   phrase fragment, e.g. "Có tất cả" + "sáu" + "bạn nhé.") gets one clip rendered
@@ -279,7 +292,8 @@ Mobile:
   (build the symmetric right half). `peekaboo_recall` shows its set for
   a ~3s look window timed by the shared, numeral-free
   `explore/components/SandTimer.tsx` (owner-approved 2026-09-13; answering stays
-  untimed and running out fails nothing). All tap-only, progressive L1→L5, deterministic generator +
+  untimed and running out fails nothing). All tap-only, progressive L1→L5 (`missing_cell`
+  and `peekaboo_recall` play leveled rounds since 2026-10-18, see below), deterministic generator +
   independent validator (byte-identical replay), Đô Đô mascot, React-Compiler-safe
   (setState deferred in callbacks/timeouts). Registration points per game: codes in
   the 3 EXPLORE_GAME_CODES, games/renderers/rendererRegistry, registry.ts,
@@ -322,15 +336,44 @@ Mobile:
   in `layout.ts`, `ScaleView`, basket/cards). Live scale in `balance`/`measure`
   (cannot be missed), HELD scale + "Thả cân" elsewhere; tapping a big item swaps
   it for its small items (required in `exchange`, always in `chain`, support 2
-  in `predict`/`choose`). Second authored-run game, and the first whose slots
-  climb: `levelOffset` [0,0,1,2,3,4], so a new child plays balance → heavier →
-  measure → exchange → predict → choose. The play shell skips its generic
+  in `predict`/`choose`). Second authored-run game, played in LEVELED ROUNDS
+  (owner 2026-10-17): each run of the 6-slot policy is one round of six boards
+  at one level; `ExplorePlayScreen` then moves up a level when at least
+  `BALANCE_ROUND_PASS` (4) were right on the first try, else plays a fresh round
+  of the same level (at most `maxRepeats` = 1 extra round; failing it ends the
+  run naturally), and passing level 6 ends the run. The next round's board is
+  locked until the round lines have been spoken; authored slots keep their whole
+  exclusion list (`LocalExploreProvider` only windows non-authored requests), and a
+  round that needs a level's whole pool draws up to max(500, 50 × capacity) times
+  in `planExploreRound` so it finds the last unseen board. The rule is the pure
+  `nextExploreRound`; a game opts in through `getExploreLeveledRounds` in
+  `registry.ts` (round size + pass mark + max extra rounds + optional per-level
+  intro line; `LEVELED_ROUND_RULE` = 6/4/1); the top bar shows "Bậc N/max";
+  level and round count live only in the mounted screen. The play shell skips its generic
   retry/hint voice and hint row for it (`SELF_VOICED_MISS_GAMES`): the renderer
   says its own number-free miss line. Audio pack `explore-audio-vi-v6`
-  (`bal_*` phrases, nine `balance-*` labels, `nang_bang`/`may` words, whole
+  (`bal_*` phrases incl. round lines `fb_level_next`/`fb_level_again`/
+  `bal_intro_2..6`, nine `balance-*` labels, `nang_bang`/`may` words, whole
   lines `bal_ask`/`bal_is`/`bal_tap` whose item params are 1-based
   `BALANCE_ITEMS` numbers — append-only order). Contract:
-  `npm run test:explore-balance-scale`. Thumbnail pending (vector `scale`).
+  `npm run test:explore-balance-scale`. Thumbnail `balance-scale.png`.
+  Leveled rounds are shared since 2026-10-18 (OpenSpec
+  `update-explore-leveled-rounds`): `pattern_finder`, `missing_cell`,
+  `peekaboo_recall`, `number_chain` and (2026-10-20, intro lines
+  `ordinal_intro_2..5` in pack v7) `ordinal_position` left
+  `isProgressiveExploreRunGame`, so a
+  round is a one-level `LocalExploreProvider` batch of `roundSize`
+  (`getExploreRunSize` returns it); multi-board batches in `planExploreRound`
+  draw until every bucket has ⌈count/buckets⌉ unseen boards (even mode mix);
+  the play screen clears `lastPromptKeyRef` at each round swap and remembers
+  each level's last two rounds (`roundKeysByLevelRef`, memory-only) so a new run
+  avoids the boards of its start level; `LocalExploreProvider` keeps 2×count
+  exclusions for multi-board batches; the authored branch caps earlier
+  exclusions at capacity − slots (balance L2 has 12 boards); Ú òa's look
+  window waits for the board to open (`opened`). Only games whose renderer
+  reports every miss may opt in (memory/stack/route/tracing/number_bus scenes
+  only send `onAnswer(true)`); the other five are owner decisions. Contract:
+  `npm run test:explore-leveled-rounds`.
   Authored runs (`createExploreRunBatch`) generate slots in order and exclude
   every board already picked this run, so no run repeats a board (applies to
   `number_bus` too). Shared audio (`explore/audio.ts`, 2026-10-16):

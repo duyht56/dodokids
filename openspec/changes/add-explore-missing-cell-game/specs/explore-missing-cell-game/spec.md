@@ -52,7 +52,7 @@ Every answer option SHALL be a combination drawn from the grid's own vocabulary 
 - **THEN** the answer appears at more than one option position across the corpus
 
 ### Requirement: Five levels scaling grid size and rule complexity
-The game SHALL define five levels whose grid size scales from 2×2 (L1–L2) to 3×3 (L3–L5) and whose rule complexity grows: L1 a shape×colour 2×2, L2 adding a count×colour (dots) 2×2, L3 a shape×colour 3×3, L4 a count×colour 3×3, and L5 a 3×3 mixing both kinds. The round-variety bucket of a puzzle SHALL be its token kind and every declared bucket SHALL be reachable at its level. The declared round-variety capacity per level SHALL be reachable. A run SHALL play one board per level from L1 to L5 as a progressive run without streaks, countdowns or a lose state.
+The game SHALL define five levels whose grid size scales from 2×2 (L1–L2) to 3×3 (L3–L5) and whose rule complexity grows: L1 a shape×colour 2×2, L2 adding a count×colour (dots) 2×2, L3 a shape×colour 3×3, L4 a count×colour 3×3, and L5 a 3×3 mixing both kinds. The round-variety bucket of a puzzle SHALL be its token kind and every declared bucket SHALL be reachable at its level. The declared round-variety capacity per level SHALL be reachable. A run SHALL play leveled rounds — 6 boards at one level, moving up a level when at least 4 were right on the first try, with at most one extra round (requirement "Leveled rounds" of explore-session-runtime, change update-explore-leveled-rounds) — without streaks, countdowns or a lose state.
 
 #### Scenario: Grid scales across the ladder
 - **WHEN** the levels are inspected

@@ -33,7 +33,7 @@
 ## 4. Registration (mobile)
 
 - [x] 4.1 `registry.ts`: `LOCAL_GAMES` / `BUNDLED_OVERRIDES` / `GAME_COPY`,
-      progressive classification (`isProgressiveExploreRunGame`), 5-board run size
+      progressive classification (`isProgressiveExploreRunGame`), 5-board run size (both replaced 2026-10-18 by leveled rounds of 6, `update-explore-leveled-rounds`)
 - [x] 4.2 `variety.ts`: `PEEKABOO_RECALL_VARIETY` config plus the `variantKey`/
       `bucketKey` switch cases
 - [x] 4.3 `thumbnails.ts`: `EXPLORE_FALLBACK_ICONS` vector icon (`sparkles`, no PNG yet)

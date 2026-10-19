@@ -29,9 +29,10 @@ Khám phá hiện chưa có game nào dạy nó.
   chạm, cân nghiêng thật khi sai (không nói đáp án), trợ giúp 2 mức (cân mẫu
   nhịp sáng → mở chạm-để-đổi / bóng mờ nhóm), và **diễn lại phép đổi + câu kết
   luận sau mỗi bài đúng**.
-- **Run policy authored 6 slot có `levelOffset`**: bé mới đi trọn cung
-  balance → heavier → measure → exchange → predict → choose trong một lượt; phụ
-  huynh nâng bậc bắt đầu bằng `startingLevelByGame` sẵn có, kèm tiêu chí 6 bậc.
+- **Lượt theo bậc** (owner chốt 2026-10-17): mỗi vòng 6 bài cùng một bậc;
+  đúng ngay lần đầu ≥ 4/6 thì lên bậc (kèm câu giới thiệu bậc mới), chưa đạt thì
+  luyện thêm một vòng cùng bậc; qua bậc 6 thì hết lượt. Phụ huynh chọn bậc bắt
+  đầu bằng `startingLevelByGame` sẵn có, kèm tiêu chí 6 bậc.
 - **Generator deterministic + validator độc lập** (bất biến số học từng mode,
   replay byte-identical, thẻ k bắt buộc ở `choose`).
 - **Batch audio một lần → pack `explore-audio-vi-v6`**: ~114 câu liền
@@ -45,7 +46,7 @@ Khám phá hiện chưa có game nào dạy nó.
 
 - `explore-balance-scale-game`: puzzle cân thăng bằng 6 bậc dạy suy luận thay
   thế, với cân sống/cân giữ, chạm-để-đổi, generator deterministic + validator
-  độc lập, authored run 6 slot có levelOffset và trợ giúp không lộ đáp án.
+  độc lập, lượt nhiều vòng 6 bài lên bậc khi làm tốt và trợ giúp không lộ đáp án.
 
 ## Impact
 

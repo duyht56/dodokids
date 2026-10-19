@@ -48,7 +48,7 @@ validator and a tap-an-option renderer with a peekaboo cover.
   leaving a live distractor) and, at level 2, shows the full set once more for
   one sand-timed look as a memory aid; reduced-motion-friendly, native-driver
   motion, emoji-free UI.
-- A progressive one-board-per-level L1→L5 run (like `missing_cell` and
+- (2026-10-18: now leveled rounds, change `update-explore-leveled-rounds`.) Originally a progressive one-board-per-level L1→L5 run (like `missing_cell` and
   `odd_one_out`): no XP, streak, answer time limit or lose state; levels scale the set
   size (2 → 5 objects) and the number of options.
 - Best-effort audio: one new phrase clip `peekaboo_recall_which` and the
@@ -64,7 +64,8 @@ validator and a tap-an-option renderer with a peekaboo cover.
 - `explore-peekaboo-recall-game`: what's-missing working-memory boards with a
   deterministic generator, an independent "original set minus one, unique missing
   object among foreign distractors" validator, a distractor-dimming support level,
-  and a progressive L1→L5 run.
+  and leveled rounds of 6 boards per level (since 2026-10-18,
+  `update-explore-leveled-rounds`; originally a progressive L1→L5 run).
 
 ## Impact
 

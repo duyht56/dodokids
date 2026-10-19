@@ -82,23 +82,42 @@ làm mờ thẻ; ở `choose` thẻ sai đã chọn tự khoá.
 - **WHEN** bé chọn sai hai lần ở bài `choose`
 - **THEN** hai thẻ sai đã khoá, món to trên đĩa trái chạm được để đổi, và không thẻ nào bị làm mờ thêm
 
-### Requirement: Run authored 6 slot có levelOffset
+### Requirement: Lượt gồm nhiều vòng 6 bài, lên bậc khi làm tốt
 
-Game SHALL khai `runPolicy` 6 slot với `levelOffset` [0, 0, 1, 2, 3, 4] và vai
-trò slot trong `generatorHint`; mode của slot SHALL chỉ đến từ bảng vai trò ×
-level ở mục 5 `design.md`. Bé bắt đầu bậc 1 SHALL gặp lần lượt balance,
-heavier, measure, exchange, predict, choose. Một lượt SHALL không có hai bài
-trùng nhau.
+Game SHALL khai `runPolicy` 6 slot không có `levelOffset`, vai trò slot trong
+`generatorHint`; mode của slot SHALL chỉ đến từ bảng vai trò × bậc ở mục 5
+`design.md`, nên mỗi vòng là 6 bài cùng một bậc. Hết một vòng, màn chơi SHALL
+lên bậc kế tiếp nếu ít nhất 4 bài đúng ngay lần đầu, SHALL chơi một vòng mới
+cùng bậc nếu chưa đạt (tối đa một vòng luyện thêm mỗi bậc; vòng luyện thêm vẫn
+chưa đạt thì kết thúc lượt), và SHALL kết thúc lượt khi qua bậc 6. Vòng mới
+SHALL khoá tới khi lời lên bậc nói xong. Một vòng SHALL
+không có hai bài trùng nhau. Bậc và số bài đúng lần đầu SHALL chỉ nằm trong bộ
+nhớ của màn chơi.
 
-#### Scenario: Không lặp bài trong lượt
+#### Scenario: Bé mới lên bậc
 
-- **WHEN** phụ huynh đặt bậc bắt đầu 6 (bốn slot `chain`)
-- **THEN** sáu bài của lượt đều khác nhau
+- **WHEN** phụ huynh chưa đặt bậc bắt đầu và bé làm đúng ngay lần đầu 5/6 bài của vòng bậc 1 (balance, heavier xen kẽ)
+- **THEN** Đô Đô nói "Giỏi quá! Mình lên bậc mới nhé!" và câu giới thiệu bậc 2, rồi vòng 6 bài `measure` bắt đầu với "Bậc 2/6"
 
-#### Scenario: Lượt đầu của bé mới
+#### Scenario: Luyện thêm khi chưa vững
 
-- **WHEN** phụ huynh chưa đặt bậc bắt đầu và bé mở game
-- **THEN** sáu bài theo thứ tự balance, heavier, measure, exchange, predict, choose
+- **WHEN** bé chỉ đúng ngay lần đầu 3/6 bài của vòng bậc 4
+- **THEN** Đô Đô nói "Mình luyện thêm bậc này nhé!" và một vòng bậc 4 mới bắt đầu với bài khác
+
+#### Scenario: Kết thúc lượt
+
+- **WHEN** bé đạt vòng bậc 6
+- **THEN** màn "Mình luyện xong rồi!" hiện ra
+
+#### Scenario: Không luyện mãi một bậc
+
+- **WHEN** bé chưa đạt cả vòng bậc 4 lẫn vòng luyện thêm bậc 4
+- **THEN** lượt kết thúc với "Mình luyện xong rồi! Bé muốn chơi lại không?"
+
+#### Scenario: Không lặp bài trong vòng
+
+- **WHEN** phụ huynh đặt bậc bắt đầu 6
+- **THEN** sáu bài của vòng đều khác nhau
 
 ### Requirement: Không lưu lịch sử chơi
 

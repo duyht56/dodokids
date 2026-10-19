@@ -1,9 +1,10 @@
 # KIDO EXPLORE — THUMBNAIL PROMPT PACK
 
-- **Version:** 1.1
-- **Updated:** 2026-10-05
+- **Version:** 1.2
+- **Updated:** 2026-10-18
 - **Output:** square thumbnails for the Kido Explore catalog — §5–§8 delivered
-  2026-10-05 (`number-bus`, `spin-pattern`, `number-chain`, `ordinal-position`)
+  2026-10-05 (`number-bus`, `spin-pattern`, `number-chain`, `ordinal-position`),
+  §9 delivered 2026-10-18 (`balance-scale`)
 - **Recommended size:** generate 1024 × 1024 px, 1:1; ship a 512 × 512 PNG
   without alpha in `mobile/src/assets/images/explore/`
 
@@ -192,26 +193,27 @@ số thứ tự vì game cũng không ghi.
 
 ## 9. Cân thăng bằng
 
-**File:** `balance-scale.png` (chưa giao — catalog đang dùng icon vector `scale`)
+**File:** `balance-scale.png` (đã giao 2026-10-18)
 
 ```text
 Square 1:1 thumbnail for a preschool "balance scale" logic game.
 
-Scene: a cheerful chunky clay balance scale, front view with a slight elevation, centered (about 75% of the width): a sturdy warm-brown clay stand with a round pivot, a thick level beam, and two shallow sunny-yellow clay pans hanging from it on thin strings. The beam is perfectly LEVEL. On the left pan sits one plump green clay pear. On the right pan sit exactly two shiny red clay apples side by side. The scene clearly says "one pear weighs the same as two apples".
+Scene: a cheerful chunky clay balance scale, front view with a slight elevation, centered (about 75% of the width): a sturdy warm-brown clay stand with a round pivot on top, one thick straight beam, and two shallow round teal clay pans (#2BA6A0) hanging from the beam ends on thin strings. The beam is perfectly LEVEL and both pans hang at exactly the same height. On the left pan sits one plump green clay pear. On the right pan sit exactly two shiny red clay apples side by side, not overlapping. The scene clearly says "one pear weighs the same as two apples".
 
-Background: soft mint (#D6F2E6).
+Background: soft peach (#FDE2CF).
 
 Style: handmade modeling-clay (plasticine) 3D illustration, soft matte clay with subtle handmade texture, chunky rounded shapes, soft studio light, gentle highlights and soft contact shadows, vibrant child-friendly colors. One flat solid pastel background color from edge to edge: no gradient, no vignette, no rounded-square tile, no frame, no border.
 
 Composition: square 1:1, centered, generous margins. The app crops this image to a circle, so keep every element inside the central circle (about the middle 75% of the frame) and leave the four corners as plain background. Clear silhouettes, readable at small mobile thumbnail size.
 
-Exactly one pear and two apples. No numbers, no letters, no question mark, no equals sign, no hands, no characters, no reward icons, no app UI, no title, no logo, no watermark.
+Exactly one pear and two apples. No numbers, no letters, no question mark, no equals sign, no hands, no characters, no mascot, no reward icons, no app UI, no title, no logo, no watermark.
 ```
 
 **Ý nghĩa hình ảnh:** đúng cân mẫu của bài — đòn NGANG (thăng bằng), 1 lê = 2
-táo. Đòn không được nghiêng, vì nghiêng là dạng "bên nào nặng hơn". Giao xong
-thì đặt file vào `mobile/src/assets/images/explore/`, thêm vào
-`EXPLORE_THUMBNAILS` và xoá dòng `balance_scale` trong `EXPLORE_FALLBACK_ICONS`.
+táo. Đòn không được nghiêng, vì nghiêng là dạng "bên nào nặng hơn". Nền đào
+(thay mint ở bản nháp) để khác thẻ Xe buýt hai tầng nằm cạnh; đĩa xanh ngọc giống
+icon cân cũ của catalog. Đã đặt vào `EXPLORE_THUMBNAILS`, `EXPLORE_FALLBACK_ICONS`
+giờ rỗng.
 
 ---
 
@@ -231,6 +233,7 @@ Mỗi ảnh chỉ được duyệt khi đạt các điều kiện sau:
   - prompt 7 (Máy nối tiếp): 3 → +1 → 4 → +2 → ô trống;
   - prompt 8 (Đúng vị trí): đúng 4 bạn khác nhau, mũi tên bên trái chỉ sang
     phải, chỉ bạn thứ 3 tính từ trái sáng.
+  - prompt 9 (Cân thăng bằng): đòn ngang, 1 lê trái, 2 táo phải.
 - Chữ/số/ký hiệu trong prompt 1, 2, 5 và 7 không méo hoặc sai hình dạng.
 - Thu ảnh về ~108 px trong khung tròn: không chi tiết quan trọng nào bị cắt ở
   góc.
@@ -260,4 +263,6 @@ Mỗi ảnh chỉ được duyệt khi đạt các điều kiện sau:
 7. Chủ thể chỉ là một dải ngang thì crop-zoom quanh chủ thể để điểm xa nhất nằm
    ở ~90% bán kính khung tròn (đợt 2026-10-05: number-bus 1,23×, number-chain
    1,15×, ordinal-position 1,14×; spin-pattern giữ nguyên vì đã chạm ~95%).
+   Chủ thể tràn quá (balance-scale 2026-10-18 chạm 96,5%) thì làm ngược lại:
+   thu 0,93× rồi đệm viền đúng màu nền (nền phẳng nên không lộ mép) → 89,7%.
 

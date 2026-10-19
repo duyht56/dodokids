@@ -141,7 +141,8 @@ Mở Khám phá
   → chọn trò
   → nghe hướng dẫn ngắn
   → thực hiện 5–8 lượt tương tác, hoặc đi tiếp đến cuối nhóm với game dạng
-    ordered-track như Xưởng luyện nét
+    ordered-track như Xưởng luyện nét, hoặc (game chơi theo bậc, §10) nhiều
+    vòng 6 bài, làm tốt thì lên bậc
   → nhận feedback/hint mang tính hướng dẫn
   → kết thúc tự nhiên
   → Chơi lại từ đầu hoặc Chọn trò khác
@@ -357,6 +358,10 @@ dãy đang sai và có đúng MỘT vị trí sai — trùng `errorIndex`/`corre
 - Không dùng background, vị trí hoặc kích thước như clue ngoài ý muốn.
 - Ưu tiên shape, color, number card và dot primitive.
 
+**Lượt (2026-10-18, openspec `update-explore-leveled-rounds`):** chơi theo bậc
+(§10) — mỗi vòng 6 bài cùng một bậc quy luật, trộn đều các họ và "tìm chỗ sai";
+trước đó một lượt là 5 bài, mỗi bậc một bài.
+
 > **Cập nhật (2026-08, openspec `enhance-explore-pattern-families-fixerror`).**
 > Tách `color_cycle`/`shape_cycle`/`object_cycle` thành các họ riêng, mở rộng kho
 > token, thêm mode `fix_error` ("tìm chỗ sai"). `generatorVersion`
@@ -484,7 +489,8 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 > Bốn game bổ sung ở Đợt 3, cùng một khuôn: offline / stateless / no-reward,
 > generator deterministic + validator ĐỘC LẬP (replay theo seed byte-identical),
 > Đô Đô làm mascot, tương tác CHẠM (không kéo-thả), một lượt = 5 bảng L1→L5
-> (progressive), tái dùng engine / pool / asset đã có (KHÔNG thêm art mới). Spec
+> (progressive; từ 2026-10-18 Ô thiếu và Ú òa chơi theo bậc, §10), tái dùng
+> engine / pool / asset đã có (KHÔNG thêm art mới). Spec
 > đầy đủ nằm ở các OpenSpec capability change `add-explore-<code>-game`. Thumbnail
 > là PNG clay, đã giao đủ (xem cuối mục). Clip audio (đề + tên game) là best-effort, im lặng tới batch audio kế
 > tiếp; chữ trên màn luôn là chuẩn. Trạng thái sai luôn nhẹ (Đô Đô "nghĩ", thử
@@ -505,6 +511,8 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
   options. Đồng hồ cát chỉ đo thời gian NHÌN, trả lời không giới hạn thời gian
   (product owner duyệt 2026-09-13, thay bản hiện 1,5 giây). `supportLevel` làm mờ
   bớt lựa chọn sai; mức 2 cho nhìn lại cả tập thêm một lượt (có đồng hồ cát).
+  Bài đầu vòng mới (chơi theo bậc) hiện cả tập với đồng hồ đầy trong lúc Đô Đô
+  nói câu lên bậc; đồng hồ chỉ chạy khi bàn chơi mở.
   Validator: phần còn lại = tập gốc trừ đúng 1, options gồm vật bị thiếu thật.
   L1→L5 tăng cỡ tập (2→5). Tái dùng cover/reveal + pool thẻ của Lật thẻ.
 - **Soi gương (`mirror_build`)** — đối xứng / không gian: lưới có trục gương giữa,
@@ -733,10 +741,14 @@ chỉ trỏ (cân mẫu nhịp sáng), mức 2 mở chạm-để-đổi / bóng 
 làm mờ thẻ: thẻ sai tự khoá). **Sau mỗi bài đúng**, cân diễn lại phép đổi và Đô Đô chốt câu kết luận
 ("2 quả lê nặng bằng 4 quả táo.") — bé nghe lại cách giải mỗi lần.
 
-**Lượt:** authored 6 slot với `levelOffset` [0,0,1,2,3,4], nên bé mới (bậc 1)
-đi trọn cung balance → heavier → measure → exchange → predict → choose trong
-một lượt; phụ huynh nâng bậc bắt đầu ở cài đặt Khám phá (6 tiêu chí "khi nào
-bé vững").
+**Lượt (owner chốt 2026-10-17; từ 2026-10-18 là luật chung ở §10):** nhiều
+vòng, mỗi vòng 6 bài cùng một bậc. Hết
+vòng, đúng ngay lần đầu ít nhất 4/6 bài thì lên bậc (Đô Đô "Giỏi quá! Mình lên
+bậc mới nhé!" + câu giới thiệu điều mới ở bậc đó), chưa đạt thì luyện thêm một
+vòng cùng bậc với bài mới (tối đa một vòng; vẫn chưa đạt thì kết thúc lượt nhẹ
+nhàng); qua bậc 6 thì kết thúc lượt (từ bậc 1 khoảng 36 bài). Trên cùng hiện "Bậc N/6". Phụ huynh vẫn chọn bậc bắt đầu ở cài đặt Khám
+phá (6 tiêu chí "khi nào bé vững"). Bậc chỉ nằm trong màn chơi đang mở, không
+lưu.
 
 **Đồ vật:** 9 emoji theo 3 thang nặng (dưa hấu/lê/táo, chó/mèo/chuột, ô tô/xe
 máy/xe đạp); tỉ lệ k ∈ {2,3} theo seed; mỗi đĩa ≤ 10 món nhỏ, ≤ 4 món to.
@@ -866,6 +878,18 @@ gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
 - Không có trạng thái kỹ năng, adaptive evidence hoặc đề xuất dựa trên nhiều phiên.
 - Trẻ hoặc phụ huynh có thể chọn mức dễ hơn.
 - Không ghi thời gian trả lời, hint hoặc outcome để dùng ở lần chơi sau.
+- **Chơi theo bậc** (owner 2026-10-17/18; openspec `update-explore-leveled-rounds`):
+  một lượt là nhiều vòng 6 bài cùng một bậc, bắt đầu ở bậc phụ huynh chọn. Hết
+  vòng, đúng ngay lần đầu ≥ 4/6 bài thì lên bậc ("Giỏi quá! Mình lên bậc mới
+  nhé!"); chưa đạt thì luyện thêm tối đa một vòng bài mới ("Mình luyện thêm bậc
+  này nhé!"); vòng thêm vẫn chưa đạt hoặc qua bậc cao nhất thì kết thúc lượt.
+  Bậc và số bài đúng chỉ nằm trong màn chơi đang mở, thoát là mất (đây là điều
+  chỉnh trong lượt hiện tại, không phải adaptive nhiều phiên). Chỉ game báo mọi
+  lần sai mới chơi theo bậc: Cân thăng bằng, Tìm quy luật, Ô thiếu, Ú òa, Máy nối
+  tiếp (`number_chain`), Đúng vị trí (`ordinal_position`, owner đồng ý
+  2026-10-20 sau khi mỗi bài đã đọc đúng câu hỏi của nó, pack v7). Lật thẻ tìm
+  cặp, Xếp tháp cho Đô Đô, Dẫn đường cho Đô Đô, Xưởng luyện nét, Soi gương, Xoay
+  hình, Xe buýt hai tầng giữ cách chạy cũ (chờ owner quyết từng game).
 
 ---
 
