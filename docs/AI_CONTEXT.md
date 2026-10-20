@@ -395,6 +395,25 @@ Mobile:
   gentle line; leaving Explore does. The play screen's timed break reminder is
   spoken as a gentle line (it used to cut off the board's question); every
   other existing caller is unchanged.
+- Explore play reliability (OpenSpec `fix-explore-play-reliability`, 2026-10-21,
+  "Đợt 1" of the 12-game review; mobile branch `fix/explore-dot1-bugs`):
+  feedback lines take `stillWanted` (checked when the line's turn comes) and
+  `dedupe`, and resolve `true/false`; the play screen ties retry/hint to a board
+  token + solved flag and drops a renderer's waiting line once its board is
+  replaced. The run PAUSES while the exit card is open or AppState is
+  `background`/`inactive`: shell timers go through `explore/pausableTimers.ts`
+  (API `pause/unpause` — kido-server `explore.stateless-privacy.spec` forbids
+  "resume" in the play screen), voice stops, renderers get `disabled` +
+  `paused`; Ú òa re-runs a full look, `useBusSequencer(paused)` holds Cân/Xe buýt
+  beats. Xe buýt `stage.speak/say` return promises (count_on/next_number report
+  after the closing line). Tracing: strokes ≤ `SHORT_TRACING_STROKE_LENGTH` (12)
+  are judged on geometry; longer ones keep the ≥4-sample guard and report
+  `insufficientData`; the workshop only takes the completion of the seed being
+  practised. Route ✓ uses `routeCheckpointProgress` (ordered, as the engine).
+  Contract scripts can mount real renderers through
+  `mobile/scripts/explore-render-harness.cjs` (hooks, fake clock, RN stubs):
+  `test:explore-play-shell`, `test:explore-tracing`, `test:explore-route-planner`,
+  number_bus §12.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
