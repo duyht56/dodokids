@@ -515,9 +515,18 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
   (4→8) và số thùng (2→3). Tái dùng bộ thuộc tính của `odd_one_out`.
 - **Ô thiếu (`missing_cell`)** — suy luận ma trận 2 chiều (khác `pattern_finder`
   một chiều): lưới 2×2 / 3×3 kiểu Raven, hàng theo một thuộc tính và cột theo
-  thuộc tính khác, một ô trống; trẻ chọn token đúng từ options. Validator: CHỈ MỘT
-  option thỏa CẢ luật hàng lẫn cột. L1→L5 tăng cỡ lưới + độ phức tạp. Tái dùng
-  hidden-slot của `pattern_finder` + lưới `odd_one_out`.
+  thuộc tính khác, một ô "?"; trẻ chọn token đúng từ options. Validator: CHỈ MỘT
+  option thỏa CẢ luật hàng lẫn cột, và bảng chỉ đọc được một cách. L1→L5 tăng cỡ
+  lưới + độ phức tạp. Tái dùng hidden-slot của `pattern_finder` + lưới `odd_one_out`.
+  **Chống lộ đáp án** (2026-10-20, OpenSpec `fix-explore-missing-cell-leak`):
+  bản đầu lấy nhiễu từ ô trên bảng nên đáp án luôn là lựa chọn duy nhất bé chưa
+  thấy. Nay ở 3×3, ô "?" là một góc của khối 2×2, ba góc kia bị che (ô sọc,
+  không chạm được), bốn lựa chọn chính là khối đó: mọi mẹo không nhìn vị trí còn
+  đúng mức đoán bừa. Ở 2×2 không che được (che chéo thì bảng đọc được hai cách),
+  nên nhiễu là một ô cùng hàng/cột trên bảng và một hình mang một giá trị không
+  có trên bảng. **Sau mỗi bài đúng**, bảng diễn lại lời giải: hàng của ô "?"
+  sáng, rồi cột, rồi các ô che mở ra, Đô Đô nói câu thần chú «Nhìn hàng, nhìn cột,
+  ghép đủ hai điều.» (clip `missing_cell_solve` chờ batch audio kế tiếp).
 - **Ú òa (`peekaboo_recall`)** — trí nhớ làm việc ("cái gì biến mất"): cho bé nhìn
   2–5 vật khoảng 3 giây kèm đồng hồ cát không số → Đô Đô che
   (peekaboo) → bớt 1 vật → lộ lại kèm 1 ô trống → trẻ chạm vật bị thiếu từ

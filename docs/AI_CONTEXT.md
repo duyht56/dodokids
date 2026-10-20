@@ -295,7 +295,14 @@ Mobile:
 - Explore tier-2 games (Đợt 3 Slice 3, OpenSpec `add-explore-<code>-game` each):
   four new offline/stateless/no-reward games registered end-to-end exactly like
   the Đợt 2 games — `sort_bins` (tap-only classify into 2–3 bins),
-  `missing_cell` (2-D Raven matrix, reuses pattern hidden-slot),
+  `missing_cell` (2-D Raven matrix, reuses pattern hidden-slot; since
+  2026-10-20, OpenSpec `fix-explore-missing-cell-leak`, `missing-cell-v2`: a 3×3
+  board covers the other three corners of a 2×2 block around the "?" cell and
+  offers exactly that block, a 2×2 board covers nothing and offers one board
+  mate plus one off-board token, the validator proves the board reads one way
+  only, the contract bounds naive solvers on 2000 seeds per level, and a right
+  answer plays a worked solution with the mantra `missing_cell_solve` before
+  `onAnswer(true)`),
   `peekaboo_recall` (what's-missing, reuses memory cover/reveal), `mirror_build`
   (build the symmetric right half). `peekaboo_recall` shows its set for
   a ~3s look window timed by the shared, numeral-free
