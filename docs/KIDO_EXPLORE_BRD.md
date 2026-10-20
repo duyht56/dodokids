@@ -328,6 +328,9 @@ Mỗi bài chỉ đọc MỘT thuộc tính, thành các họ quy luật RÕ RÀ
 - `object_cycle` — **quy luật đồ vật:** lặp theo các emoji khác nhau (ABC).
 - `quantity` — tăng hoặc giảm số lượng (nhóm chấm).
 - `numeric` — dãy số bước 1 hoặc bước 2.
+- `rotation` — **quy luật xoay** (chỉ bậc 3, từ 2026-10-20): cùng MỘT mũi tên một
+  màu, mỗi ô xoay một phần tư vòng; thay cho game riêng Xoay hình (xem cập nhật
+  2026-10-20 bên dưới).
 
 Kho token được mở rộng cho tươi mới cả lượt chơi: 6 hình, 7 màu (bảng màu thân
 thiện người mù màu — Okabe–Ito), 10 emoji đồ vật, tất cả nét đơn, rõ ràng, phân
@@ -370,6 +373,16 @@ trước đó một lượt là 5 bài, mỗi bậc một bài.
 > màu và fix_error (`pattern_next_color`, `pattern_blank_color`,
 > `pattern_find_error`) là best-effort, đã ghi vào manifest chờ đợt tổng hợp âm
 > tiếp theo — chưa render âm.
+
+> **Cập nhật (2026-10-20, openspec `merge-explore-spin-into-pattern`).** Gộp game
+> riêng Xoay hình (`spin_pattern`) vào Tìm quy luật thành họ `rotation`, CHỈ ở bậc 3:
+> hàng 6 mũi tên cùng một màu, mỗi ô xoay một phần tư vòng (thuận hoặc ngược chiều
+> kim đồng hồ), ô trống ở vị trí thứ 5 hoặc 6 (lúc đó đủ bốn hướng trên hàng, đáp
+> án lặp lại ô thứ 1 hoặc 2), 3 lựa chọn đều là hướng có trên hàng, chỉ mode
+> `complete`. Câu đề dùng lại clip `spin_which`; câu lên bậc 3 (`pattern_intro_3`)
+> nhắc mũi tên xoay. Bậc 4–5 không có mũi tên. Version hiện hành
+> `pattern-finder-v6` / `pattern-finder-validator-v5` (bản v3→v4 ở trên là lịch
+> sử). Ô thiếu vẫn là game riêng (ma trận hai thuộc tính).
 
 ### 7.8. Game 8 — Lật thẻ tìm cặp
 
@@ -888,8 +901,10 @@ gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
   lần sai mới chơi theo bậc: Cân thăng bằng, Tìm quy luật, Ô thiếu, Ú òa, Máy nối
   tiếp (`number_chain`), Đúng vị trí (`ordinal_position`, owner đồng ý
   2026-10-20 sau khi mỗi bài đã đọc đúng câu hỏi của nó, pack v7). Lật thẻ tìm
-  cặp, Xếp tháp cho Đô Đô, Dẫn đường cho Đô Đô, Xưởng luyện nét, Soi gương, Xoay
-  hình, Xe buýt hai tầng giữ cách chạy cũ (chờ owner quyết từng game).
+  cặp, Xếp tháp cho Đô Đô, Dẫn đường cho Đô Đô, Xưởng luyện nét, Soi gương, Xe
+  buýt hai tầng giữ cách chạy cũ (chờ owner quyết từng game). Xoay hình không còn
+  là game riêng: từ 2026-10-20 nó là họ `rotation` ở bậc 3 của Tìm quy luật (§7.7),
+  nên chơi theo bậc cùng Tìm quy luật.
 
 ---
 

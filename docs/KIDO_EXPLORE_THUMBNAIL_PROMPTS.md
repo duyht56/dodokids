@@ -1,10 +1,11 @@
 # KIDO EXPLORE — THUMBNAIL PROMPT PACK
 
-- **Version:** 1.2
-- **Updated:** 2026-10-18
+- **Version:** 1.3
+- **Updated:** 2026-10-20
 - **Output:** square thumbnails for the Kido Explore catalog — §5–§8 delivered
   2026-10-05 (`number-bus`, `spin-pattern`, `number-chain`, `ordinal-position`),
-  §9 delivered 2026-10-18 (`balance-scale`)
+  §9 delivered 2026-10-18 (`balance-scale`); `spin-pattern` retired 2026-10-20
+  (Xoay hình gộp vào Tìm quy luật, file đã gỡ khỏi app)
 - **Recommended size:** generate 1024 × 1024 px, 1:1; ship a 512 × 512 PNG
   without alpha in `mobile/src/assets/images/explore/`
 
@@ -116,9 +117,11 @@ tầng trên xanh, biển đỏ cam); bỏ bến xe và tài xế để không t
 
 ---
 
-## 6. Xoay hình
+## 6. Xoay hình (đã nghỉ 2026-10-20)
 
-**File:** `spin-pattern.png` (đã giao 2026-10-05)
+**File:** `spin-pattern.png` (đã giao 2026-10-05; **đã gỡ khỏi app 2026-10-20** khi
+Xoay hình gộp vào Tìm quy luật, openspec `merge-explore-spin-into-pattern`; giữ
+prompt làm lịch sử)
 
 ```text
 Square 1:1 thumbnail for a preschool "rotation pattern" game.
@@ -228,7 +231,7 @@ Mỗi ảnh chỉ được duyệt khi đạt các điều kiện sau:
   - prompt 4 (Lật thẻ tìm cặp): 6 thẻ, đúng một cặp mở;
   - prompt 5 (Xe buýt hai tầng): tầng dưới 3 bạn + 1 ghế trống, tầng trên 2 bạn
     + 2 ghế trống, biển "5", năm bạn giống hệt nhau;
-  - prompt 6 (Xoay hình): phải → xuống → trái → ô trống, mũi tên bay chỉ lên,
+  - prompt 6 (Xoay hình, đã nghỉ): phải → xuống → trái → ô trống, mũi tên bay chỉ lên,
     bốn mũi tên cùng hình/cỡ/màu;
   - prompt 7 (Máy nối tiếp): 3 → +1 → 4 → +2 → ô trống;
   - prompt 8 (Đúng vị trí): đúng 4 bạn khác nhau, mũi tên bên trái chỉ sang

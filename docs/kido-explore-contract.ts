@@ -19,7 +19,6 @@ export const EXPLORE_GAME_CODES = [
   'mirror_build',
   'ordinal_position',
   'number_chain',
-  'spin_pattern',
   'number_bus',
   'balance_scale',
 ] as const;

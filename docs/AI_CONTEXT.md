@@ -274,6 +274,14 @@ Mobile:
   bumped to `pattern-finder-v4`/`pattern-finder-validator-v3` (mirrored in
   kido-server `explore.registry.ts`); new best-effort prompt keys
   `pattern_next_color`/`pattern_blank_color`/`pattern_find_error` (next audio batch).
+  Since 2026-10-20 (OpenSpec `merge-explore-spin-into-pattern`) a sixth family
+  `rotation` replaces the standalone `spin_pattern` game: level 3 only, six
+  arrows of one colour (`components/ArrowGlyph.tsx`) turning a quarter turn per
+  step, hole at index 4–5, three options taken from the row, `complete` mode
+  only, question clip `spin_which`, intro `pattern_intro_3` names the arrows;
+  versions are now `pattern-finder-v6`/`pattern-finder-validator-v5`. The
+  catalog groups are "Quy luật" (pattern_finder, missing_cell), "Trí nhớ"
+  (peekaboo_recall, memory_match) and "Sắp xếp và dẫn đường".
 - Explore memory pool + hint (OpenSpec `expand-explore-memory-pool-add-hint`,
   2026-08): `MEMORY_ASSETS` expanded 16 → 37 (each a single, background-free,
   distinct-`similarityGroup` object) so runs stay fresh; `generatorVersion`
@@ -311,12 +319,13 @@ Mobile:
   and tier-2 games; route predict-ahead mode.
 - Explore game codes (2026-09-23, OpenSpec `add-explore-number-bus-game`;
   `balance_scale` appended 2026-10-16): `EXPLORE_GAME_CODES` is identical —
-  same 13 codes, same order — in
+  same 12 codes, same order — in
   `docs/kido-explore-contract.ts`, `mobile/src/types/explore.ts` and kido-server
   `explore.types.ts`: `tracing_workshop`, `route_planner`, `pattern_finder`,
   `memory_match`, `stack_tower`, `missing_cell`, `peekaboo_recall`,
-  `mirror_build`, `ordinal_position`, `number_chain`, `spin_pattern`,
-  `number_bus`, `balance_scale`. The legacy `number_explorer`/`odd_one_out`/`sort_bins` are gone
+  `mirror_build`, `ordinal_position`, `number_chain`,
+  `number_bus`, `balance_scale` (`spin_pattern` was removed 2026-10-20 when it
+  became pattern_finder's `rotation` family). The legacy `number_explorer`/`odd_one_out`/`sort_bins` are gone
   from docs/server as well (their server specs removed). kido-server
   `explore.registry.ts` mirrors each bundled local game through
   `BUNDLED_LOCAL_GAMES` (prefix, assets, levels); `number_bus` ("Xe buýt hai

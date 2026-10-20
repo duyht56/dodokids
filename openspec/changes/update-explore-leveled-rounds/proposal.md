@@ -34,11 +34,12 @@ chọn không có tác dụng (cửa sổ 5 bài luôn là L1→L5).
   chỉ nói một lần mỗi lượt).
 - **Ú òa**: đồng hồ cát chỉ bắt đầu khi bàn chơi mở, không chạy hết trong lúc
   Đô Đô nói câu lên bậc.
-- **Chưa làm, chờ owner** (luật hoặc game phải đổi): `mirror_build`,
-  `spin_pattern` (bài dài / kho bậc 1 chỉ 4 bài → vòng nhỏ hơn), `stack_tower`,
+- **Chưa làm, chờ owner** (luật hoặc game phải đổi): `mirror_build`, `stack_tower`,
   `route_planner` (chưa có kênh báo sai), `number_bus` (BRD §7.13 cần playtest
   trước). `ordinal_position` từng nằm ở đây (câu hỏi chưa có tiếng, bé chưa biết
-  đọc sẽ kẹt bậc 1) cho tới 2026-10-20. **Không hợp**: `memory_match` (lật sai là cách chơi, không có "sai"),
+  đọc sẽ kẹt bậc 1) cho tới 2026-10-20. `spin_pattern` (kho bậc 1 chỉ 4 bài) cũng
+  từng ở đây; ngày 2026-10-20 nó thành họ `rotation` ở bậc 3 của Tìm quy luật
+  (change `merge-explore-spin-into-pattern`) nên chơi theo bậc cùng game đó. **Không hợp**: `memory_match` (lật sai là cách chơi, không có "sai"),
   `tracing_workshop` (màn riêng, bậc là mức trợ giúp).
 - Audio: dùng lại `fb_level_next`/`fb_level_again` của pack v6; thêm 16 câu
   giới thiệu từng bậc cho 4 game (bậc 2–5, owner duyệt câu 18/10, một batch vào

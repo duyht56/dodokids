@@ -297,7 +297,9 @@ Game SHALL không persist hay report gì ngoài `onAnswer`
 `kido-server/src/modules/explore/explore.types.ts`), và trong cùng change ba
 danh sách SHALL được đồng bộ về nguồn chuẩn mobile hiện hành + `number_bus`
 (12 code) — gỡ thế hệ cũ `number_explorer`/`odd_one_out`/`sort_bins` khỏi
-docs/server, thêm `ordinal_position`/`number_chain`/`spin_pattern` còn thiếu.
+docs/server, thêm `ordinal_position`/`number_chain`/`spin_pattern` còn thiếu (về sau, ngày
+2026-10-20, `spin_pattern` được gỡ khỏi cả ba danh sách khi gộp vào
+`pattern_finder`, change `merge-explore-spin-into-pattern`).
 Catalog child-facing SHALL theo thứ tự mới có chủ đích: `…memory_match →
 stack_tower → number_bus → number_chain → mirror_build…` (comment đầu mảng
 ghi thứ tự là sư phạm). kido-server SHALL cập nhật registry + assertion số

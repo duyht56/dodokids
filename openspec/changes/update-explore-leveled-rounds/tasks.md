@@ -31,8 +31,9 @@
 - [x] 3.1 BRD §6.1, §7.7, §7.12, §7.14, §10; AI_CONTEXT; EXPLORE_ZERO_HISTORY
 
 ## 4. Chờ owner
-- [ ] 4.1 Năm game còn lại: `mirror_build`, `spin_pattern`, `stack_tower`,
-      `route_planner`, `number_bus` (`ordinal_position` xong, xem §5)
+- [ ] 4.1 Bốn game còn lại: `mirror_build`, `stack_tower`, `route_planner`,
+      `number_bus` (`ordinal_position` xong, xem §5; `spin_pattern` gộp vào
+      `pattern_finder` 2026-10-20, change `merge-explore-spin-into-pattern`)
 - [x] 4.2 Câu giới thiệu từng bậc cho 4 game (một batch audio) — 16 câu owner
       duyệt 18/10; `levelIntroLine` + `introLine` trong `LEVELED_ROUNDS`, mirror
       pipeline, contract leveled-rounds §6 xanh; owner nghe + duyệt 16 clip, đã

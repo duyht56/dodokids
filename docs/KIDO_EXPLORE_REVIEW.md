@@ -205,7 +205,7 @@ deterministic generator → exercise → deterministic validator`. Ưu tiên tá
 > - ✅ `visual_analogy` (Cặp đôi hoàn hảo, A:B::C:? tri giác) — P2.
 > - ✅ `number_between` (Số ở giữa `a<□<b` — Tách gộp Bài 2) — thay cho "số ở giữa" ở P0, làm **standalone** (không đụng contract 456 dòng của `number_explorer`).
 > - ✅ `number_chain` (Máy nối tiếp — chuỗi phép tính 2 chặng, xuôi + suy ngược — Tách gộp Bài 3) — làm **standalone** ngay từ đầu.
-> - ✅ `spin_pattern` (Xoay hình — quy luật xoay mũi tên 90°/bước — BTTC3 #12) — thay cho "pattern_finder + xoay" ở §2.2, làm **standalone** (không đụng contract 804 dòng của `pattern_finder`).
+> - ✅ `spin_pattern` (Xoay hình — quy luật xoay mũi tên 90°/bước — BTTC3 #12) — thay cho "pattern_finder + xoay" ở §2.2, làm **standalone** (không đụng contract 804 dòng của `pattern_finder`). **Đảo lại 2026-10-20** (OpenSpec `merge-explore-spin-into-pattern`): gộp vào `pattern_finder` thành họ `rotation` ở bậc 3, mã `spin_pattern` đã gỡ.
 > - ✅ `shadow_match` (Tìm bóng — Chim Đa Đa / BTTC3 #23) — KHÔNG còn chặn: dùng **react-native-svg** vẽ vật bằng primitive (`shadowAssets.ts`, 12 vật), bóng = cùng primitive tô tối ⇒ khớp outline, offline, **không cần art ngoài**. (Bản "con vật thật" clay-style là Tier 2 tùy chọn: sprite PNG + `<Image tintColor>`.)
 > - ⏸ `maze`: đã cân nhắc BỎ (trùng `route_planner`).
 > **Tổng: catalog 17 → 24 game (23 hiển thị + Xưởng luyện nét ẩn). 7 game mới đều verify xanh (contract .cjs riêng + variety-buckets toàn cục + eslint), không regression game cũ.**
