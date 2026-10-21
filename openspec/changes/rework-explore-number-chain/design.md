@@ -121,11 +121,30 @@ xuôi và làm y vậy ở bài ngược qua 63–66% vòng. Bậc 5 (0–20) l�
 hướng E (thiết kế lại riêng bài ngược) thành việc riêng. Contract giữ các mẹo này ở
 đúng mức đo (§5, lớp "cấu trúc") để chúng không nặng thêm.
 
+### Giới hạn của dạng "chọn 1 trong 4 thẻ": chiều + khoảng cách (dừng chỉnh thẻ)
+
+Vòng kiểm cuối (2026-10-21) đo thêm một lớp mẹo: bé biết chiều của máy và nhìn
+khoảng cách từ thẻ tới số đi vào máy, không cần đếm đúng k. Phía đáp án luôn có hai
+thẻ: đáp án (cách x đúng k) và thẻ lệch của nó (cách k − g hoặc k + g). Máy chỉ có
+2–4 (không ±1, owner approved) nên thẻ sát số vào (cách 1) không bao giờ là đáp án,
+thẻ cách 5–6 cũng không; chỉ các cặp ở giữa (2–3, 3–4, 2–4) mới phải đoán. Với số
+0–10, máy 2–4, mọi luật chỉ dựa vào chiều + khoảng cách chạm trần **~76% ô 1 và
+87–88% ô 2** ở bậc 1–4 (trần cận Bayes, đo trên chính các vòng planner); luật cụ
+thể "biết chiều, bỏ thẻ sát số vào, lấy thẻ gần nhất phía đó" qua **53–57% vòng**
+(79–82% tính cả vòng luyện). Số đầy đủ ở §5.
+
+Theo vòng kiểm cuối, đây là giới hạn của dạng bài (chọn 1 trong 4 thẻ, số 0–10,
+máy 2–4), không phải lỗi chỉnh tham số. Quyết định 2026-10-21: **dừng tinh chỉnh
+generator**; contract khoá lớp này ở mức đo hiện tại (+3–4 điểm) để không tệ thêm.
+Hướng xử lý tiếp (đề xuất chuyển sang dạng "dựng đáp án" ở Đợt 3) chờ owner chốt,
+không thuộc change này.
+
 ## 5. Đo lối tắt (planner thật, vòng 6 bài + vòng luyện chống lặp)
 
 Từ vòng sửa 3, contract `npm run test:explore-number-chain` tự đo mọi mẹo (2000
 vòng planner mỗi bậc qua `createExploreRunBatch`, vòng 6 bài + vòng luyện) và
-`NC_REPORT=1` in bảng đầy đủ: `research/shortcuts-v2-r3.txt`. Bản cũ:
+`NC_REPORT=1` in bảng đầy đủ: `research/shortcuts-v2-final.txt` (có tỉ lệ ô 1 / ô 2
+và lớp "chiều + khoảng cách"); vòng 3 trước đó `shortcuts-v2-r3.txt`. Bản cũ:
 `research/measure-v1.cjs` → `shortcuts-v1-bcb3dab.txt`; bản v2 đầu
 `shortcuts-v2-f1cd796.txt`; sau review nhánh `shortcuts-v2-3d125bb.txt`
 (`measure-v2.cjs`). "Qua vòng" = ≥ 4/6 bài đúng ngay lần đầu, một bài = cả hai ô;
@@ -139,9 +158,9 @@ thẻ ngoài cùng xa số 5): mẹo tốt nhất là "tránh thẻ đã thấy"
 qua vòng ≤ 0,2%. Hạng đáp án theo cỡ 25% ± 1. Contract gác ≤ 15% bài, qua vòng
 ≤ 1% (≤ 2%), hạng 25% ± 3.
 
-**Chỉ biết chiều** (máy thêm → số lớn hơn x; chọn thẻ bất kỳ / gần x nhất / xa x
-nhất = "to nhất khi thêm, bé nhất khi bớt" / nhiều hàng xóm / ngoài cùng / giữa rồi
-ngoài cùng) và **chỉ biết số bước** (đếm đúng k, bỏ qua dấu; chọn ngẫu nhiên, xa/gần
+**Chỉ biết chiều, không dùng khoảng cách** (máy thêm → số lớn hơn x; chọn thẻ bất
+kỳ / gần x nhất / xa x nhất = "to nhất khi thêm, bé nhất khi bớt" / nhiều hàng xóm /
+ngoài cùng / giữa rồi ngoài cùng) và **chỉ biết số bước** (đếm đúng k, bỏ qua dấu; chọn ngẫu nhiên, xa/gần
 số đã biết, to/bé, thẻ chưa thấy / đã thấy, theo phía thẻ lệch, luôn lên / luôn
 xuống): mọi mẹo ≤ 51% ô, ≤ 26% bài, qua vòng ≤ 4,5% (≤ 9%) ở mọi bậc.
 Contract gác ≤ 56% ô, ≤ 30% bài, qua vòng ≤ 7% (≤ 13%).
@@ -153,6 +172,14 @@ Contract gác ≤ 56% ô, ≤ 30% bài, qua vòng ≤ 7% (≤ 13%).
 | Không biết gì, thẻ gần 5 nhất | 44% / 16% / 0,6–0,8% (1,0–1,8%) | 33% / 9,5% / 0,2% (0,3%) |
 | Chỉ biết chiều, thẻ phía đó gần 5 nhất | 59% / 34–35% / 11–13% (21–23%) | 55% / 30% / 7% (13%) |
 | Đếm k bỏ qua dấu, chọn số gần 5 | 72% / 47% / 26–30% (47–51%) | 58% / 33% / 9–10% (17–19%) |
+
+**Chiều + khoảng cách thẻ tới x** (giới hạn của dạng bài, §4; ngưỡng = mức đo + 3–4
+điểm):
+
+| Mẹo | Bậc 1–4: ô 1 / ô 2 / bài / qua vòng (vòng luyện) | Bậc 5 |
+|---|---|---|
+| Biết chiều, bỏ thẻ sát số vào, lấy thẻ gần nhất phía đó | 69–70% / 87–88% / 60% / 53–57% (79–82%) | 56% / 79% / 45% / 24,5% (44%) |
+| Trần mọi luật chiều + khoảng cách (cận Bayes) | 76% / 87–88% / 66–67% / 69–70% (90–92%) | 72% / 81% / 59% / 53% (78%) |
 
 **Chiều ngược** (bậc ≥ 2): không gỡ máy (chạy máy xuôi từ số đã biết) đúng 0% ô
 ngược, qua vòng 0%. Giỏi xuôi + bỏ qua dấu ở bài ngược (chọn ngẫu nhiên): qua vòng

@@ -431,15 +431,18 @@ Mobile:
   to 20, and a known gap kept on L1–L4 — blank 1 (the middle) is never farther
   from 5 than its sign card at 0–10 (count k, ignore the sign, pick nearer 5
   passes 26–30% of rounds; L5 is the reverse-reasoning gate); review after
-  playtest. Renderer
+  playtest. Format limit (2026-10-21): direction + card distance to the input
+  tops out at ~76% of blank 1 and 87–88% of blank 2 (a card next to the input
+  is never right) — generator tuning stopped, contract locks it at the measured
+  level; a "build the answer" format for Đợt 3 awaits the owner. Renderer
   reports every miss, cues each blank's question (`number_chain` is in
   `RENDERER_CUED_PROMPT_GAMES`), keeps missed cards faded until the row changes,
   and after the second blank replays the chain forward with `DotGroup`
   `changed` dots while saying the mantra, then `onAnswer(true)`. `DotGroup`
   gained optional `size`/`changed`. Contract `npm run test:explore-number-chain`
   measures every trick class through the real planner (no-knowledge,
-  direction-only, steps-only, the structural "nearer 5" class at its measured
-  level, reverse; `NC_REPORT=1` prints the table) and drives the renderer through
+  direction-only, steps-only, the structural "nearer 5" class and the
+  direction + distance class at their measured levels, reverse; `NC_REPORT=1` prints the table) and drives the renderer through
   the harness. Audio v8 (not rendered): `game_number_chain`, `chain2_*`.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
