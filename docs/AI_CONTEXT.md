@@ -422,18 +422,22 @@ Mobile:
   machines, L2 + reverse, L3 dots only on the machine worked first
   (`dotSteps` 1), L4 no dots, L5 range 0–20; L1–L4 range 0–10, machines 2–4.
   From L2 a round is 2 forward + 2 `reverse_add` + 2 `reverse_sub` (buckets by
-  machine 2). Cards: `{a, a±g, m, m∓g}` mirrored around the number going into
-  the machine, m = the sign / run-forward card (always present; g = 1, else 2),
-  pair side drawn first (rank) then pulled toward the range middle with
-  probability `centerPull` — do not swap in `buildNearTargetOptions`. Renderer
+  machine 2). Cards: `{a, a±g, m, m±g}`, m = 2x − a the sign / run-forward
+  card (always present; g = 1, else 2); the off card's side (toward / away from
+  the input x) is drawn evenly and independently for each pair, and same-sign /
+  mixed-sign machines evenly, before the chain is chosen; blank 1 never shows
+  blank 2's answer or sign card — do not swap in `buildNearTargetOptions`. Known
+  open cue (owner decision pending on range / ±1 machines): blank 1 (the middle)
+  is never farther from 5 than its sign card at 0–10. Renderer
   reports every miss, cues each blank's question (`number_chain` is in
   `RENDERER_CUED_PROMPT_GAMES`), keeps missed cards faded until the row changes,
   and after the second blank replays the chain forward with `DotGroup`
   `changed` dots while saying the mantra, then `onAnswer(true)`. `DotGroup`
   gained optional `size`/`changed`. Contract `npm run test:explore-number-chain`
-  measures three classes of tricks through the real planner (no-knowledge,
-  half-knowledge at the 50% floor, reverse) and drives the renderer through the
-  harness. Audio v8 (not rendered): `game_number_chain`, `chain2_*`.
+  measures every trick class through the real planner (no-knowledge,
+  direction-only, steps-only, the structural "nearer 5" class at its measured
+  level, reverse; `NC_REPORT=1` prints the table) and drives the renderer through
+  the harness. Audio v8 (not rendered): `game_number_chain`, `chain2_*`.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/

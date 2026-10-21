@@ -39,7 +39,17 @@
 
 ## 7. Sửa sau review nhánh (Codex, 2026-10-21, `tmp/explore-review-2026-10-21/branch-review-confirmed.md`)
 
-- [x] 7.1 NUMBER-CHAIN-01 (High): thẻ ngược dấu / chạy xuôi có mặt ở mọi ô — bộ thẻ đối xứng quanh số đi vào máy; bậc 1–4 thành 0–10 với máy 2–4, bậc 5 thành phạm vi 20 (máy bước 5 không còn chỗ cho thẻ ngược dấu); vòng bậc ≥ 2 = 2 xuôi + 4 ngược. Contract đo "bỏ qua dấu" (= 50% ô, sàn), "không gỡ máy" (0%), "giỏi xuôi + đoán dấu chiều ngược" (≤ 30% vòng).
+- [x] 7.1 NUMBER-CHAIN-01 (High): thẻ ngược dấu / chạy xuôi có mặt ở mọi ô (vòng 2 dùng bộ đối xứng, vòng 3 thay bằng phía rút độc lập, xem 8.1); bậc 1–4 thành 0–10 với máy 2–4, bậc 5 thành phạm vi 20 (máy bước 5 không còn chỗ cho thẻ ngược dấu); vòng bậc ≥ 2 = 2 xuôi + 4 ngược. Contract đo "bỏ qua dấu, chọn ngẫu nhiên" (= 50% ô), "không gỡ máy" (0%), "giỏi xuôi + đoán dấu chiều ngược" (≤ 30% vòng).
 - [x] 7.2 NUMBER-CHAIN-02 (Medium): thẻ nào cũng cùng số hàng xóm ±1; contract đo "nhiều/ít hàng xóm" và "chiều + nhiều hàng xóm".
 - [x] 7.3 NUMBER-CHAIN-03 (Low): thẻ đã chọn sai giữ dáng mờ qua lúc chuyển ô và lúc diễn lại (harness kiểm).
-- [x] 7.4 NUMBER-CHAIN-04 (Low): BRD, proposal, design, chú thích code nói đúng số đo thật (mẹo "theo cỡ" / "gần số giữa" ≤ 15% bài ở bậc 1–4, không còn "luôn có thẻ gần mọi mốc").
+- [x] 7.4 NUMBER-CHAIN-04 (Low): bỏ "luôn có thẻ gần mọi mốc" (vòng 3 viết lại tiếp, xem 8.4).
+
+## 8. Sửa vòng 3 (review trên nhánh tích hợp, `tmp/explore-review-2026-10-21/round3-residuals.md`)
+
+- [x] 8.1 NEW-number-chain-0 (High): bỏ `centerPull`; phía thẻ lệch của cặp đáp án và cặp ngược dấu rút đều, độc lập, cùng "hai máy cùng dấu / khác dấu", trước khi chọn chuỗi. "Máy thêm chọn thẻ to nhất, máy bớt chọn bé nhất": 64–65% ô → 50%, qua vòng 17–18% → 3–4% (7–8%). Hạng đáp án theo cỡ 25% ± 1.
+- [x] 8.2 NUMBER-CHAIN-01 phần ô 2: thẻ ô 1 không chứa thẻ ngược dấu ô 2 ("thẻ chưa thấy" 69–70% → 50%); cùng dấu rút đều ("xa số đã biết" 65–67% → 50%).
+- [x] 8.3 Contract đo mọi mẹo trên vòng planner thật, có ngưỡng: không cần biết gì, chỉ biết chiều, chỉ biết số bước (bỏ qua dấu + mọi cách chọn tiếp), cấu trúc "gần số 5" ở đúng mức đo, chiều ngược; `NC_REPORT=1` in bảng (`research/shortcuts-v2-r3.txt`). Validator + spec server kiểm cấu trúc thẻ mới thay cho "đối xứng".
+- [x] 8.4 NUMBER-CHAIN-04: design §4–§5, spec, proposal, BRD §7.12, AI_CONTEXT chỉ ghi số đo thật; bỏ "mức sàn 50/50" và ghi rõ dấu hiệu cấu trúc còn hở.
+- [x] 8.5 Chạy lại probe của reviewer (chain-probe, chain-probe2, nc4-planner2, nc02 probe/examples) trên cây này: số khớp contract.
+- [ ] 8.6 **Chờ owner**: dấu hiệu "ô giữa luôn gần số 5" (bỏ qua dấu + chọn số gần 5: 72% ô, qua 26–30% vòng ở bậc 1–4; giỏi xuôi + cách đó ở bài ngược: 63–66% vòng). Không gỡ được nếu giữ 0–10 + máy 2–4 + thẻ ngược dấu ở mọi ô (`research/structure-0-10.cjs`); các lựa chọn ở design §4.
+- [ ] 8.7 Sau khi gộp với nhánh tích hợp (có `throughPause` từ 748b04e): câu thần chú của `NumberChainRenderer.replay()` đi qua `throughPause` (hoặc báo bận) để resume không đọc lại câu hỏi ô đã điền (round3-residuals ROUTE-MIRROR-03 mục 2; chưa nghe được tới khi có clip v8).

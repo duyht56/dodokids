@@ -58,75 +58,101 @@ ngược), mỗi ô có `options` riêng; `answer.values` cùng thứ tự.
   ngay lần đầu" theo `tries === 0` của cả bài, nên một lần sai ở ô nào cũng làm bài
   không còn là đúng ngay lần đầu.
 
-## 4. Thẻ: hai cặp đối xứng quanh số đi vào máy
+## 4. Thẻ: hai cặp quanh số đi vào máy
 
 Gọi x là số đi vào máy của ô (số đã biết ở ô 1, ô giữa ở ô 2), a là đáp án (cách
 x đúng k), m = 2x − a là **thẻ ngược dấu** (xuôi: máy chạy ngược dấu; ngược: chạy
 máy xuôi thay vì gỡ — cùng một số). Bốn thẻ:
 
 ```
-{ a, a ± g, m, m ∓ g }      g = 1 (lệch một), hoặc 2 khi ± 1 đụng số cấm
+{ a, a ± g, m, m ± g }      g = 1 (lệch một), hoặc 2 khi ± 1 đụng số cấm
 ```
 
 - **Thẻ ngược dấu có mặt ở 100% ô.** Chỉ có đúng hai số cách x đúng k bước (a và
-  m), nên bé đếm đúng k mà bỏ qua dấu, hay ở chiều ngược không gỡ máy mà chạy xuôi,
-  chỉ còn 50/50 (không gỡ máy: 0%). Đây là mức sàn: không bộ bốn thẻ nào làm mẹo
-  này thấp hơn mà vẫn có đáp án.
-- **Đối xứng quanh x**: mọi mẹo chỉ dựa vào khoảng cách tới x (gần nhất, xa nhất)
-  không phân biệt a với m. Hai cặp cách nhau ≥ 2, nên thẻ nào cũng có cùng số hàng
-  xóm ±1 (cùng 1, hoặc cùng 0 khi g = 2): hết dấu hiệu "thẻ có hàng xóm"
-  (NUMBER-CHAIN-02).
-- **Phía của thẻ lệch** (vào trong, về phía x / ra ngoài) quyết định đáp án đứng thứ
-  mấy theo cỡ: ra ngoài → thứ 2 hoặc 3, vào trong → bé nhất hoặc to nhất. Rút đều
-  phía cho mỗi ô TRƯỚC, rồi chọn chuỗi dựng được (`numberChainCandidatesFor`).
-- **Kéo về giữa phạm vi** (`centerPull`, 0,5 ở bậc 1–4, 0,25 ở bậc 5): ô giữa phải
-  là số đi vào máy 2 nên luôn gần giữa phạm vi hơn thẻ ngược dấu của nó; rút phía
-  đều thì "chọn thẻ gần 5" thắng ~60% ô 1. Với xác suất `centerPull`, thẻ lệch được
-  đặt về phía giữa phạm vi (`numberChainCenterSide`). Trong 0–10 hai mẹo "theo cỡ"
-  và "gần số giữa" kéo ngược nhau; 0,5 là điểm cân bằng đo được (bỏ hẳn đáp án = 5
-  chỉ lợi ~1% mà mất 20% chuỗi). Ở 0–20 dư chỗ hơn, 0,25 là đủ.
-- Không thẻ nào là số đang hiện (ô 1: số đã biết; ô 2: số đã biết + ô giữa); thẻ ô
-  1 không chứa đáp án ô 2. Lỗi "quên một máy" (ô 2: chạy máy 2 từ số đầu / gỡ máy 1
-  từ số cuối) chỉ có mặt khi nó trùng một chỗ của bộ đối xứng (~12% ô 2 ở bậc 1–4).
+  m). Bé đếm đúng k mà bỏ qua dấu và chọn ngẫu nhiên giữa hai số đó được 50% mỗi ô;
+  ở chiều ngược, không gỡ máy mà chạy xuôi thì đúng 0%. 50% chỉ là mức của bé chọn
+  ngẫu nhiên giữa a và m: ở ô 1, a và m vẫn phân biệt được theo vị trí trong phạm vi
+  (xem dấu hiệu cấu trúc bên dưới).
+- **Phía của thẻ lệch, rút độc lập cho từng cặp.** Thẻ lệch của cặp đáp án và của
+  cặp ngược dấu nằm phía trong (về phía x) hay phía ngoài, hai phía rút đều và độc
+  lập, cho cả hai ô, cùng với "hai máy cùng dấu hay khác dấu" (rút đều), TRƯỚC khi
+  chọn chuỗi (`numberChainCandidatesFor`, lọc theo `(op1 === op2) === sameOps`).
+  Nhờ vậy đáp án đứng thứ 1/2/3/4 theo cỡ đều 25%, và mẹo "máy thêm chọn thẻ to
+  nhất, máy bớt chọn thẻ bé nhất" (theo câu thần chú) về 50% mỗi ô. Bản trước
+  (`centerPull` 0,5) đặt thẻ lệch về phía giữa phạm vi nên lệch "vào trong" ~64% và
+  mẹo đó được 64–65% ô (NEW-number-chain-0, review vòng 3): đã bỏ.
+- **Hàng xóm**: thẻ lệch luôn cách thẻ của nó g, hai cặp nằm hai phía x nên thẻ nào
+  cũng có đúng một thẻ cách ≤ 2 cùng phía: "thẻ có hàng xóm" không còn là dấu hiệu.
+- **Ô 2 không lộ qua hàng thẻ ô 1**: thẻ ô 1 không chứa đáp án ô 2 *và* không chứa
+  thẻ ngược dấu của ô 2 (chuỗi không dựng được thì bỏ), nên "chọn thẻ cách k chưa
+  thấy ở hàng trước" về 50%. Rút cùng dấu / khác dấu đều nên "chọn thẻ xa số đã
+  biết" ở ô 2 cũng về 50% (trước đó 68% chuỗi cùng dấu → 65–67%).
+- Không thẻ nào là số đang hiện (ô 1: số đã biết; ô 2: số đã biết + ô giữa) hay là
+  x. Lỗi "quên một máy" (ô 2: chạy máy 2 từ số đầu / gỡ máy 1 từ số cuối) chỉ có
+  mặt khi nó trùng một chỗ của bộ thẻ (5–12% ô).
 - Họ lỗi (validator, contract và spec server suy lại độc lập): `sign`,
   `one_machine`, `off_by_one`, `off_by_two`, `sign_off_by_one`, `sign_off_by_two`.
-  Không còn thẻ "số gần" tuỳ ý.
+  Validator kiểm cấu trúc: có m, không có x, a và m mỗi thẻ có đúng một thẻ cách ≤ 2
+  cùng phía x, hai khoảng cách bằng nhau.
 
 `buildNearTargetOptions` (dùng chung) không đổi.
 
+### Dấu hiệu cấu trúc chưa gỡ được: ô giữa luôn gần giữa phạm vi (chờ owner)
+
+Ô 1 luôn là ô giữa, và ô giữa là số đi vào máy 2: nó phải còn chỗ cho đáp án ô 2,
+thẻ ngược dấu ô 2 và hai thẻ lệch trong phạm vi. Vì vậy ở 0–10, máy 2–4, trong cả
+42 chuỗi mỗi chiều dựng được, đáp án ô 1 **không bao giờ** xa số 5 hơn thẻ ngược
+dấu của nó: gần hơn ở 34 chuỗi, bằng ở 8, xa hơn ở 0 (`research/structure-0-10.cjs`).
+Chọn lại trọng số chuỗi không gỡ được (không có chuỗi nào để kéo về), phía thẻ lệch
+cũng không (nó không đụng tới a và m). Bé đếm đúng k, bỏ qua dấu, chọn số gần 5
+hơn: đúng 93–94% ô 1 ở bậc 1–4, 65% ở bậc 5.
+
+Cách gỡ đều phải đổi tham số nội dung mà owner đang chốt (số 0, máy ±1, bậc 5 lên
+20), nên bản này **không đổi** và báo lại. Mức đo theo cấu trúc (một chuỗi = một
+phiếu; ngang nhau tính nửa): 0–10 hiện tại 90,5% ô 1; 0–15 71%; 0–20 62%; thêm máy
+±1 74%; cho thẻ ngược dấu ô 2 vắng khi ra ngoài phạm vi 67% ô 1 nhưng 50% ô 2 mất
+thẻ ngược dấu (mẹo bỏ qua dấu thắng lại ở ô 2). Contract gác các mẹo gốc này ở
+đúng mức đo (§5, lớp "cấu trúc") để nó không nặng thêm.
+
 ## 5. Đo lối tắt (planner thật, vòng 6 bài + vòng luyện chống lặp)
 
-`research/measure-v1.cjs` (mã `bcb3dab`) và `research/measure-v2.cjs`, 2000 vòng mỗi
-bậc; kết quả: `research/shortcuts-v1-bcb3dab.txt` (bản cũ), `shortcuts-v2-f1cd796.txt`
-(bản v2 đầu, trước review nhánh), `shortcuts-v2.txt` (hiện tại). "Qua vòng" = ≥ 4/6
-bài đúng ngay lần đầu, một bài = cả hai ô; số trong ngoặc tính cả vòng luyện. Đoán
-mò: 6,3% bài, qua vòng ≤ 0,1%.
+Từ vòng sửa 3, contract `npm run test:explore-number-chain` tự đo mọi mẹo (2000
+vòng planner mỗi bậc qua `createExploreRunBatch`, vòng 6 bài + vòng luyện) và
+`NC_REPORT=1` in bảng đầy đủ: `research/shortcuts-v2-r3.txt`. Bản cũ:
+`research/measure-v1.cjs` → `shortcuts-v1-bcb3dab.txt`; bản v2 đầu
+`shortcuts-v2-f1cd796.txt`; sau review nhánh `shortcuts-v2-3d125bb.txt`
+(`measure-v2.cjs`). "Qua vòng" = ≥ 4/6 bài đúng ngay lần đầu, một bài = cả hai ô;
+số trong ngoặc tính cả vòng luyện. Đoán mò: 6–6,5% bài, qua vòng ≤ 0,1%. Probe của
+reviewer (round3-residuals: chain-probe, chain-probe2, nc4-planner2, nc02) chạy lại
+trên cây này cho cùng số.
 
-**Lớp 1 — mẹo không cần biết gì** (to nhất, bé nhất, thẻ thứ 2/3 theo cỡ, gần số
-giữa phạm vi, gần số đi vào máy, gần số đang hiện, xa nhất, nhiều/ít hàng xóm, một
-vị trí cố định, tránh/chọn thẻ đã thấy ở hàng trước):
+**Không cần biết gì** (to nhất, bé nhất, thứ 2/3 theo cỡ, xa số 5, gần/xa số đi vào
+máy, gần/xa số đang hiện, nhiều/ít hàng xóm, vị trí cố định, tránh/chọn thẻ đã thấy,
+thẻ ngoài cùng xa số 5): mẹo tốt nhất là "tránh thẻ đã thấy" ≤ 28% ô, ≤ 8% bài,
+qua vòng ≤ 0,2%. Hạng đáp án theo cỡ 25% ± 1. Contract gác ≤ 15% bài, qua vòng
+≤ 1% (≤ 2%), hạng 25% ± 3.
 
-| Bậc | v1 (mẹo tốt nhất, qua vòng) | v2 hiện tại: mẹo tốt nhất / bài | qua vòng |
-|---|---|---|---|
-| 1 | gần ô giữa: 74,4% (93,3%) | bé nhất 14,2% | 0,3% (0,6%) |
-| 2 | gần ô giữa: 57,0% (82,3%) | bé nhất 13,6% | 0% (0,05%) |
-| 3 | gần số hiện: 24,4% (42,9%) | to nhất 13,7% | 0,2% (0,25%) |
-| 4 | gần số hiện: 27,8% (48,6%) | bé nhất 14,0% | 0,15% (0,25%) |
-| 5 | gần số hiện: 21,1% (37,8%) | gần số giữa 9,6% | 0,25% (0,3%) |
+**Chỉ biết chiều** (máy thêm → số lớn hơn x; chọn thẻ bất kỳ / gần x nhất / xa x
+nhất = "to nhất khi thêm, bé nhất khi bớt" / nhiều hàng xóm / ngoài cùng / giữa rồi
+ngoài cùng) và **chỉ biết số bước** (đếm đúng k, bỏ qua dấu; chọn ngẫu nhiên, xa/gần
+số đã biết, to/bé, thẻ chưa thấy / đã thấy, theo phía thẻ lệch, luôn lên / luôn
+xuống): mọi mẹo ≤ 51% ô, ≤ 26% bài, qua vòng ≤ 4,5% (≤ 9%) ở mọi bậc.
+Contract gác ≤ 56% ô, ≤ 30% bài, qua vòng ≤ 7% (≤ 13%).
 
-Gần số đang hiện ≤ 5%, thẻ có hàng xóm 6,3% (đoán), vị trí 6,3%. Contract gác: mỗi
-mẹo ≤ 42% ô, ≤ 15% bài, qua vòng ≤ 0,8% (≤ 1,5%).
+**Cấu trúc — chọn thẻ gần số 5** (cùng gốc ở §4, ngưỡng = mức đo + ~3 điểm):
 
-**Lớp 2 — biết một nửa** (đếm đúng k mà bỏ qua dấu; chỉ biết chiều của máy: thẻ bất
-kỳ / gần nhất / nhiều hàng xóm phía đó): ≈ 50% mỗi ô ở mọi bậc (bậc 5 "chiều + gần
-nhất" 53%), 25% bài, qua vòng 3–4,5% (7–10%). Bản v2 đầu: bỏ qua dấu 84–87% ô, qua
-vòng ~75% (NUMBER-CHAIN-01). Contract gác: bỏ qua dấu = 50% ± 3% mỗi ô (thẻ ngược
-dấu luôn ở đó); mọi mẹo lớp 2 ≤ 56% ô, ≤ 30% bài, qua vòng ≤ 7% (≤ 13%).
+| Mẹo | Bậc 1–4: ô / bài / qua vòng (vòng luyện) | Bậc 5 |
+|---|---|---|
+| Không biết gì, thẻ gần 5 nhất | 44% / 16% / 0,6–0,8% (1,0–1,8%) | 33% / 9,5% / 0,2% (0,3%) |
+| Chỉ biết chiều, thẻ phía đó gần 5 nhất | 59% / 34–35% / 11–13% (21–23%) | 55% / 30% / 7% (13%) |
+| Đếm k bỏ qua dấu, chọn số gần 5 | 72% / 47% / 26–30% (47–51%) | 58% / 33% / 9–10% (17–19%) |
 
-**Lớp 3 — chiều ngược** (bậc ≥ 2): không gỡ máy (chạy máy xuôi từ số đã biết) đúng
-0% ô ngược, qua vòng 0%. Giỏi xuôi + đoán dấu ở bài ngược: qua vòng 25–28% (44–46%)
-— trước khi chia vòng 2/4 là 58% (82%), bản v2 đầu 97–99%. Contract gác ≤ 30%
-(≤ 50%).
+**Chiều ngược** (bậc ≥ 2): không gỡ máy (chạy máy xuôi từ số đã biết) đúng 0% ô
+ngược, qua vòng 0%. Giỏi xuôi + bỏ qua dấu ở bài ngược (chọn ngẫu nhiên): qua vòng
+25–28% (44–47%); giỏi xuôi + bỏ qua dấu ở bài ngược + chọn số gần 5: qua vòng
+63–66% (86–91%) ở bậc 2–4, 39–40% (61–64%) ở bậc 5 — cùng dấu hiệu cấu trúc trên.
+Contract gác: không gỡ máy = 0; bậc 2–4 ≤ 33% (≤ 52%) và ≤ 70% (≤ 94%); bậc 5
+≤ 30% (≤ 50%) và ≤ 45% (≤ 69%).
 
 ## 6. Điểm tựa chấm và diễn lại
 
