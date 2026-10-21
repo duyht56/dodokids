@@ -64,7 +64,7 @@ và pha `show` chỉ chạy khi `opened`; trong lúc khoá bé thấy cả tập
 | Game | Bài/bậc thật | Giây/bài (ước) | Đoán bừa qua 4/6 |
 |---|---|---|---|
 | Tìm quy luật | 72 (L4) → 9825 | 8–25 | 4–12% |
-| Ô thiếu | ≥ 960 | ~8–15 | ~34% nếu chỉ đọc một chiều |
+| Ô thiếu | ≥ 960 | ~8–15 | ~34% nếu chỉ đọc một chiều (một vòng; tính cả vòng thêm là 57%, và mẹo "không có trên bảng" thắng 100%; sửa ở `fix-explore-missing-cell-leak`) |
 | Ú òa | rất lớn | ~10 | thấp |
 | Máy nối tiếp | ≥ 88 (L1) | ~8–15 | ~5–12% |
 | Đúng vị trí (20/10) | rất lớn (đồ vật trên kệ); câu hỏi: L1 4, L2 10, L3 6, L4 16, L5 24 | ~5–10 | 6% (L1) → 0,06% (L5) |
