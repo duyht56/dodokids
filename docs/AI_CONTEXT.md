@@ -427,12 +427,13 @@ Mobile:
   sits in a tap cell `layout.blocks[i].hit` ≥ `STACK_TOWER_MIN_HIT` (48pt) that
   is the touchable view (hitSlop cannot reach past a parent);
   `test:explore-stack-tower` measures the real tap areas through the render
-  harness on 320/375/430pt phones. The board sits on a stage anchored to the
-  scene's floor and `nextStackTowerSceneSize` relays it out only when it no
-  longer fits, the width changes, or the scene grows before the first tap (the
-  shell's hint strip can resize the scene on every miss); a forced relayout
-  lets floor blocks finish their slide and moves Đô Đô's remaining hops to the
-  new layout. Xếp tháp and Lật thẻ run their beats on
+  harness on 320/375/430pt phones. The renderer draws `layoutStackTowerStage`:
+  32pt floor reserve (`STACK_TOWER_FLOOR_RESERVE`, spare top room used first)
+  and an 8pt pad above Đô Đô, on a stage hung from the scene's TOP, so the
+  shell's hint strip taking up to 32pt from the bottom on a miss moves
+  nothing; `nextStackTowerSceneSize` relays out only past the reserve, on a new
+  width, or growth before the first tap (then a trying block springs home and
+  Đô Đô's hops follow the new layout). Xếp tháp and Lật thẻ run their beats on
   `useBusSequencer(paused)`, so the climb, the memory turn-back/peek and both
   reports hold while paused. Passenger dots are ink (`DotGroup` coral = the
   orange car). Phrase `tower_which_bigger` left `promptAudio.ts` and the
