@@ -124,15 +124,19 @@ The contract SHALL be enforced by `mobile/scripts/verify-explore-peekaboo-contra
 - **THEN** the mobile modules pass the same rules and the server catalog entry mirrors the bundled game at version 2
 
 ### Requirement: The look never runs out unseen
-When the run is paused (`paused`: the exit card is open or the app left the foreground) before the question is asked — while the set is shown, covered, under its cups or being revealed — the look window SHALL stop, and when play goes on the whole set SHALL show again for a full look window with its look line (the mantra on a cups board). A level-2 peek cut short by a pause SHALL be shown again in full. A pause while the child is answering SHALL change nothing on the board. A right answer whose why is still showing SHALL NOT be reported while paused; it SHALL be reported once play goes on.
+When the run is paused (`paused`: the exit card is open or the app left the foreground) DURING the look window, the look SHALL stop, and when play goes on the whole set SHALL show again for a full look window with its look line (the mantra on a cups board). Once the set is covered (Đô Đô's cover, or the cups) or revealed, a pause SHALL NOT show the set again — that would put the taken object back where the child has seen, or is about to see, the gap (review C04): the board SHALL stay as it is behind the exit card (covered, cups down, or the gap showing) and SHALL pick up from that step when play goes on, without a second look or look line. A level-2 peek cut short by a pause SHALL be shown again in full. A pause while the child is answering SHALL change nothing on the board. A right answer whose why is still showing SHALL NOT be reported while paused; it SHALL be reported once play goes on.
 
 #### Scenario: Paused during the look window
 - **WHEN** the child opens the exit card two seconds into the look window and comes back after any length of time
 - **THEN** the set was never covered behind the card, and a new full look window starts with its look line
 
+#### Scenario: Paused during the reveal
+- **WHEN** the run is paused while Đô Đô's cover is lifting and the gap is already drawn, and play goes on later
+- **THEN** the taken object never shows in its slot again, no second look starts, and the reveal ends in the question
+
 #### Scenario: Paused under the cups
 - **WHEN** the run is paused while the cups are down before the question
-- **THEN** coming back lifts the cups and shows the whole set again for a full look with the mantra
+- **THEN** every cup stays down behind the exit card and after it, and the question follows the cover step
 
 #### Scenario: Paused during the why
 - **WHEN** the run is paused after the last right answer, while the board shows why

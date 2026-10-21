@@ -407,7 +407,8 @@ Mobile:
   `background`/`inactive`: shell timers go through `explore/pausableTimers.ts`
   (API `pause/unpause` — kido-server `explore.stateless-privacy.spec` forbids
   "resume" in the play screen), voice stops, renderers get `disabled` +
-  `paused`; Ú òa re-runs a full look, `useBusSequencer(paused)` holds Cân/Xe buýt
+  `paused`; Ú òa re-runs a full look when paused during the look (once covered
+  or revealed it holds the board, review C04, see the Ú òa cups entry), `useBusSequencer(paused)` holds Cân/Xe buýt
   beats. Xe buýt `stage.speak/say` return promises (count_on/next_number report
   after the closing line). Tracing: strokes ≤ `SHORT_TRACING_STROKE_LENGTH` (12)
   are judged on geometry; longer ones keep the ≥4-sample guard and report
@@ -429,7 +430,8 @@ Mobile:
   the cards. Look = `peekabooLookMs` (1 s per object, ≥ 3 s). The renderer
   shows why after the last right answer (gap filled / cups lifted left to right)
   and says `peekaboo_missing_done` / `peekaboo_cups_done` through
-  `onSpeakFeedback`, then reports `onAnswer(true)` (held while paused); the
+  `onSpeakFeedback`, then reports `onAnswer(true)` (held while paused; a pause
+  after the cover/cups/reveal never shows the set again, C04); the
   bubble follows the phase; cups are Views; one row of objects and one of cards
   sized by the pure `renderers/peekabooLayout.ts`. Mantra `peekaboo_mantra` is
   the cups look line; 9 new phrases wait for audio batch v8; `levelIntroLine

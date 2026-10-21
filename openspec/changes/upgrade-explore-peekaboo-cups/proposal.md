@@ -58,6 +58,9 @@ mỗi bậc gỡ một hỗ trợ, có câu thần chú và diễn lại sau bà
   là đồng hồ cát không số; trả lời không giới hạn.
 - **Bong bóng theo pha** (E07): nhìn → «Ú… òa!» → câu hỏi → câu kết. Bỏ dòng
   «Cùng nhớ nhé…» và dòng nhắc dưới thẻ; chỗ thẻ lúc chờ là khung viền đứt.
+- **Tạm dừng không lộ món bị lấy** (C04 của review đối kháng Đợt 1): chỉ khi tạm
+  dừng trong lúc nhìn mới cho nhìn lại đủ bộ; đã che / úp cốc / đang lộ ô thì giữ
+  nguyên và chơi tiếp từ bước đó.
 - **Khoá chống lặp** (B10) = kiểu bài + bố trí + món bị lấy / cốc được hỏi, không
   gồm thẻ.
 - **Bố cục** (B04): một hàng món, một hàng thẻ ở mọi bậc; kích thước tính theo bề

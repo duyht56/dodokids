@@ -79,8 +79,12 @@ thẻ còn lại mới, giao của hai điều kiện là đúng món mất).
 - Giảm chuyển động: cốc hiện/mất ngay, mũi tên đứng yên, món bật về không nảy;
   vẫn giữ 1,4 giây cho bé nhìn bố cục.
 - Tạm dừng (hộp thoát / app ra nền) trong lúc diễn lại: giữ báo đúng tới khi chơi
-  tiếp. Tạm dừng trước câu hỏi (nhìn / úp cốc / lộ ô) giữ hành vi Đợt 1: quay lại
-  thì nhìn lại đủ một lượt kèm câu nhìn (với bài cốc là câu thần chú).
+  tiếp. Tạm dừng TRONG lúc nhìn: quay lại thì nhìn lại đủ một lượt kèm câu nhìn
+  (với bài cốc là câu thần chú), như Đợt 1. Tạm dừng khi đã che / đã úp cốc / đang
+  lộ ô trống: giữ nguyên bàn, chơi tiếp từ bước đó, không cho nhìn lại — review
+  đối kháng Đợt 1 (C04, `tmp/explore-review-2026-10-21/dot1-review-confirmed.md`)
+  xác nhận bản Đợt 1 hiện lại đủ bộ sau khi bé đã thấy ô trống, tức lộ món bị
+  lấy. Thay kịch bản "Paused under the cover" của `fix-explore-play-reliability`.
 
 ## Bong bóng và tiếng theo pha (E07)
 

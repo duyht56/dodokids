@@ -11,7 +11,7 @@
 - [x] 2.2 Diễn lại + câu kết qua `onSpeakFeedback`, báo `onAnswer(true)` sau khi câu đọc xong (≤ 6 s) và bàn hiện ≥ 1,4 s; tạm dừng giữ báo; chạm đôi không nói hai lần.
 - [x] 2.3 Bong bóng theo pha; bỏ «Cùng nhớ nhé…» và dòng nhắc dưới thẻ; khung thẻ viền đứt lúc chờ (E07).
 - [x] 2.4 `renderers/peekabooLayout.ts`: một hàng món, một hàng thẻ, co theo chiều cao đo được, thẻ ≥ 56pt (B04).
-- [x] 2.5 Giữ tạm dừng / nhìn lại của Đợt 1 (cả với cốc); `test:explore-play-shell` §4 dùng bài bậc 1 và đọc bong bóng qua testID.
+- [x] 2.5 Tạm dừng: trong lúc nhìn → nhìn lại đủ một lượt (Đợt 1); đã che / úp cốc / đang lộ ô → giữ nguyên, chơi tiếp từ bước đó (C04 của review đối kháng Đợt 1: bản Đợt 1 hiện lại đủ bộ sau khi bé đã thấy ô trống). Kiểm mới trong `test:explore-peekaboo` §9c đỏ trên mã trước sửa; `test:explore-play-shell` §4 dùng bài bậc 1, đọc bong bóng qua testID, tạm dừng dưới tấm che giữ che.
 - [x] 2.6 `supportHintPhraseId/supportHintKeys` nhận bài hiện tại: bài cốc mức 1 = `peekaboo_hint_place`; `ExplorePlayScreen` truyền `currentExercise` (2 chỗ).
 - [x] 2.7 `levelIntroLine('peekaboo')` đọc bảng `PEEKABOO_LEVEL_INTRO` (bậc 2 dùng lại `peekaboo_intro_3`).
 
