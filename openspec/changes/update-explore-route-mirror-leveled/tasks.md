@@ -25,11 +25,20 @@
 - [x] 4.1 `explore.registry.ts`: `BundledLocalGameSpec.version` (giống nhánh `fix/explore-missing-cell-leak`), mirror_build = 2.
 - [x] 4.2 Spec mirror-build, route-planner-{privacy,renderer,layout} theo luồng mới.
 
-## 5. Kiểm chứng
+## 5. Tạm dừng — phần của phiên này trong review đối kháng Đợt 1 (mobile `382984c`, server `f7a5512`)
 
-- [x] 5.1 mobile: `npx tsc --noEmit`, `npm run lint` (0 lỗi, 9 cảnh báo có sẵn), mọi `npm run test:*` xanh; các kiểm mới đỏ trên mã cũ (chép nguyên 1344/10.000 ở bậc 1; chạy hỏng không báo).
-- [x] 5.2 kido-server: `npx jest src/modules/explore` (21 suite, 238 test), `npm run build`.
-- [x] 5.3 iOS Simulator SE 375×667: Dẫn đường vòng 3/6 đúng lần đầu → luyện thêm, vòng 4/6 → "Bậc 2/5"; chạy hỏng không đổi cỡ bảng; tạm dừng giữ Đô Đô đứng yên; bậc 5 6/6 → hết lượt. Soi gương: gợi ý một cặp, chạm ô đích thì tắt; 3/4 → "Bậc 2/5"; bậc 5 ô 44 pt vừa màn, 3/4 ở bậc 5 → hết lượt.
-- [ ] 5.4 Máy thật / bé thật: thời gian một vòng của trẻ (đo trên sim chỉ là bấm theo kịch bản); máy 320 pt cao ≤ 640 pt ở Soi gương bậc 5 (nút Xong lệch dưới mép ~24 pt theo tính toán).
-- [ ] 5.5 Dọn `isContinuousExploreRunGame` sau khi gộp nhánh Xếp tháp (contract của nó còn gọi).
-- [ ] 5.6 Owner duyệt, merge nhánh mobile + server và phát hành.
+- [x] 5.1 C03/C07: `answer()` giữ kết quả renderer báo trong lúc tạm dừng, xử lý khi bỏ tạm dừng (sai trước, đúng sau); `handleTryAgainSound` im khi tạm dừng.
+- [x] 5.2 C02/C10: lúc tạm dừng ghi lại renderer có đang nói lời của nó (sau câu hỏi của bài) không; bài đã giải hoặc renderer đang nói thì không đọc lại câu hỏi.
+- [x] 5.3 C11 (màn chơi): lời nhắc nghỉ bị bỏ trước khi bắt đầu được nói khi bỏ tạm dừng, một lần.
+- [x] 5.4 C01/C08/C13: Dẫn đường dừng bước đi (`f7604cd`) và nói lại lời dẫn bị cắt (`speakGuidance`).
+- [x] 5.5 Test: `test:explore-play-shell` §7 (mount màn chơi thật), `test:explore-route-planner` (lời dẫn bị cắt); đỏ trên mã trước sửa.
+- [ ] 5.6 Không làm ở đây (phiên khác): Xe buýt C05/C15–C17, Cân C06 (câu nhẹ của renderer bị tạm dừng huỷ trả `false` cho renderer tự nói lại), Xưởng C09/C12/C14, Ú òa C04.
+
+## 6. Kiểm chứng
+
+- [x] 6.1 mobile: `npx tsc --noEmit`, `npm run lint` (0 lỗi, 9 cảnh báo có sẵn), mọi `npm run test:*` xanh; các kiểm mới đỏ trên mã cũ (chép nguyên 1344/10.000 ở bậc 1; chạy hỏng không báo).
+- [x] 6.2 kido-server: `npx jest src/modules/explore` (21 suite, 238 test), `npm run build`.
+- [x] 6.3 iOS Simulator SE 375×667: Dẫn đường vòng 3/6 đúng lần đầu → luyện thêm, vòng 4/6 → "Bậc 2/5"; chạy hỏng không đổi cỡ bảng; tạm dừng giữ Đô Đô đứng yên; bậc 5 6/6 → hết lượt. Soi gương: gợi ý một cặp, chạm ô đích thì tắt; 3/4 → "Bậc 2/5"; bậc 5 ô 44 pt vừa màn, 3/4 ở bậc 5 → hết lượt.
+- [ ] 6.4 Máy thật / bé thật: thời gian một vòng của trẻ (đo trên sim chỉ là bấm theo kịch bản); máy 320 pt cao ≤ 640 pt ở Soi gương bậc 5 (nút Xong lệch dưới mép ~24 pt theo tính toán).
+- [ ] 6.5 Dọn `isContinuousExploreRunGame` sau khi gộp nhánh Xếp tháp (contract của nó còn gọi).
+- [ ] 6.6 Owner duyệt, merge nhánh mobile + server và phát hành.

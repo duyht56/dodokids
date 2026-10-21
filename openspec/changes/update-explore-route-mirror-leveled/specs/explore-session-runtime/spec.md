@@ -47,6 +47,21 @@ A game whose board shows its own guidance and fills the screen down to its contr
 - **WHEN** Đô Đô gets home
 - **THEN** «Đúng rồi!» floats over the bubble while the board is locked and the board keeps its size
 
+### Requirement: A pause never loses or misplaces a line
+While the run is paused, an answer a renderer reports (its own clock ran on behind the exit card) SHALL make no chime, praise or board change; it SHALL be answered once play goes on, a miss before a success. A "try again" cue a renderer fires while paused SHALL be silent. When play goes on, the shell SHALL NOT read the board's question again if the board is solved or if, when the pause began, the renderer was saying its own line about the board asked for after the board's question (a closing line, a mantra, a failed run's guidance) — that renderer goes on instead; any other board SHALL hear its question again as before. A break reminder that the pause dropped before it started SHALL be said once play goes on, once.
+
+#### Scenario: Success reported behind the exit card
+- **WHEN** a renderer reports a solved board while the exit card is open
+- **THEN** nothing chimes or praises and the board stays; after «Ở lại chơi» the chime and praise play and the next board comes
+
+#### Scenario: Closing line cut by the exit card
+- **WHEN** the child opens the exit card while the renderer is saying its closing line and then stays
+- **THEN** the board's question is not read over the solved board
+
+#### Scenario: Break reminder due behind the card
+- **WHEN** the break reminder comes due while the exit card is open
+- **THEN** it is said once after «Ở lại chơi», and not again after a later pause
+
 ## REMOVED Requirements
 
 ### Requirement: Continuous one-at-a-time generation

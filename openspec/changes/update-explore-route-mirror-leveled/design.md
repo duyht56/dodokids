@@ -117,3 +117,35 @@ không xung đột. Dẫn đường không đổi generator nên giữ v1.
 `mirror_hint_pair` là dòng hỗ trợ của Soi gương ở cả hai mức
 (`supportHintPhraseId`), thay câu chung «Hãy nghe lại rồi nhìn kỹ từng lựa chọn
 nhé.» vốn nói về lựa chọn mà bảng này không có.
+
+## 10. Tạm dừng không làm mất lời (review đối kháng Đợt 1)
+
+Review diff Đợt 1 (`tmp/explore-review-2026-10-21/dot1-review-confirmed.md`)
+giao cho change này phần nằm trong màn chơi và Dẫn đường:
+
+- **Kết quả báo trong lúc tạm dừng** (C03, C07): renderer có đồng hồ riêng chưa
+  theo tạm dừng (Xe buýt lúc xe chạy đi, Xếp tháp, Lật thẻ) vẫn có thể gọi
+  `onAnswer` sau hộp thoát. `answer()` giờ đẩy vào `heldAnswersRef` và trả về;
+  bỏ tạm dừng thì gọi lại qua `answerRef` (bản `answer` mới nhất): có sai thì
+  `answer(false)` trước, `answer(true)` lùi một nhịp timer cho state kịp cập
+  nhật. Đây là lưới an toàn chung, renderer không cần đổi.
+- **Không đọc câu hỏi đè lời của renderer** (C02, C10): mỗi lời được đánh số
+  theo thứ tự hỏi (`voiceSeqRef`); câu hỏi của bài ghi `questionSeqRef`. Lời
+  feedback của renderer (không tính câu nhẹ) nằm trong `rendererLinesRef` tới
+  khi xong. Lúc bắt đầu tạm dừng — trước khi dừng giọng — màn chơi xem có lời
+  nào của bài đang nói/đang chờ mà được hỏi SAU câu hỏi không (lời kết, thần chú,
+  lời dẫn chạy hỏng). Có, hoặc bài đã giải, thì khi quay lại không đọc câu hỏi;
+  renderer tự nói tiếp (Dẫn đường nói lại lời dẫn; Xe buýt nói lại câu tổng là
+  việc của nhánh Đợt 1). Lời mở đầu renderer nói TRƯỚC câu hỏi (Xe buýt
+  `nb_intro`) không chặn đọc lại, vì câu hỏi có thể chưa kịp nói. Còn hở: tạm
+  dừng rơi vào khoảng lặng sau lời kết mà renderer chưa báo `onAnswer` (Cân:
+  `wait(proofMs)`) thì câu hỏi vẫn được đọc lại rồi bị lời khen cắt.
+- **Lời nhắc nghỉ** (C11): `breakLineOwedRef` bật khi lời nhắc hiện, tắt khi
+  câu thực sự bắt đầu (`onStart`); bỏ tạm dừng mà còn nợ thì nói lại. Câu nhẹ
+  của renderer (Cân: «Bé chạm vào quả lê để đổi nhé») bị tạm dừng huỷ thì
+  renderer nhận `false`; nói lại là việc của renderer (nhánh Đợt 1).
+- **Dẫn đường** (C01, C08, C13): bước đi đã theo `pausableTimers` (mục 3).
+  Thêm `speakGuidance`: lời dẫn nằm trong `owedGuidanceRef` tới khi nghe hết lúc
+  không tạm dừng; lời kết thúc trong lúc tạm dừng (bị dừng giọng) hay bị bỏ thì
+  vẫn nợ, và bỏ tạm dừng thì nói lại sau 420 ms. Bé sửa lệnh hoặc chạy lại thì
+  xoá nợ.

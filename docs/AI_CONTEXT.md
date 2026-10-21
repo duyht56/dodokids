@@ -445,6 +445,17 @@ Mobile:
   `test:explore-mirror-build` measures rendered cells at 320/375/430 pt.
   New lines `route_intro_*`, `mirror_intro_*`, `mirror_hint_pair` wait for audio
   v8 (not yet in `kido-pipeline` `exploreAudioInventory.ts`).
+  Pause follow-ups from the adversarial review of Đợt 1 (same change): the shell
+  holds `onAnswer` calls made while paused (`heldAnswersRef`) and answers them
+  when play goes on (miss first); `handleTryAgainSound` is silent while paused;
+  renderer feedback lines are numbered against the board's question
+  (`voiceSeqRef`/`questionSeqRef`/`rendererLinesRef`) and, if one asked after
+  the question was in flight when the pause began, or the board is solved, the
+  question is NOT re-read on the way back; a break reminder dropped by the pause
+  is said once afterwards (`breakLineOwedRef`). Route guidance cut by a pause is
+  re-said by the renderer (`speakGuidance`/`owedGuidanceRef`). The play-shell
+  contract §7 mounts the real `ExplorePlayScreen` through the harness with
+  recorded audio/SFX stubs (`harness.stubs[...]`, `@/constants/layout` alias).
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
