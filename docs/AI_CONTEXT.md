@@ -406,10 +406,15 @@ Mobile:
   "resume" in the play screen), voice stops, renderers get `disabled` +
   `paused`; Ú òa re-runs a full look, `useBusSequencer(paused)` holds Cân/Xe buýt
   beats. Xe buýt `stage.speak/say` return promises (count_on/next_number report
-  after the closing line). Tracing: strokes ≤ `SHORT_TRACING_STROKE_LENGTH` (12)
-  are judged on geometry; longer ones keep the ≥4-sample guard and report
-  `insufficientData`; the workshop only takes the completion of the seed being
-  practised. Route ✓ uses `routeCheckpointProgress` (ordered, as the engine).
+  after the closing line); follow-up branch `fix/explore-dot1-followup`: a mantra
+  cut by a pause is re-said, `stage.mantra` moves the scene on exactly once, and
+  number_bus reports `onBoardBusy` from the child's answer until `onAnswer(true)`
+  so the shell does not re-ask a board closing itself. Tracing: strokes ≤
+  `SHORT_TRACING_STROKE_LENGTH` (12) are judged on geometry — forward reach along
+  the stroke from where the finger landed (wobble or a sideways swipe adds
+  nothing), ≥ ¾ traced finishes on reaching the end; longer ones keep the
+  ≥4-sample guard and report `insufficientData`; the workshop only takes the
+  completion of the seed being practised. Route ✓ uses `routeCheckpointProgress` (ordered, as the engine).
   Contract scripts can mount real renderers through
   `mobile/scripts/explore-render-harness.cjs` (hooks, fake clock, RN stubs):
   `test:explore-play-shell`, `test:explore-tracing`, `test:explore-route-planner`,
