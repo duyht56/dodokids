@@ -171,7 +171,11 @@ Contract gác: không gỡ máy = 0; bậc 2–4 ≤ 33% (≤ 52%) và ≤ 70% (
   máy 1 nhịp sáng (700 ms), giữ 650 ms; chặng 2 tương tự. Đồng thời Đô Đô nói câu
   thần chú (không chen số). Báo đúng khi cả hai xong + 250 ms (tối thiểu 1,2 s).
 - Giảm chuyển động: cùng hai chặng, mỗi chặng đứng yên 1,1 s, không animation nào
-  bắt đầu. Tạm dừng (`paused`): mọi nhịp đi qua `useBusSequencer(paused)`.
+  bắt đầu. Tạm dừng (`paused`): mọi nhịp đi qua `useBusSequencer(paused)`; câu
+  thần chú đi qua `throughPause` (bị cắt thì nói lại cả câu, báo đúng chờ lần đọc
+  đó; tạm dừng sau câu thần chú không đọc lại). Từ thẻ đúng ô 2 tới ngay trước báo
+  đúng, bảng báo bận (`onBoardBusy`, nhả khi rời bảng), nên màn chơi không đọc lại
+  câu hỏi của ô đã điền khi quay lại (task 8.7).
 
 ## 7. Lời của Đô Đô (audio v8, chưa thu)
 

@@ -59,7 +59,7 @@ On a step with dots the board SHALL show the dot group (10 pt in rows of five up
 - **THEN** the known number and the first machine show their dots again, the second machine and the asked cell show none, and the hint line says «Bé đếm chấm rồi xem máy thêm hay bớt nhé.»
 
 ### Requirement: The machine replays the chain after a right board
-After the second blank is right the board SHALL lock its cards and replay the chain forward, one machine at a time — the output cell shows the input's dots with the machine's dots dropping in or leaving — while Đô Đô says the mantra («Qua máy thêm thì nhiều lên, qua máy bớt thì ít đi.»; reverse boards «Đi ngược: máy thêm thì bớt, máy bớt thì thêm.»). `onAnswer(true)` SHALL come only after both the replay and the line have finished. Cards the child tapped wrong SHALL keep their faded look until the row of cards is replaced, through the advance to the second blank and through the replay. Under reduced motion the same steps SHALL be shown still, one at a time, with no animation started. While the run is paused the replay SHALL hold.
+After the second blank is right the board SHALL lock its cards and replay the chain forward, one machine at a time — the output cell shows the input's dots with the machine's dots dropping in or leaving — while Đô Đô says the mantra («Qua máy thêm thì nhiều lên, qua máy bớt thì ít đi.»; reverse boards «Đi ngược: máy thêm thì bớt, máy bớt thì thêm.»). `onAnswer(true)` SHALL come only after both the replay and the line have finished. Cards the child tapped wrong SHALL keep their faded look until the row of cards is replaced, through the advance to the second blank and through the replay. Under reduced motion the same steps SHALL be shown still, one at a time, with no animation started. While the run is paused the replay SHALL hold. A pause that cuts the mantra off SHALL have it said again, whole, once play goes on, and success SHALL wait for that reading; a pause after the mantra SHALL NOT have it said again. From the right card for the second blank until success is reported the board SHALL report itself busy to the play screen (`onBoardBusy`), and release that on leaving the board, so the play screen does not read the filled cell's question on the way back from a pause.
 
 #### Scenario: Success waits for the replay
 - **WHEN** the right card for the second blank is tapped
@@ -68,6 +68,10 @@ After the second blank is right the board SHALL lock its cards and replay the ch
 #### Scenario: Paused during the replay
 - **WHEN** the exit card opens during the replay
 - **THEN** no success is reported while it is open, and the replay finishes after play goes on
+
+#### Scenario: A pause cuts the mantra off
+- **WHEN** the exit card opens half a second into the mantra and the child goes back to the game
+- **THEN** Đô Đô says the whole mantra again, success comes only after that reading and only once, and the question of the cell just filled is not read
 
 ### Requirement: The renderer cues each blank's question
 Máy nối tiếp SHALL be a renderer-cued prompt game: the play screen SHALL NOT read the prompt on mount; the renderer SHALL cue the first blank's question on mount and the second blank's question when it becomes the cell being asked, so the replay button repeats the question of the cell being asked. Every line SHALL be a fixed phrase in the clip inventory (audio v8) whose text is the on-screen text; a missing clip SHALL leave the text and dots enough to play.

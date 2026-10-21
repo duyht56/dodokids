@@ -513,8 +513,11 @@ Mobile:
   began, the renderer gets `RENDERER_GOES_ON_MS` (1.5 s) to say it again or
   report the board, and the question is read only if it stays silent (a new
   pause cancels that read). Xe buýt's mantra cut by a pause is re-said from
-  the start by `stage.mantra` (through `onSpeakFeedback`, so the held question
-  read is dropped) before the bus moves on; a break reminder dropped by the pause
+  the start by `stage.mantra` before the bus moves on, and the bus reports
+  `onBoardBusy` from the child's answer, so no question is read on the way back;
+  Máy nối tiếp v2 says its mantra through `throughPause` (re-said whole, success
+  waits for it) and reports `onBoardBusy` from the right second card until
+  `onAnswer(true)` (integration commit 0ca421f, task 8.7); a break reminder dropped by the pause
   is said once afterwards (`breakLineOwedRef`). Route guidance cut by a pause is
   re-said by the renderer (`speakGuidance`/`owedGuidanceRef`). The play-shell
   contract §7 mounts the real `ExplorePlayScreen` through the harness with
@@ -537,7 +540,9 @@ Mobile:
   reports every miss, cues each blank's question (`number_chain` is in
   `RENDERER_CUED_PROMPT_GAMES`), keeps missed cards faded until the row changes,
   and after the second blank replays the chain forward with `DotGroup`
-  `changed` dots while saying the mantra, then `onAnswer(true)`. `DotGroup`
+  `changed` dots while saying the mantra, then `onAnswer(true)` (busy via
+  `onBoardBusy` meanwhile; a mantra cut by a pause is re-said through
+  `throughPause`). `DotGroup`
   gained optional `size`/`changed`. Contract `npm run test:explore-number-chain`
   measures every trick class through the real planner (no-knowledge,
   direction-only, steps-only, the structural "nearer 5" class at its measured
