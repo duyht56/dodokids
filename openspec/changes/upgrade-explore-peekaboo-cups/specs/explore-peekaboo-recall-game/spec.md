@@ -61,7 +61,11 @@ The game SHALL define five levels, each taking away exactly ONE support from the
 - **THEN** every served board's bucket is the level's declared bucket and more than one variant reaches the child
 
 ### Requirement: A sand-timed look, then a peekaboo cover
-The renderer SHALL play a look window on the full set lasting one second per object and never under three seconds, beside the shared sand timer (an hourglass glyph beside a bar that drains linearly), with NO numeral ticking down. Then, on a `missing` board, Đô Đô (`ExploreMascot`) SHALL cover the slots, playing peekaboo, and the cover SHALL lift to reveal the remaining objects plus one empty slot; on a `cups` board a cup SHALL come down over every object and an arrow SHALL point at the asked cup. The sand timer SHALL only measure how long the set stays visible: it SHALL NOT limit the time to answer, and running out SHALL NOT fail, lock or end anything. All motion SHALL use the native animation driver; under reduced motion the cover, the cups and the pop SHALL appear and go without animation and the arrow SHALL stand still, while the sand timer SHALL still drain. Objects SHALL be drawn from the memory-asset glyph data and NO emoji SHALL be used as a UI icon or as the mascot.
+The renderer SHALL play a look window on the full set lasting one second per object and never under three seconds, beside the shared sand timer (an hourglass glyph beside a bar that drains linearly), with NO numeral ticking down. Then, on a `missing` board, Đô Đô (`ExploreMascot`) SHALL cover the slots, playing peekaboo, and the cover SHALL lift to reveal the remaining objects plus one empty slot; on a `cups` board a cup SHALL come down over every object and an arrow SHALL point at the asked cup. The sand timer SHALL only measure how long the set stays visible: it SHALL NOT limit the time to answer, and running out SHALL NOT fail, lock or end anything. All motion SHALL use the native animation driver; under reduced motion the cover, the cups and the pop SHALL appear and go without animation and the arrow SHALL stand still, while the sand timer SHALL still drain. Objects SHALL be drawn from the memory-asset glyph data and NO emoji SHALL be used as a UI icon or as the mascot. While a board is shown locked before its look starts (a round's first board while Đô Đô says the round lines), its slots SHALL be empty outlines with no object and no sand timer: the objects SHALL show only when the look starts, so every board gets the same look window.
+
+#### Scenario: A round's first board is locked
+- **WHEN** a new round's first board is shown locked for about three seconds while the round lines are said
+- **THEN** no object is drawn and no look line is cued meanwhile, and once the board is playable the objects show for exactly the look window
 
 #### Scenario: The look window is timed without numerals
 - **WHEN** a board with four objects starts
@@ -76,7 +80,7 @@ The renderer SHALL play a look window on the full set lasting one second per obj
 - **THEN** the look window, sand timer, cover or cups and arrow still happen, but nothing animates except the sand
 
 ### Requirement: Tap-an-option feedback that never ends the run
-The renderer SHALL let the child tap a card once the question is asked. A wrong card SHALL play a gentle shake, make Đô Đô think, emit the `onTryAgainSound` cue and report `onAnswer(false)` at once WITHOUT ending the run, filling in the answer, lifting a cup or locking the card. On L5 a right first cup SHALL lift that cup (it stays lifted), move the arrow to the second cup and ask it, and SHALL report nothing yet. The last right answer SHALL show why — the missing object pops back into its gap, or every cup lifts left to right with the asked places highlighted — while Đô Đô says one short line, and SHALL report `onAnswer(true)` exactly once, only after that line has ended (or at most six seconds) and the board has shown why for at least 1.4 seconds. A second tap on the right card before the next render SHALL NOT start the why a second time. The renderer SHALL NOT carry its own prompt-replay control and SHALL NOT persist or report anything beyond `onAnswer`.
+The renderer SHALL let the child tap a card once the question is asked. A wrong card SHALL play a gentle shake, make Đô Đô think, emit the `onTryAgainSound` cue and report `onAnswer(false)` at once WITHOUT ending the run, filling in the answer, lifting a cup or locking the card. On L5 a right first cup SHALL lift that cup (it stays lifted), move the arrow to the second cup and ask it, and SHALL report nothing yet. The last right answer SHALL show why — the missing object pops back into its gap, or every cup lifts left to right with the asked places highlighted — while Đô Đô says one short line, and SHALL report `onAnswer(true)` exactly once, only after that line has ended (or at most six seconds) and the board has shown why for at least 1.4 seconds. A second tap on the right card before the next render SHALL NOT start the why a second time. On L5, taps SHALL be ignored for a short moment (about 400 ms, while the first cup lifts and the arrow moves) after the first right cup, so a double tap's second finger is never judged against the second cup. A second tap on a wrong card while it still shakes (about 350 ms) SHALL be the same tap: one miss, not two (two would raise support from 0 to 2 and show the whole set again). The renderer SHALL NOT carry its own prompt-replay control and SHALL NOT persist or report anything beyond `onAnswer`.
 
 #### Scenario: The correct card is tapped
 - **WHEN** the child taps the right card on the last question
@@ -85,6 +89,10 @@ The renderer SHALL let the child tap a card once the question is asked. A wrong 
 #### Scenario: A wrong card is tapped
 - **WHEN** the child taps a card that is not the answer
 - **THEN** a gentle shake plays, `onAnswer(false)` is called at once, nothing locks and no cup lifts
+
+#### Scenario: A double tap
+- **WHEN** the child double-taps (about 120 ms apart) the right card of L5's first cup, or one wrong card
+- **THEN** the first case asks the second cup with no miss reported, and the second reports exactly one miss
 
 #### Scenario: Bậc 5 asks two cups
 - **WHEN** the child answers the first asked cup right on an L5 board
@@ -124,7 +132,7 @@ The contract SHALL be enforced by `mobile/scripts/verify-explore-peekaboo-contra
 - **THEN** the mobile modules pass the same rules and the server catalog entry mirrors the bundled game at version 2
 
 ### Requirement: The look never runs out unseen
-When the run is paused (`paused`: the exit card is open or the app left the foreground) DURING the look window, the look SHALL stop, and when play goes on the whole set SHALL show again for a full look window with its look line (the mantra on a cups board). Once the set is covered (Đô Đô's cover, or the cups) or revealed, a pause SHALL NOT show the set again — that would put the taken object back where the child has seen, or is about to see, the gap (review C04): the board SHALL stay as it is behind the exit card (covered, cups down, or the gap showing) and SHALL pick up from that step when play goes on, without a second look or look line. A level-2 peek cut short by a pause SHALL be shown again in full. A pause while the child is answering SHALL change nothing on the board. A right answer whose why is still showing SHALL NOT be reported while paused; it SHALL be reported once play goes on. Once the set is covered the renderer SHALL leave no look line on record for the play screen to repeat (an empty `onPromptCue`), and from the last right answer until it is reported it SHALL report the board busy (`onBoardBusy`), so the way back from a pause never reads a stale look line or the question just answered.
+When the run is paused (`paused`: the exit card is open or the app left the foreground) DURING the look window, the look SHALL stop, and when play goes on the whole set SHALL show again for a full look window with its look line (the mantra on a cups board). Once the set is covered (Đô Đô's cover, or the cups) or revealed, a pause SHALL NOT show the set again — that would put the taken object back where the child has seen, or is about to see, the gap (review C04): the board SHALL stay as it is behind the exit card (covered, cups down, or the gap showing) and SHALL pick up from that step when play goes on, without a second look or look line. A level-2 peek cut short by a pause SHALL be shown again in full. A pause while the child is answering SHALL change nothing on the board. A right answer whose why is still showing SHALL NOT be reported while paused: the why SHALL be paced by pausable beats (the cups stop lifting behind the exit card), a why-line the pause cut off SHALL be said again once play goes on, and the right answer SHALL be reported only after that reading and the rest of the why. Once the set is covered the renderer SHALL leave no look line on record for the play screen to repeat (an empty `onPromptCue`), and from the last right answer until it is reported it SHALL report the board busy (`onBoardBusy`), so the way back from a pause never reads a stale look line or the question just answered.
 
 #### Scenario: Paused during the look window
 - **WHEN** the child opens the exit card two seconds into the look window and comes back after any length of time
@@ -144,7 +152,7 @@ When the run is paused (`paused`: the exit card is open or the app left the fore
 
 #### Scenario: Paused during the why
 - **WHEN** the run is paused after the last right answer, while the board shows why
-- **THEN** `onAnswer(true)` is not called behind the exit card, it is called once when play goes on, and the question just answered is not read again before the praise
+- **THEN** the cups do not all lift and `onAnswer(true)` is not called behind the exit card; once play goes on the why-line the pause cut off is said again, the rest of the why plays, `onAnswer(true)` is called once after that, and the question just answered is not read again before the praise
 
 ## ADDED Requirements
 
