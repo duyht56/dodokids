@@ -454,8 +454,10 @@ Mobile:
   is the touchable view (hitSlop cannot reach past a parent);
   `test:explore-stack-tower` measures the real tap areas through the render
   harness on 320/375/430pt phones. The renderer draws `layoutStackTowerStage`:
-  32pt floor reserve (`STACK_TOWER_FLOOR_RESERVE`, spare top room used first)
-  and an 8pt pad above Đô Đô, on a stage hung from the scene's TOP, so the
+  32pt floor reserve (`STACK_TOWER_FLOOR_RESERVE`, spare top room used first,
+  shrinking only while `stackTowerLayoutReadable` holds: level ratio and a 6pt
+  step between blocks next in size) and an 8pt pad above Đô Đô, on a stage
+  hung from the scene's TOP, so the
   shell's hint strip taking up to 32pt from the bottom on a miss moves
   nothing; `nextStackTowerSceneSize` relays out only past the reserve, on a new
   width, or growth before the first tap (then a trying block springs home and

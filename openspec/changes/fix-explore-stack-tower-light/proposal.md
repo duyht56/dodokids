@@ -68,9 +68,11 @@ trông như không có chấm (khoảng 2/3 bảng toa chấm có toa cam).
   (`layoutStackTowerStage`) chừa sẵn 32pt dự phòng dưới sàn (dải đất chạy xuống
   đó), lấy khoảng trống phía trên trước: dải gợi ý lấy tới 32pt thì không gì trên
   bàn di chuyển, đổi cỡ hay bị dừng, và luôn còn 8pt trên chỗ đứng cao nhất của
-  Đô Đô. Co quá 32pt thì tính lại: khối đang thử nảy thẳng về ô mới, Đô Đô và các
-  bước leo theo toạ độ mới. Giá: tàu và toa chấm giữ nguyên cỡ, tháp và dãy cột
-  trên máy 320/375pt nhỏ đi khoảng 7–20%.
+  Đô Đô. Bố cục chỉ thu nhỏ để chừa dự phòng khi các khối vẫn giữ tỉ lệ của bậc
+  và chênh nhau ≥ 6pt; không được thì chừa ít hơn. Co quá dự phòng thì tính lại:
+  khối đang thử nảy thẳng về ô mới, Đô Đô và các bước leo theo toạ độ mới. Giá:
+  tàu và toa chấm giữ nguyên cỡ, tháp và dãy cột trên máy 320/375pt nhỏ đi khoảng
+  6–25%.
 - Câu `tower_which_bigger` («Bạn nào to hơn?») rời danh mục câu
   (`promptAudio.ts`, inventory pipeline). File clip đã phát hành giữ nguyên.
 - Test: `test:explore-stack-tower` viết lại (bốn bậc, ô chạm trong bố cục, đo
