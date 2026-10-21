@@ -91,9 +91,10 @@ change gốc chưa archive; archive change gốc trước rồi mới tới chan
 - **kido-server** (nhánh cùng tên, chưa push): `explore.registry.ts`
   (`BundledLocalGameSpec.version`, mirror_build = 2 — cùng cơ chế với nhánh
   `fix/explore-missing-cell-leak`), spec mirror-build và route-planner.
-- **kido-pipeline**: chưa đổi. Đợt audio v8 phải thêm 9 câu mới vào
-  `exploreAudioInventory.ts` (kiểm mirror của `test:explore-prompt-audio` đòi
-  khi có checkout pipeline cạnh mobile).
+- **kido-pipeline**: nhánh này không có commit pipeline; 9 câu mới đã thêm vào
+  `exploreAudioInventory.ts` ở nhánh tích hợp `integrate/explore-2026-10-21`
+  (66389c5, local, không push) — kiểm mirror của `test:explore-prompt-audio` đòi
+  khi có checkout pipeline cạnh mobile. Còn render trong đợt audio v8.
 - **docs**: BRD §6.1, §7 (Dẫn đường), §7.12 (Soi gương), §10; `AI_CONTEXT.md`.
 - Không lưu gì (zero history); bậc, số bài đúng lần đầu, số vòng thêm chỉ nằm
   trong màn chơi đang mở.

@@ -225,12 +225,22 @@ Mobile:
   Later batches: v3 (go-live re-record), v4 (`number_bus` `nb_*`), v5 (whole
   lines, below), v6 (`balance_scale`), v7 (2026-10-19: Ú òa look/support lines,
   Đúng vị trí question lines `ord_tap`/`ord_tap_row`; 2026-10-20 its level intros
-  `ordinal_intro_2..5`); `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
+  `ordinal_intro_2..5`), v8 (pending, not rendered — one batch for the
+  2026-10-21 Explore integration): 19 new ids `route_intro_2..5`,
+  `mirror_intro_2..5`, `mirror_hint_pair`, `game_number_chain`,
+  `chain2_forward_q`, `chain2_reverse_q`, `chain2_ask_end`, `chain2_ask_start`,
+  `chain2_mantra_forward`, `chain2_mantra_reverse`, `chain2_hint_dots`,
+  `chain2_intro_3`, `chain2_intro_4` (all in the pipeline inventory on
+  `integrate/explore-2026-10-21`); planned re-renders `tracing_continue_glow` /
+  `tracing_next_stroke` / `tracing_follow_dots` with «Bé…» (inventory text still
+  «Mình…», OpenSpec `fix-explore-play-reliability` 5.9); the export drops
+  `tower_which_bigger` (Xếp tháp, no new clip); `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
   `explore/exploreAudioCapability.ts` lists every accepted pack.
 - Explore prompt timing: the play shell reads `exercise.audioRefs` on mount,
-  except `RENDERER_CUED_PROMPT_GAMES` (`peekaboo_recall`), whose renderer cues
-  each line through `onPromptCue` when it fits the board (Ú òa: the look line,
-  then the question only once the gap is revealed; 🔊 repeats the last cue).
+  except `RENDERER_CUED_PROMPT_GAMES` (`peekaboo_recall`, `number_chain`), whose
+  renderer cues each line through `onPromptCue` when it fits the board (Ú òa: the
+  look line, then the question only once the gap is revealed; Máy nối tiếp: each
+  blank's question; 🔊 repeats the last cue).
   The support hint row/voice comes from `supportHintPhraseId` (a game's own line
   where the generic «nghe lại / nhìn kỹ từng lựa chọn» does not fit).
   `ordinal_position` speaks its actual question (`ordinalPositionKeys(isGrid,
@@ -373,7 +383,8 @@ Mobile:
   Leveled rounds are shared since 2026-10-18 (OpenSpec
   `update-explore-leveled-rounds`): `pattern_finder`, `missing_cell`,
   `peekaboo_recall`, `number_chain` and (2026-10-20, intro lines
-  `ordinal_intro_2..5` in pack v7) `ordinal_position` left
+  `ordinal_intro_2..5` in pack v7) `ordinal_position`, then (2026-10-21, see the
+  Dẫn đường + Soi gương entry below) `route_planner` and `mirror_build` left
   `isProgressiveExploreRunGame`, so a
   round is a one-level `LocalExploreProvider` batch of `roundSize`
   (`getExploreRunSize` returns it); multi-board batches in `planExploreRound`
@@ -430,7 +441,10 @@ Mobile:
   still progressive, one board per level (`PROGRESSIVE_RUN_SIZE.stack_tower = 4`),
   so any stored starting level opens on L1. The renderer now reports EVERY
   misplacement as `onAnswer(false)` (the physical slide-back stays; support
-  comes only from the shell) — not yet a leveled-rounds game. Each floor block
+  comes only from the shell), yet it stays a progressive climb, out of leveled
+  rounds, by the owner's choice (2026-10-21); `test:explore-leveled-rounds` pins
+  it in `PROGRESSIVE_WITH_MISSES` (renderer reports misses, no
+  `LEVELED_ROUNDS` entry, still `isProgressiveExploreRunGame`). Each floor block
   sits in a tap cell `layout.blocks[i].hit` ≥ `STACK_TOWER_MIN_HIT` (48pt) that
   is the touchable view (hitSlop cannot reach past a parent);
   `test:explore-stack-tower` measures the real tap areas through the render
@@ -468,9 +482,10 @@ Mobile:
   `BundledLocalGameSpec.version` (mirror_build = 2, same code as
   `fix/explore-missing-cell-leak`). The render harness has `knobs.window`;
   `test:explore-mirror-build` measures rendered cells at 320/375/430 pt.
-  New lines `route_intro_*`, `mirror_intro_*`, `mirror_hint_pair` wait for audio
-  v8; they are mirrored in `kido-pipeline` `exploreAudioInventory.ts` on the
-  integration branch `integrate/explore-2026-10-21` (66389c5) — without that,
+  New lines `route_intro_2..5`, `mirror_intro_2..5`, `mirror_hint_pair` (9) wait
+  for audio v8; they ARE in `kido-pipeline` `exploreAudioInventory.ts` on the
+  integration branch `integrate/explore-2026-10-21` (66389c5; the route-mirror
+  branch itself has no pipeline commit) — without them,
   `test:explore-prompt-audio` fails when mobile sits next to kido-pipeline.
   Soi gương switches to a compact layout (smaller prompt, no helper line under
   the grid, tighter gaps) when the measured board is too short for the roomy
@@ -483,9 +498,14 @@ Mobile:
   holds `onAnswer` calls made while paused (`heldAnswersRef`) and answers them
   when play goes on (miss first); `handleTryAgainSound` is silent while paused;
   renderer feedback lines are numbered against the board's question
-  (`voiceSeqRef`/`questionSeqRef`/`rendererLinesRef`) and, if one asked after
-  the question was in flight when the pause began, or the board is solved, the
-  question is NOT re-read on the way back; a break reminder dropped by the pause
+  (`voiceSeqRef`/`questionSeqRef`/`rendererLinesRef`): a solved board, or one
+  whose renderer was busy (`onBoardBusy`), is NOT asked again on the way back;
+  if a renderer line asked after the question was in flight when the pause
+  began, the renderer gets `RENDERER_GOES_ON_MS` (1.5 s) to say it again or
+  report the board, and the question is read only if it stays silent (a new
+  pause cancels that read). Xe buýt's mantra cut by a pause is re-said from
+  the start by `stage.mantra` (through `onSpeakFeedback`, so the held question
+  read is dropped) before the bus moves on; a break reminder dropped by the pause
   is said once afterwards (`breakLineOwedRef`). Route guidance cut by a pause is
   re-said by the renderer (`speakGuidance`/`owedGuidanceRef`). The play-shell
   contract §7 mounts the real `ExplorePlayScreen` through the harness with
@@ -509,7 +529,9 @@ Mobile:
   gained optional `size`/`changed`. Contract `npm run test:explore-number-chain`
   measures three classes of tricks through the real planner (no-knowledge,
   half-knowledge at the 50% floor, reverse) and drives the renderer through the
-  harness. Audio v8 (not rendered): `game_number_chain`, `chain2_*`.
+  harness. Audio v8 (not rendered): `game_number_chain` + nine `chain2_*` lines
+  (no `chain2_intro_5`: L2 / L5 reuse pack-v7 `chain_intro_2` / `chain_intro_4`,
+  «…số lớn tới hai mươi…»), mirrored in the pipeline inventory.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
