@@ -414,6 +414,25 @@ Mobile:
   `mobile/scripts/explore-render-harness.cjs` (hooks, fake clock, RN stubs):
   `test:explore-play-shell`, `test:explore-tracing`, `test:explore-route-planner`,
   number_bus §12.
+- Máy nối tiếp v2 (`number_chain`, OpenSpec `rework-explore-number-chain`,
+  2026-10-21; mobile branch `feat/explore-number-chain-rework`, server mirror at
+  `BundledLocalGameSpec.version` 2): the child fills BOTH blanks of the
+  two-machine chain in the worksheet's order (`params.blanks`: forward
+  mid→end, reverse mid→start; `answer.values`). Levels: L1 forward + dots on both
+  machines, L2 + reverse, L3 dots only on the machine worked first
+  (`dotSteps` 1), L4 no dots, L5 machines up to 5 (one ≥ 4); numbers 1–10,
+  machines 2–3 below L5. Cards: real errors (sign / forward-instead-of-undo,
+  off-by-one, one machine) + near numbers ≤ 4; the answer's rank by size is
+  drawn first (uniform) and the chain picked to fit
+  (`numberChainCandidatesForRanks`), with a card as close as the answer to every
+  anchor (input, shown numbers, 5.5) — do not swap in `buildNearTargetOptions`.
+  Renderer reports every miss, cues each blank's question (`number_chain` is in
+  `RENDERER_CUED_PROMPT_GAMES`), and after the second blank replays the chain
+  forward with `DotGroup` `changed` dots while saying the mantra, then
+  `onAnswer(true)`. `DotGroup` gained optional `size`/`changed`. Contract
+  `npm run test:explore-number-chain` measures shortcuts through the real
+  planner and drives the renderer through the harness. Audio v8 (not rendered):
+  `game_number_chain`, `chain2_*`.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/

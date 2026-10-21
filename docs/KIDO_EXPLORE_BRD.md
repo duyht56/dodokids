@@ -534,6 +534,35 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
   không từ đáp án generator), bài không tầm thường. Support: mức 1 gợi ô kế tiếp,
   mức 2 làm mờ ô không hợp lệ. L1→L5 tăng cỡ lưới + mật độ. Tái dùng lưới/ô vẽ
   bằng View + palette mù-màu-an-toàn.
+- **Máy nối tiếp (`number_chain`)** — chuỗi hai phép cộng/trừ của cuốn "Tách gộp
+  phạm vi 10" Bài 3 ("6 →−4→ □ →+2→ □"). Review 2026-10-21 chấm sư phạm 1/5 (bậc
+  1–2 hiện sẵn số giữa nên chỉ một phép tính, không có vật, mẹo "chọn số gần nhất"
+  qua vòng 57–74%); owner chốt **giữ và sửa** theo sát đề gốc (OpenSpec
+  `rework-explore-number-chain`, v2). Như đề gốc, bé điền **cả hai ô** lần lượt:
+  xuôi = ô giữa rồi ô cuối; ngược = ô giữa (gỡ máy thứ hai từ số cuối) rồi ô đầu.
+  Một bài đúng ngay lần đầu khi cả hai ô đúng lần đầu. Mọi số 1–10 (phạm vi của đề
+  gốc), máy bước 2–3 (máy ±1 chỉ là số liền sau và để lộ đáp án cạnh số đã thấy).
+
+  | Bậc | Bé làm | Hỗ trợ gỡ / thêm |
+  |---|---|---|
+  | 1 | xuôi, hai ô, đếm chấm | nhóm chấm dưới số + chấm trên cả hai máy |
+  | 2 | thêm chiều ngược | (chấm như bậc 1) |
+  | 3 | xuôi + ngược | máy tính sau không còn chấm |
+  | 4 | xuôi + ngược | không còn chấm, chỉ số |
+  | 5 | xuôi + ngược | máy bước lớn (tới 5, một máy ≥ 4) |
+
+  **Câu thần chú:** «Qua máy thêm thì nhiều lên, qua máy bớt thì ít đi.» (ngược:
+  «Đi ngược: máy thêm thì bớt, máy bớt thì thêm.»). Máy thêm có chấm xanh rơi vào,
+  máy bớt có chấm bị gạch rời đi; ô đang hỏi không bao giờ có chấm. **Thẻ nhiễu theo
+  lỗi thật** (4 thẻ/ô): ngược dấu (chiều ngược: chạy máy xuôi thay vì gỡ), lệch một,
+  chỉ chạy một máy; vị trí đáp án theo cỡ đều 1/4 và luôn có thẻ gần số đang hiện
+  bằng/hơn đáp án — các mẹo lớn nhất / bé nhất / thẻ giữa / vị trí / gần số đang
+  hiện qua vòng ≤ 0,15% (đoán mò 0–0,15%). **Sau mỗi bài đúng** máy diễn lại từng
+  chặng (chấm chạy qua máy) trong lúc Đô Đô nói câu thần chú, rồi mới chuyển bài;
+  giảm chuyển động thì từng bước đứng yên. Trợ giúp: mức 1 đưa chấm về cho máy đang
+  tính («Bé đếm chấm rồi xem máy thêm hay bớt nhé.»), mức 2 làm mờ một thẻ sai chưa
+  chạm. Chơi theo bậc (§10). Audio đợt v8: tên game + 10 câu `chain2_*`, chưa thu;
+  thiếu clip thì chữ và chấm vẫn đủ để chơi.
 
 **Hoãn / bỏ:** `tangram_assemble` (ghép hình) HOÃN vì cần kéo–xoay–ghép hình học,
 không hợp ràng buộc chạm-only và tái dùng engine thấp nhất — để làm riêng sau.
