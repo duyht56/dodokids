@@ -1371,10 +1371,14 @@ không?" có chữ "không" nghi vấn, là câu dùng chung nói khi đã hết
 **Tổng theo T-Lai:** 56 line + 13 câu cố định + 5 mảnh + 14 nhãn = **88 khoá mới,
 81 lần tổng hợp** (bỏ phần ghép dự phòng: 69). So với bản trước: bỏ câu giới
 thiệu dạng hai thẻ "có", câu phản hồi theo món không còn chữ "không", mảnh ghép 7
-→ 5. Pack **`explore-audio-vi-v9`**: pack v9 đã dùng cho đợt tích hợp Khám phá
-(21/10/2026, gồm cả `missing_cell_solve` của Ô thiếu), nên Thám tử là một đợt riêng theo
-luật một đợt một pack (BRD §9): **88 khoá mới, 81 lần tổng hợp**, pack ≈ 515 + 88 =
-603 clip. Sinh lại đúng khoá hỏng bằng `explore-audio:generate -- --keys`.
+→ 5. Pack **`explore-audio-vi-v9`**: pack v8 đã dùng cho đợt tích hợp Khám phá
+(21/10/2026, gồm cả `missing_cell_solve` của Ô thiếu), nên Thám tử là pack v9 riêng theo
+luật một đợt một pack (BRD §9): **88 khoá mới, 81 lần tổng hợp**, pack ≈ 515 − 1
+(`missing_cell_intro_2` đã bỏ khỏi inventory) + 88 = 602 clip. Gen bằng
+`explore-audio:generate` thường (không `--keys`, không `--force`): 7 nhãn `clue-*` cùng chữ với clip v8 đã duyệt của game khác (vd «chú mèo» của Cân thăng bằng, «quả táo» của bài đếm) được
+dùng lại. Chỉ dùng `--keys` để sinh lại đúng khoá `clue_*` bị reject, KHÔNG BAO GIỜ
+truyền 7 nhãn dùng chung — take ép sẽ ghi đè clip đã duyệt của game kia và đưa nó
+về `pending_review`.
 
 **Human Gate cho câu có chữ "không" (bắt buộc, không duyệt gộp):**
 
@@ -1422,7 +1426,9 @@ hình và phản hồi hình vẫn đủ để chơi. Bậc 6: thẻ thiếu cli
   6. Thẻ úp, bé nhớ hoặc tự chạm lật để nghe lại rồi chọn đúng.
 - **Chỉ hiện khi pack v9 có trong bundle.** Thiếu pack thì bậc 6 thẻ úp vô nghĩa
   (thẻ thiếu clip luôn ngửa) và câu dạy ký hiệu im. Code merge trước với bundled
-  `catalogVisible: false`; bật hiển thị trong cùng commit export pack v9 vào app.
+  `catalogVisible: false`. Từ khi Thám tử vào `main`, `explore-audio:export` cần đủ 88 khoá
+  `clue_*` đã duyệt, nên pack v9 được phép export vào app TRƯỚC khi bật hiển thị
+  (game vẫn ẩn); bật hiển thị là commit riêng sau đó, cùng cờ server.
   Không dùng `pendingGame` (hiện thẻ "Sắp ra mắt"). Không thêm audio pack vào
   `dependencyManifest`.
 - **Server mirror đúng cờ bundled ở mọi commit:** `explore.contract-codes.spec.ts`

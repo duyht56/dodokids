@@ -934,7 +934,7 @@ món-thẻ duy nhất) đạt **100%**. Vì vậy không claim rằng qua bậc 
 luôn dùng đủ ba thẻ. Số cấu trúc ít và bước 3→4 đổi cả số nhà lẫn số món cần
 được quan sát khi thử với bé.
 
-**Audio và phát hành:** inventory pack `explore-audio-vi-v8` thêm 88 khoá
+**Audio và phát hành:** inventory pack `explore-audio-vi-v9` thêm 88 khoá
 (56 câu liền, 13 câu cố định, 5 mảnh, 14 nhãn); dự kiến 81 lần tổng hợp mới sau
 khi dùng lại 7 nhãn cùng chữ. Đây là code/inventory, **chưa sinh, duyệt hay export
 pack v9** trong lát C. Game giữ `catalogVisible: false` cả bundled mobile lẫn
@@ -1064,8 +1064,10 @@ danh sách pack hỗ trợ đã có v9; chưa có pack đã duyệt trong bundle
 1-based; nhãn/mảnh ghép vẫn là dự phòng. Lát này thêm **88 khoá / dự kiến 81 lần
 tổng hợp**. Không TTS lúc chơi. Owner phải tự nghe riêng
 16 clip có chữ "không", thêm các câu "có"/"chưa có" và nhãn gần âm; reject rồi
-sinh lại đúng khoá bằng lệnh chọn khoá của pipeline, không dùng `--force` toàn
-pack. Chỉ bật game trong cùng đợt export v9 sau khi thử giấy đạt.
+sinh lại đúng khoá bằng `--keys`, không dùng `--force` toàn pack; gen lần đầu chạy
+thường để 7 nhãn cùng chữ với clip v8 của game khác được dùng lại (không truyền
+chúng vào `--keys`). Từ khi Thám tử vào `main`, export cần đủ 88 khoá đã duyệt, nên
+pack v9 có thể vào app khi game còn ẩn. Chỉ bật game trong cùng đợt export v9 sau khi thử giấy đạt.
 
 ---
 
@@ -1091,8 +1093,8 @@ pack. Chỉ bật game trong cùng đợt export v9 sau khi thử giấy đạt.
   Đô Đô (owner 2026-10-21, sau khi mỗi lần chạy hỏng được báo là một lần sai, §7),
   Soi gương (owner 2026-10-21, luật riêng: vòng 4 bài, đúng ngay ≥ 3/4 thì lên
   bậc, tối đa một vòng thêm — mỗi bài tô nhiều ô nên vòng ngắn hơn) và Thám tử Đô Đô
-  (`clue_detective`, 6 bậc, đã có code nhưng còn ẩn theo §7.15). Lên bậc ở
-  hai game này cũng có câu "bây giờ có gì mới" cho bậc 2–5. Một game có thể có
+  (`clue_detective`, 6 bậc, đã có code nhưng còn ẩn theo §7.15). Lên bậc ở Dẫn
+  đường và Soi gương có câu "bây giờ có gì mới" cho bậc 2–5, ở Thám tử cho bậc 2–6. Một game có thể có
   **bài làm quen** không tính điểm trước vòng đầu (hiện chỉ Ô thiếu: 2 bài 2×2,
   §7.12): chỉ ở lượt đầu mỗi lần vào game và chỉ khi bắt đầu ở bậc thấp nhất, không
   thuộc vòng 6 bài, không đếm "đúng ngay lần đầu". Lật thẻ tìm cặp, Xếp

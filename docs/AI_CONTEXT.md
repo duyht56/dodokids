@@ -253,7 +253,11 @@ Mobile:
   `CLUE_AUDIO_FRAGMENTS` are picked from there), 14 `clue-*` labels and 56 whole lines
   (`clue_has`, `clue_not`, `clue_fb_extra`, `clue_fb_missing`); pipeline
   `EXPLORE_AUDIO_PACK_VERSION` is v9; support for v9 does not mean approved v9 audio
-  is bundled.
+  is bundled. Since Thám tử is on `main`, `explore-audio:export` needs all 88 clue keys
+  approved, so any audio fix for a live game first needs the v9 clue batch (it may be
+  exported while the game is still hidden). Generate v9 with a plain `generate`: 7
+  `clue-*` labels share text with approved v8 clips of other games and must never be
+  passed to `--keys`.
   `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
   `explore/exploreAudioCapability.ts` lists every accepted pack.
 - Explore prompt timing: the play shell reads `exercise.audioRefs` on mount,

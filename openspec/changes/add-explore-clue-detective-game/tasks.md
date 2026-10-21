@@ -294,16 +294,21 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
 
 ## 7. Audio batch (Human Gate)
 
-- [ ] 7.1 Gen ~81 lần tổng hợp VieNeu `dodo-clone2`, `VIENEU_TEMPERATURE=0.7`, bằng
-      `explore-audio:generate -- --keys <88 khoá v9>`, không `--force` toàn pack
+- [ ] 7.1 Gen ~81 lần tổng hợp VieNeu `dodo-clone2`:
+      `VIENEU_TEMPERATURE=0.7 npm run explore-audio:generate` thường (không `--keys`,
+      không `--force`), để 7 nhãn `clue-*` cùng chữ với clip v8 đã duyệt của game khác (vd «chú mèo» của Cân thăng bằng, «quả táo» của bài đếm) được dùng lại.
+      `--keys` chỉ để sinh lại khoá `clue_*` bị reject ở 7.2; không bao giờ truyền 7
+      nhãn dùng chung (take ép ghi đè clip đã duyệt của game kia)
 - [ ] 7.2 Owner TỰ NGHE riêng 16 clip có chữ "không" (không duyệt gộp) + 14
       `clue_has` + 14 `clue_fb_missing` + chuỗi clip ghép dự phòng; nghe liền chim /
       cá / chó / rùa / bướm; checklist "số chữ 'không' nghe được = số chữ 'không'
       trong câu"; clip chưa rõ → reject → sinh lại đúng khoá đó (6.1) → nghe lại.
       Dự trù 10–15 phút
-- [ ] 7.3 Export pack v9 → mobile; trong CÙNG commit bật hiển thị
-      (`catalogVisible` của `clue_detective` thành hiện); test offline-audio +
-      prompt-lines + prompt-audio
+- [ ] 7.3 Export pack v9 → mobile; test offline-audio + prompt-lines + prompt-audio.
+      Được export khi game còn ẩn: từ khi Thám tử vào `main`, mọi lần export (kể cả sửa
+      clip của game khác) cần đủ 88 khoá `clue_*` đã duyệt. Bật hiển thị
+      (`catalogVisible` của `clue_detective`) là commit riêng sau đó, cùng cờ server
+      (8.4), sau 10.6
 
 ## 8. kido-server (push = deploy)
 
@@ -369,6 +374,13 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
       chạm nhầm cả hai loại, trợ giúp mức 2, nút 🔊, máy bay (offline), tắt tiếng,
       cỡ chữ 1,3
 - [ ] 10.5 Review workflow (nhiều góc nhìn, kiểm chéo) như Cân §8
+- [ ] 10.6 (Cổng trước khi bật hiển thị) Test play-shell gắn `ClueDetectiveRenderer` thật cạnh
+      màn chơi, chạy effect con trước cha như React: tạm dừng lúc rảnh (đọc câu hỏi + thẻ
+      một lần), lúc đang đọc thẻ / trợ giúp (renderer tự đọc tiếp, màn chơi không đọc
+      chồng), lúc khoảng lặng giữa hai câu, lúc bài mẫu / phản hồi / diễn lại. Vòng
+      `onPromptCue` của `verify-explore-play-shell-contracts.cjs` không phủ Thám tử
+      (game dùng `registerPromptReplay`). Kèm xem lại: tiếp tục bài mẫu / diễn lại sau
+      tạm dừng vẫn hiện cửa chớp + đèn soi cũ trong lúc hỏi lại (có từ trước merge)
 
 ## 11. Thử với bé sau khi có bản chạy
 
