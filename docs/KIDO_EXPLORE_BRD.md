@@ -432,28 +432,30 @@ ngoài việc bump generatorVersion do pool đổi.
 
 ### 7.10. Game 10 — Xếp tháp cho Đô Đô (`stack_tower`)
 
-**Mục tiêu:** xếp thứ tự theo MỘT chiều đo đơn điệu (seriation) — to→nhỏ, ngắn→dài, thấp→cao, ít→nhiều — kỹ năng `math_seriation_size` (`_size` L2, `_length` L3, `_height` L3, `_quantity` L4); L1 là bài khởi động so sánh hai vật (`math_compare_size`). Construct logic mạnh nhất của domain `seq`: chỉ có một thứ tự đúng, neo ở hai đầu.
+**Mục tiêu:** xếp thứ tự theo MỘT chiều đo đơn điệu (seriation) — to→nhỏ, ngắn→dài, thấp→cao, ít→nhiều — kỹ năng `math_seriation_size` (`_size` L1, `_length`/`_height` L2, `_quantity` L3, 5 vật L4). Construct logic mạnh nhất của domain `seq`: chỉ có một thứ tự đúng, neo ở hai đầu.
+
+> **Cập nhật 2026-10-21 (OpenSpec `fix-explore-stack-tower-light`, sau review 12 game Khám phá).** Owner chốt giữ game và sửa nhẹ: bỏ bậc khởi động hai khối "Bạn nào to hơn?" (so sánh, chưa phải xếp thứ tự), còn bốn bậc đánh số lại L1–L4 (generator `stack-tower-v2`); mỗi lần đặt sai được báo cho màn chơi chung; mỗi khối trên sàn có ô chạm ≥ 48pt; nhịp leo của Đô Đô và lời báo xong dừng theo tạm dừng chung; chấm trên toa tàu màu mực. Vẫn chạy lượt progressive, chưa bật lượt theo bậc.
 
 #### Cách chơi
 
 - Các khối nằm ngổn ngang trên sàn (đã xáo trộn theo seed). Trẻ chạm từng khối theo đúng thứ tự; khối bay lên đúng chỗ: tháp xếp chồng lên cao và canh giữa (size), tàu nối toa từ trái sang phải (length, quantity), dãy nhà thấp→cao trên cùng một nền (height).
-- Chạm sai thứ tự được trả lời bằng **vật lý, không bằng chữ**: khối được "thử" lên đỉnh, cả công trình nghiêng 8° rồi lắc về, khối trượt xuống sàn kèm tiếng "thử lại". Không có trạng thái thua, không đếm sai, không báo `onAnswer(false)`; tàu chở chấm (quantity) chỉ trượt về, không nghiêng.
-- Xếp xong, Đô Đô leo từng khối (~250 ms/khối; với tàu: nhảy từng toa rồi cả tàu chạy khỏi màn hình) rồi vẫy tay. Chỉ lúc đó bài mới được tính hoàn thành (≤ 1,5 s sau chạm cuối). L1: chạm vào khối to hơn → Đô Đô nhảy lên khối đó.
-- Hỗ trợ: sau 2 lần trượt (hoặc hỗ trợ mức 1 của màn chơi) khối đúng tiếp theo nhấp nháy có viền; mức 2 làm mờ những khối rõ ràng sai để trẻ chọn giữa hai khối. Tôn trọng cài đặt giảm chuyển động: khối vào chỗ ngay, Đô Đô xuất hiện trên đỉnh, âm thanh như cũ.
+- Chạm sai thứ tự được trả lời trước hết bằng **vật lý**: khối được "thử" lên đỉnh, cả công trình nghiêng 8° rồi lắc về, khối trượt xuống sàn; tàu chở chấm (quantity) chỉ trượt về, không nghiêng. Mỗi lần đặt sai cũng được báo `onAnswer(false)` (từ 2026-10-21): màn chơi chung phát tiếng "thử lại", hiện hàng gợi ý, nâng mức hỗ trợ và giữ nguyên bài. Không có trạng thái thua.
+- Xếp xong, Đô Đô leo từng khối (~250 ms/khối; với tàu: nhảy từng toa rồi cả tàu chạy khỏi màn hình) rồi vẫy tay. Chỉ lúc đó bài mới được tính hoàn thành (`onAnswer(true)`, ≤ 1,5 s sau chạm cuối). Khi lượt chơi tạm dừng (hộp «Bé muốn nghỉ chưa?», app ra nền), Đô Đô đứng lại sau bước đang nhảy và bài chưa được báo xong cho tới khi bé quay lại.
+- Hỗ trợ theo mức của màn chơi chung (tăng ở mỗi lần đặt sai): mức 1 khối đúng tiếp theo nhấp nháy có viền; mức 2 làm mờ những khối rõ ràng sai để trẻ chọn giữa hai khối. Tôn trọng cài đặt giảm chuyển động: khối vào chỗ ngay, Đô Đô xuất hiện trên đỉnh, âm thanh như cũ.
+- Mỗi khối trên sàn nằm trong một ô chạm ≥ 48×48pt (khối nhỏ nhất vẽ 18pt vẫn chạm được cả ô), các ô không chồng nhau; khối đã xếp lên công trình không nhận chạm.
 
 #### Độ khó
 
-- L1: 2 khối, "Bạn nào to hơn?", chênh ≥ 1,5 lần.
-- L2: 3 khối, to→nhỏ, chênh ≥ 1,4 lần.
-- L3: 4 khối, một trong ba chiều to→nhỏ / ngắn→dài / thấp→cao, chênh ≥ 1,25 lần.
-- L4: 4 toa tàu ít→nhiều, mỗi toa 1–6 chấm khác nhau (bắc cầu sang `num`, trẻ được đọc số chấm khi nối toa).
-- L5: 5 khối, một trong ba chiều đo, chênh ≥ 1,2 lần.
+- L1: 3 khối, to→nhỏ, chênh ≥ 1,4 lần.
+- L2: 4 khối, một trong ba chiều to→nhỏ / ngắn→dài / thấp→cao, chênh ≥ 1,25 lần.
+- L3: 4 toa tàu ít→nhiều, mỗi toa 1–6 chấm khác nhau (chấm màu mực, thấy rõ trên mọi màu toa; bắc cầu sang `num`, trẻ được đọc số chấm khi nối toa).
+- L4: 5 khối, một trong ba chiều đo, chênh ≥ 1,2 lần.
 
-Mỗi lượt chơi là chuỗi L1→L5 (5 bảng). Bước chênh luôn ≥ 20% theo catalog (dưới 20% là mơ hồ). Ở L3/L5 mỗi chiều đo phải đến được trẻ ≥ 20% số vòng.
+(Bậc khởi động 2 khối "Bạn nào to hơn?" đã bỏ ngày 2026-10-21; bốn bậc còn lại giữ nguyên cấu hình của L2–L5 cũ.) Mỗi lượt chơi là chuỗi L1→L4 (4 bảng, mỗi bậc một bảng); bậc bắt đầu phụ huynh lưu từ bản cũ không đổi gì, lượt luôn mở ở L1. Bước chênh luôn ≥ 20% theo catalog (dưới 20% là mơ hồ). Ở L2/L4 mỗi chiều đo phải đến được trẻ ≥ 20% số vòng.
 
 #### Sinh bài
 
-Deterministic theo seed: chọn chiều đo trong cấp, sinh chuỗi magnitude giảm dần từ 1 với tỉ lệ trong [minRatio, minRatio + 0,15] (làm tròn xuống 3 chữ số nên tỉ lệ lưu luôn đủ), gán màu khác nhau từ palette 6 màu (màu không bao giờ là gợi ý kích thước), xáo trộn sàn sao cho không trùng và không ngược thứ tự đáp án. Validator độc lập suy lại thứ tự từ magnitude, kiểm tra số khối, màu, tỉ lệ/chấm, sàn, prompt, audio và replay byte-identical. Bố cục cảnh là hàm thuần: khối ≤ 85% bề rộng, công trình + Đô Đô nằm trong chiều cao, không chồng lấn.
+Deterministic theo seed: chọn chiều đo trong cấp, sinh chuỗi magnitude giảm dần từ 1 với tỉ lệ trong [minRatio, minRatio + 0,15] (làm tròn xuống 3 chữ số nên tỉ lệ lưu luôn đủ), gán màu khác nhau từ palette 6 màu (màu không bao giờ là gợi ý kích thước), xáo trộn sàn sao cho không trùng và không ngược thứ tự đáp án. Validator độc lập suy lại thứ tự từ magnitude, kiểm tra số khối, màu, tỉ lệ/chấm, sàn, prompt, audio và replay byte-identical. Bố cục cảnh là hàm thuần: khối ≤ 85% bề rộng, công trình + Đô Đô nằm trong chiều cao, không chồng lấn, mỗi khối trên sàn có ô chạm ≥ 48pt (contract đo vùng chạm thật trên màn 320/375/430pt).
 
 #### Asset
 
@@ -461,7 +463,7 @@ Chỉ primitive (khối màu bo góc, toa có bánh xe, chấm `DotGroup`) và m
 
 #### Audio
 
-Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đọc qua prompt-audio: "Xếp từ to đến nhỏ nhé.", "Xếp từ ngắn đến dài nhé.", "Xếp từ thấp đến cao nhé.", "Xếp từ ít đến nhiều nhé.", "Bạn nào to hơn?" (`tower_*`). Toa chấm được đếm to bằng clip số (`numberKey`). Khen/thử lại/gợi ý do màn chơi chung đọc. Audio là best-effort: thiếu clip không chặn chơi (pack v2 gen một lần sau).
+Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đọc qua prompt-audio: "Xếp từ to đến nhỏ nhé.", "Xếp từ ngắn đến dài nhé.", "Xếp từ thấp đến cao nhé.", "Xếp từ ít đến nhiều nhé." (`tower_*`; câu "Bạn nào to hơn?" đã rời danh mục cùng bậc 2 khối, file clip cũ vẫn trong app). Toa chấm được đếm to bằng clip số (`numberKey`). Khen/thử lại/gợi ý do màn chơi chung đọc. Audio là best-effort: thiếu clip không chặn chơi (pack v2 gen một lần sau).
 
 ### 7.11. Game 11 — Ai lạc đàn? (`odd_one_out`)
 
