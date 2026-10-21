@@ -34,11 +34,18 @@
 - [x] 5.5 Test: `test:explore-play-shell` §7 (mount màn chơi thật), `test:explore-route-planner` (lời dẫn bị cắt); đỏ trên mã trước sửa.
 - [ ] 5.6 Không làm ở đây (phiên khác): Xe buýt C05/C15–C17, Cân C06 (câu nhẹ của renderer bị tạm dừng huỷ trả `false` cho renderer tự nói lại), Xưởng C09/C12/C14, Ú òa C04.
 
-## 6. Kiểm chứng
+## 6. Review đối kháng nhánh (ROUTE-MIRROR-01..03)
 
-- [x] 6.1 mobile: `npx tsc --noEmit`, `npm run lint` (0 lỗi, 9 cảnh báo có sẵn), mọi `npm run test:*` xanh; các kiểm mới đỏ trên mã cũ (chép nguyên 1344/10.000 ở bậc 1; chạy hỏng không báo).
-- [x] 6.2 kido-server: `npx jest src/modules/explore` (21 suite, 238 test), `npm run build`.
-- [x] 6.3 iOS Simulator SE 375×667: Dẫn đường vòng 3/6 đúng lần đầu → luyện thêm, vòng 4/6 → "Bậc 2/5"; chạy hỏng không đổi cỡ bảng; tạm dừng giữ Đô Đô đứng yên; bậc 5 6/6 → hết lượt. Soi gương: gợi ý một cặp, chạm ô đích thì tắt; 3/4 → "Bậc 2/5"; bậc 5 ô 44 pt vừa màn, 3/4 ở bậc 5 → hết lượt.
-- [ ] 6.4 Máy thật / bé thật: thời gian một vòng của trẻ (đo trên sim chỉ là bấm theo kịch bản); máy 320 pt cao ≤ 640 pt ở Soi gương bậc 5 (nút Xong lệch dưới mép ~24 pt theo tính toán).
-- [ ] 6.5 Dọn `isContinuousExploreRunGame` sau khi gộp nhánh Xếp tháp (contract của nó còn gọi).
-- [ ] 6.6 Owner duyệt, merge nhánh mobile + server và phát hành.
+- [x] 6.1 01: Soi gương bố cục gọn khi bảng thấp (đề nhỏ, bỏ dòng nhắc, khe hẹp), khe chọn theo cả chiều cao; dải phản hồi `pointerEvents="none"`; contract đo cả chiều cao trên 6 cỡ máy.
+- [x] 6.2 02: `onBoardBusy` (prop renderer mới, tuỳ chọn); Dẫn đường bận từ lúc bấm chạy tới khi lời kết được gửi; tạm dừng lúc bận thì không đọc câu hỏi.
+- [x] 6.3 03: renderer bị cắt giữa câu có 1,5 s để nói tiếp / báo bài; im lặng thì câu hỏi được đọc. Lần tạm dừng sau huỷ lần đọc đang chờ.
+- [x] 6.4 Ghi chú: 9 câu audio đã có trong inventory pipeline ở nhánh tích hợp (66389c5); lý do thật của Xếp tháp (chủ sản phẩm chưa bật).
+
+## 7. Kiểm chứng
+
+- [x] 7.1 mobile: `npx tsc --noEmit`, `npm run lint` (0 lỗi, 9 cảnh báo có sẵn), mọi `npm run test:*` xanh; các kiểm mới đỏ trên mã cũ (chép nguyên 1344/10.000 ở bậc 1; chạy hỏng không báo).
+- [x] 7.2 kido-server: `npx jest src/modules/explore` (21 suite, 238 test), `npm run build`.
+- [x] 7.3 iOS Simulator SE 375×667: Dẫn đường vòng 3/6 đúng lần đầu → luyện thêm, vòng 4/6 → "Bậc 2/5"; chạy hỏng không đổi cỡ bảng; tạm dừng giữ Đô Đô đứng yên; bậc 5 6/6 → hết lượt. Soi gương: gợi ý một cặp, chạm ô đích thì tắt; 3/4 → "Bậc 2/5"; bậc 5 ô 44 pt vừa màn, 3/4 ở bậc 5 → hết lượt.
+- [ ] 7.4 Máy thật / bé thật: thời gian một vòng của trẻ (đo trên sim chỉ là bấm theo kịch bản); bố cục gọn của Soi gương trên máy Android 16:9 thật (iOS Simulator không có máy này).
+- [ ] 7.5 Dọn `isContinuousExploreRunGame` sau khi gộp nhánh Xếp tháp (contract của nó còn gọi).
+- [ ] 7.6 Owner duyệt, merge nhánh mobile + server và phát hành.

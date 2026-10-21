@@ -924,8 +924,9 @@ gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
   và Soi gương (owner 2026-10-21, luật riêng: vòng 4 bài, đúng ngay ≥ 3/4 thì lên
   bậc, tối đa một vòng thêm — mỗi bài tô nhiều ô nên vòng ngắn hơn). Lên bậc ở
   hai game này cũng có câu "bây giờ có gì mới" cho bậc 2–5. Lật thẻ tìm cặp, Xếp
-  tháp cho Đô Đô, Xưởng luyện nét, Xe buýt hai tầng giữ cách chạy cũ (Xếp tháp
-  chưa bật, Xe buýt chờ playtest). Xoay hình không còn
+  tháp cho Đô Đô, Xưởng luyện nét, Xe buýt hai tầng giữ cách chạy cũ: Xếp tháp đã
+  báo lần đặt sai (2026-10-21) nhưng chủ sản phẩm chọn chưa bật; Xe buýt chờ
+  playtest. Xoay hình không còn
   là game riêng: từ 2026-10-20 nó là họ `rotation` ở bậc 3 của Tìm quy luật (§7.7),
   nên chơi theo bậc cùng Tìm quy luật.
 

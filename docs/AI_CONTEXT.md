@@ -383,8 +383,10 @@ Mobile:
   exclusions for multi-board batches; the authored branch caps earlier
   exclusions at capacity − slots (balance L2 has 12 boards); Ú òa's look
   window waits for the board to open (`opened`). Only games whose renderer
-  reports every miss may opt in (memory/stack/tracing/number_bus scenes only
-  send `onAnswer(true)`); those are owner decisions. Each leveled game's rule is
+  reports every miss may opt in (memory/tracing and number_bus's board_all /
+  free_split only send `onAnswer(true)`); `stack_tower` reports wrong
+  placements since 2026-10-21 but stays progressive because the owner chose not
+  to turn it on yet. Each leveled game's rule is
   pinned in the contract (`RULE_EXCEPTIONS`: default 6/4/1, `mirror_build`
   4/3/1, `balance_scale` its own pass mark). Contract:
   `npm run test:explore-leveled-rounds`.
@@ -444,7 +446,16 @@ Mobile:
   `fix/explore-missing-cell-leak`). The render harness has `knobs.window`;
   `test:explore-mirror-build` measures rendered cells at 320/375/430 pt.
   New lines `route_intro_*`, `mirror_intro_*`, `mirror_hint_pair` wait for audio
-  v8 (not yet in `kido-pipeline` `exploreAudioInventory.ts`).
+  v8; they are mirrored in `kido-pipeline` `exploreAudioInventory.ts` on the
+  integration branch `integrate/explore-2026-10-21` (66389c5) — without that,
+  `test:explore-prompt-audio` fails when mobile sits next to kido-pipeline.
+  Soi gương switches to a compact layout (smaller prompt, no helper line under
+  the grid, tighter gaps) when the measured board is too short for the roomy
+  one at its level, so "Xong" never lands under the play screen's feedback
+  strip on 16:9 Android phones (that strip is `pointerEvents="none"` too). After
+  a pause, a renderer playing out the child's action (`onBoardBusy`, Dẫn đường's
+  walk) never gets the question read over its ending; one cut off mid-line gets
+  1.5 s to go on before the question is read (never silence).
   Pause follow-ups from the adversarial review of Đợt 1 (same change): the shell
   holds `onAnswer` calls made while paused (`heldAnswersRef`) and answers them
   when play goes on (miss first); `handleTryAgainSound` is silent while paused;

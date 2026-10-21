@@ -27,11 +27,15 @@ After the first wrong "Xong" on a board (support level 1) Đô Đô SHALL show O
 - **THEN** dots above the columns show their distance to the mirror and no further cell is ringed
 
 ### Requirement: Touch targets measured on phones
-Every right-half cell SHALL be at least 44 × 44 pt at every level on 320, 375 and 430 pt wide phones, with cells at least 4 pt apart and the whole row on screen. Cells SHALL be sized from the measured play area (`mirrorBuildCellLayout`): the grid keeps to the play column while 44 pt cells fit there and otherwise uses the column's side padding down to 8 pt from the screen edge. On a 375 × 667 phone the grid, the prompt and "Xong" SHALL fit without scrolling at every level. The conformance check SHALL measure the rendered cells, not read a constant.
+Every right-half cell SHALL be at least 44 × 44 pt at every level on 320, 375 and 430 pt wide phones, with cells at least 4 pt apart and the whole row on screen. Cells SHALL be sized from the measured play area (`mirrorBuildCellLayout`): the grid keeps to the play column while 44 pt cells fit there and otherwise uses the column's side padding down to 8 pt from the screen edge, choosing the gap by both the width and the height. The prompt, the grid and "Xong" SHALL fit the board's height at every level on 320×640, 360×640 and 360×800 Android phones with navigation buttons, a 375×667 iPhone SE and a 430 pt iPhone, so "Xong" never sits under the play screen's feedback strip: when the board is too short for the roomy layout at its level, the renderer SHALL switch to a compact one (a smaller prompt, no helper line under the grid, tighter spacing), measured on the roomy prompt so it never switches back. The play screen's feedback strip SHALL not take touches. The conformance check SHALL lay the rendered board out from its own styles and measure both the cells and the column's height, not read a constant.
 
 #### Scenario: Level 5 on an iPhone SE
 - **WHEN** a level-5 board is shown on a 375 × 667 phone
 - **THEN** each right cell is at least 44 pt, cells are 6 pt apart, and "Xong" is on screen
+
+#### Scenario: Level 5 on a 16:9 Android phone with navigation buttons
+- **WHEN** a level-5 board is shown on a 360 × 640 phone whose app area is 568 pt tall
+- **THEN** the compact layout is used, each right cell is at least 44 pt, and "Xong" sits inside the board above the feedback strip and takes the tap
 
 ## MODIFIED Requirements
 

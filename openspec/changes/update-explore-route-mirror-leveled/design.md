@@ -86,12 +86,22 @@ chơi đo bằng `onLayout` (trừ vùng nút Xong 110 pt, khoảng cách, hàng
 luôn giữ chỗ để mức 2 không làm lưới đổi cỡ); khung đầu ước lượng từ cửa sổ.
 
 Đo trên harness (render renderer thật, đọc style từng ô phải): 320 pt — 44 pt mọi
-bậc 2–5 (bậc 1: 63); 375 pt — 49 pt bậc 2–4, 44 pt bậc 5 (theo chiều cao màn
-667); 430 pt — 58 pt. Trên iOS Simulator SE 375×667: bậc 5 ô 44 pt, khe 6 pt,
+bậc 2–5; 360 pt — 45–46 pt; 375 pt — 49 pt bậc 2–4, 44 pt bậc 5 (theo chiều cao
+màn 667); 430 pt — 58 pt. Trên iOS Simulator SE 375×667: bậc 5 ô 44 pt, khe 6 pt,
 lưới 244/247 pt ngân sách, nút Xong và dải phản hồi vẫn trên màn.
 
-Giới hạn còn lại: máy 320 pt mà cao ≤ 640 pt thì bậc 5 (5 hàng × 44 pt) đẩy nút
-Xong xuống dưới mép khoảng 24 pt; giữ ô 44 pt thay vì thu nhỏ.
+**Bố cục gọn (review nhánh ROUTE-MIRROR-01).** Máy Android 16:9 có thanh nút
+điều hướng (360×640: app còn 568 pt, bảng 406 pt) không đủ chỗ cho bố cục thường
+ở bậc 3–5: nút Xong rơi xuống dải phản hồi của màn chơi, nơi chạm không tới.
+Renderer đo chiều cao cả bảng (`onLayout`) và chiều cao hàng đề (chỉ đo ở bố cục
+thường, để đổi sang gọn không tự đổi ngược), rồi dùng bố cục gọn khi bố cục
+thường không chứa nổi lưới nhỏ nhất của bậc (`mirrorBuildMinGridHeight`: ô 44,
+khe 4): đề 16/20 với Đô Đô 44 pt, bỏ dòng chữ nhắc dưới lưới (giữ nút Xong, vùng
+60 pt), khoảng cách 8 / lề trên 4. `mirrorBuildCellLayout` chọn khe theo cả bề
+ngang lẫn chiều cao. Dải phản hồi của màn chơi thêm `pointerEvents="none"` làm
+lưới an toàn. Contract dựng cột dọc từ style đã render trên 320×568, 360×568,
+360×600, 375×647, 360×728, 430×839 (chiều cao app nhận) và đòi cả cột ≤ chiều
+cao bảng; trên mã trước, 320×568 bậc 3 đã tràn (432/406 pt).
 
 ## 8. Phiên bản và server
 

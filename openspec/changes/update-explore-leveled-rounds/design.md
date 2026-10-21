@@ -11,6 +11,10 @@ MỌI lần sai. Game chỉ gọi `onAnswer(true)` (Lật thẻ tìm cặp, Xế
 chặn điều này: nó đọc cây cú pháp của renderer (bỏ qua chú thích) và đòi một lời
 gọi `onAnswer(...)` với đối số khác `true`.
 
+Cập nhật 2026-10-21: Dẫn đường báo mỗi lần chạy hỏng và đã bật (change
+`update-explore-route-mirror-leveled`); Xếp tháp đã báo lần đặt sai nhưng
+chủ sản phẩm chọn chưa bật, nên vẫn chạy progressive.
+
 ## 2. Vòng là một batch một bậc
 
 `createExploreRunBatch` giữ nguyên ba nhánh: authored (`runPolicy`),

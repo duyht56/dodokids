@@ -48,15 +48,23 @@ A game whose board shows its own guidance and fills the screen down to its contr
 - **THEN** «Đúng rồi!» floats over the bubble while the board is locked and the board keeps its size
 
 ### Requirement: A pause never loses or misplaces a line
-While the run is paused, an answer a renderer reports (its own clock ran on behind the exit card) SHALL make no chime, praise or board change; it SHALL be answered once play goes on, a miss before a success. A "try again" cue a renderer fires while paused SHALL be silent. When play goes on, the shell SHALL NOT read the board's question again if the board is solved or if, when the pause began, the renderer was saying its own line about the board asked for after the board's question (a closing line, a mantra, a failed run's guidance) — that renderer goes on instead; any other board SHALL hear its question again as before. A break reminder that the pause dropped before it started SHALL be said once play goes on, once.
+While the run is paused, an answer a renderer reports (its own clock ran on behind the exit card) SHALL make no chime, praise or board change; it SHALL be answered once play goes on, a miss before a success. A "try again" cue a renderer fires while paused SHALL be silent. When play goes on, the shell SHALL NOT read the board's question again if the board is solved or if, when the pause began, the renderer was playing out the child's action and said so (`onBoardBusy`, Dẫn đường's walk until its ending is asked for). If, when the pause began, the renderer was saying its own line about the board asked for after the board's question (a closing line, a mantra, a failed run's guidance, a hint), the renderer SHALL get 1.5 s to go on — say a line again or report the board — and the question SHALL be read only if it does neither, so the child is never left in silence; a new pause cancels that pending read. Any other board SHALL hear its question again at once, as before. A break reminder that the pause dropped before it started SHALL be said once play goes on, once.
 
 #### Scenario: Success reported behind the exit card
 - **WHEN** a renderer reports a solved board while the exit card is open
 - **THEN** nothing chimes or praises and the board stays; after «Ở lại chơi» the chime and praise play and the next board comes
 
 #### Scenario: Closing line cut by the exit card
-- **WHEN** the child opens the exit card while the renderer is saying its closing line and then stays
+- **WHEN** the child opens the exit card while the renderer is saying its closing line and then stays, and the renderer reports the board within 1.5 s
 - **THEN** the board's question is not read over the solved board
+
+#### Scenario: Hint cut by the exit card
+- **WHEN** the exit card cuts Tìm quy luật's rule hint off and the renderer says nothing more after the child stays
+- **THEN** the board's question is read 1.5 s later
+
+#### Scenario: Exit card mid-walk
+- **WHEN** the child opens the exit card while Đô Đô is walking and then stays
+- **THEN** the question is not read; the walk goes on and its ending (guidance or praise) is what is said
 
 #### Scenario: Break reminder due behind the card
 - **WHEN** the break reminder comes due while the exit card is open
