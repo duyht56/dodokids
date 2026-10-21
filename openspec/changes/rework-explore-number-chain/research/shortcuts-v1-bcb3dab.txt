@@ -1,0 +1,61 @@
+
+L1
+  guess              board  33.2%  pass4/6  10.5%  +extra  19.4%
+  max                board  37.9%  pass4/6  13.8%  +extra  25.8%
+  min                board  37.2%  pass4/6  13.0%  +extra  24.9%
+  median_low         board  25.0%  pass4/6   3.9%  +extra   7.9%
+  median_high        board  25.0%  pass4/6   3.9%  +extra   7.9%
+  closest_shown_end  board  65.1%  pass4/6  65.5%  +extra  89.3%
+  closest_mid        board  69.7%  pass4/6  74.4%  +extra  93.3%
+  pos0               board  33.6%  pass4/6   9.3%  +extra  18.8%
+  pos1               board  33.0%  pass4/6  11.1%  +extra  18.3%
+  pos2               board  33.4%  pass4/6   8.8%  +extra  19.2%
+
+L2
+  guess              board  25.4%  pass4/6   4.3%  +extra   7.8%
+  max                board  27.8%  pass4/6   5.5%  +extra  10.2%
+  min                board  28.5%  pass4/6   5.8%  +extra  11.3%
+  median_low         board  21.6%  pass4/6   1.9%  +extra   4.1%
+  median_high        board  22.0%  pass4/6   2.3%  +extra   4.4%
+  closest_shown_end  board  54.1%  pass4/6  41.6%  +extra  67.5%
+  closest_mid        board  61.0%  pass4/6  57.0%  +extra  82.3%
+  pos0               board  25.4%  pass4/6   3.6%  +extra   7.4%
+  pos1               board  25.1%  pass4/6   4.2%  +extra   8.2%
+  pos2               board  24.3%  pass4/6   2.9%  +extra   6.3%
+  pos3               board  25.1%  pass4/6   3.3%  +extra   6.8%
+
+L3
+  guess              board  24.6%  pass4/6   3.2%  +extra   6.9%
+  max                board  26.9%  pass4/6   4.5%  +extra   8.6%
+  min                board  27.2%  pass4/6   4.5%  +extra  10.2%
+  median_low         board  22.9%  pass4/6   2.9%  +extra   5.5%
+  median_high        board  23.0%  pass4/6   3.5%  +extra   5.5%
+  closest_shown_end  board  44.3%  pass4/6  24.4%  +extra  42.9%
+  pos0               board  24.7%  pass4/6   4.0%  +extra   7.3%
+  pos1               board  24.5%  pass4/6   3.5%  +extra   6.8%
+  pos2               board  25.6%  pass4/6   4.4%  +extra   8.0%
+  pos3               board  25.1%  pass4/6   3.5%  +extra   7.5%
+
+L4
+  guess              board  25.2%  pass4/6   3.5%  +extra   7.5%
+  max                board  27.4%  pass4/6   5.7%  +extra  11.2%
+  min                board  27.2%  pass4/6   4.6%  +extra   9.7%
+  median_low         board  22.6%  pass4/6   2.7%  +extra   5.5%
+  median_high        board  22.9%  pass4/6   2.9%  +extra   6.1%
+  closest_shown_end  board  46.1%  pass4/6  27.8%  +extra  48.6%
+  pos0               board  25.1%  pass4/6   4.2%  +extra   8.3%
+  pos1               board  24.4%  pass4/6   3.6%  +extra   6.7%
+  pos2               board  25.6%  pass4/6   3.4%  +extra   6.9%
+  pos3               board  24.9%  pass4/6   4.0%  +extra   8.0%
+
+L5
+  guess              board  25.2%  pass4/6   3.7%  +extra   7.3%
+  max                board  27.4%  pass4/6   5.0%  +extra   9.7%
+  min                board  27.3%  pass4/6   4.5%  +extra   9.8%
+  median_low         board  22.8%  pass4/6   3.0%  +extra   5.3%
+  median_high        board  22.5%  pass4/6   2.3%  +extra   4.8%
+  closest_shown_end  board  42.8%  pass4/6  21.1%  +extra  37.8%
+  pos0               board  25.4%  pass4/6   3.4%  +extra   6.9%
+  pos1               board  24.6%  pass4/6   3.5%  +extra   6.5%
+  pos2               board  25.2%  pass4/6   4.0%  +extra   7.3%
+  pos3               board  24.8%  pass4/6   2.8%  +extra   6.6%

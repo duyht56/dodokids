@@ -490,6 +490,26 @@ Mobile:
   re-said by the renderer (`speakGuidance`/`owedGuidanceRef`). The play-shell
   contract §7 mounts the real `ExplorePlayScreen` through the harness with
   recorded audio/SFX stubs (`harness.stubs[...]`, `@/constants/layout` alias).
+- Máy nối tiếp v2 (`number_chain`, OpenSpec `rework-explore-number-chain`,
+  2026-10-21; mobile branch `feat/explore-number-chain-rework`, server mirror at
+  `BundledLocalGameSpec.version` 2): the child fills BOTH blanks of the
+  two-machine chain in the worksheet's order (`params.blanks`: forward
+  mid→end, reverse mid→start; `answer.values`). Levels: L1 forward + dots on both
+  machines, L2 + reverse, L3 dots only on the machine worked first
+  (`dotSteps` 1), L4 no dots, L5 range 0–20; L1–L4 range 0–10, machines 2–4.
+  From L2 a round is 2 forward + 2 `reverse_add` + 2 `reverse_sub` (buckets by
+  machine 2). Cards: `{a, a±g, m, m∓g}` mirrored around the number going into
+  the machine, m = the sign / run-forward card (always present; g = 1, else 2),
+  pair side drawn first (rank) then pulled toward the range middle with
+  probability `centerPull` — do not swap in `buildNearTargetOptions`. Renderer
+  reports every miss, cues each blank's question (`number_chain` is in
+  `RENDERER_CUED_PROMPT_GAMES`), keeps missed cards faded until the row changes,
+  and after the second blank replays the chain forward with `DotGroup`
+  `changed` dots while saying the mantra, then `onAnswer(true)`. `DotGroup`
+  gained optional `size`/`changed`. Contract `npm run test:explore-number-chain`
+  measures three classes of tricks through the real planner (no-knowledge,
+  half-knowledge at the 50% floor, reverse) and drives the renderer through the
+  harness. Audio v8 (not rendered): `game_number_chain`, `chain2_*`.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
