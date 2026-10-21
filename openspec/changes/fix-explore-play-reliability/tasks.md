@@ -32,3 +32,14 @@
 - [ ] 4.4 Máy thật: chạm hai ngón ở Xe buýt; app ra nền trên Android (`AppState` chỉ báo `background`); cắt dấu ở câu hỏi Baloo trên iPhone SE với cỡ chữ lớn.
 - [ ] 4.5 Đợt audio sau: đổi chữ "Mình…" của Đô Đô (feedback chung, Xưởng, Xe buýt) cùng clip theo luật one-batch.
 - [ ] 4.6 Owner duyệt, merge nhánh `fix/explore-dot1-bugs` và phát hành.
+
+## 8. Sau khi gộp Ô thiếu missing-cell-v2 vào main (review MC-LIFE-1, MC-LIFE-2)
+
+(Số mục nối tiếp mục 5–7 trên nhánh tích hợp `integrate/explore-2026-10-21` của repo gốc.)
+
+Mobile `6deb101`, nhánh `fix/explore-missing-cell-pause` tách từ `integrate/explore-2026-10-21` @ `c8acc10` (chưa push).
+
+- [x] 8.1 MC-LIFE-2: `MissingCellRenderer` chạy nhịp lời giải trên `useBusSequencer(paused)`; câu thần chú qua `throughPause`; `onBoardBusy(true)` từ lần chạm đúng tới ngay trước `onAnswer(true)`, nhả khi unmount.
+- [x] 8.2 MC-LIFE-1: `stillWanted` của lời nhắc/gợi ý trong màn chơi thêm `rendererBusyBoardRef.current !== board` (Ô thiếu, Ú òa; Dẫn đường tự nói lời sai nên không đổi).
+- [x] 8.3 Test: `test:explore-play-shell` §9 (màn chơi + renderer thật, loa có thời lượng thật, clip thần chú đứng tạm tới audio v8), `test:explore-missing-cell` (lời giải qua tạm dừng, cờ bận, unmount); đỏ trên mã trước sửa. Probe `mc-stale-hint.cjs`: trước `0ms fb_hint_listen | 2260ms fb_hint_listen | 4770ms fb_praise_1`, sau (shell giả thêm luật bận) `0ms fb_hint_listen | 3850ms fb_praise_1`.
+- [x] 8.4 Mobile: mọi `test:*`, `tsc`, `lint` xanh; kido-server `integrate/explore-2026-10-21` explore 246/246 với mobile nhánh này.
