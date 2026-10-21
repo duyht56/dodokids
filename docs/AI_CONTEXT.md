@@ -426,9 +426,12 @@ Mobile:
   card (always present; g = 1, else 2); the off card's side (toward / away from
   the input x) is drawn evenly and independently for each pair, and same-sign /
   mixed-sign machines evenly, before the chain is chosen; blank 1 never shows
-  blank 2's answer or sign card — do not swap in `buildNearTargetOptions`. Known
-  open cue (owner decision pending on range / ±1 machines): blank 1 (the middle)
-  is never farther from 5 than its sign card at 0–10. Renderer
+  blank 2's answer or sign card — do not swap in `buildNearTargetOptions`. Owner
+  approved 2026-10-21 (direction A): no ±1 machines, L1–L4 in 0–10 with 0, L5 up
+  to 20, and a known gap kept on L1–L4 — blank 1 (the middle) is never farther
+  from 5 than its sign card at 0–10 (count k, ignore the sign, pick nearer 5
+  passes 26–30% of rounds; L5 is the reverse-reasoning gate); review after
+  playtest. Renderer
   reports every miss, cues each blank's question (`number_chain` is in
   `RENDERER_CUED_PROMPT_GAMES`), keeps missed cards faded until the row changes,
   and after the second blank replays the chain forward with `DotGroup`

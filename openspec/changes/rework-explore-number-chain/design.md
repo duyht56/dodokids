@@ -28,9 +28,10 @@ theo thứ tự bé điền, có nhóm chấm (`dotSteps`).
 - **Bậc 1 đã là hai bước thật**: hai ô trống; máy nào chạy một mình từ số đầu
   cũng không ra ô cuối; số cuối khác số đầu (không có chuỗi quay về); ô cuối không
   có trong thẻ của ô giữa.
-- **Máy bước 2–4** như đề gốc (−4, +2). Máy ±1 (số liền sau/liền trước) không có;
-  owner chưa chốt việc bỏ, bản này không đưa lại.
-- **Bậc 1–4 trong 0–10** ("phạm vi 10" của đề gốc, có số 0). Thẻ ngược dấu (§4)
+- **Máy bước 2–4** như đề gốc (−4, +2). Máy ±1 (số liền sau/liền trước) bỏ hẳn
+  (**owner approved 2026-10-21**).
+- **Bậc 1–4 trong 0–10** ("phạm vi 10" của đề gốc, có số 0; **owner approved
+  2026-10-21**; bậc 5 lên 0–20 chỉ sau khi đã bỏ hết chấm, cùng ngày duyệt). Thẻ ngược dấu (§4)
   phải nằm trong phạm vi ở CẢ HAI ô, nên số đi vào máy phải ở giữa phạm vi: trong
   1–10 chỉ còn 14–22 chuỗi mỗi chiều; có số 0 và máy 4 thì được 40.
 - **Bậc 5 = phạm vi 20** (sau khi bậc 4 đã bỏ hết chấm, nên số > 10 chỉ xuất hiện
@@ -97,7 +98,7 @@ máy xuôi thay vì gỡ — cùng một số). Bốn thẻ:
 
 `buildNearTargetOptions` (dùng chung) không đổi.
 
-### Dấu hiệu cấu trúc chưa gỡ được: ô giữa luôn gần giữa phạm vi (chờ owner)
+### Chỗ hở đã biết: ô giữa luôn gần giữa phạm vi (owner chấp nhận, hướng A)
 
 Ô 1 luôn là ô giữa, và ô giữa là số đi vào máy 2: nó phải còn chỗ cho đáp án ô 2,
 thẻ ngược dấu ô 2 và hai thẻ lệch trong phạm vi. Vì vậy ở 0–10, máy 2–4, trong cả
@@ -107,12 +108,18 @@ Chọn lại trọng số chuỗi không gỡ được (không có chuỗi nào 
 cũng không (nó không đụng tới a và m). Bé đếm đúng k, bỏ qua dấu, chọn số gần 5
 hơn: đúng 93–94% ô 1 ở bậc 1–4, 65% ở bậc 5.
 
-Cách gỡ đều phải đổi tham số nội dung mà owner đang chốt (số 0, máy ±1, bậc 5 lên
-20), nên bản này **không đổi** và báo lại. Mức đo theo cấu trúc (một chuỗi = một
+Cách gỡ nào cũng phải đổi tham số nội dung. Mức đo theo cấu trúc (một chuỗi = một
 phiếu; ngang nhau tính nửa): 0–10 hiện tại 90,5% ô 1; 0–15 71%; 0–20 62%; thêm máy
 ±1 74%; cho thẻ ngược dấu ô 2 vắng khi ra ngoài phạm vi 67% ô 1 nhưng 50% ô 2 mất
-thẻ ngược dấu (mẹo bỏ qua dấu thắng lại ở ô 2). Contract gác các mẹo gốc này ở
-đúng mức đo (§5, lớp "cấu trúc") để nó không nặng thêm.
+thẻ ngược dấu (mẹo bỏ qua dấu thắng lại ở ô 2).
+
+**Quyết định (owner approved 2026-10-21, hướng A):** giữ bỏ máy ±1, phạm vi 0–10
+có số 0, bậc 5 lên 20, và **giữ nguyên chỗ hở này ở bậc 1–4** như một chỗ hở đã
+biết: bé đếm đúng bước, bỏ qua dấu, chọn số gần 5 qua 26–30% vòng; bé chỉ giỏi chiều
+xuôi và làm y vậy ở bài ngược qua 63–66% vòng. Bậc 5 (0–20) là cửa kiểm suy ngược
+(mẹo đó còn 9–10% vòng). Xem lại sau playtest; nếu playtest cho thấy cần thì làm
+hướng E (thiết kế lại riêng bài ngược) thành việc riêng. Contract giữ các mẹo này ở
+đúng mức đo (§5, lớp "cấu trúc") để chúng không nặng thêm.
 
 ## 5. Đo lối tắt (planner thật, vòng 6 bài + vòng luyện chống lặp)
 

@@ -44,9 +44,9 @@ một hỗ trợ, có câu thần chú và diễn lại sau bài đúng như Câ
   | 4 | 2 xuôi + 4 ngược | **không chấm** | bước 2–4 | 0–10 |
   | 5 | 2 xuôi + 4 ngược | không chấm | bước 2–4 | **0–20** |
 
-  Máy bước 2–4 như đề gốc (−4, +2); máy ±1 không có (owner chưa chốt việc bỏ, bản
-  này không đưa lại). Bậc 1–4 trong "phạm vi 10" (có số 0) để thẻ ngược dấu luôn có
-  chỗ trong phạm vi; bậc 5 lên 20 chỉ sau khi đã bỏ hết chấm (máy bước 5 trong 0–10
+  Máy bước 2–4 như đề gốc (−4, +2); bỏ máy ±1. Bậc 1–4 trong "phạm vi 10" (có số
+  0) để thẻ ngược dấu luôn có chỗ trong phạm vi; bậc 5 lên 20 chỉ sau khi đã bỏ hết
+  chấm (ba điểm này: **owner approved 2026-10-21**) (máy bước 5 trong 0–10
   không có chỗ cho thẻ ngược dấu). Bài ngược là đa số mỗi vòng (2 gỡ máy thêm + 2
   gỡ máy bớt) để bé giỏi chiều xuôi mà đoán dấu chiều ngược không qua vòng nhờ bài
   xuôi.
@@ -57,10 +57,13 @@ một hỗ trợ, có câu thần chú và diễn lại sau bài đúng như Câ
   lẫn thẻ ngược dấu của ô 2. Đo qua planner (design §5): mẹo không cần biết gì
   ≤ 8% bài; chỉ biết chiều (kể cả "máy thêm chọn thẻ to nhất") hay chỉ đếm số bước
   mà bỏ qua dấu ≈ 50% mỗi ô, qua vòng ≤ 4,5%; không gỡ máy ở chiều ngược không bao
-  giờ đúng. **Còn một dấu hiệu cấu trúc chưa gỡ**: ô giữa là số đi vào máy 2 nên ở
-  0–10 đáp án ô 1 không bao giờ xa số 5 hơn thẻ ngược dấu; bé đếm k bỏ qua dấu rồi
-  chọn số gần 5 qua 26–30% vòng ở bậc 1–4 (bậc 5: 9–10%). Gỡ nó cần đổi tham số nội
-  dung owner đang chốt (design §4), contract giữ nó không nặng thêm. Lỗi "quên một
+  giờ đúng. **Chỗ hở đã biết (owner approved 2026-10-21, hướng A: giữ nguyên, xem
+  lại sau playtest)**: ô giữa là số đi vào máy 2 nên ở 0–10 đáp án ô 1 không bao giờ
+  xa số 5 hơn thẻ ngược dấu; bé đếm k bỏ qua dấu rồi chọn số gần 5 qua 26–30% vòng ở
+  bậc 1–4, bé chỉ giỏi chiều xuôi làm y vậy ở bài ngược qua 63–66% vòng; bậc 5 là
+  cửa kiểm suy ngược (9–10%). Gỡ nó cần đổi tham số nội dung (design §4); nếu
+  playtest cho thấy cần thì thiết kế lại riêng bài ngược (hướng E) là việc sau.
+  Contract giữ nó không nặng thêm. Lỗi "quên một
   máy" chỉ có khi trùng chỗ (5–12% ô). Không thẻ nào là số đang hiện. Hàm dùng chung
   `buildNearTargetOptions` không đổi.
 - **Diễn lại sau bài đúng**: máy chạy xuôi từng chặng — chấm chạy qua máy (thêm:
