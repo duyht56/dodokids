@@ -29,6 +29,20 @@
 - [x] 4.1 `npx tsc --noEmit`, `npm run lint` (0 lỗi, chỉ cảnh báo có sẵn), toàn bộ `npm run test:explore-*` (20 script) và mọi `test:*` khác của mobile xanh.
 - [x] 4.2 Spec kido-server đọc mã mobile (`src/modules/explore`, 21 suite, 238 test) chạy trên nhánh mobile này: xanh.
 - [x] 4.3 Kiểm tay iOS Simulator (iPhone 17e, dev client, Metro từ worktree): lời nhắc cũ bị bỏ khi chạm đúng (lỗi 1); Ú òa dừng sau hộp thoát và khi app ra nền, quay lại nhìn đủ 3,0 s (lỗi 2); Dẫn đường Chặng 5 không ✓ điểm đi sai thứ tự, gợi ý điểm còn thiếu (lỗi 5).
+- [x] 4.3b Review đối kháng vòng 2 (`tmp/explore-review-2026-10-21/dot1-review-confirmed.md`): phần của phiên này ở mục 5; C01–C03, C07, C08, C10, C11-shell, C13 (màn chơi, Dẫn đường) do phiên route-mirror-leveled; C04 (Ú òa) do phiên peekaboo-cups.
 - [ ] 4.4 Máy thật: chạm hai ngón ở Xe buýt; app ra nền trên Android (`AppState` chỉ báo `background`); cắt dấu ở câu hỏi Baloo trên iPhone SE với cỡ chữ lớn.
 - [ ] 4.5 Đợt audio sau: đổi chữ "Mình…" của Đô Đô (feedback chung, Xưởng, Xe buýt) cùng clip theo luật one-batch.
-- [ ] 4.6 Owner duyệt, merge nhánh `fix/explore-dot1-bugs` và phát hành.
+- [ ] 4.6 Phát hành. (`fix/explore-dot1-bugs` đã fast-forward vào mobile `main`; nhánh `fix/explore-dot1-followup` chờ gộp.)
+
+## 5. Sửa sau review vòng 2 (mobile nhánh `fix/explore-dot1-followup` từ `bcb3dab`)
+
+- [x] 5.1 C12 (`91ffa31`): nét ngắn bắt đầu trong nửa đầu, một chạm là thiếu dữ liệu, tiến độ phải được đi thật; cử chỉ bị coi là nhảy không lưu tiến độ (mọi nét).
+- [x] 5.2 C09, C14 (`91ffa31`): một lần sai một câu (câu hỗ trợ trùng thì không nói/hiện lại); lời hướng dẫn về một nét dedupe + bỏ khi nét xong / renderer đã đi; chữ "Bé…" trên Xưởng.
+- [x] 5.3 C15 (`b2f504d`): `play()` của `useBusSequencer` chạy `onDone` như một nhịp (giữ khi pause, không chạy sau unmount).
+- [x] 5.4 C16 (`b2f504d`): `throughPause` — count_on / next_number đọc lại lời kết bị pause cắt rồi mới báo.
+- [x] 5.5 C05, C17 (`b2f504d`): board_all đếm mẫu lại từ đầu sau câu hỏi được đọc lại.
+- [x] 5.6 C06 + phần Cân của C11 (`b2f504d`): câu gentle một lần và câu kết luận bị pause cắt thì nói lại.
+- [x] 5.7 Harness: setState của class gom như React + `componentDidUpdate`.
+- [x] 5.8 Kiểm chứng: tsc, `npm run lint` (0 lỗi), mọi `test:*` mobile, spec kido-server `src/modules/explore` (21 suite, 238 test) trên nhánh này; mỗi kiểm mới đỏ trên `bcb3dab`.
+- [ ] 5.9 Audio v8: render lại `tracing_continue_glow`, `tracing_next_stroke`, `tracing_follow_dots` với «Bé…» (chữ trên màn đã đổi; `TRACING_GUIDANCE_TEXT` = transcript với «Mình» → «Bé»).
+- [ ] 5.10 Chưa kiểm trên máy ảo/máy thật: các tình huống pause ở Xe buýt và Cân, chấm i/j bằng ngón tay thật.

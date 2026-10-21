@@ -7,6 +7,21 @@ Stage `speak`/`say` SHALL settle when the line has been said (or was dropped). I
 - **WHEN** the right card is chosen and the closing line takes longer than the report beat
 - **THEN** the next board appears only after the line ends
 
+### Requirement: A pause keeps the scene's words and timing
+While the run is paused, a scene SHALL NOT report its answer: an animation that ends during the pause (the bus driving off) SHALL report only once play goes on. A closing total cut off by a pause («N! Có tất cả N bạn nhé.» in `count_on` and `next_number`) SHALL be said again once play goes on, and the board SHALL report only after it. In `board_all`, a pause before Đô Đô's model count is over SHALL drop the rest of it; once play goes on and the question is read again, the count SHALL start over from one after the question, never over it.
+
+#### Scenario: Exit card during the drive-off
+- **WHEN** the child opens the exit card while the bus drives off and the drive ends behind it
+- **THEN** no chime or praise plays and the board is reported only after "Ở lại chơi"
+
+#### Scenario: Pause during the closing total
+- **WHEN** the run is paused while the closing total is said
+- **THEN** after the pause Đô Đô says the total again, then the board moves on
+
+#### Scenario: Pause during the question of board_all
+- **WHEN** the run is paused while the question is read, before the model count
+- **THEN** after the pause the count starts from one once the question has been read again
+
 ### Requirement: Every tap counts once
 Taps on the friends at the stop (and on seated friends during a recount) SHALL read who has boarded or been recounted from state updated at the moment of the tap, so two taps handled before the next render count a+1 and a+2 and the last one still brings the cards.
 
