@@ -91,6 +91,24 @@ thẻ còn lại mới, giao của hai điều kiện là đúng món mất).
   lưu trữ `add-explore-peekaboo-recall-game` → `fix-explore-play-reliability` →
   change này.
 
+### Review vòng 2 trên nhánh tích hợp (21/10)
+
+Bốn lỗi Medium (review:renderer-ux, review:pedagogy-generator), sửa ở mobile
+nhánh `fix/explore-peekaboo-polish` (từ `integrate/explore-2026-10-21`):
+
+- **Chạm đúp ở bậc 5**: chạm thứ hai vào thẻ đúng của cốc 1 (~120 ms) bị chấm
+  theo cốc 2 → bài mất "đúng ngay lần đầu". Khoá chạm 400 ms sau cốc 1 đúng.
+- **Chạm đúp một thẻ sai** = hai lần sai → trợ giúp nhảy 0 → 2, mức 2 cho nhìn
+  lại cả bộ. Thẻ sai đang rung (350 ms) bỏ qua chạm lặp; chạm lại sau đó vẫn tính.
+- **Tạm dừng lúc diễn lại**: timer thường + hoạt ảnh `delay` nên cốc lật hết sau
+  hộp thoát, câu kết bị cắt, quay lại báo đúng ngay. Giờ diễn lại chạy bằng nhịp
+  tạm dừng được (`useBusSequencer`, như Cân thăng bằng / Máy nối tiếp): mỗi cốc
+  lật một nhịp, câu kết qua `throughPause` (bị cắt thì đọc lại), báo đúng chờ lần
+  đọc đó; `onBoardBusy` giữ tới ngay trước `onAnswer(true)` như 9779e61.
+- **Bài đầu mỗi vòng nhìn lâu hơn**: trong ~3,4 s khoá chuyển vòng cả bộ đã hiện
+  (nhìn ~7,4 s so với 4 s). Bàn còn khoá thì ô là khung đứt rỗng, không đồng hồ
+  cát; món chỉ hiện khi lượt nhìn bắt đầu.
+
 ## Bong bóng và tiếng theo pha (E07)
 
 | Pha | Bong bóng | Tiếng (`onPromptCue` / `onSpeakFeedback`) |

@@ -16,6 +16,9 @@
 - [x] 2.7 `levelIntroLine('peekaboo')` đọc bảng `PEEKABOO_LEVEL_INTRO` (bậc 2 dùng lại `peekaboo_intro_3`).
 - [x] 2.8 Sau khi gộp vào nhánh tích hợp `integrate/explore-2026-10-21` (mobile `9779e61`): kiểm trên cây gộp, 91b0c8d KHÔNG bỏ việc màn chơi đọc lại cue cũ của Ú òa — tạm dừng dưới tấm che / lúc lộ ô / cốc úp thì quay lại đọc lại câu nhìn trên bàn đã che; tạm dừng lúc diễn lại (câu kết chưa có clip) thì đọc lại câu hỏi vừa trả lời. Renderer cue rỗng khi bộ đồ đã che và báo bận từ thẻ đúng cuối tới ngay trước `onAnswer(true)`. `test:explore-play-shell` §8 (màn chơi thật + renderer thật) đỏ khi bỏ từng nửa.
 
+- [x] 2.9 Review vòng 2 trên nhánh tích hợp (mobile `68d8cbe`, nhánh `fix/explore-peekaboo-polish` từ `integrate/explore-2026-10-21` @ `c8acc10`): chạm đúp thẻ đúng cốc 1 ở bậc 5 (khoá 400 ms), chạm đúp một thẻ sai (bỏ qua lúc đang rung 350 ms), tạm dừng lúc diễn lại (nhịp `useBusSequencer`, câu kết `throughPause`, báo đúng sau lần đọc lại), bài đầu vòng không hiện món khi bàn còn khoá. `test:explore-peekaboo` §9c/§9c2/§9c3, mỗi kiểm đỏ khi bỏ đúng chỗ sửa của nó; 32/32 `test:*`.
+- [ ] 2.10 Lỗi Low của review vòng 2, chưa làm: 🔊 hỏi lại câu đã trả lời trong lúc diễn lại; bong bóng đổi cao (1 ↔ 2 dòng) làm hàng cốc nhảy 12–24pt; làm mờ thẻ ở trợ giúp đi theo thứ tự thẻ nên vị trí thẻ còn sáng có thể lộ đáp án.
+
 ## 3. Audio (KHÔNG render clip trong change này)
 
 - [x] 3.1 Khối câu mới liền nhau cuối `PROMPT_PHRASES` (`promptAudio.ts`, chú thích tên change), không đảo mục cũ; mirror vào kido-pipeline `src/explore/exploreAudioInventory.ts` (kido-pipeline `a0ca617`, nhánh local `feat/explore-peekaboo-cups` từ main `27436a4`).
