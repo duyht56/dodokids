@@ -454,8 +454,11 @@ Mobile:
   one at its level, so "Xong" never lands under the play screen's feedback
   strip on 16:9 Android phones (that strip is `pointerEvents="none"` too). After
   a pause, a renderer playing out the child's action (`onBoardBusy`, Dẫn đường's
-  walk) never gets the question read over its ending; one cut off mid-line gets
-  1.5 s to go on before the question is read (never silence).
+  walk) never gets the question read over its ending (the renderer releases
+  busy on every way out: ending, edit, unmount); one cut off mid-line gets
+  1.5 s to go on before the question is read (never silence), except a game in
+  `RENDERER_CUED_PROMPT_GAMES` that spoke after its latest cue — that cue is
+  stale (Máy nối tiếp v2's filled cell) and is not read again.
   Pause follow-ups from the adversarial review of Đợt 1 (same change): the shell
   holds `onAnswer` calls made while paused (`heldAnswersRef`) and answers them
   when play goes on (miss first); `handleTryAgainSound` is silent while paused;
