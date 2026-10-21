@@ -50,15 +50,19 @@ một hỗ trợ, có câu thần chú và diễn lại sau bài đúng như Câ
   không có chỗ cho thẻ ngược dấu). Bài ngược là đa số mỗi vòng (2 gỡ máy thêm + 2
   gỡ máy bớt) để bé giỏi chiều xuôi mà đoán dấu chiều ngược không qua vòng nhờ bài
   xuôi.
-- **Thẻ nhiễu theo lỗi thật, đối xứng quanh số đi vào máy** (4 thẻ mỗi ô): đáp án,
-  thẻ ngược dấu (ở chiều ngược: chạy máy xuôi thay vì gỡ) — **có mặt ở mọi ô** — và
-  hai thẻ lệch một (lệch hai khi lệch một đụng số cấm), một cạnh đáp án, một cạnh thẻ
-  ngược dấu. Bé đếm đúng số bước mà bỏ qua dấu chỉ còn 50/50 mỗi ô; không gỡ máy ở
-  chiều ngược thì không bao giờ đúng; khoảng cách tới số đang hiện và "thẻ có hàng
-  xóm" không còn là dấu hiệu. Vị trí đáp án theo cỡ được rút đều rồi một nửa số ô
-  (bậc 5: 1/4) đặt thẻ lệch về phía giữa phạm vi để mẹo "gần số 5" không thắng. Lỗi
-  "quên một máy" chỉ có khi trùng chỗ (~12% ô 2). Không thẻ nào là số đang hiện;
-  thẻ ô 1 không chứa đáp án ô 2. Hàm dùng chung `buildNearTargetOptions` không đổi.
+- **Thẻ nhiễu theo lỗi thật** (4 thẻ mỗi ô): đáp án, thẻ ngược dấu (ở chiều ngược:
+  chạy máy xuôi thay vì gỡ) — **có mặt ở mọi ô** — và một thẻ lệch một (lệch hai khi
+  lệch một đụng số cấm) cạnh mỗi thẻ. Phía thẻ lệch của từng cặp và "hai máy cùng
+  dấu / khác dấu" rút đều, độc lập, trước khi chọn chuỗi; thẻ ô 1 không chứa đáp án
+  lẫn thẻ ngược dấu của ô 2. Đo qua planner (design §5): mẹo không cần biết gì
+  ≤ 8% bài; chỉ biết chiều (kể cả "máy thêm chọn thẻ to nhất") hay chỉ đếm số bước
+  mà bỏ qua dấu ≈ 50% mỗi ô, qua vòng ≤ 4,5%; không gỡ máy ở chiều ngược không bao
+  giờ đúng. **Còn một dấu hiệu cấu trúc chưa gỡ**: ô giữa là số đi vào máy 2 nên ở
+  0–10 đáp án ô 1 không bao giờ xa số 5 hơn thẻ ngược dấu; bé đếm k bỏ qua dấu rồi
+  chọn số gần 5 qua 26–30% vòng ở bậc 1–4 (bậc 5: 9–10%). Gỡ nó cần đổi tham số nội
+  dung owner đang chốt (design §4), contract giữ nó không nặng thêm. Lỗi "quên một
+  máy" chỉ có khi trùng chỗ (5–12% ô). Không thẻ nào là số đang hiện. Hàm dùng chung
+  `buildNearTargetOptions` không đổi.
 - **Diễn lại sau bài đúng**: máy chạy xuôi từng chặng — chấm chạy qua máy (thêm:
   rơi vào; bớt: rời đi), máy nhịp sáng — trong lúc Đô Đô nói câu thần chú «Qua máy
   thêm thì nhiều lên, qua máy bớt thì ít đi.» (chiều ngược: «Đi ngược: máy thêm thì
