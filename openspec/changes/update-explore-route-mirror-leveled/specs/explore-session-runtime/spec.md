@@ -48,7 +48,7 @@ A game whose board shows its own guidance and fills the screen down to its contr
 - **THEN** «Đúng rồi!» floats over the bubble while the board is locked and the board keeps its size
 
 ### Requirement: A pause never loses or misplaces a line
-While the run is paused, an answer a renderer reports (its own clock ran on behind the exit card) SHALL make no chime, praise or board change; it SHALL be answered once play goes on, a miss before a success. A "try again" cue a renderer fires while paused SHALL be silent. When play goes on, the shell SHALL NOT read the board's question again if the board is solved or if, when the pause began, the renderer was playing out the child's action and said so (`onBoardBusy`, Dẫn đường's walk until its ending is asked for). If, when the pause began, the renderer was saying its own line about the board asked for after the board's question (a closing line, a mantra, a failed run's guidance, a hint), the renderer SHALL get 1.5 s to go on — say a line again or report the board — and the question SHALL be read only if it does neither, so the child is never left in silence; a new pause cancels that pending read. Any other board SHALL hear its question again at once, as before. A break reminder that the pause dropped before it started SHALL be said once play goes on, once.
+While the run is paused, an answer a renderer reports (its own clock ran on behind the exit card) SHALL make no chime, praise or board change; it SHALL be answered once play goes on, a miss before a success. A "try again" cue a renderer fires while paused SHALL be silent. When play goes on, the shell SHALL NOT read the board's question again if the board is solved or if, when the pause began, the renderer was playing out the child's action and said so (`onBoardBusy`, Dẫn đường's walk until its ending is asked for). If, when the pause began, the renderer was saying its own line about the board asked for after the board's question (a closing line, a mantra, a failed run's guidance, a hint), the renderer SHALL get 1.5 s to go on — say a line again or report the board — and the question SHALL be read only if it does neither, so the child is never left in silence; a new pause cancels that pending read. A game that cues its own questions (Ú òa, Máy nối tiếp) and said its line after its latest cue SHALL NOT have that cue read again: it has moved past that question (the cell is filled) and cues the next one itself. A renderer that reports itself busy SHALL report it over on every way the action ends (its ending, an edit that drops it, leaving the board). Any other board SHALL hear its question again at once, as before. A break reminder that the pause dropped before it started SHALL be said once play goes on, once.
 
 #### Scenario: Success reported behind the exit card
 - **WHEN** a renderer reports a solved board while the exit card is open
@@ -61,6 +61,14 @@ While the run is paused, an answer a renderer reports (its own clock ran on behi
 #### Scenario: Hint cut by the exit card
 - **WHEN** the exit card cuts Tìm quy luật's rule hint off and the renderer says nothing more after the child stays
 - **THEN** the board's question is read 1.5 s later
+
+#### Scenario: Máy nối tiếp's closing rule cut by the exit card
+- **WHEN** the exit card cuts the rule said once both cells are filled, and the child stays
+- **THEN** the ask line of the filled cell is not read again; the praise follows when the board reports
+
+#### Scenario: Child edits the route right after a failed run, then pauses
+- **WHEN** the child taps an arrow within 420 ms of a failed run and later opens and closes the exit card
+- **THEN** the board is no longer busy and its question is read again
 
 #### Scenario: Exit card mid-walk
 - **WHEN** the child opens the exit card while Đô Đô is walking and then stays

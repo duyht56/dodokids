@@ -42,6 +42,8 @@
 - [x] 6.3 03: renderer bị cắt giữa câu có 1,5 s để nói tiếp / báo bài; im lặng thì câu hỏi được đọc. Lần tạm dừng sau huỷ lần đọc đang chờ.
 - [x] 6.4 Ghi chú: 9 câu audio đã có trong inventory pipeline ở nhánh tích hợp (66389c5); lý do thật của Xếp tháp (chủ sản phẩm chưa bật).
 
+- [x] 6.5 Vòng kiểm 3 trên cây gộp (round3-residuals.md): Dẫn đường nhả cờ bận ở mọi đường thoát (sửa lệnh trong 420 ms, unmount); game tự đọc câu hỏi đã nói sau cue gần nhất thì không đọc lại cue đó (Máy nối tiếp v2). Probe của người kiểm (stuck-busy, route-busy, rm03 chain/sweep/pattern) chạy lại trên d68a655 + bản sửa: hết im lặng, hết câu hỏi cũ; Tìm quy luật vẫn được đọc câu hỏi sau 1,5 s. Mobile `91b0c8d`, `e9ef258`.
+
 ## 7. Kiểm chứng
 
 - [x] 7.1 mobile: `npx tsc --noEmit`, `npm run lint` (0 lỗi, 9 cảnh báo có sẵn), mọi `npm run test:*` xanh; các kiểm mới đỏ trên mã cũ (chép nguyên 1344/10.000 ở bậc 1; chạy hỏng không báo).
