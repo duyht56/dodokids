@@ -43,10 +43,15 @@ Ví dụ sai: "Cô Đô Đô muốn làm quen với con." / "Con hãy chạm và
 
 Kịch bản/lời thoại Đô Đô phải qua lint xưng hô (fail khi khớp "con" ở ngôi gọi
 trẻ, "cô"/"thầy" ở ngôi tự xưng — loại trừ danh sách loại-từ). Xem task 2.5 của
-change `add-dodo-interview-practice`.
+change `add-dodo-interview-practice`. Khám phá: `mobile` `test:explore-prompt-audio`
+fail khi một câu trong `PROMPT_PHRASES` có chữ «mình» (từ pack v8, 2026-10-21).
 
 ## 5. Hiện trạng nợ (2026-09-11)
 
 Copy Explore trong `mobile/src/explore/promptAudio.ts` còn dùng "con" (các key
 `count_tap_prompt`, `route_fb_*`, `bond_room_full`…) — sửa ở change riêng vì kéo
 theo regen audio bundled theo one-batch rule.
+
+Cập nhật 2026-10-21: 12 câu Đô Đô tự xưng «Mình…» trong Khám phá (feedback chung,
+Xưởng luyện nét, Xe buýt) đã đổi thành «Bé…» và đọc lại trong pack
+`explore-audio-vi-v8`.

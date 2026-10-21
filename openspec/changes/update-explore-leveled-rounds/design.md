@@ -54,7 +54,7 @@ chấm sáng khi xong vòng. Thêm: `lastPromptKeyRef` về null khi đổi vòn
 câu đề cố định (Ô thiếu, Ú òa) đọc lại câu đề ở bài đầu vòng mới.
 
 Ú òa bắt đầu đếm thời gian nhìn ngay khi gắn bài. Bài đầu vòng mới gắn lúc còn
-khoá, nên đồng hồ cát sẽ chạy hết dưới câu "Giỏi quá! Mình lên bậc mới nhé!".
+khoá, nên đồng hồ cát sẽ chạy hết dưới câu "Giỏi quá! Bé lên bậc mới nhé!".
 Giờ renderer có cờ `opened` (bật ở lần render đầu tiên bàn chơi được phép bấm),
 và pha `show` chỉ chạy khi `opened`; trong lúc khoá bé thấy cả tập với đồng hồ
 đầy. Ba renderer còn lại không có hẹn giờ lúc gắn bài.
@@ -76,7 +76,7 @@ thêm. Nhắc nghỉ 12 phút vẫn hoạt động như cũ.
 
 - ~~Câu giới thiệu từng bậc (`introLine`) cho 4 game~~ — làm sau trong chính
   thay đổi này (18/10): owner duyệt 16 câu `pattern_/missing_cell_/peekaboo_/
-  chain_intro_2..5` (bậc 1 không có), nói sau "Giỏi quá! Mình lên bậc mới nhé!"
+  chain_intro_2..5` (bậc 1 không có), nói sau "Giỏi quá! Bé lên bậc mới nhé!"
   qua `levelIntroLine` (promptAudio.ts); thêm vào pack v6, một batch.
 - Năm game cần owner quyết (xem proposal; `ordinal_position` đã bật 20/10 kèm 4
   câu `ordinal_intro_2..5` ở pack v7). Một game chỉ cần thêm một dòng vào

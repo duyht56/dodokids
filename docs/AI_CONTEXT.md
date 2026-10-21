@@ -225,8 +225,8 @@ Mobile:
   Later batches: v3 (go-live re-record), v4 (`number_bus` `nb_*`), v5 (whole
   lines, below), v6 (`balance_scale`), v7 (2026-10-19: Ú òa look/support lines,
   Đúng vị trí question lines `ord_tap`/`ord_tap_row`; 2026-10-20 its level intros
-  `ordinal_intro_2..5`), v8 (pending, not rendered — one batch for the
-  2026-10-21 Explore integration): 28 new ids — Dẫn đường/Soi gương (9)
+  `ordinal_intro_2..5`), v8 (2026-10-21, owner listened and approved all 55
+  takes; mobile + pipeline branch `feat/explore-audio-v8`): 30 new ids — Dẫn đường/Soi gương (9)
   `route_intro_2..5`, `mirror_intro_2..5`, `mirror_hint_pair`; Máy nối tiếp
   (10) `game_number_chain`, `chain2_forward_q`, `chain2_reverse_q`,
   `chain2_ask_end`, `chain2_ask_start`, `chain2_mantra_forward`,
@@ -235,10 +235,21 @@ Mobile:
   `peekaboo_cups_which_next`, `peekaboo_hint_place`, `peekaboo_missing_done`,
   `peekaboo_cups_done`, `peekaboo_cups_intro_3..5` (appended in this order at
   the end of `PROMPT_PHRASES` in mobile `promptAudio.ts` and in the pipeline
-  inventory on `integrate/explore-2026-10-21`); plus 3 planned re-renders `tracing_continue_glow` /
-  `tracing_next_stroke` / `tracing_follow_dots` with «Bé…» (inventory text still
-  «Mình…», OpenSpec `fix-explore-play-reliability` 5.9); the export drops
-  `tower_which_bigger` (Xếp tháp, no new clip); `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
+  inventory), the Ô thiếu mantra `missing_cell_solve` and the Đúng vị trí game name
+  `game_ordinal_position` (review D13: its catalog card was silent); plus Đô Đô's 12
+  «Mình…» lines re-worded and re-recorded as «Bé…» (persona,
+  `docs/KIDO_DODO_PERSONA.md`): `fb_retry_2`, `fb_level_up`, `fb_easier`,
+  `fb_run_complete`, `fb_level_next`, `fb_level_again`, `tracing_continue_glow`,
+  `tracing_next_stroke`, `tracing_follow_dots`, `nb_count_model`, `nb_today`,
+  `nb_counted_already`, with the 13 whole lines that contain them (`nb_today` 3–8,
+  `nb_remodel` 3–9). Pack v8 = 515 clips (241 whole lines); the export drops
+  `tower_which_bigger` (Xếp tháp; its v7 file stays in the folder, unbundled).
+  `test:explore-prompt-audio` fails if a game has no `game_<code>` phrase or a phrase
+  says «mình». Re-take chosen clips with
+  `VIENEU_TEMPERATURE=0.7 npm run explore-audio:generate -- --keys <key…>` (forced,
+  rejected included; reports clips shared by aliases). The Thám tử Đô Đô branch
+  (`feat/explore-clue-detective`) still names its own batch v8 and must become v9.
+  `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
   `explore/exploreAudioCapability.ts` lists every accepted pack.
 - Explore prompt timing: the play shell reads `exercise.audioRefs` on mount,
   except `RENDERER_CUED_PROMPT_GAMES` (`peekaboo_recall`, `number_chain`), whose

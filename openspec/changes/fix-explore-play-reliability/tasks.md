@@ -31,7 +31,7 @@
 - [x] 4.3 Kiểm tay iOS Simulator (iPhone 17e, dev client, Metro từ worktree): lời nhắc cũ bị bỏ khi chạm đúng (lỗi 1); Ú òa dừng sau hộp thoát và khi app ra nền, quay lại nhìn đủ 3,0 s (lỗi 2); Dẫn đường Chặng 5 không ✓ điểm đi sai thứ tự, gợi ý điểm còn thiếu (lỗi 5).
 - [x] 4.3b Review đối kháng vòng 2 (`tmp/explore-review-2026-10-21/dot1-review-confirmed.md`): phần của phiên này ở mục 5; C01–C03, C07, C08, C10, C11-shell, C13 (màn chơi, Dẫn đường) do phiên route-mirror-leveled; C04 (Ú òa) do phiên peekaboo-cups.
 - [ ] 4.4 Máy thật: chạm hai ngón ở Xe buýt; app ra nền trên Android (`AppState` chỉ báo `background`); cắt dấu ở câu hỏi Baloo trên iPhone SE với cỡ chữ lớn.
-- [ ] 4.5 Đợt audio sau: đổi chữ "Mình…" của Đô Đô (feedback chung, Xưởng, Xe buýt) cùng clip theo luật one-batch.
+- [x] 4.5 Đợt audio sau: đổi chữ "Mình…" của Đô Đô (feedback chung, Xưởng, Xe buýt) cùng clip theo luật one-batch — xong 21/10: pack `explore-audio-vi-v8`, owner nghe duyệt 55 clip, nhánh `feat/explore-audio-v8`.
 - [ ] 4.6 Phát hành. (`fix/explore-dot1-bugs` đã vào mobile `main`; các nhánh sau gộp qua `integrate/explore-2026-10-21`, owner duyệt merge vào main 2026-10-21.)
 
 ## 5. Sửa sau review vòng 2 (mobile nhánh `fix/explore-dot1-followup` từ `bcb3dab`)
@@ -44,7 +44,7 @@
 - [x] 5.6 C06 + phần Cân của C11 (`b2f504d`): câu gentle một lần và câu kết luận bị pause cắt thì nói lại.
 - [x] 5.7 Harness: setState của class gom như React + `componentDidUpdate`.
 - [x] 5.8 Kiểm chứng: tsc, `npm run lint` (0 lỗi), mọi `test:*` mobile, spec kido-server `src/modules/explore` (21 suite, 238 test) trên nhánh này; mỗi kiểm mới đỏ trên `bcb3dab`.
-- [ ] 5.9 Audio v8: render lại `tracing_continue_glow`, `tracing_next_stroke`, `tracing_follow_dots` với «Bé…» (chữ trên màn đã đổi; `TRACING_GUIDANCE_TEXT` = transcript với «Mình» → «Bé»).
+- [x] 5.9 Audio v8: render lại `tracing_continue_glow`, `tracing_next_stroke`, `tracing_follow_dots` với «Bé…» (chữ trên màn đã đổi; `TRACING_GUIDANCE_TEXT` = transcript với «Mình» → «Bé») — xong 21/10: pack `explore-audio-vi-v8`, owner nghe duyệt 55 clip, nhánh `feat/explore-audio-v8`.
 - [ ] 5.10 Chưa kiểm trên máy ảo/máy thật: các tình huống pause ở Xe buýt và Cân, chấm i/j bằng ngón tay thật.
 
 ## 6. Sửa sau review nhánh `fix/explore-dot1-followup` (`branch-review-confirmed.md`)

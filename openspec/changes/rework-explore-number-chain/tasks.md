@@ -17,7 +17,7 @@
 - [x] 3.1 Khối liền cuối `PROMPT_PHRASES`: `game_number_chain`, `chain2_forward_q`, `chain2_reverse_q`, `chain2_ask_end`, `chain2_ask_start`, `chain2_mantra_forward`, `chain2_mantra_reverse`, `chain2_hint_dots`, `chain2_intro_3`, `chain2_intro_4`; `numberChainKeys(mode, blankIndex)`, `numberChainMantraKeys`. Bậc 2 / bậc 5 dùng lại `chain_intro_2` / `chain_intro_4` (pack v7).
 - [x] 3.2 Mirror kido-pipeline `exploreAudioInventory.ts` (pipeline `4d404d4`, local, không push; chưa bump pack).
 - [x] 3.3 `npm run explore-lines:dump`: không đổi (câu không có số).
-- [ ] 3.4 Đợt audio v8: gen + duyệt + export 10 clip trên (gom với các game khác), bump pack.
+- [x] 3.4 Đợt audio v8: gen + duyệt + export 10 clip trên (gom với các game khác), bump pack — xong 21/10: pack `explore-audio-vi-v8`, owner nghe duyệt 55 clip, nhánh `feat/explore-audio-v8`.
 
 ## 4. kido-server (`2e28ba1`, nhánh `feat/explore-number-chain-rework`, chưa push)
 

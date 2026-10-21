@@ -106,13 +106,13 @@ một lượt gồm nhiều **vòng**, mỗi vòng **6 bài cùng một bậc**.
 
 - Bắt đầu ở bậc phụ huynh đặt (`startingLevelByGame`, mặc định bậc 1).
 - Hết vòng: nếu **ít nhất 4/6 bài đúng ngay lần đầu** thì **lên bậc** (tiếng
-  `level_up`, Đô Đô "Giỏi quá! Mình lên bậc mới nhé!" rồi câu giới thiệu điều
+  `level_up`, Đô Đô "Giỏi quá! Bé lên bậc mới nhé!" rồi câu giới thiệu điều
   mới ở bậc đó); nếu chưa thì **luyện thêm một vòng cùng bậc** với bài mới hoàn
-  toàn ("Mình luyện thêm bậc này nhé!").
+  toàn ("Bé luyện thêm bậc này nhé!").
 - Mỗi bậc chỉ luyện thêm **tối đa 1 vòng**: vòng luyện thêm vẫn chưa đạt thì lượt
-  kết thúc nhẹ nhàng ("Mình luyện xong rồi! Bé muốn chơi lại không?"), không
+  kết thúc nhẹ nhàng ("Bé luyện xong rồi! Bé muốn chơi lại không?"), không
   bắt bé lặp mãi một bậc (BRD §6.1 kết thúc tự nhiên, §6.2).
-- **Qua bậc 6 thì kết thúc lượt** ("Mình luyện xong rồi!"). Từ bậc 1 tới hết là
+- **Qua bậc 6 thì kết thúc lượt** ("Bé luyện xong rồi!"). Từ bậc 1 tới hết là
   khoảng 36 bài.
 - Lúc chuyển vòng, bài mới hiện sau ~1,2 s nhưng **khoá tới khi Đô Đô nói xong**
   câu lên bậc và câu giới thiệu; câu đề đọc ngay sau đó. Trong lúc khoá, thẻ

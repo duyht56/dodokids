@@ -37,7 +37,7 @@ A stroke at most 12 normalized units long (the tittles of i and j) SHALL be judg
 
 #### Scenario: Flick on a long stroke
 - **WHEN** a gesture of two or three samples is made on a long stroke
-- **THEN** it is not accepted, and the guidance is «Mình nhìn theo các chấm tím nhé.», not «Bắt đầu ở ngôi sao…»
+- **THEN** it is not accepted, and the guidance is «Bé nhìn theo các chấm tím nhé.», not «Bắt đầu ở ngôi sao…»
 
 ### Requirement: One miss, one sentence
 A miss SHALL say one guidance sentence. When the same miss raises the help level and the help line is the sentence just said, it SHALL NOT be said or shown a second time. Guidance about the stroke being traced SHALL be merged when repeated while waiting, and SHALL be dropped if, when its turn comes, that stroke is done or the item is gone, so it never plays over the next stroke's or glyph's instruction. Praise for a finished stroke or item is not dropped. All text on screen — the prompt bubble of every item included («Bé tô theo chữ nhé.» for letters, the words its clip says) — SHALL call the child «bé»; a clip that still says «Mình…» is re-recorded in the next audio batch.

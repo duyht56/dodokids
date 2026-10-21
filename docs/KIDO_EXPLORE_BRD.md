@@ -172,7 +172,7 @@ Trẻ vẫn cần phản hồi để hiểu thao tác:
 - Audio xác nhận nhẹ khi hoàn thành đúng.
 - Animation giải thích việc thêm, bớt, tách hoặc gộp.
 - Hint chỉ rõ bước tiếp theo khi trẻ gặp khó khăn.
-- Lời kết trung tính như “Mình luyện xong rồi” hoặc “Con muốn chơi lại không?”.
+- Lời kết trung tính như “Bé luyện xong rồi” hoặc “Bé muốn chơi lại không?”.
 
 Không hiển thị XP, sao, sticker, badge, streak, currency hoặc bảng thành tích.
 
@@ -729,7 +729,7 @@ và [B] được [N]", đồng bộ highlight phần đang đọc. Audio đếm-
 thẳng clip số sẵn có (gộp đếm từ 1, đếm thêm từ a+1, make-ten từ k+1). **Luật
 sắt:** câu báo thừa/thiếu và câu hint không bao giờ chứa chữ số lẫn từ chỉ số
 lượng — hai ngoại lệ documented: distractor b=1 (chính nó là lỗi chẩn đoán) và
-câu re-model «Số [a] ở trong xe rồi, mình đếm thêm nha!» (a đang hiển thị trên
+câu re-model «Số [a] ở trong xe rồi, bé đếm thêm nha!» (a đang hiển thị trên
 cửa).
 
 #### Sinh bài
@@ -753,7 +753,7 @@ rộng engine duy nhất ở GĐ1: nhánh authored resolve level hiệu dụng =
 clamp(startingLevel + levelOffset, game.levels) thay vì đọc `runSlot.level`
 tĩnh (kèm smoke test riêng — nhánh này chưa từng chạy với game thật). Warm-up
 `next_number` ghim ở s2, count_on chấm điểm chỉ từ s3. Nghi thức mở màn: s1
-prepend «Hôm nay mình chơi với số [W]!» từ generator, deterministic.
+prepend «Hôm nay bé chơi với số [W]!» từ generator, deterministic.
 De-scaffold dùng nguyên cơ chế leo thang sẵn có (miss 1 → support 1, miss 2 →
 support 2): support 1 = chỉ TRỎ, không ĐẾM hộ; support 2 = mở đường đếm-tất-cả
 nhưng KHÔNG BAO GIỜ lộ phần chính là đáp án — `count_on`: cửa trong dần hiện a
@@ -846,7 +846,7 @@ làm mờ thẻ: thẻ sai tự khoá). **Sau mỗi bài đúng**, cân diễn l
 
 **Lượt (owner chốt 2026-10-17; từ 2026-10-18 là luật chung ở §10):** nhiều
 vòng, mỗi vòng 6 bài cùng một bậc. Hết
-vòng, đúng ngay lần đầu ít nhất 4/6 bài thì lên bậc (Đô Đô "Giỏi quá! Mình lên
+vòng, đúng ngay lần đầu ít nhất 4/6 bài thì lên bậc (Đô Đô "Giỏi quá! Bé lên
 bậc mới nhé!" + câu giới thiệu điều mới ở bậc đó), chưa đạt thì luyện thêm một
 vòng cùng bậc với bài mới (tối đa một vòng; vẫn chưa đạt thì kết thúc lượt nhẹ
 nhàng); qua bậc 6 thì kết thúc lượt (từ bậc 1 khoảng 36 bài). Trên cùng hiện "Bậc N/6". Phụ huynh vẫn chọn bậc bắt đầu ở cài đặt Khám
@@ -949,7 +949,7 @@ Audio có thể được render trước hoặc sinh một lần rồi cache the
 chơi và không yêu cầu đội content tạo audio cho từng lesson.
 
 **Cập nhật (2026-08, Đợt 2):** toàn bộ câu Khám phá — đề bài, phản hồi bằng
-giọng Đô Đô (khen xoay vòng, thử lại, gợi ý, lên phạm vi, "Mình thử bài dễ hơn
+giọng Đô Đô (khen xoay vòng, thử lại, gợi ý, lên phạm vi, "Bé thử bài dễ hơn
 nhé", kết lượt, nhắc nghỉ), tên game trên catalog và hướng dẫn của từng game —
 nằm trong **một inventory duy nhất** (`mobile/src/explore/promptAudio.ts`, mirror
 `kido-pipeline/src/explore/exploreAudioInventory.ts`). Mỗi đợt thêm câu mới được
@@ -970,6 +970,13 @@ câu vẫn phát nhiều đoạn, có nghỉ 280 ms giữa câu; clip ghép cũ 
 và tự làm fallback khi thiếu line. Không TTS lúc chạy (§3 mục 8, offline, không
 gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
 
+**Cập nhật (2026-10-21, pack `explore-audio-vi-v8`):** một đợt cho cả đợt tích hợp
+Khám phá: câu giới thiệu bậc Dẫn đường/Soi gương, Máy nối tiếp v2, Ú òa bài cốc,
+câu thần chú Ô thiếu, tên game «Đúng vị trí» (trước đây chạm thẻ không đọc tên),
+và mọi câu Đô Đô còn tự xưng «Mình…» đọc lại thành «Bé…» (12 câu + 13 câu liền
+Xe buýt có chứa chúng). Chủ sản phẩm nghe và duyệt cả 55 clip; Thám tử Đô Đô để
+đợt sau (v9).
+
 ---
 
 ## 10. ĐỘ KHÓ VÀ CẤU HÌNH KHỞI ĐẦU
@@ -983,8 +990,8 @@ gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
 - Không ghi thời gian trả lời, hint hoặc outcome để dùng ở lần chơi sau.
 - **Chơi theo bậc** (owner 2026-10-17/18; openspec `update-explore-leveled-rounds`):
   một lượt là nhiều vòng 6 bài cùng một bậc, bắt đầu ở bậc phụ huynh chọn. Hết
-  vòng, đúng ngay lần đầu ≥ 4/6 bài thì lên bậc ("Giỏi quá! Mình lên bậc mới
-  nhé!"); chưa đạt thì luyện thêm tối đa một vòng bài mới ("Mình luyện thêm bậc
+  vòng, đúng ngay lần đầu ≥ 4/6 bài thì lên bậc ("Giỏi quá! Bé lên bậc mới
+  nhé!"); chưa đạt thì luyện thêm tối đa một vòng bài mới ("Bé luyện thêm bậc
   này nhé!"); vòng thêm vẫn chưa đạt hoặc qua bậc cao nhất thì kết thúc lượt.
   Bậc và số bài đúng chỉ nằm trong màn chơi đang mở, thoát là mất (đây là điều
   chỉnh trong lượt hiện tại, không phải adaptive nhiều phiên). Chỉ game báo mọi

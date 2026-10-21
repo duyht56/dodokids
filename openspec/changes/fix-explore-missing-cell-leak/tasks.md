@@ -15,7 +15,7 @@
 - [x] 2.2 Bài đúng: điền ô "?", rồi sáng hàng (500 ms), thêm cột (1200 ms), mở ô che (1900 ms); bong bóng hiện câu thần chú; `onAnswer(true)` sau khi câu nói xong và ≥ 2600 ms. Giảm chuyển động: bỏ hiệu ứng bật, giữ các bước.
 - [x] 2.3 `promptAudio.ts`: câu `missing_cell_solve` «Nhìn hàng, nhìn cột, ghép đủ hai điều.» + `missingCellSolveKeys()`.
 - [x] 2.4 kido-pipeline `exploreAudioInventory.ts`: mirror câu `missing_cell_solve`.
-- [ ] 2.5 (chờ owner) Gen clip `missing_cell_solve`, owner nghe duyệt, export pack (batch v8). Không gen trong change này.
+- [x] 2.5 (chờ owner) Gen clip `missing_cell_solve`, owner nghe duyệt, export pack (batch v8). Không gen trong change này — xong 21/10: pack `explore-audio-vi-v8`, owner nghe duyệt 55 clip, nhánh `feat/explore-audio-v8`.
 - [x] 2.6 Kiểm trên máy ảo iPhone 17e (390pt): bảng 3×3 bậc 3 (ô che, đáp án, diễn lại đủ bước rồi qua bài 2/6), bảng 2×2 bậc 1 (đủ 3 ô, nhiễu ngoài bảng, điền + câu thần chú).
 
 ## 3. Contract và kiểm

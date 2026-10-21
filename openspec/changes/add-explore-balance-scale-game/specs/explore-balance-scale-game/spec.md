@@ -97,22 +97,22 @@ nhớ của màn chơi.
 #### Scenario: Bé mới lên bậc
 
 - **WHEN** phụ huynh chưa đặt bậc bắt đầu và bé làm đúng ngay lần đầu 5/6 bài của vòng bậc 1 (balance, heavier xen kẽ)
-- **THEN** Đô Đô nói "Giỏi quá! Mình lên bậc mới nhé!" và câu giới thiệu bậc 2, rồi vòng 6 bài `measure` bắt đầu với "Bậc 2/6"
+- **THEN** Đô Đô nói "Giỏi quá! Bé lên bậc mới nhé!" và câu giới thiệu bậc 2, rồi vòng 6 bài `measure` bắt đầu với "Bậc 2/6"
 
 #### Scenario: Luyện thêm khi chưa vững
 
 - **WHEN** bé chỉ đúng ngay lần đầu 3/6 bài của vòng bậc 4
-- **THEN** Đô Đô nói "Mình luyện thêm bậc này nhé!" và một vòng bậc 4 mới bắt đầu với bài khác
+- **THEN** Đô Đô nói "Bé luyện thêm bậc này nhé!" và một vòng bậc 4 mới bắt đầu với bài khác
 
 #### Scenario: Kết thúc lượt
 
 - **WHEN** bé đạt vòng bậc 6
-- **THEN** màn "Mình luyện xong rồi!" hiện ra
+- **THEN** màn "Bé luyện xong rồi!" hiện ra
 
 #### Scenario: Không luyện mãi một bậc
 
 - **WHEN** bé chưa đạt cả vòng bậc 4 lẫn vòng luyện thêm bậc 4
-- **THEN** lượt kết thúc với "Mình luyện xong rồi! Bé muốn chơi lại không?"
+- **THEN** lượt kết thúc với "Bé luyện xong rồi! Bé muốn chơi lại không?"
 
 #### Scenario: Không lặp bài trong vòng
 

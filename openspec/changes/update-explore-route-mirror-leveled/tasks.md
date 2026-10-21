@@ -19,7 +19,7 @@
 
 - [x] 3.1 Khối câu mới cuối `PROMPT_PHRASES`: `route_intro_2..5`, `mirror_intro_2..5`, `mirror_hint_pair`; `npm run explore-lines:dump` (không đổi manifest câu liền).
 - [x] 3.2 Thêm 9 câu vào `kido-pipeline/src/explore/exploreAudioInventory.ts` — ở nhánh tích hợp `integrate/explore-2026-10-21` (66389c5, local, không push), trước khối `chain2_*` như mobile.
-- [ ] 3.3 Đợt audio v8: render, owner duyệt, bundle.
+- [x] 3.3 Đợt audio v8: render, owner duyệt, bundle — xong 21/10: pack `explore-audio-vi-v8`, owner nghe duyệt 55 clip, nhánh `feat/explore-audio-v8`.
 
 ## 4. kido-server (nhánh `feat/explore-route-mirror-leveled`, `b86e9b6`, chưa push)
 

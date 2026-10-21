@@ -23,7 +23,7 @@
 
 - [x] 3.1 Khối câu mới liền nhau cuối `PROMPT_PHRASES` (`promptAudio.ts`, chú thích tên change), không đảo mục cũ; mirror vào kido-pipeline `src/explore/exploreAudioInventory.ts` (kido-pipeline `a0ca617`, nhánh local `feat/explore-peekaboo-cups` từ main `27436a4`).
 - [x] 3.2 `npm run explore-lines:dump` (không có câu liền mới: 9 câu đều là câu cố định; file JSON không đổi).
-- [ ] 3.3 Đợt audio chung **v8** — 9 id mới (`explore-audio:vi:phrase:<id>:v1`), owner nghe duyệt:
+- [x] 3.3 Đợt audio chung **v8** — 9 id mới (`explore-audio:vi:phrase:<id>:v1`), owner nghe duyệt — xong 21/10 (pack `explore-audio-vi-v8`, nhánh `feat/explore-audio-v8`):
   - `peekaboo_mantra` — «Bé nhìn kỹ chỗ của từng món nhé!»
   - `peekaboo_cups_which` — «Dưới cốc này là gì nhỉ?»
   - `peekaboo_cups_which_next` — «Còn dưới cốc này là gì nhỉ?»
