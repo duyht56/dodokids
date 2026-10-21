@@ -41,7 +41,9 @@ và xác nhận từng lỗi trên mobile `main` @ `ca25e9c`:
   chơi được giữ (`explore/pausableTimers.ts`), Đô Đô im và hàng đợi bị xoá,
   renderer bị khoá và nhận prop `paused`; khi quay lại, timer chạy tiếp phần còn
   lại và câu hỏi của bài được đọc lại. Ú òa dừng cửa sổ nhìn và cho nhìn lại đủ
-  một lượt khi bé quay lại (cả lượt "nhìn lại" ở hỗ trợ mức 2). Cân thăng bằng
+  một lượt khi bé quay lại (cả lượt "nhìn lại" ở hỗ trợ mức 2) — chỉ khi tạm dừng
+  trong lúc nhìn; đã che / đang lộ ô thì giữ nguyên bàn (C04, xem
+  `upgrade-explore-peekaboo-cups`). Cân thăng bằng
   và Xe buýt giữ các nhịp của `useBusSequencer`.
 - **Xưởng luyện nét**: giữ và huỷ timer hoàn thành khi unmount; màn Xưởng chỉ
   nhận kết quả mang đúng mã bài (seed) đang luyện. Nét ngắn (≤ 12 đơn vị, tức

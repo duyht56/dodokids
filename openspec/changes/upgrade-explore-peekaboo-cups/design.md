@@ -84,7 +84,12 @@ thẻ còn lại mới, giao của hai điều kiện là đúng món mất).
   lộ ô trống: giữ nguyên bàn, chơi tiếp từ bước đó, không cho nhìn lại — review
   đối kháng Đợt 1 (C04, `tmp/explore-review-2026-10-21/dot1-review-confirmed.md`)
   xác nhận bản Đợt 1 hiện lại đủ bộ sau khi bé đã thấy ô trống, tức lộ món bị
-  lấy. Thay kịch bản "Paused under the cover" của `fix-explore-play-reliability`.
+  lấy. Thay kịch bản "Paused under the cover" của `fix-explore-play-reliability`;
+  trên nhánh tích hợp 21/10 change đó đã sửa theo (requirement chỉ cho nhìn lại
+  khi tạm dừng trong lúc nhìn, kịch bản che thì giữ che), nên hai change không
+  còn mâu thuẫn. Requirement ở đây là MODIFIED của requirement change đó ADDED:
+  lưu trữ `add-explore-peekaboo-recall-game` → `fix-explore-play-reliability` →
+  change này.
 
 ## Bong bóng và tiếng theo pha (E07)
 

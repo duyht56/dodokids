@@ -130,6 +130,10 @@ When the run is paused (`paused`: the exit card is open or the app left the fore
 - **WHEN** the child opens the exit card two seconds into the look window and comes back after any length of time
 - **THEN** the set was never covered behind the card, and a new full look window starts with its look line
 
+#### Scenario: Paused under the cover
+- **WHEN** the run is paused while Đô Đô covers the set of a `missing` board, after a full look
+- **THEN** the cover stays behind the exit card and after it, no second look or look line starts, and the gap is revealed and the question asked as usual
+
 #### Scenario: Paused during the reveal
 - **WHEN** the run is paused while Đô Đô's cover is lifting and the gap is already drawn, and play goes on later
 - **THEN** the taken object never shows in its slot again, no second look starts, and the reveal ends in the question

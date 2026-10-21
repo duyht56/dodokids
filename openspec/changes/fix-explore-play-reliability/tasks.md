@@ -4,7 +4,7 @@
 - [x] 1.2 `ExplorePlayScreen`: token bài + cờ đã giải (layout effect theo `currentExercise`); retry/hint `dedupe` + bỏ khi đã giải/đổi bài; lời của renderer bỏ khi bài đã thay.
 - [x] 1.3 `explore/pausableTimers.ts` (`schedule/pause/unpause/clear`); mọi timer của màn chơi đi qua nó.
 - [x] 1.4 Tạm dừng khi hộp thoát mở hoặc `AppState` `background`/`inactive`: giữ timer, `stopExplorePromptAudio`, `disabled` + `paused` cho renderer, đọc lại câu hỏi khi quay lại; `paused?: boolean` trong `ExploreRendererProps`.
-- [x] 1.5 Ú òa: dừng cửa sổ nhìn khi tạm dừng trước câu hỏi, nhìn lại đủ một lượt kèm câu «nhìn kỹ»; lượt nhìn lại ở hỗ trợ mức 2 chạy lại đủ.
+- [x] 1.5 Ú òa: dừng cửa sổ nhìn khi tạm dừng trước câu hỏi, nhìn lại đủ một lượt kèm câu «nhìn kỹ»; lượt nhìn lại ở hỗ trợ mức 2 chạy lại đủ. Thu hẹp sau review đối kháng (C04, `upgrade-explore-peekaboo-cups`, mobile `f9bd17e`): chỉ tạm dừng TRONG lúc nhìn mới cho nhìn lại; đã che / đang lộ ô thì giữ nguyên bàn — spec delta của change này đã sửa theo trên nhánh tích hợp 21/10.
 - [x] 1.6 `useBusSequencer(paused)` giữ nhịp (Cân thăng bằng, Xe buýt); không nhận nhịp sau unmount.
 - [x] 1.7 Xe buýt: `stage.speak/say` trả Promise; `count_on`/`next_number` báo đúng sau khi lời kết đọc xong; `count_on` đọc số bạn đã lên/đã đếm từ ref.
 - [x] 1.8 `balooLineBox(18, 24)` cho câu hỏi Máy nối tiếp / Đúng vị trí; `explore/reduceMotion.ts` — Đô Đô chờ biết thiết lập giảm chuyển động và theo dõi khi đổi.

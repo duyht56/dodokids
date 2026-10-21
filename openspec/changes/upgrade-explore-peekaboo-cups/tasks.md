@@ -55,3 +55,4 @@
 
 - [ ] 7.1 Quyết định ở `design.md` (bậc 3 = 3 hay 4 cốc; 1 giây mỗi món; bậc 1 có 4 thẻ).
 - [ ] 7.2 Gộp nhánh mobile / kido-server / kido-pipeline (không push: push kido-pipeline main = deploy).
+- [ ] 7.3 Lưu trữ sau `fix-explore-play-reliability` (requirement "The look never runs out unseen" ở đây MODIFIED bản change đó ADDED; trên nhánh tích hợp 21/10 bản đó đã sửa theo C04, kịch bản "Paused under the cover" giữ che ở cả hai).

@@ -558,7 +558,8 @@ Mobile:
   and after the second blank replays the chain forward with `DotGroup`
   `changed` dots while saying the mantra, then `onAnswer(true)` (busy via
   `onBoardBusy` meanwhile; a mantra cut by a pause is re-said through
-  `throughPause`). `DotGroup`
+  `throughPause`; a pause in the `NEXT_CELL_MS` move to blank 2 cues blank 2's
+  question at once, so the way back never re-reads blank 1's). `DotGroup`
   gained optional `size`/`changed`. Contract `npm run test:explore-number-chain`
   measures every trick class through the real planner (no-knowledge,
   direction-only, steps-only, the structural "nearer 5" class and the
