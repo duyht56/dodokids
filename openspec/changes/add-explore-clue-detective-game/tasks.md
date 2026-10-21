@@ -179,35 +179,35 @@
 
 ## 3. Mã thứ 13 và đăng ký (mobile, lát B — ẩn khỏi catalog)
 
-- [ ] 3.1 `docs/kido-explore-contract.ts`: thêm `clue_detective` cuối danh sách
-- [ ] 3.2 `mobile/src/types/explore.ts`: thêm `clue_detective` cuối danh sách
-- [ ] 3.3 `registry.ts`: import, `GAME_COPY` sau `missing_cell` ("Thám tử Đô Đô" hoặc
+- [x] 3.1 `docs/kido-explore-contract.ts`: thêm `clue_detective` cuối danh sách
+- [x] 3.2 `mobile/src/types/explore.ts`: thêm `clue_detective` cuối danh sách
+- [x] 3.3 `registry.ts`: import, `GAME_COPY` sau `missing_cell` ("Thám tử Đô Đô" hoặc
       tên owner chốt ở 0.6, "Nghe gợi ý, tìm đúng nhà của Đô Đô"), `LOCAL_GAMES`,
       `BUNDLED_OVERRIDES` với `catalogVisible: false`, `LEVELED_ROUNDS`
       (`{ ...LEVELED_ROUND_RULE, introLine }`)
-- [ ] 3.4 `rendererRegistry.tsx` (đăng ký renderer), `variety.ts` (VARIETY_CONFIGS,
+- [x] 3.4 `rendererRegistry.tsx` (đăng ký renderer), `variety.ts` (VARIETY_CONFIGS,
       variantKey, bucketKey một bucket mỗi bậc, KHÔNG thêm QUESTION_POLICIES), `thumbnails.ts`
       (fallback `house`)
-- [ ] 3.5 `ExploreCatalogScreen.tsx`: nhóm "Quy luật" + sửa assert nhóm trong
+- [x] 3.5 `ExploreCatalogScreen.tsx`: nhóm "Quy luật" + sửa assert nhóm trong
       `verify-explore-number-bus-contracts.cjs`
-- [ ] 3.6 `masteryCriteria.ts`: 6 câu "khi nào bé vững" (design §13)
-- [ ] 3.7 `verify-explore-leveled-rounds-contracts.cjs` (RENDERERS; câu giới thiệu có
+- [x] 3.6 `masteryCriteria.ts`: 6 câu "khi nào bé vững" (design §13)
+- [x] 3.7 `verify-explore-leveled-rounds-contracts.cjs` (RENDERERS; câu giới thiệu có
       "bé"), `verify-explore-variety-buckets.cjs` (generator)
 
 ## 4. Điều phối đọc đề (mobile)
 
-- [ ] 4.1 `ExplorePlayScreen.tsx`: thêm `clue_detective` vào
+- [x] 4.1 `ExplorePlayScreen.tsx`: thêm `clue_detective` vào
       `RENDERER_CUED_PROMPT_GAMES` (màn chơi không phát `audioRefs` khi vào bài) và
       `SELF_VOICED_MISS_GAMES`; nút 🔊 gọi hàm đọc lại do renderer đăng ký nếu có,
       không thì giữ hành vi cũ
-- [ ] 4.2 `rendererRegistry.tsx` (`ExploreRendererProps`): prop đăng ký hàm đọc lại
+- [x] 4.2 `rendererRegistry.tsx` (`ExploreRendererProps`): prop đăng ký hàm đọc lại
       (vd `registerPromptReplay`), vị trí bài trong vòng và bộ nhớ của lượt (chỉ
       trong RAM, mất khi thoát); game khác không đổi hành vi
-- [ ] 4.3 `audio.ts`: kiểm chuỗi `onSpeakFeedback(refs, { gentle, onStart,
+- [x] 4.3 `audio.ts`: kiểm chuỗi `onSpeakFeedback(refs, { gentle, onStart,
       stillWanted })` của renderer: `onStart` gọi đúng một lần mỗi câu, promise trả
       `false` khi câu bị bỏ, đổi bài hoặc thoát Khám phá huỷ phần còn lại của chuỗi
       mà không cắt câu lên bậc của màn chơi; sửa nếu thiếu
-- [ ] 4.4 Assert contract (trong contract của game hoặc contract màn chơi hiện có):
+- [x] 4.4 Assert contract (trong contract của game hoặc contract màn chơi hiện có):
       **đọc một lần** (không phát `audioRefs`, mỗi gợi ý một lần mỗi bài); **chạm
       liên tục** (chạm nhà lúc khoá không tính, không xếp thêm lời; chạm thẻ liên
       tục chỉ đọc câu mới nhất); **chuyển vòng** (câu lên bậc đọc trước, câu đầu của
@@ -215,16 +215,16 @@
 
 ## 5. Renderer (mobile) — chỉ sau 0.5
 
-- [ ] 5.1 `renderers/clueDetective/layout.ts` thuần (design §11): hệ số co `fit`,
+- [x] 5.1 `renderers/clueDetective/layout.ts` thuần (design §11): hệ số co `fit`,
       sàn emoji 22 pt, dải lời 2 dòng hoặc bỏ khi emoji < 26 pt, khe cột 12 / hàng 8,
       cửa sổ 1 × 2 (m = 2) / 2 × 2 (m = 3), lưới 9 nhà 3–3–3 / 8 nhà 3–2–3 (luôn 3
       hàng; hàng 3 nhà + 2 khe ≤ màn − 40), iPad tối đa 1,35
-- [ ] 5.2 `ClueDetectiveRenderer.tsx` + `clueDetective/*`: nhà vẽ bằng View (mái,
+- [x] 5.2 `ClueDetectiveRenderer.tsx` + `clueDetective/*`: nhà vẽ bằng View (mái,
       cửa sổ, cửa chớp khép/mở, mờ 40%), thẻ ký hiệu đã chốt bằng
       `react-native-svg`, mặt lưng thẻ có chấm thứ tự, soi theo dấu (vòng xanh /
       biển cấm, không lóe), bong bóng bóng mờ món thiếu, `ExploreMascot`,
       `GhostHand` (10 s, không hiện nếu vừa chạm thẻ trong 5 s), giảm chuyển động
-- [ ] 5.3 Luồng một bài qua điều phối nhóm 4: **bài làm mẫu đầu lượt** ở mọi bậc
+- [x] 5.3 Luồng một bài qua điều phối nhóm 4: **bài làm mẫu đầu lượt** ở mọi bậc
       bắt đầu (bàn `clueDemoBoard`, chạy đúng `clueReplaySteps`: thẻ sáng → ký hiệu
       phủ lên món → nhà chưa đúng khép cửa chớp → còn một nhà + `clue_found`, kèm
       câu dạy ký hiệu; thiếu clip / tắt tiếng chạy đúng chuỗi hình đó, 1,2 s mỗi thẻ;
@@ -233,10 +233,10 @@
       bậc 1–2, câu thần chú ở bài đầu vòng không có câu dạy ký hiệu, thẻ úp (bậc 6,
       thiếu clip luôn ngửa), mở khoá khi câu cuối xong (thiếu clip 1,2 s mỗi thẻ);
       chạm thẻ nghe lại không giới hạn; 🔊 đọc lại đồng bộ hình
-- [ ] 5.4 Chạm nhầm: `onAnswer(false)` TRƯỚC, rồi câu luật (clip gợi ý) + câu chỉ
+- [x] 5.4 Chạm nhầm: `onAnswer(false)` TRƯỚC, rồi câu luật (clip gợi ý) + câu chỉ
       nhà, hình đúng loại, khép nhà, nhà không nhận chạm trong lúc nói; trợ giúp 1/2
       qua `supportRef`, chỉ khi bàn mở khoá và câu phản hồi đã nói xong
-- [ ] 5.5 Chạm đúng: diễn lại có lời (bậc 1–2, hoặc bài có ≥ 1 lần nhầm) hoặc diễn
+- [x] 5.5 Chạm đúng: diễn lại có lời (bậc 1–2, hoặc bài có ≥ 1 lần nhầm) hoặc diễn
       lại ngắn (bậc 3–6, đúng ngay lần đầu), `clue_found`, chờ
       `max(diễn lại, 1100 ms)` + 250 ms rồi `onAnswer(true)`
 

@@ -21,6 +21,7 @@ export const EXPLORE_GAME_CODES = [
   'number_chain',
   'number_bus',
   'balance_scale',
+  'clue_detective',
 ] as const;
 
 export type ExploreGameCode = (typeof EXPLORE_GAME_CODES)[number];
