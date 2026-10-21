@@ -186,18 +186,20 @@ Mobile:
 - Dẫn đường cho Đô Đô (`route_planner`) is a sibling offline spatial game (it
   originally filled the hidden Tracing slot): local grid generator/solver/validator in
   `mobile/src/explore/games/routePlanner{Types,Engine,Game}.ts`, rendered by
-  `mobile/src/explore/renderers/RoutePlannerRenderer.tsx`, run as a continuous
-  one-at-a-time L1→L5 progression owned by `ExplorePlayScreen`. All run state
-  (level, seed, commands, support, replay exclusions) is memory-only; optional
-  audio (`mobile/src/explore/audio.ts`) is never a required dependency.
+  `mobile/src/explore/renderers/RoutePlannerRenderer.tsx`, played in leveled
+  rounds since 2026-10-21 (see the route/mirror bullet below; it used to be the
+  only continuous one-at-a-time game). All run state (level, seed, commands,
+  support, replay exclusions) is memory-only; optional audio
+  (`mobile/src/explore/audio.ts`) is never a required dependency.
 - Explore shared play layer (OpenSpec `fix-explore-catalog-round-1`, 2026-08):
   the round planner in `mobile/src/explore/variety.ts` rotates bucket serving
   order per batch and serves `recentBucketKeys` last, so one-exercise batches
   cover every reachable mode (contract: `npm run test:explore-variety-buckets`);
   `buildNearTargetOptions(..., { exclude })` in `games/numberUtils.ts` is the
   shared, non-median distractor builder; range/arithmetic progress is
-  `{ level, recent }` with 5-of-7 window promotion; continuous runs end after
-  `CONTINUOUS_RUN_TARGET` (8) correct answers (Route Planner after Stage 5);
+  `{ level, recent }` with 5-of-7 window promotion; the play screen has had no
+  continuous mode since 2026-10-21 (`isContinuousExploreRunGame` is always
+  false, kept only for older contract calls);
   `ExploreMascot` (`explore/components/ExploreMascot.tsx`) is the only mascot;
   the play screen owns a global 🔊 replay button and renders exercises through
   `ExploreExerciseView`; catalog order/grouping is bundled `GAME_COPY` order
@@ -302,7 +304,8 @@ Mobile:
   a ~3s look window timed by the shared, numeral-free
   `explore/components/SandTimer.tsx` (owner-approved 2026-09-13; answering stays
   untimed and running out fails nothing). All tap-only, progressive L1→L5 (`missing_cell`
-  and `peekaboo_recall` play leveled rounds since 2026-10-18, see below), deterministic generator +
+  and `peekaboo_recall` play leveled rounds since 2026-10-18, `mirror_build` since
+  2026-10-21, see below), deterministic generator +
   independent validator (byte-identical replay), Đô Đô mascot, React-Compiler-safe
   (setState deferred in callbacks/timeouts). Registration points per game: codes in
   the 3 EXPLORE_GAME_CODES, games/renderers/rendererRegistry, registry.ts,
@@ -381,8 +384,12 @@ Mobile:
   exclusions for multi-board batches; the authored branch caps earlier
   exclusions at capacity − slots (balance L2 has 12 boards); Ú òa's look
   window waits for the board to open (`opened`). Only games whose renderer
-  reports every miss may opt in (memory/stack/route/tracing/number_bus scenes
-  only send `onAnswer(true)`); the other five are owner decisions. Contract:
+  reports every miss may opt in (memory/tracing and number_bus's board_all /
+  free_split only send `onAnswer(true)`); `stack_tower` reports wrong
+  placements since 2026-10-21 but stays progressive because the owner chose not
+  to turn it on yet. Each leveled game's rule is
+  pinned in the contract (`RULE_EXCEPTIONS`: default 6/4/1, `mirror_build`
+  4/3/1, `balance_scale` its own pass mark). Contract:
   `npm run test:explore-leveled-rounds`.
   Authored runs (`createExploreRunBatch`) generate slots in order and exclude
   every board already picked this run, so no run repeats a board (applies to
@@ -437,6 +444,52 @@ Mobile:
   reports hold while paused. Passenger dots are ink (`DotGroup` coral = the
   orange car). Phrase `tower_which_bigger` left `promptAudio.ts` and the
   pipeline inventory (its `.wav` stays bundled until the next pack export).
+- Dẫn đường + Soi gương leveled (OpenSpec `update-explore-route-mirror-leveled`,
+  2026-10-21; mobile branch `feat/explore-route-mirror-leveled`, kido-server branch
+  of the same name): `route_planner` reports every failed run (edge, obstacle,
+  locked door, short of / past home, missing star or checkpoint order) as ONE
+  `onAnswer(false)` after the walk and keeps the board; it plays
+  `LEVELED_ROUND_RULE` 6/4/1 with `route_intro_2..5`. The play screen lists it in
+  `SELF_VOICED_MISS_GAMES` and the new `BOARD_GUIDANCE_GAMES` (no shell text under
+  the board on a miss; praise/round lines float over the board's bubble only while
+  it is locked). Its walk/result/guidance timers are a renderer-owned
+  `createPausableTimers()` held on `paused`; under reduced motion the whole path
+  shows at once (900 ms hold); walked cells are tinted. `mirror_build` is v2:
+  `MIRROR_ROUND_RULE` 4/3/1 with `mirror_intro_2..5`; L5 is 5×(2·3) (never > 3
+  columns a side); boards whose left half is its own reflection are redrawn
+  (`mirrorBuildCopyIsWrong`, validator too, minOn ≥ 2); support shows ONE pair
+  picked once per board (`mirrorBuildDemoPair`: missing ON cell furthest from
+  the mirror, else an extra ON cell), cleared when its right cell is tapped,
+  then column distance dots at level 2 — no anchor that follows the answer, no
+  dimming; spoken/hint line `mirror_hint_pair`. Cell size comes from
+  `mirrorBuildCellLayout(width, rows, cols, gridBudget)` (44–68 pt, keeps to the
+  20 pt column unless 44 pt needs the padding, 8 pt from the edge, gap 6→4) over
+  the measured play area. kido-server mirrors versions through
+  `BundledLocalGameSpec.version` (mirror_build = 2, same code as
+  `fix/explore-missing-cell-leak`). The render harness has `knobs.window`;
+  `test:explore-mirror-build` measures rendered cells at 320/375/430 pt.
+  New lines `route_intro_*`, `mirror_intro_*`, `mirror_hint_pair` wait for audio
+  v8; they are mirrored in `kido-pipeline` `exploreAudioInventory.ts` on the
+  integration branch `integrate/explore-2026-10-21` (66389c5) — without that,
+  `test:explore-prompt-audio` fails when mobile sits next to kido-pipeline.
+  Soi gương switches to a compact layout (smaller prompt, no helper line under
+  the grid, tighter gaps) when the measured board is too short for the roomy
+  one at its level, so "Xong" never lands under the play screen's feedback
+  strip on 16:9 Android phones (that strip is `pointerEvents="none"` too). After
+  a pause, a renderer playing out the child's action (`onBoardBusy`, Dẫn đường's
+  walk) never gets the question read over its ending; one cut off mid-line gets
+  1.5 s to go on before the question is read (never silence).
+  Pause follow-ups from the adversarial review of Đợt 1 (same change): the shell
+  holds `onAnswer` calls made while paused (`heldAnswersRef`) and answers them
+  when play goes on (miss first); `handleTryAgainSound` is silent while paused;
+  renderer feedback lines are numbered against the board's question
+  (`voiceSeqRef`/`questionSeqRef`/`rendererLinesRef`) and, if one asked after
+  the question was in flight when the pause began, or the board is solved, the
+  question is NOT re-read on the way back; a break reminder dropped by the pause
+  is said once afterwards (`breakLineOwedRef`). Route guidance cut by a pause is
+  re-said by the renderer (`speakGuidance`/`owedGuidanceRef`). The play-shell
+  contract §7 mounts the real `ExplorePlayScreen` through the harness with
+  recorded audio/SFX stubs (`harness.stubs[...]`, `@/constants/layout` alias).
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/

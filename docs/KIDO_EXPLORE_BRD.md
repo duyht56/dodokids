@@ -142,7 +142,7 @@ Mở Khám phá
   → nghe hướng dẫn ngắn
   → thực hiện 5–8 lượt tương tác, hoặc đi tiếp đến cuối nhóm với game dạng
     ordered-track như Xưởng luyện nét, hoặc (game chơi theo bậc, §10) nhiều
-    vòng 6 bài, làm tốt thì lên bậc
+    vòng 6 bài (Soi gương: 4 bài), làm tốt thì lên bậc
   → nhận feedback/hint mang tính hướng dẫn
   → kết thúc tự nhiên
   → Chơi lại từ đầu hoặc Chọn trò khác
@@ -191,6 +191,16 @@ Không hiển thị XP, sao, sticker, badge, streak, currency hoặc bảng thà
 > catalog. Hiển thị hiệu lực = bundled AND server (fail-closed) — server chỉ có thể
 > ẨN (kill switch) một game đang hiện, không thể lộ lại game đã ẩn. Chi tiết:
 > openspec `explore-route-planner-game`, `explore-catalog`, `explore-session-runtime`.
+>
+> **Dẫn đường chơi theo bậc (owner 2026-10-21; openspec
+> `update-explore-route-mirror-leveled`).** Không còn "chặng 1→5, xong một bảng là
+> lên chặng": một lượt là các vòng 6 bảng cùng bậc (§10). Mỗi lần bấm "Đô Đô đi
+> thôi!" mà Đô Đô không về được nhà với đủ mục tiêu (mép bảng, chướng ngại, cửa
+> khoá, chưa tới / đi qua nhà, thiếu sao, sai thứ tự điểm) là một lần sai: bảng đó
+> không còn tính "đúng ngay lần đầu", bé sửa tiếp trên cùng bảng với lời dẫn của
+> Đô Đô trong bong bóng. Thanh trên ghi "Bậc x/5" và chấm của vòng như các game
+> theo bậc. Bước đi dừng khi hộp thoát mở / app ra nền; khi máy bật giảm chuyển
+> động, cả đường hiện một lần thay cho Đô Đô đi từng ô; ô đã đi qua được tô nhạt.
 
 ### 7.1. Game 1 — Xưởng luyện nét (bật lại, nét tiếng Việt làm mịn v5)
 
@@ -504,7 +514,8 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 > Bốn game bổ sung ở Đợt 3, cùng một khuôn: offline / stateless / no-reward,
 > generator deterministic + validator ĐỘC LẬP (replay theo seed byte-identical),
 > Đô Đô làm mascot, tương tác CHẠM (không kéo-thả), một lượt = 5 bảng L1→L5
-> (progressive; từ 2026-10-18 Ô thiếu và Ú òa chơi theo bậc, §10), tái dùng
+> (progressive; từ 2026-10-18 Ô thiếu và Ú òa, từ 2026-10-21 Soi gương chơi theo
+> bậc, §10), tái dùng
 > engine / pool / asset đã có (KHÔNG thêm art mới). Spec
 > đầy đủ nằm ở các OpenSpec capability change `add-explore-<code>-game`. Thumbnail
 > là PNG clay, đã giao đủ (xem cuối mục). Clip audio (đề + tên game) là best-effort, im lặng tới batch audio kế
@@ -533,9 +544,17 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 - **Soi gương (`mirror_build`)** — đối xứng / không gian: lưới có trục gương giữa,
   nửa trái có sẵn hình; trẻ chạm ô nửa phải để dựng ảnh phản chiếu rồi "Xong".
   Validator: nửa phải = đúng ảnh gương của nửa trái (suy từ nửa trái nhìn thấy,
-  không từ đáp án generator), bài không tầm thường. Support: mức 1 gợi ô kế tiếp,
-  mức 2 làm mờ ô không hợp lệ. L1→L5 tăng cỡ lưới + mật độ. Tái dùng lưới/ô vẽ
-  bằng View + palette mù-màu-an-toàn.
+  không từ đáp án generator), bài không tầm thường, và nửa trái KHÔNG tự đối
+  xứng — chép nguyên vị trí luôn sai (owner 2026-10-21, trước đó 13% bài bậc 1
+  chép là đúng). Support (sửa 2026-10-21 vì bản cũ lần theo được tới đáp án):
+  lần Xong sai đầu, Đô Đô chỉ MỘT cặp bé đang sai — ô bên trái, đoạn gương và ô
+  cùng khoảng cách bên phải, hình trượt qua gương — rồi để bé tự làm; chạm ô đó
+  thì gợi ý tắt, không nhảy sang ô khác. Lần sai thứ hai: chấm khoảng cách tới
+  gương trên đầu mỗi cột. Không tô hộ, không làm mờ ô. L1→L5 tăng cỡ lưới + mật
+  độ: 3×(2·2), 3×(2·3), 4×(2·3), 4×(2·3) dày hơn, 5×(2·3) — bậc 5 thêm hàng chứ
+  không thêm cột, để ô chạm ≥ 44 pt trên máy 320–430 pt (bản 4×(2·4) cũ chỉ còn
+  37 pt trên màn 375 pt). Chơi theo bậc với vòng 4 bài, đúng ngay 3 thì lên bậc
+  (§10). Tái dùng lưới/ô vẽ bằng View + palette mù-màu-an-toàn.
 
 **Hoãn / bỏ:** `tangram_assemble` (ghép hình) HOÃN vì cần kéo–xoay–ghép hình học,
 không hợp ràng buộc chạm-only và tái dùng engine thấp nhất — để làm riêng sau.
@@ -902,9 +921,14 @@ gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
   chỉnh trong lượt hiện tại, không phải adaptive nhiều phiên). Chỉ game báo mọi
   lần sai mới chơi theo bậc: Cân thăng bằng, Tìm quy luật, Ô thiếu, Ú òa, Máy nối
   tiếp (`number_chain`), Đúng vị trí (`ordinal_position`, owner đồng ý
-  2026-10-20 sau khi mỗi bài đã đọc đúng câu hỏi của nó, pack v7). Lật thẻ tìm
-  cặp, Xếp tháp cho Đô Đô, Dẫn đường cho Đô Đô, Xưởng luyện nét, Soi gương, Xe
-  buýt hai tầng giữ cách chạy cũ (chờ owner quyết từng game). Xoay hình không còn
+  2026-10-20 sau khi mỗi bài đã đọc đúng câu hỏi của nó, pack v7), Dẫn đường cho
+  Đô Đô (owner 2026-10-21, sau khi mỗi lần chạy hỏng được báo là một lần sai, §7)
+  và Soi gương (owner 2026-10-21, luật riêng: vòng 4 bài, đúng ngay ≥ 3/4 thì lên
+  bậc, tối đa một vòng thêm — mỗi bài tô nhiều ô nên vòng ngắn hơn). Lên bậc ở
+  hai game này cũng có câu "bây giờ có gì mới" cho bậc 2–5. Lật thẻ tìm cặp, Xếp
+  tháp cho Đô Đô, Xưởng luyện nét, Xe buýt hai tầng giữ cách chạy cũ: Xếp tháp đã
+  báo lần đặt sai (2026-10-21) nhưng chủ sản phẩm chọn chưa bật; Xe buýt chờ
+  playtest. Xoay hình không còn
   là game riêng: từ 2026-10-20 nó là họ `rotation` ở bậc 3 của Tìm quy luật (§7.7),
   nên chơi theo bậc cùng Tìm quy luật.
 
