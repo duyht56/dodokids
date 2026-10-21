@@ -57,3 +57,25 @@ bước bằng nhịp `later` thay vì một `Animated.sequence` dài: tạm d�
 bước đang nhảy (≤ 250ms). Lật thẻ: cả bốn timer (úp thẻ sai 700ms, giữ cặp đúng
 260ms, đóng lượt nhìn trộm 1100ms, báo xong 420ms) qua `later`; lời báo xong đọc
 `onAnswer` mới nhất qua ref, để một callback mới trong lúc dừng không huỷ lời báo.
+
+## 5. Cảnh đổi cỡ giữa bài (review đối kháng 21/10, STACK-TOWER-01)
+
+Báo sai làm dải gợi ý/phản hồi của màn chơi hiện ở mọi lần sai. Ở cỡ chữ mặc
+định dải vẫn dưới `minHeight` 90pt, nhưng với cỡ chữ hệ thống lớn (Android 1,3×,
+iOS XXXL) hoặc khi nhắc nghỉ mắt đang hiện, dải cao hơn và cảnh (`flex: 1`) thấp
+đi ~20pt, rồi cao lại khi chữ «Bé thử lại nhé.» tắt sau 2,5 s. Trước đây mỗi lần
+đổi cỡ là một bố cục mới: mọi khối bị `stopAnimation()` (khối đang trượt về bị
+cắt), khối nhảy chỗ/đổi cỡ, và các bước leo đã hẹn đưa Đô Đô về toạ độ cũ.
+
+- Bàn vẽ trên một view "sân khấu" `position: absolute; bottom: 0` cỡ đúng bố
+  cục. Cảnh thấp đi thì sân khấu đi lên cùng sàn, chỉ phần trống phía trên bị che.
+- `nextStackTowerSceneSize(current, measured, layout, touched)` (thuần): đổi bề
+  rộng → tính lại; thấp đi → giữ nếu đỉnh bàn (`stackTowerContentTop`: chỗ cao
+  nhất Đô Đô đứng) vẫn trong cảnh, không thì tính lại; cao lên → chỉ tính lại khi
+  chưa chạm (để lần đo đầu như 520 → 620 trên máy vẫn dùng hết chỗ).
+- Nhiều bàn sát mép trên (khoảng trống 8–20pt, vì bố cục dùng hết chiều cao),
+  nên vẫn có lúc phải tính lại. Khi đó: khối trên sàn không bị dừng (hoạt ảnh trượt
+  về kết thúc ở ô mới), khối đã xếp và Đô Đô nhảy tới toạ độ mới (Đô Đô tới đúng
+  bước đang leo), mỗi bước leo đọc điểm đáp từ bố cục đang hiện lúc đến nhịp.
+
+Không đổi khung chơi chung (phiên khác đang sửa `ExplorePlayScreen`).

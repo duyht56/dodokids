@@ -61,6 +61,12 @@ trông như không có chấm (khoảng 2/3 bảng toa chấm có toa cam).
   chờ úp, lượt nhìn trộm giữ nguyên, bàn xong chưa báo, cho tới khi quay lại (chạy
   tiếp phần thời gian còn lại).
 - **Chấm toa tàu màu mực** (`palette.ink`) để thấy rõ trên mọi màu toa.
+- **Bàn chơi đứng yên khi cảnh đổi cỡ giữa bài** (review đối kháng 21/10,
+  STACK-TOWER-01): giờ mỗi lần sai đều hiện dải gợi ý của màn chơi, mà với cỡ
+  chữ lớn hoặc khi đang hiện nhắc nghỉ mắt dải đó cao quá 90pt làm cảnh thấp đi.
+  Bàn vẽ trên một sân khấu neo đáy cảnh; `nextStackTowerSceneSize` chỉ tính lại
+  bố cục khi bàn không còn vừa, khi đổi bề rộng, hoặc cảnh cao lên trước lần chạm
+  đầu. Khi buộc tính lại, khối đang trượt về làm nốt, Đô Đô theo toạ độ mới.
 - Câu `tower_which_bigger` («Bạn nào to hơn?») rời danh mục câu
   (`promptAudio.ts`, inventory pipeline). File clip đã phát hành giữ nguyên.
 - Test: `test:explore-stack-tower` viết lại (bốn bậc, ô chạm trong bố cục, đo
@@ -88,6 +94,11 @@ Không đổi: luật lên bậc / lượt theo bậc, câu chữ trên màn hì
   `tower_which_bigger` trong registry (file `.wav` cũ vẫn nằm trong assets).
 - Claim C-50 ("xếp khối từ to đến nhỏ (Xếp tháp cho Đô Đô)") vẫn đúng: bậc đầu
   mới chính là 3 khối to→nhỏ. Không sửa.
-- Specs: thêm requirement vào `explore-stack-tower-game` (thay các phần L1 so
-  sánh, "không báo `onAnswer(false)`", "hit slop 48pt" và "L1→L5" của
-  `add-explore-round-2-games`) và `explore-memory-match-game`.
+- Specs: `explore-stack-tower-game` sửa (MODIFIED) sáu requirement của
+  `add-explore-round-2-games` và thay (REMOVED + ADDED tên mới) hai requirement có
+  scenario không còn đúng ("Seriation dimensions and levels", "Tap-to-place …
+  no wrong state"), thêm "Passenger dots are visible on every car"; đã thử
+  archive `add-explore-round-2-games` rồi change này trên bản sao: spec kết quả
+  không còn câu L1 so sánh / không báo sai / hit slop / L1→L5. Purpose của spec
+  (viết ở round-2) không sửa được bằng delta. `explore-memory-match-game` thêm
+  một requirement.
