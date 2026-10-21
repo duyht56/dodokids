@@ -247,14 +247,13 @@ Mobile:
   `test:explore-prompt-audio` fails if a game has no `game_<code>` phrase or a phrase
   says «mình». Re-take chosen clips with
   `VIENEU_TEMPERATURE=0.7 npm run explore-audio:generate -- --keys <key…>` (forced,
-  rejected included; reports clips shared by aliases). v9 (2026-10-21, Thám tử Đô Đô,
-  pending — not yet generated/reviewed/exported): `game_clue_detective` + 17 `clue_*`
+  rejected included; reports clips shared by aliases). v9 (2026-10-21, Thám tử Đô Đô; owner listened and approved all 81
+  new takes, the 7 shared labels reuse approved v8 clips; 602 clips, 297 whole lines): `game_clue_detective` + 17 `clue_*`
   phrases/fragments appended at the end of `PROMPT_PHRASES` (mobile `CLUE_PHRASES` /
   `CLUE_AUDIO_FRAGMENTS` are picked from there), 14 `clue-*` labels and 56 whole lines
   (`clue_has`, `clue_not`, `clue_fb_extra`, `clue_fb_missing`); pipeline
-  `EXPLORE_AUDIO_PACK_VERSION` is v9; support for v9 does not mean approved v9 audio
-  is bundled. Since Thám tử is on `main`, `explore-audio:export` needs all 88 clue keys
-  approved, so any audio fix for a live game first needs the v9 clue batch (it may be
+  `EXPLORE_AUDIO_PACK_VERSION` is v9 and the bundled pack is v9. Since Thám tử is on `main`, `explore-audio:export` needs all 88 clue keys
+  approved, so any audio fix for a live game first needs the v9 clue batch (v9 was
   exported while the game is still hidden). Generate v9 with a plain `generate`: 7
   `clue-*` labels share text with approved v8 clips of other games and must never be
   passed to `--keys`.
@@ -420,8 +419,9 @@ Mobile:
   `clue_fb_extra`, `clue_fb_missing`, item params 1..14), 13 fixed phrases,
   5 fragments and 14 labels; estimated 81 new syntheses after label reuse.
   Audio has no mandatory manifest dependency. Game stays `catalogVisible: false`
-  until paper playtesting passes and approved v9 audio is bundled; no v9 generation,
-  Human Gate, export or server deploy has happened yet. Thumbnail
+  until the owner turns it on; the owner skipped the paper test (2026-10-21) and the
+  approved v9 pack is bundled. Still open before showing it: the play-shell pause test
+  with the real renderer (tasks 10.6) and the server flag/deploy. Thumbnail
   `clue-detective.png` is registered. On `main` since 2026-10-21, merged after the
   Ô thiếu and Explore integration branches (server keeps both `catalogVisible?` and
   `version?`; Thám tử uses the default version 1). Contracts: `test:explore-clue-detective`,

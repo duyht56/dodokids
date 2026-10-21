@@ -42,12 +42,13 @@
       một bản cỡ chữ hệ thống 1,3
 - [x] 0.2 Owner duyệt OpenSpec + 2 màn mock, sau khi Codex xem lại bản P1-X (vòng 7
       CHƯA DUYỆT bản P1; design §9 "Vì sao bỏ xếp món đệm ngẫu nhiên")
-- [ ] 0.3 In bộ thử giấy đúng cỡ 360×640 (design §4, §11): 14 món + 2 món dự phòng;
+- [x] 0.3 In bộ thử giấy đúng cỡ 360×640 (design §4, §11): 14 món + 2 món dự phòng;
       thẻ A (và B dự phòng); miếng ký hiệu trong suốt (vòng xanh, biển cấm); nắp cửa
       chớp giấy vừa cửa sổ mỗi nhà; miếng hình Đô Đô; bài 2 nhà và 3 nhà thẻ đơn;
       một bàn B1 9 × 2 để làm mẫu; hai bàn mẫu design §11 (B1 9 × 2 emoji 32 pt,
       lưới 3–3–3; B6 9 × 3 Pappus emoji 29 pt); mỗi thứ có bản màu và bản đen trắng
-- [ ] 0.4 Thử giấy 5 bé theo 5 bước ở design §4: ≥ 2/5 bé 4,0–4,9 tuổi chưa luyện
+      > Owner bỏ qua thử giấy (21/10/2026).
+- [x] 0.4 Thử giấy 5 bé theo 5 bước ở design §4: ≥ 2/5 bé 4,0–4,9 tuổi chưa luyện
       phiếu, ≥ 1 bé đã luyện phiếu; ~15 phút mỗi bé. Ghi nguyên lời bé ở bước 1 và 2;
       **phân biệt gọi tên bằng từ khác (không tính lỗi) với nhận nhầm hình (tính
       lỗi)**; thử cả bản màu, bản đen trắng và tắt tiếng. **Làm mẫu tắt tiếng dùng
@@ -57,12 +58,14 @@
       tay vào nhà, không thao tác nào app không có. Ở bước 5 thử đúng hai bàn mẫu
       design §11 (B1 9 × 2 và 9 × 3 Pappus, bàn "mọi món đúng 3 nhà"), đo số lần
       nhận nhầm món, đọc ngược dấu, cần người lớn giúp và thời gian
-- [ ] 0.5 Chốt theo tiêu chí ở design §4 (đạt khi đủ 4 tiêu chí; bước 5 chặn code
+      > Owner bỏ qua thử giấy (21/10/2026).
+- [x] 0.5 Chốt theo tiêu chí ở design §4 (đạt khi đủ 4 tiêu chí; bước 5 chặn code
       renderer nếu vượt ngưỡng). A trượt (1)–(3) → thử B với 5 bé khác; cả hai trượt
       → dừng game, báo owner; trượt (4) → báo owner. Thay món ≥ 2/5 bé nhận nhầm
       hình bằng món dự phòng; thêm cặp gần âm phát hiện được vào
       `CLUE_NEAR_SOUND_PAIRS`. Renderer (nhóm 5) không được code trước khi mục này
       đạt
+      > Owner bỏ qua thử giấy (21/10/2026); renderer đã code trước đó theo quyết định owner.
 - [x] 0.6 Owner trả lời câu hỏi (a)–(d) ở design §15: (a) chấp nhận quên 1 thẻ
       "không có" vẫn qua 56,9% ở mọi bậc để mẹo đoán thẻ "có" mà không đọc dấu chỉ
       còn ≤ 19%; (b) chấp nhận P1-X (danh mục hoán đổi được: 1 / 1 / 3 / 9 / 9 / 9
@@ -294,22 +297,24 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
 
 ## 7. Audio batch (Human Gate)
 
-- [ ] 7.1 Gen ~81 lần tổng hợp VieNeu `dodo-clone2`:
+- [x] 7.1 Gen ~81 lần tổng hợp VieNeu `dodo-clone2`:
       `VIENEU_TEMPERATURE=0.7 npm run explore-audio:generate` thường (không `--keys`,
       không `--force`), để 7 nhãn `clue-*` cùng chữ với clip v8 đã duyệt của game khác (vd «chú mèo» của Cân thăng bằng, «quả táo» của bài đếm) được dùng lại.
       `--keys` chỉ để sinh lại khoá `clue_*` bị reject ở 7.2; không bao giờ truyền 7
       nhãn dùng chung (take ép ghi đè clip đã duyệt của game kia)
-- [ ] 7.2 Owner TỰ NGHE riêng 16 clip có chữ "không" (không duyệt gộp) + 14
+      > Xong 21/10/2026: `generate` thường, 81 lần tổng hợp (25 câu lẻ + 56 câu liền), 0 lần QC đọc lại; 7 nhãn dùng lại clip v8.
+- [x] 7.2 Owner TỰ NGHE riêng 16 clip có chữ "không" (không duyệt gộp) + 14
       `clue_has` + 14 `clue_fb_missing` + chuỗi clip ghép dự phòng; nghe liền chim /
       cá / chó / rùa / bướm; checklist "số chữ 'không' nghe được = số chữ 'không'
       trong câu"; clip chưa rõ → reject → sinh lại đúng khoá đó (6.1) → nghe lại.
       Dự trù 10–15 phút
-- [ ] 7.3 Export pack v9 → mobile; test offline-audio + prompt-lines + prompt-audio.
+      > Xong 21/10/2026: owner nghe trang `tmp/audio-review-2026-10-21-v9/` (16 câu «không» xếp đầu, nhóm tên dễ nhầm) và duyệt cả 81.
+- [x] 7.3 Export pack v9 → mobile; test offline-audio + prompt-lines + prompt-audio.
       Được export khi game còn ẩn: từ khi Thám tử vào `main`, mọi lần export (kể cả sửa
       clip của game khác) cần đủ 88 khoá `clue_*` đã duyệt. Bật hiển thị
       (`catalogVisible` của `clue_detective`) là commit riêng sau đó, cùng cờ server
       (8.4), sau 10.6
-
+      > Xong 21/10/2026: export 602 clip (297 câu liền), pack `explore-audio-vi-v9`, game vẫn ẩn.
 ## 8. kido-server (push = deploy)
 
 - [x] 8.1 Code trên server `2c86f85`, chưa commit: `explore.types.ts` (thêm mã

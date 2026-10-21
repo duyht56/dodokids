@@ -181,7 +181,7 @@ Không hiển thị XP, sao, sticker, badge, streak, currency hoặc bảng thà
 ## 7. DANH MỤC 13 TRÒ CHƠI (12 ĐANG HIỂN THỊ)
 
 > **Cập nhật 2026-10-21:** 13 mã được đăng ký trong code; Thám tử Đô Đô còn ẩn
-> tới khi thử giấy đạt và pack v9 đã duyệt có trong bundle. Số thứ tự các mục
+> tới khi chủ sản phẩm bật (thử giấy được bỏ qua 21/10/2026; pack v9 đã duyệt có trong bundle). Số thứ tự các mục
 > dưới đây giữ lịch sử, gồm cả các game đã gỡ hoặc gộp; không phải số thẻ hiện tại.
 
 > **Cập nhật (2026-08-25) — bật lại Xưởng luyện nét + làm mịn nét tiếng Việt.**
@@ -936,9 +936,10 @@ luôn dùng đủ ba thẻ. Số cấu trúc ít và bước 3→4 đổi cả s
 
 **Audio và phát hành:** inventory pack `explore-audio-vi-v9` thêm 88 khoá
 (56 câu liền, 13 câu cố định, 5 mảnh, 14 nhãn); dự kiến 81 lần tổng hợp mới sau
-khi dùng lại 7 nhãn cùng chữ. Đây là code/inventory, **chưa sinh, duyệt hay export
-pack v9** trong lát C. Game giữ `catalogVisible: false` cả bundled mobile lẫn
-server tới khi thử giấy đạt và pack v9 có trong bundle; chưa lên store. Audio
+khi dùng lại 7 nhãn cùng chữ. Pack v9 đã sinh, chủ sản phẩm nghe duyệt
+cả 81 clip mới và đã có trong bundle (21/10/2026). Game giữ `catalogVisible: false` cả
+bundled mobile lẫn server tới khi chủ sản phẩm bật (thử giấy được bỏ qua 21/10/2026;
+còn test tạm dừng với renderer thật); chưa lên store. Audio
 không thuộc dependency bắt buộc của game. Quy trình Human Gate xem §9.
 
 ---
@@ -1058,8 +1059,9 @@ và mọi câu Đô Đô còn tự xưng «Mình…» đọc lại thành «Bé�
 Xe buýt có chứa chúng). Chủ sản phẩm nghe và duyệt cả 55 clip; Thám tử Đô Đô để
 đợt sau (v9).
 
-**Cập nhật (2026-10-21, Thám tử Đô Đô — pack `explore-audio-vi-v9`):** inventory và
-danh sách pack hỗ trợ đã có v9; chưa có pack đã duyệt trong bundle. Bốn template
+**Cập nhật (2026-10-21, Thám tử Đô Đô — pack `explore-audio-vi-v9`):** gen 81 clip mới
+(7 nhãn dùng lại clip v8 đã duyệt), chủ sản phẩm nghe và duyệt cả 81, export 602 clip vào
+app khi game còn ẩn. Bốn template
 `clue_has`, `clue_not`, `clue_fb_extra`, `clue_fb_missing` dùng 14 món, tham số
 1-based; nhãn/mảnh ghép vẫn là dự phòng. Lát này thêm **88 khoá / dự kiến 81 lần
 tổng hợp**. Không TTS lúc chơi. Owner phải tự nghe riêng
@@ -1067,7 +1069,7 @@ tổng hợp**. Không TTS lúc chơi. Owner phải tự nghe riêng
 sinh lại đúng khoá bằng `--keys`, không dùng `--force` toàn pack; gen lần đầu chạy
 thường để 7 nhãn cùng chữ với clip v8 của game khác được dùng lại (không truyền
 chúng vào `--keys`). Từ khi Thám tử vào `main`, export cần đủ 88 khoá đã duyệt, nên
-pack v9 có thể vào app khi game còn ẩn. Chỉ bật game trong cùng đợt export v9 sau khi thử giấy đạt.
+pack v9 vào app khi game còn ẩn; bật game là bước riêng của chủ sản phẩm.
 
 ---
 
