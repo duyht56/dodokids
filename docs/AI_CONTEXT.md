@@ -226,12 +226,16 @@ Mobile:
   lines, below), v6 (`balance_scale`), v7 (2026-10-19: Ú òa look/support lines,
   Đúng vị trí question lines `ord_tap`/`ord_tap_row`; 2026-10-20 its level intros
   `ordinal_intro_2..5`), v8 (pending, not rendered — one batch for the
-  2026-10-21 Explore integration): 19 new ids `route_intro_2..5`,
-  `mirror_intro_2..5`, `mirror_hint_pair`, `game_number_chain`,
-  `chain2_forward_q`, `chain2_reverse_q`, `chain2_ask_end`, `chain2_ask_start`,
-  `chain2_mantra_forward`, `chain2_mantra_reverse`, `chain2_hint_dots`,
-  `chain2_intro_3`, `chain2_intro_4` (all in the pipeline inventory on
-  `integrate/explore-2026-10-21`); planned re-renders `tracing_continue_glow` /
+  2026-10-21 Explore integration): 28 new ids — Dẫn đường/Soi gương (9)
+  `route_intro_2..5`, `mirror_intro_2..5`, `mirror_hint_pair`; Máy nối tiếp
+  (10) `game_number_chain`, `chain2_forward_q`, `chain2_reverse_q`,
+  `chain2_ask_end`, `chain2_ask_start`, `chain2_mantra_forward`,
+  `chain2_mantra_reverse`, `chain2_hint_dots`, `chain2_intro_3`,
+  `chain2_intro_4`; Ú òa cốc (9) `peekaboo_mantra`, `peekaboo_cups_which`,
+  `peekaboo_cups_which_next`, `peekaboo_hint_place`, `peekaboo_missing_done`,
+  `peekaboo_cups_done`, `peekaboo_cups_intro_3..5` (appended in this order at
+  the end of `PROMPT_PHRASES` in mobile `promptAudio.ts` and in the pipeline
+  inventory on `integrate/explore-2026-10-21`); plus 3 planned re-renders `tracing_continue_glow` /
   `tracing_next_stroke` / `tracing_follow_dots` with «Bé…» (inventory text still
   «Mình…», OpenSpec `fix-explore-play-reliability` 5.9); the export drops
   `tower_which_bigger` (Xếp tháp, no new clip); `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
@@ -239,10 +243,12 @@ Mobile:
 - Explore prompt timing: the play shell reads `exercise.audioRefs` on mount,
   except `RENDERER_CUED_PROMPT_GAMES` (`peekaboo_recall`, `number_chain`), whose
   renderer cues each line through `onPromptCue` when it fits the board (Ú òa: the
-  look line, then the question only once the gap is revealed; Máy nối tiếp: each
-  blank's question; 🔊 repeats the last cue).
-  The support hint row/voice comes from `supportHintPhraseId` (a game's own line
-  where the generic «nghe lại / nhìn kỹ từng lựa chọn» does not fit).
+  look line, then the question only once the gap is revealed or the cups are
+  down; Máy nối tiếp: each blank's question; 🔊 repeats the last cue).
+  The support hint row/voice comes from
+  `supportHintPhraseId(gameCode, level, hasAudio, exercise?)` (a game's own line
+  where the generic «nghe lại / nhìn kỹ từng lựa chọn» does not fit; Ú òa picks
+  its line by the board's mode).
   `ordinal_position` speaks its actual question (`ordinalPositionKeys(isGrid,
   row, ordinal, fromLeft)`), no longer one generic sentence, and as a
   `BOARD_QUESTION_PROMPT_GAMES` member every board reads it (never skipped as a
@@ -309,9 +315,10 @@ Mobile:
   four new offline/stateless/no-reward games registered end-to-end exactly like
   the Đợt 2 games — `sort_bins` (tap-only classify into 2–3 bins),
   `missing_cell` (2-D Raven matrix, reuses pattern hidden-slot),
-  `peekaboo_recall` (what's-missing, reuses memory cover/reveal), `mirror_build`
+  `peekaboo_recall` (what's-missing, reuses memory cover/reveal; since
+  2026-10-21 "what is under this cup" from L3, see the Ú òa entry below), `mirror_build`
   (build the symmetric right half). `peekaboo_recall` shows its set for
-  a ~3s look window timed by the shared, numeral-free
+  a look window (1 s per object, at least 3 s) timed by the shared, numeral-free
   `explore/components/SandTimer.tsx` (owner-approved 2026-09-13; answering stays
   untimed and running out fails nothing). All tap-only, progressive L1→L5 (`missing_cell`
   and `peekaboo_recall` play leveled rounds since 2026-10-18, `mirror_build` since
@@ -423,7 +430,8 @@ Mobile:
   `background`/`inactive`: shell timers go through `explore/pausableTimers.ts`
   (API `pause/unpause` — kido-server `explore.stateless-privacy.spec` forbids
   "resume" in the play screen), voice stops, renderers get `disabled` +
-  `paused`; Ú òa re-runs a full look, `useBusSequencer(paused)` holds Cân/Xe buýt
+  `paused`; Ú òa re-runs a full look when paused during the look (once covered
+  or revealed it holds the board, review C04, see the Ú òa cups entry), `useBusSequencer(paused)` holds Cân/Xe buýt
   beats. Xe buýt `stage.speak/say` return promises (count_on/next_number report
   after the closing line); follow-up branch `fix/explore-dot1-followup`: a mantra
   cut by a pause is re-said, `stage.mantra` moves the scene on exactly once, and
@@ -559,6 +567,29 @@ Mobile:
   rendered): `game_number_chain` + nine `chain2_*` lines (no `chain2_intro_5`:
   L2 / L5 reuse pack-v7 `chain_intro_2` / `chain_intro_4`, «…số lớn tới hai
   mươi…»), mirrored in the pipeline inventory.
+- Ú òa "Dưới cốc này là gì?" (OpenSpec `upgrade-explore-peekaboo-cups`,
+  2026-10-21, owner decision after the 12-game review; mobile/kido-server/
+  kido-pipeline branches `feat/explore-peekaboo-cups`): `peekaboo_recall` v2 has
+  two board kinds, `params.mode` `missing` (L1 3 objects, L2 4; cards = the
+  missing one + exactly one still on the board + new ones, so neither "seen
+  before" nor "not on the board" answers alone) and `cups` (L3 3 cups, L4 4, L5 4
+  with two cups asked in a row; cards = exactly the objects under the cups;
+  `askedSlots` by seeded permutation). Answer shape `assetIds` (one per
+  question). `variantKey` = kind + arrangement + removed slot / asked cups, never
+  the cards. Look = `peekabooLookMs` (1 s per object, ≥ 3 s). The renderer
+  shows why after the last right answer (gap filled / cups lifted left to right)
+  and says `peekaboo_missing_done` / `peekaboo_cups_done` through
+  `onSpeakFeedback`, then reports `onAnswer(true)` (held while paused; a pause
+  after the cover/cups/reveal never shows the set again, C04); the
+  bubble follows the phase; cups are Views; one row of objects and one of cards
+  sized by the pure `renderers/peekabooLayout.ts`. Mantra `peekaboo_mantra` is
+  the cups look line; 9 new phrases wait for audio batch v8 (in the pipeline
+  inventory on the integration branch); `levelIntroLine
+  ('peekaboo')` maps L2 to the existing `peekaboo_intro_3`. kido-server
+  `BundledLocalGameSpec.version` (same lines as the Ô thiếu branch) = 2.
+  Contract `npm run test:explore-peekaboo` runs naive solvers on real planner
+  rounds (memory-free tricks ≈ guessing; v1's "pick the familiar card" was
+  100%), the layout on five devices and the mounted renderer.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
