@@ -79,9 +79,15 @@ Cách làm hiện tại:
   `STACK_TOWER_FLOOR_RESERVE` (32pt) dưới các ô chạm hàng dưới và
   `STACK_TOWER_SCENE_PAD` (8pt) trên chỗ đứng cao nhất của Đô Đô. Nó dùng khoảng
   trống phía trên trước (dịch bàn lên), nên bàn còn chỗ (tàu, toa chấm, phần lớn
-  bàn trên máy 430pt) giữ nguyên cỡ; chỉ bàn chật mới thu nhỏ, và không bao giờ
-  tới mức hai khối bằng cỡ hoặc mất pad (cảnh quá chật thì chừa ít hơn 32pt). Dải
-  đất vẽ từ vạch sàn tới đáy cảnh, nên phần dự phòng trông là nền sàn.
+  bàn trên máy 430pt) giữ nguyên cỡ; chỉ bàn chật mới thu nhỏ, và chỉ khi bố cục
+  thu vẫn **đọc được** (`stackTowerLayoutReadable`: hai khối kề cỡ giữ tỉ lệ của
+  bậc, trừ 0,05 làm tròn, và chênh ≥ `STACK_TOWER_MIN_STEP` = 6pt; Đô Đô còn pad
+  8pt). Bố cục gốc đã ở giới hạn thì không thu, cảnh đó chừa ít dự phòng hơn (vòng
+  kiểm 4: bản trước thu tới khi hai khối bằng cỡ, tháp L4 xuống 19×18 / 18×18).
+  Dải đất vẽ từ vạch sàn tới đáy cảnh, nên phần dự phòng trông là nền sàn.
+- **Bố cục gốc lấy lại chỗ ô chạm đã tốn.** Khoảng giữa hai hàng sàn, và giữa
+  hàng sàn trên cùng với vạch xây, chỉ cần đủ khoảng hở nhìn thấy (10 / 18pt);
+  phần ô chạm cao hơn khối đã là khoảng hở, nên các ô có thể sát nhau.
 - `nextStackTowerSceneSize`: đổi bề rộng → tính lại; thấp đi → giữ khi cảnh còn
   chứa hết các ô chạm hàng dưới (`stackTowerContentBottom`), tức tới hết dự
   phòng; cao lên → chỉ tính lại khi chưa chạm.
@@ -89,6 +95,12 @@ Cách làm hiện tại:
   (Đô Đô tới đúng bước đang leo, mỗi bước leo đọc điểm đáp khi tới nhịp); khối
   đang thử lên công trình bỏ đích cũ và nảy thẳng về ô mới.
 
-Giá: trên cảnh thường của máy 320pt và 375pt, tháp và dãy cột nhỏ đi khoảng 7–20%
-(trung vị 85–93% cỡ khối to nhất); tàu và toa chấm không đổi; máy 430pt hầu như
-không đổi. Không đổi khung chơi chung (phiên khác đang sửa `ExplorePlayScreen`).
+Giá: trên cảnh thường của máy 320pt và 375pt, tháp và dãy cột nhỏ đi khoảng 6–25%
+(trung vị 86–94% cỡ khối to nhất); tàu và toa chấm không đổi; máy 430pt hầu như
+không đổi. Máy 375/430pt giữ đủ 32pt ở mọi bàn; máy 320pt giữ đủ ở mọi bàn trừ
+tháp 5 khối (đã ở giới hạn đọc: còn 4–32pt, trung vị 10pt).
+
+Giới hạn còn lại (có từ trước nhánh này): ở cảnh 276×308 của máy 320pt, 6/19 tháp
+5 khối và phần lớn tàu 5 toa có hai khối kề chênh dưới 6pt (4–5pt; tỉ lệ vẫn đạt)
+ngay ở bố cục gốc, vì bề rộng/chiều cao không đủ cho 5 vật cùng sàn chạm 48pt.
+Bản cũ `bcb3dab` (bậc 5 cũ) cũng vậy: 5/19 tháp, bước nhỏ nhất 4pt. Không đổi khung chơi chung (phiên khác đang sửa `ExplorePlayScreen`).
