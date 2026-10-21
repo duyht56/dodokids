@@ -539,7 +539,29 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
   nên nhiễu là một ô cùng hàng/cột trên bảng và một hình mang một giá trị không
   có trên bảng. **Sau mỗi bài đúng**, bảng diễn lại lời giải: hàng của ô "?"
   sáng, rồi cột, rồi các ô che mở ra, Đô Đô nói câu thần chú «Nhìn hàng, nhìn cột,
-  ghép đủ hai điều.» (clip `missing_cell_solve` chờ batch audio kế tiếp).
+  ghép đủ hai điều.» (clip `missing_cell_solve`, pack v8).
+  **Lưới 2×2 chỉ là bài làm quen** (owner chốt 2026-10-21, OpenSpec
+  `update-explore-missing-cell-warm-up`, `missing-cell-v3`): ở 2×2 bé bỏ thẻ có giá
+  trị lạ rồi bỏ thẻ đã có trên bảng là đúng 100% mà không đọc hàng/cột, nên 2×2
+  không tính lên bậc. Thang chấm điểm còn ba bậc 3×3, mỗi bậc gỡ một hỗ trợ:
+
+  | Bậc | Bảng | Gỡ so với trước |
+  |---|---|---|
+  | Làm quen (không tính) | 2×2 hình × màu, 3 lựa chọn, không che; bài đầu Đô Đô làm mẫu | (đầu thang) |
+  | 1 | 3×3 hình × màu, 3 ô che, 4 lựa chọn | bỏ làm mẫu; bảng lớn hơn, đáp án và nhiễu là ô bị che |
+  | 2 | 3×3 chấm × màu | một chiều phải đếm chấm |
+  | 3 | 3×3 hình hoặc chấm | bảng đổi loại giữa các bài, bé tự tìm thuộc tính chạy theo hàng |
+
+  Bài làm quen: 2 bài 2×2 mở lượt đầu mỗi lần vào game, chỉ khi lượt bắt đầu ở bậc
+  1 (phụ huynh chọn bậc 2–3 thì không có; «Chơi lượt mới» cũng không — bé vừa làm).
+  Bài đầu: câu hỏi đọc xong, Đô Đô nói câu thần chú, hàng của ô "?" sáng rồi tới cột,
+  lựa chọn chỉ bấm được sau đó; bài hai bé tự làm. Bài làm quen không thuộc vòng 6
+  bài, không tính "đúng ngay lần đầu", đầu màn hiện «Làm quen 1/2». Hết bài làm quen
+  là «Giỏi quá! Bé lên bậc mới nhé!» + «Bây giờ bảng có ba hàng ba cột, bé nhìn kỹ
+  nhé!» rồi vào bậc 1. Lên bậc 2/3 nói «Bây giờ bé đếm chấm trên bảng ba hàng ba
+  cột nhé!» / «Bây giờ có cả hình và chấm, bé nhìn hàng và cột nhé!» (clip có sẵn,
+  không có clip mới). Bậc bắt đầu phụ huynh lưu ở thang 5 bậc cũ được chuyển một lần:
+  1–3 → 1, 4 → 2, 5 → 3.
 - **Ú òa (`peekaboo_recall`)** — trí nhớ "nhìn một lần, nhớ cả bố cục" (khác Lật
   thẻ: lật dần, nhớ dần). Owner chốt 2026-10-21 (OpenSpec
   `upgrade-explore-peekaboo-cups`): bậc 1–2 "món nào biến mất", từ bậc 3 "Dưới cốc
@@ -1001,7 +1023,10 @@ Xe buýt có chứa chúng). Chủ sản phẩm nghe và duyệt cả 55 clip; T
   Đô Đô (owner 2026-10-21, sau khi mỗi lần chạy hỏng được báo là một lần sai, §7)
   và Soi gương (owner 2026-10-21, luật riêng: vòng 4 bài, đúng ngay ≥ 3/4 thì lên
   bậc, tối đa một vòng thêm — mỗi bài tô nhiều ô nên vòng ngắn hơn). Lên bậc ở
-  hai game này cũng có câu "bây giờ có gì mới" cho bậc 2–5. Lật thẻ tìm cặp, Xếp
+  hai game này cũng có câu "bây giờ có gì mới" cho bậc 2–5. Một game có thể có
+  **bài làm quen** không tính điểm trước vòng đầu (hiện chỉ Ô thiếu: 2 bài 2×2,
+  §7.12): chỉ ở lượt đầu mỗi lần vào game và chỉ khi bắt đầu ở bậc thấp nhất, không
+  thuộc vòng 6 bài, không đếm "đúng ngay lần đầu". Lật thẻ tìm cặp, Xếp
   tháp cho Đô Đô, Xưởng luyện nét, Xe buýt hai tầng giữ cách chạy cũ: Xếp tháp đã
   báo lần đặt sai (2026-10-21) nhưng chủ sản phẩm chọn chưa bật; Xe buýt chờ
   playtest. Xoay hình không còn

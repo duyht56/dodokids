@@ -332,7 +332,14 @@ Mobile:
   mate plus one off-board token, the validator proves the board reads one way
   only, the contract bounds naive solvers on 2000 seeds per level, and a right
   answer plays a worked solution with the mantra `missing_cell_solve` before
-  `onAnswer(true)`),
+  `onAnswer(true)`; since 2026-10-21, OpenSpec
+  `update-explore-missing-cell-warm-up`, `missing-cell-v3`: the scored levels
+  are L1–L3, all 3×3 (shape, dots, either kind — the old L3–L5), and the 2×2
+  board is generator level 0 (`MISSING_CELL_WARM_UP_LEVEL`, outside `levels`),
+  played only as the unscored warm-up because elimination wins it 100%; a
+  starting level saved on the old five-level ladder is moved once by the
+  `kido-parent-preferences` store, persist version 1 →
+  `migrateExploreParentConfig`: 1–3 → L1, 4 → L2, ≥5 → L3),
   `peekaboo_recall` (what's-missing, reuses memory cover/reveal; since
   2026-10-21 "what is under this cup" from L3, see the Ú òa entry below), `mirror_build`
   (build the symmetric right half). `peekaboo_recall` shows its set for
@@ -414,6 +421,14 @@ Mobile:
   round is a one-level `LocalExploreProvider` batch of `roundSize`
   (`getExploreRunSize` returns it); multi-board batches in `planExploreRound`
   draw until every bucket has ⌈count/buckets⌉ unseen boards (even mode mix);
+  a leveled game may declare `warmUp` (`ExploreWarmUp`: generator level outside
+  `levels`, board count, demo count, closing line; only `missing_cell`: two 2×2
+  boards, the first shown by Đô Đô through the renderer prop `demo`):
+  `getExploreWarmUp(game, startLevel)` gives it only at the lowest level, the
+  play screen puts it before the first round of the visit's first run
+  (`warmUpCount` leading boards, `warmUpOfferedRef`), never counts it (no
+  first-try, never a round end, header «Làm quen k/2» with its own dots) and ends
+  it like a move up (`fb_level_next` + `missing_cell_intro_3`);
   the play screen clears `lastPromptKeyRef` at each round swap and remembers
   each level's last two rounds (`roundKeysByLevelRef`, memory-only) so a new run
   avoids the boards of its start level; `LocalExploreProvider` keeps 2×count
