@@ -16,36 +16,43 @@ A Máy nối tiếp board SHALL be a two-machine chain `start →(op1 k1)→ mid
 - **THEN** the child fills the middle (5) first and then the start (3)
 
 ### Requirement: Level 1 is already two real steps and each level changes one thing
-Every level SHALL keep all numbers in 1–10 (the worksheet's range) and use two non-zero machines whose chain does not come back to its start. Level 1 SHALL be forward with dots on both machines and steps 2–3; each next level SHALL change exactly one thing: level 2 adds reverse boards, level 3 keeps dots only on the machine worked first, level 4 removes all dots, level 5 allows machines up to 5 with at least one machine of 4 or more. No machine run alone from a shown number SHALL give the second answer, and the second answer SHALL NOT be among the first blank's cards.
+Levels 1–4 SHALL keep all numbers in 0–10 (the worksheet's range) and level 5 in 0–20, and every board SHALL use two machines of 2 to 4 whose chain does not come back to its start. Level 1 SHALL be forward with dots on both machines; each next level SHALL change exactly one thing: level 2 adds reverse boards, level 3 keeps dots only on the machine worked first, level 4 removes all dots, level 5 widens the range to 20. Numbers above 10 SHALL only appear on levels without dots. No machine run alone from a shown number SHALL give the second answer, and the second answer SHALL NOT be among the first blank's cards. From level 2 a round of six boards SHALL hold two forward boards, two reverse boards whose machine 2 adds and two whose machine 2 takes away.
 
 #### Scenario: Level 1 board
 - **WHEN** any level-1 board is generated
-- **THEN** it is forward, has two blanks (middle, end), both machines move the number by 2 or 3, and neither machine alone reaches the end from the start
+- **THEN** it is forward, has two blanks (middle, end), both machines move the number by 2 to 4, and neither machine alone reaches the end from the start
 
 #### Scenario: Dots are only taken away
 - **WHEN** the levels are compared in order
-- **THEN** exactly one of direction, dots, machine size, range or card count changes from one level to the next, and dots never come back at a higher level
+- **THEN** exactly one of direction, dots, machine size, range or card count changes from one level to the next, dots never come back at a higher level, and the range goes past 10 only on level 5 (no dots)
+
+#### Scenario: Reverse boards are the majority of a round
+- **WHEN** a level-2 round is planned
+- **THEN** it holds two forward boards and four reverse boards (two undoing an adding machine, two undoing a taking-away machine)
 
 ### Requirement: Wrong cards are real child errors and no card trick beats guessing
-Each blank SHALL offer four distinct cards in 1–10 with exactly one card that fits its machine and none that is a number shown on the machine at that moment. Every wrong card SHALL be a real error — the opposite sign (on reverse boards: running the machine forward instead of undoing it), off by one, or (second blank) running only one machine — or a near number (within 4 of the answer). The answer's rank among the cards by size SHALL be uniform, and played through the real round planner, choosing the largest, smallest, middle, a fixed position, or the card nearest a shown number SHALL pass a 4-of-6 round about as rarely as guessing.
+Each blank SHALL offer four distinct cards with exactly one card that fits its machine and none that is a number shown on the machine at that moment. The cards SHALL be the answer, the sign card (the answer mirrored through the number going into the machine: the opposite sign, or on reverse boards running the machine forward instead of undoing it) and one card one off (two off when one off is not allowed) from each of them, so the four cards mirror around the number going into the machine, the sign card is on every blank, and every card has as many ±1 neighbours. Played through the real round planner (a board counts only when both blanks are right):
+- tricks that need no knowledge (largest, smallest, middle by size, nearest the middle of the range, nearest the number going in or a shown number, most or fewest neighbours, a fixed position, avoiding or preferring cards seen in the previous row) SHALL be right on at most 15% of boards and pass at most 0.8% of 4-of-6 rounds (1.5% with the extra round);
+- counting the right number of steps while ignoring the sign SHALL be a coin flip per blank (50% ± 3%), and knowing only the direction SHALL stay at that floor (at most 56% of blanks);
+- never undoing a machine on reverse boards SHALL get no reverse blank right, and a child who solves forward boards but ignores the sign on reverse boards SHALL pass at most 30% of rounds (50% with the extra round).
 
 #### Scenario: Card checks
 - **WHEN** any board of any level is validated
-- **THEN** each blank has one fitting card, no card equals the known number (nor the filled middle on the second blank), and every other card is a real error or a near number
+- **THEN** each blank has one fitting card, the sign card is among the cards, every card's mirror through the input is among the cards, no card equals the known number (nor the filled middle on the second blank), and every other card is a real error
 
 #### Scenario: Shortcut measurement
-- **WHEN** 2000 planner rounds per level (plus the extra round) are scored for each listed trick, a board counting only when both blanks are right
-- **THEN** each listed trick is right on at most 9.5% of boards and passes at most 0.6% of rounds (0.8% with the extra round), and each rank by size holds 25% ± 2.5% of answers
+- **WHEN** 2000 planner rounds per level (plus the extra round) are scored for each trick
+- **THEN** each trick stays within its class limits above, and never-undoing passes no round
 
 ### Requirement: Dots anchor the numbers on the lower levels
-On a step with dots the board SHALL show the dot group of the step's known input, the machine's own dots (teal dots that drop in for "+k", struck rings that leave for "−k"), and the dot group of the step's output once it is filled. The cell being asked SHALL never show dots. At support level 1 the dots SHALL come back for the step being worked (and stay for the rest of the board); at support level 2 one wrong card not yet tapped SHALL be dimmed, never the answer and never the last wrong card.
+On a step with dots the board SHALL show the dot group (10 pt in rows of five up to 10, 6 pt for numbers up to 20) of the step's known input, the machine's own dots (teal dots that drop in for "+k", struck rings that leave for "−k"), and the dot group of the step's output once it is filled. The cell being asked SHALL never show dots. At support level 1 the dots SHALL come back for the step being worked (and stay for the rest of the board); at support level 2 one wrong card not yet tapped SHALL be dimmed, never the answer and never the last wrong card.
 
 #### Scenario: Support on level 4
 - **WHEN** a child misses the first blank of a level-4 board
 - **THEN** the known number and the first machine show their dots again, the second machine and the asked cell show none, and the hint line says «Bé đếm chấm rồi xem máy thêm hay bớt nhé.»
 
 ### Requirement: The machine replays the chain after a right board
-After the second blank is right the board SHALL lock its cards and replay the chain forward, one machine at a time — the output cell shows the input's dots with the machine's dots dropping in or leaving — while Đô Đô says the mantra («Qua máy thêm thì nhiều lên, qua máy bớt thì ít đi.»; reverse boards «Đi ngược: máy thêm thì bớt, máy bớt thì thêm.»). `onAnswer(true)` SHALL come only after both the replay and the line have finished. Under reduced motion the same steps SHALL be shown still, one at a time, with no animation started. While the run is paused the replay SHALL hold.
+After the second blank is right the board SHALL lock its cards and replay the chain forward, one machine at a time — the output cell shows the input's dots with the machine's dots dropping in or leaving — while Đô Đô says the mantra («Qua máy thêm thì nhiều lên, qua máy bớt thì ít đi.»; reverse boards «Đi ngược: máy thêm thì bớt, máy bớt thì thêm.»). `onAnswer(true)` SHALL come only after both the replay and the line have finished. Cards the child tapped wrong SHALL keep their faded look until the row of cards is replaced, through the advance to the second blank and through the replay. Under reduced motion the same steps SHALL be shown still, one at a time, with no animation started. While the run is paused the replay SHALL hold.
 
 #### Scenario: Success waits for the replay
 - **WHEN** the right card for the second blank is tapped

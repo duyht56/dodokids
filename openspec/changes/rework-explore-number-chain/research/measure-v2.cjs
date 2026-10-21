@@ -56,8 +56,20 @@ function picks(p, index, seenFirst) {
     farthest_input: (() => { const d = (v) => Math.abs(v - input); const m = Math.max(...options.map(d)); return any(options.filter((v) => d(v) === m)); })(),
     dir_closest: sideCards.length ? closest(sideCards, [input]) : any(options),
     dir_any: sideCards.length ? any(sideCards) : any(options),
-    center: closest(options, [5.5]),
+    center: closest(options, [(p.range.min + p.range.max) / 2]),
   };
+  const k = machine === 1 ? p.k1 : p.k2;
+  const kAway = options.filter((v) => Math.abs(v - input) === k);
+  out.sign_blind = kAway.length ? any(kAway) : any(options);
+  const forwardRun = p.mode === 'reverse' ? (op === 'add' ? input + k : input - k) : null;
+  const correct = index === 0 ? (p.mode === 'reverse' ? p.mid : p.mid) : (p.mode === 'reverse' ? p.start : p.result);
+  out.no_undo = p.mode === 'reverse' ? (options.includes(forwardRun) ? forwardRun : any(options)) : correct;
+  out.fwd_ok_rev_signblind = p.mode === 'reverse' ? out.sign_blind : correct;
+  const nb = (v, list) => list.filter((w) => Math.abs(w - v) === 1).length;
+  const most = (list) => { const best = Math.max(...list.map((v) => nb(v, options))); return any(list.filter((v) => nb(v, options) === best)); };
+  out.most_neighbours = most(options);
+  out.dir_most_neighbours = sideCards.length ? most(sideCards) : most(options);
+  out.fewest_neighbours = (() => { const best = Math.min(...options.map((v) => nb(v, options))); return any(options.filter((v) => nb(v, options) === best)); })();
   for (let i = 0; i < options.length; i += 1) out[`pos${i}`] = options[i];
   if (index === 1) {
     const fresh = options.filter((v) => !seenFirst.includes(v));

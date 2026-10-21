@@ -420,19 +420,20 @@ Mobile:
   two-machine chain in the worksheet's order (`params.blanks`: forward
   mid→end, reverse mid→start; `answer.values`). Levels: L1 forward + dots on both
   machines, L2 + reverse, L3 dots only on the machine worked first
-  (`dotSteps` 1), L4 no dots, L5 machines up to 5 (one ≥ 4); numbers 1–10,
-  machines 2–3 below L5. Cards: real errors (sign / forward-instead-of-undo,
-  off-by-one, one machine) + near numbers ≤ 4; the answer's rank by size is
-  drawn first (uniform) and the chain picked to fit
-  (`numberChainCandidatesForRanks`), with a card as close as the answer to every
-  anchor (input, shown numbers, 5.5) — do not swap in `buildNearTargetOptions`.
-  Renderer reports every miss, cues each blank's question (`number_chain` is in
-  `RENDERER_CUED_PROMPT_GAMES`), and after the second blank replays the chain
-  forward with `DotGroup` `changed` dots while saying the mantra, then
-  `onAnswer(true)`. `DotGroup` gained optional `size`/`changed`. Contract
-  `npm run test:explore-number-chain` measures shortcuts through the real
-  planner and drives the renderer through the harness. Audio v8 (not rendered):
-  `game_number_chain`, `chain2_*`.
+  (`dotSteps` 1), L4 no dots, L5 range 0–20; L1–L4 range 0–10, machines 2–4.
+  From L2 a round is 2 forward + 2 `reverse_add` + 2 `reverse_sub` (buckets by
+  machine 2). Cards: `{a, a±g, m, m∓g}` mirrored around the number going into
+  the machine, m = the sign / run-forward card (always present; g = 1, else 2),
+  pair side drawn first (rank) then pulled toward the range middle with
+  probability `centerPull` — do not swap in `buildNearTargetOptions`. Renderer
+  reports every miss, cues each blank's question (`number_chain` is in
+  `RENDERER_CUED_PROMPT_GAMES`), keeps missed cards faded until the row changes,
+  and after the second blank replays the chain forward with `DotGroup`
+  `changed` dots while saying the mantra, then `onAnswer(true)`. `DotGroup`
+  gained optional `size`/`changed`. Contract `npm run test:explore-number-chain`
+  measures three classes of tricks through the real planner (no-knowledge,
+  half-knowledge at the 50% floor, reverse) and drives the renderer through the
+  harness. Audio v8 (not rendered): `game_number_chain`, `chain2_*`.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/

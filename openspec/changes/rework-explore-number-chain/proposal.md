@@ -36,23 +36,29 @@ một hỗ trợ, có câu thần chú và diễn lại sau bài đúng như Câ
   ở ô đang hỏi.
 - **Bảng tiến trình mới, mỗi bậc đổi đúng một điều** (bậc 1 đã hai bước):
 
-  | Bậc | Chiều | Chấm | Máy | Phạm vi |
+  | Bậc | Chiều (vòng 6 bài) | Chấm | Máy | Phạm vi |
   |---|---|---|---|---|
-  | 1 | xuôi | cả hai máy | bước 2–3 | 1–10 |
-  | 2 | **+ ngược** | cả hai máy | bước 2–3 | 1–10 |
-  | 3 | xuôi + ngược | **chỉ máy tính trước** | bước 2–3 | 1–10 |
-  | 4 | xuôi + ngược | **không chấm** | bước 2–3 | 1–10 |
-  | 5 | xuôi + ngược | không chấm | **bước 2–5, một máy ≥ 4** | 1–10 |
+  | 1 | 6 xuôi | cả hai máy | bước 2–4 | 0–10 |
+  | 2 | **2 xuôi + 4 ngược** | cả hai máy | bước 2–4 | 0–10 |
+  | 3 | 2 xuôi + 4 ngược | **chỉ máy tính trước** | bước 2–4 | 0–10 |
+  | 4 | 2 xuôi + 4 ngược | **không chấm** | bước 2–4 | 0–10 |
+  | 5 | 2 xuôi + 4 ngược | không chấm | bước 2–4 | **0–20** |
 
-  Phạm vi giữ 1–10 ở mọi bậc như đề gốc, nên không số nào vượt 10. Máy bước 1 bị
-  bỏ: "+1" chỉ là số liền sau, và đáp án nằm sát số đang hiện làm mẹo "chọn số cạnh
-  số đã thấy" thắng ~40% mỗi ô.
-- **Thẻ nhiễu theo lỗi thật** (4 thẻ mỗi ô): ngược dấu (ở chiều ngược: chạy máy
-  xuôi thay vì gỡ), lệch một, chỉ chạy một máy (ô thứ hai: quên máy kia); thiếu
-  thì lấy số gần (≤ 4). Vị trí của đáp án khi xếp thẻ theo cỡ được chọn trước (đều
-  1/4) rồi mới chọn chuỗi hợp; với mỗi mốc bé có thể bám (số đầu vào, số đang hiện,
-  giữa phạm vi) luôn có thẻ gần bằng/hơn đáp án. Không thẻ nào là số đang hiện; thẻ
-  ô 1 không chứa đáp án ô 2. Hàm dùng chung `buildNearTargetOptions` không đổi.
+  Máy bước 2–4 như đề gốc (−4, +2); máy ±1 không có (owner chưa chốt việc bỏ, bản
+  này không đưa lại). Bậc 1–4 trong "phạm vi 10" (có số 0) để thẻ ngược dấu luôn có
+  chỗ trong phạm vi; bậc 5 lên 20 chỉ sau khi đã bỏ hết chấm (máy bước 5 trong 0–10
+  không có chỗ cho thẻ ngược dấu). Bài ngược là đa số mỗi vòng (2 gỡ máy thêm + 2
+  gỡ máy bớt) để bé giỏi chiều xuôi mà đoán dấu chiều ngược không qua vòng nhờ bài
+  xuôi.
+- **Thẻ nhiễu theo lỗi thật, đối xứng quanh số đi vào máy** (4 thẻ mỗi ô): đáp án,
+  thẻ ngược dấu (ở chiều ngược: chạy máy xuôi thay vì gỡ) — **có mặt ở mọi ô** — và
+  hai thẻ lệch một (lệch hai khi lệch một đụng số cấm), một cạnh đáp án, một cạnh thẻ
+  ngược dấu. Bé đếm đúng số bước mà bỏ qua dấu chỉ còn 50/50 mỗi ô; không gỡ máy ở
+  chiều ngược thì không bao giờ đúng; khoảng cách tới số đang hiện và "thẻ có hàng
+  xóm" không còn là dấu hiệu. Vị trí đáp án theo cỡ được rút đều rồi một nửa số ô
+  (bậc 5: 1/4) đặt thẻ lệch về phía giữa phạm vi để mẹo "gần số 5" không thắng. Lỗi
+  "quên một máy" chỉ có khi trùng chỗ (~12% ô 2). Không thẻ nào là số đang hiện;
+  thẻ ô 1 không chứa đáp án ô 2. Hàm dùng chung `buildNearTargetOptions` không đổi.
 - **Diễn lại sau bài đúng**: máy chạy xuôi từng chặng — chấm chạy qua máy (thêm:
   rơi vào; bớt: rời đi), máy nhịp sáng — trong lúc Đô Đô nói câu thần chú «Qua máy
   thêm thì nhiều lên, qua máy bớt thì ít đi.» (chiều ngược: «Đi ngược: máy thêm thì
@@ -69,9 +75,10 @@ một hỗ trợ, có câu thần chú và diễn lại sau bài đúng như Câ
 - **Audio v8 (chưa thu)**: `game_number_chain` (tên game, trước đây thiếu) +
   `chain2_forward_q`, `chain2_reverse_q`, `chain2_ask_end`, `chain2_ask_start`,
   `chain2_mantra_forward`, `chain2_mantra_reverse`, `chain2_hint_dots`,
-  `chain2_intro_3..5`. `chain_intro_2` giữ cho bậc 2; `chain_forward`,
-  `chain_reverse`, `chain_intro_3..5` (pack v7) giữ trong inventory nhưng không còn
-  nói. Thiếu clip thì chữ + chấm vẫn đủ chơi.
+  `chain2_intro_3`, `chain2_intro_4`. Bậc 2 và bậc 5 dùng lại `chain_intro_2`,
+  `chain_intro_4` (pack v7); `chain_forward`, `chain_reverse`, `chain_intro_3`,
+  `chain_intro_5` giữ trong inventory nhưng không còn nói. Thiếu clip thì chữ + chấm
+  vẫn đủ chơi.
 
 ## Impact
 

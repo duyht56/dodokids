@@ -1,121 +1,158 @@
 
-L1  answer rank among sorted cards: 25.35% / 24.77% / 25.21% / 24.67%
-  guess          c0  25.07% c1  24.98% cell  25.02%  board   6.42%  pass4/6   0.10%  +extra   0.10%
-  max            c0  24.83% c1  24.51% cell  24.67%  board   6.23%  pass4/6   0.05%  +extra   0.05%
-  min            c0  25.40% c1  25.29% cell  25.35%  board   6.75%  pass4/6   0.00%  +extra   0.05%
-  median_low     c0  24.61% c1  24.94% cell  24.77%  board   5.92%  pass4/6   0.00%  +extra   0.00%
-  median_high    c0  25.16% c1  25.25% cell  25.21%  board   6.33%  pass4/6   0.00%  +extra   0.00%
-  closest_input  c0  31.08% c1  17.03% cell  24.06%  board   4.78%  pass4/6   0.00%  +extra   0.05%
-  closest_shown  c0  31.08% c1  24.91% cell  28.00%  board   7.41%  pass4/6   0.05%  +extra   0.05%
-  farthest_input c0  12.40% c1  20.15% cell  16.28%  board   2.50%  pass4/6   0.00%  +extra   0.00%
-  dir_closest    c0  31.08% c1  27.10% cell  29.09%  board  10.84%  pass4/6   0.10%  +extra   0.25%
-  dir_any        c0  29.95% c1  34.25% cell  32.10%  board   9.95%  pass4/6   0.20%  +extra   0.35%
-  center         c0  33.94% c1  29.95% cell  31.94%  board   4.75%  pass4/6   0.00%  +extra   0.00%
-  pos0           c0  24.92% c1  25.15% cell  25.04%  board   6.34%  pass4/6   0.00%  +extra   0.00%
-  pos1           c0  25.17% c1  24.96% cell  25.06%  board   6.27%  pass4/6   0.05%  +extra   0.05%
-  pos2           c0  24.74% c1  24.76% cell  24.75%  board   6.24%  pass4/6   0.00%  +extra   0.00%
-  pos3           c0  25.17% c1  25.13% cell  25.15%  board   6.14%  pass4/6   0.05%  +extra   0.05%
-  avoid_seen     c0  25.07% c1  40.21% cell  32.64%  board  10.15%  pass4/6   0.20%  +extra   0.40%
-  prefer_seen    c0  25.07% c1   5.55% cell  15.31%  board   1.39%  pass4/6   0.00%  +extra   0.00%
+L1  answer rank among sorted cards: 32.49% / 17.43% / 17.64% / 32.44%
+  guess          c0  25.10% c1  25.22% cell  25.16%  board   6.13%  pass4/6   0.05%  +extra   0.05%
+  max            c0  30.93% c1  33.95% cell  32.44%  board  14.30%  pass4/6   0.10%  +extra   0.40%
+  min            c0  30.45% c1  34.53% cell  32.49%  board  14.21%  pass4/6   0.35%  +extra   0.70%
+  median_low     c0  19.30% c1  15.57% cell  17.43%  board   3.41%  pass4/6   0.00%  +extra   0.00%
+  median_high    c0  19.32% c1  15.95% cell  17.64%  board   3.32%  pass4/6   0.00%  +extra   0.00%
+  closest_input  c0  19.36% c1  15.39% cell  17.38%  board   2.80%  pass4/6   0.00%  +extra   0.00%
+  closest_shown  c0  19.07% c1  14.99% cell  17.03%  board   4.82%  pass4/6   0.00%  +extra   0.00%
+  farthest_input c0  31.14% c1  34.67% cell  32.90%  board  10.68%  pass4/6   0.15%  +extra   0.20%
+  dir_closest    c0  38.62% c1  31.52% cell  35.07%  board  11.85%  pass4/6   0.35%  +extra   0.50%
+  dir_any        c0  50.18% c1  49.90% cell  50.04%  board  25.02%  pass4/6   3.70%  +extra   7.30%
+  center         c0  52.60% c1  23.47% cell  38.04%  board  12.25%  pass4/6   0.15%  +extra   0.50%
+  sign_blind     c0  50.68% c1  49.76% cell  50.22%  board  25.18%  pass4/6   4.25%  +extra   7.15%
+  no_undo        c0 100.00% c1 100.00% cell 100.00%  board 100.00%  pass4/6 100.00%  +extra 100.00%
+  fwd_ok_rev_signblind c0 100.00% c1 100.00% cell 100.00%  board 100.00%  pass4/6 100.00%  +extra 100.00%
+  most_neighbours c0  24.94% c1  24.93% cell  24.94%  board   6.27%  pass4/6   0.00%  +extra   0.00%
+  dir_most_neighbours c0  50.62% c1  50.60% cell  50.61%  board  25.53%  pass4/6   3.50%  +extra   7.95%
+  fewest_neighbours c0  25.35% c1  24.92% cell  25.14%  board   6.54%  pass4/6   0.00%  +extra   0.00%
+  pos0           c0  24.95% c1  25.20% cell  25.07%  board   6.33%  pass4/6   0.00%  +extra   0.05%
+  pos1           c0  25.49% c1  25.40% cell  25.44%  board   6.52%  pass4/6   0.05%  +extra   0.05%
+  pos2           c0  24.77% c1  24.83% cell  24.80%  board   6.27%  pass4/6   0.00%  +extra   0.10%
+  pos3           c0  24.79% c1  24.57% cell  24.68%  board   6.08%  pass4/6   0.05%  +extra   0.05%
+  avoid_seen     c0  25.10% c1  37.95% cell  31.52%  board   9.41%  pass4/6   0.10%  +extra   0.20%
+  prefer_seen    c0  25.10% c1   2.67% cell  13.88%  board   0.66%  pass4/6   0.00%  +extra   0.00%
 
-L2  answer rank among sorted cards: 25.15% / 24.75% / 24.99% / 25.12%
-  guess          c0  25.04% c1  25.32% cell  25.18%  board   6.05%  pass4/6   0.00%  +extra   0.00%
-  max            c0  25.39% c1  24.85% cell  25.12%  board   6.48%  pass4/6   0.00%  +extra   0.00%
-  min            c0  24.83% c1  25.46% cell  25.15%  board   6.32%  pass4/6   0.00%  +extra   0.00%
-  median_low     c0  24.93% c1  24.57% cell  24.75%  board   5.97%  pass4/6   0.00%  +extra   0.00%
-  median_high    c0  24.85% c1  25.12% cell  24.99%  board   6.03%  pass4/6   0.05%  +extra   0.05%
-  closest_input  c0  31.45% c1  16.83% cell  24.14%  board   4.84%  pass4/6   0.05%  +extra   0.05%
-  closest_shown  c0  31.45% c1  24.62% cell  28.04%  board   7.32%  pass4/6   0.15%  +extra   0.15%
-  farthest_input c0  11.98% c1  20.58% cell  16.28%  board   2.44%  pass4/6   0.00%  +extra   0.00%
-  dir_closest    c0  31.45% c1  27.17% cell  29.31%  board  11.04%  pass4/6   0.60%  +extra   0.65%
-  dir_any        c0  30.04% c1  34.18% cell  32.11%  board  10.31%  pass4/6   0.15%  +extra   0.35%
-  center         c0  34.37% c1  29.99% cell  32.18%  board   4.95%  pass4/6   0.00%  +extra   0.00%
-  pos0           c0  25.41% c1  25.02% cell  25.21%  board   6.63%  pass4/6   0.05%  +extra   0.05%
-  pos1           c0  24.85% c1  25.15% cell  25.00%  board   6.20%  pass4/6   0.00%  +extra   0.05%
-  pos2           c0  25.02% c1  24.64% cell  24.83%  board   6.25%  pass4/6   0.00%  +extra   0.05%
-  pos3           c0  24.72% c1  25.20% cell  24.96%  board   6.35%  pass4/6   0.00%  +extra   0.00%
-  avoid_seen     c0  25.04% c1  39.53% cell  32.29%  board   9.90%  pass4/6   0.15%  +extra   0.25%
-  prefer_seen    c0  25.04% c1   5.30% cell  15.17%  board   1.23%  pass4/6   0.00%  +extra   0.00%
+L2  answer rank among sorted cards: 31.96% / 18.12% / 18.25% / 31.67%
+  guess          c0  25.29% c1  25.30% cell  25.30%  board   6.61%  pass4/6   0.00%  +extra   0.05%
+  max            c0  30.04% c1  33.30% cell  31.67%  board  13.60%  pass4/6   0.05%  +extra   0.10%
+  min            c0  30.40% c1  33.51% cell  31.96%  board  13.57%  pass4/6   0.05%  +extra   0.25%
+  median_low     c0  19.87% c1  16.37% cell  18.12%  board   3.52%  pass4/6   0.00%  +extra   0.00%
+  median_high    c0  19.69% c1  16.82% cell  18.25%  board   3.85%  pass4/6   0.00%  +extra   0.00%
+  closest_input  c0  19.78% c1  16.92% cell  18.35%  board   3.33%  pass4/6   0.00%  +extra   0.00%
+  closest_shown  c0  19.92% c1  14.63% cell  17.27%  board   4.91%  pass4/6   0.00%  +extra   0.00%
+  farthest_input c0  30.29% c1  32.80% cell  31.55%  board   9.75%  pass4/6   0.05%  +extra   0.15%
+  dir_closest    c0  39.56% c1  33.19% cell  36.38%  board  12.45%  pass4/6   0.40%  +extra   0.70%
+  dir_any        c0  49.29% c1  50.39% cell  49.84%  board  24.85%  pass4/6   3.35%  +extra   6.60%
+  center         c0  54.33% c1  22.50% cell  38.41%  board  12.25%  pass4/6   0.25%  +extra   0.45%
+  sign_blind     c0  50.38% c1  49.51% cell  49.95%  board  24.67%  pass4/6   4.45%  +extra   8.05%
+  no_undo        c0  33.33% c1  33.33% cell  33.33%  board  33.33%  pass4/6   0.00%  +extra   0.00%
+  fwd_ok_rev_signblind c0  67.00% c1  66.26% cell  66.63%  board  49.68%  pass4/6  25.50%  +extra  43.30%
+  most_neighbours c0  24.89% c1  24.94% cell  24.92%  board   6.10%  pass4/6   0.05%  +extra   0.05%
+  dir_most_neighbours c0  49.97% c1  49.90% cell  49.93%  board  24.80%  pass4/6   3.55%  +extra   6.70%
+  fewest_neighbours c0  25.14% c1  25.16% cell  25.15%  board   6.38%  pass4/6   0.00%  +extra   0.00%
+  pos0           c0  25.43% c1  25.21% cell  25.32%  board   6.41%  pass4/6   0.00%  +extra   0.05%
+  pos1           c0  24.80% c1  24.80% cell  24.80%  board   6.10%  pass4/6   0.00%  +extra   0.00%
+  pos2           c0  25.06% c1  24.93% cell  24.99%  board   6.37%  pass4/6   0.10%  +extra   0.10%
+  pos3           c0  24.70% c1  25.06% cell  24.88%  board   6.05%  pass4/6   0.00%  +extra   0.00%
+  avoid_seen     c0  25.29% c1  37.74% cell  31.51%  board   9.34%  pass4/6   0.10%  +extra   0.25%
+  prefer_seen    c0  25.29% c1   2.57% cell  13.93%  board   0.68%  pass4/6   0.00%  +extra   0.00%
 
-L3  answer rank among sorted cards: 25.18% / 25.13% / 24.92% / 24.77%
-  guess          c0  25.29% c1  24.85% cell  25.07%  board   6.09%  pass4/6   0.05%  +extra   0.05%
-  max            c0  24.83% c1  24.72% cell  24.77%  board   6.28%  pass4/6   0.00%  +extra   0.00%
-  min            c0  25.22% c1  25.13% cell  25.18%  board   6.44%  pass4/6   0.00%  +extra   0.00%
-  median_low     c0  25.15% c1  25.11% cell  25.13%  board   6.47%  pass4/6   0.00%  +extra   0.00%
-  median_high    c0  24.80% c1  25.05% cell  24.92%  board   6.25%  pass4/6   0.00%  +extra   0.05%
-  closest_input  c0  31.66% c1  17.20% cell  24.43%  board   5.19%  pass4/6   0.00%  +extra   0.00%
-  closest_shown  c0  31.66% c1  24.98% cell  28.32%  board   7.76%  pass4/6   0.00%  +extra   0.00%
-  farthest_input c0  11.88% c1  20.26% cell  16.07%  board   2.42%  pass4/6   0.00%  +extra   0.00%
-  dir_closest    c0  31.66% c1  27.29% cell  29.47%  board  11.17%  pass4/6   0.20%  +extra   0.25%
-  dir_any        c0  30.14% c1  34.45% cell  32.30%  board  10.34%  pass4/6   0.15%  +extra   0.30%
-  center         c0  34.02% c1  30.23% cell  32.12%  board   5.17%  pass4/6   0.00%  +extra   0.00%
-  pos0           c0  24.71% c1  25.27% cell  24.99%  board   6.14%  pass4/6   0.00%  +extra   0.05%
-  pos1           c0  24.77% c1  25.04% cell  24.90%  board   6.40%  pass4/6   0.00%  +extra   0.05%
-  pos2           c0  25.38% c1  24.78% cell  25.08%  board   6.50%  pass4/6   0.00%  +extra   0.00%
-  pos3           c0  25.14% c1  24.91% cell  25.02%  board   6.40%  pass4/6   0.10%  +extra   0.10%
-  avoid_seen     c0  25.29% c1  39.84% cell  32.56%  board  10.28%  pass4/6   0.30%  +extra   0.50%
-  prefer_seen    c0  25.29% c1   5.45% cell  15.37%  board   1.46%  pass4/6   0.00%  +extra   0.00%
+L3  answer rank among sorted cards: 31.59% / 18.02% / 18.20% / 32.19%
+  guess          c0  24.98% c1  24.89% cell  24.93%  board   6.05%  pass4/6   0.00%  +extra   0.00%
+  max            c0  30.40% c1  33.97% cell  32.19%  board  13.74%  pass4/6   0.20%  +extra   0.50%
+  min            c0  30.07% c1  33.11% cell  31.59%  board  13.64%  pass4/6   0.05%  +extra   0.20%
+  median_low     c0  19.75% c1  16.30% cell  18.02%  board   3.76%  pass4/6   0.00%  +extra   0.00%
+  median_high    c0  19.78% c1  16.62% cell  18.20%  board   3.55%  pass4/6   0.00%  +extra   0.00%
+  closest_input  c0  19.60% c1  16.55% cell  18.07%  board   3.17%  pass4/6   0.00%  +extra   0.00%
+  closest_shown  c0  19.61% c1  14.58% cell  17.10%  board   4.77%  pass4/6   0.00%  +extra   0.05%
+  farthest_input c0  29.88% c1  33.61% cell  31.74%  board   9.68%  pass4/6   0.10%  +extra   0.25%
+  dir_closest    c0  39.52% c1  32.92% cell  36.22%  board  12.20%  pass4/6   0.20%  +extra   0.45%
+  dir_any        c0  49.94% c1  49.90% cell  49.92%  board  25.03%  pass4/6   3.65%  +extra   7.05%
+  center         c0  54.58% c1  22.58% cell  38.58%  board  12.28%  pass4/6   0.30%  +extra   0.50%
+  sign_blind     c0  49.54% c1  50.01% cell  49.78%  board  24.90%  pass4/6   3.90%  +extra   8.10%
+  no_undo        c0  33.33% c1  33.33% cell  33.33%  board  33.33%  pass4/6   0.00%  +extra   0.00%
+  fwd_ok_rev_signblind c0  66.56% c1  66.61% cell  66.58%  board  49.95%  pass4/6  26.50%  +extra  46.10%
+  most_neighbours c0  24.67% c1  24.88% cell  24.77%  board   6.27%  pass4/6   0.00%  +extra   0.00%
+  dir_most_neighbours c0  50.13% c1  49.95% cell  50.04%  board  25.00%  pass4/6   3.75%  +extra   6.95%
+  fewest_neighbours c0  24.87% c1  25.22% cell  25.05%  board   6.55%  pass4/6   0.00%  +extra   0.05%
+  pos0           c0  25.06% c1  25.27% cell  25.16%  board   6.38%  pass4/6   0.00%  +extra   0.05%
+  pos1           c0  25.15% c1  25.06% cell  25.11%  board   6.23%  pass4/6   0.00%  +extra   0.00%
+  pos2           c0  24.87% c1  25.13% cell  25.00%  board   6.26%  pass4/6   0.00%  +extra   0.00%
+  pos3           c0  24.92% c1  24.54% cell  24.73%  board   6.05%  pass4/6   0.00%  +extra   0.05%
+  avoid_seen     c0  24.98% c1  37.70% cell  31.34%  board   9.30%  pass4/6   0.10%  +extra   0.20%
+  prefer_seen    c0  24.98% c1   2.70% cell  13.84%  board   0.65%  pass4/6   0.00%  +extra   0.00%
 
-L4  answer rank among sorted cards: 25.01% / 25.14% / 24.91% / 24.94%
-  guess          c0  25.23% c1  24.87% cell  25.05%  board   6.41%  pass4/6   0.00%  +extra   0.05%
-  max            c0  24.63% c1  25.25% cell  24.94%  board   6.13%  pass4/6   0.00%  +extra   0.05%
-  min            c0  25.24% c1  24.77% cell  25.01%  board   6.22%  pass4/6   0.00%  +extra   0.00%
-  median_low     c0  25.27% c1  25.00% cell  25.14%  board   6.17%  pass4/6   0.00%  +extra   0.10%
-  median_high    c0  24.85% c1  24.98% cell  24.91%  board   6.10%  pass4/6   0.00%  +extra   0.00%
-  closest_input  c0  31.66% c1  17.03% cell  24.34%  board   4.81%  pass4/6   0.00%  +extra   0.00%
-  closest_shown  c0  31.66% c1  24.97% cell  28.31%  board   7.47%  pass4/6   0.00%  +extra   0.05%
-  farthest_input c0  11.80% c1  20.60% cell  16.20%  board   2.35%  pass4/6   0.00%  +extra   0.00%
-  dir_closest    c0  31.66% c1  27.35% cell  29.51%  board  10.99%  pass4/6   0.20%  +extra   0.45%
-  dir_any        c0  29.36% c1  33.97% cell  31.66%  board   9.85%  pass4/6   0.05%  +extra   0.10%
-  center         c0  34.73% c1  29.58% cell  32.16%  board   4.85%  pass4/6   0.00%  +extra   0.00%
-  pos0           c0  25.41% c1  24.72% cell  25.06%  board   6.39%  pass4/6   0.05%  +extra   0.10%
-  pos1           c0  24.95% c1  25.22% cell  25.09%  board   6.20%  pass4/6   0.05%  +extra   0.05%
-  pos2           c0  24.90% c1  25.50% cell  25.20%  board   6.63%  pass4/6   0.00%  +extra   0.00%
-  pos3           c0  24.75% c1  24.55% cell  24.65%  board   6.08%  pass4/6   0.05%  +extra   0.05%
-  avoid_seen     c0  25.23% c1  39.82% cell  32.52%  board  10.03%  pass4/6   0.15%  +extra   0.20%
-  prefer_seen    c0  25.23% c1   5.39% cell  15.31%  board   1.27%  pass4/6   0.00%  +extra   0.00%
+L4  answer rank among sorted cards: 31.71% / 18.02% / 18.04% / 32.23%
+  guess          c0  25.54% c1  25.03% cell  25.29%  board   6.44%  pass4/6   0.00%  +extra   0.05%
+  max            c0  30.56% c1  33.90% cell  32.23%  board  14.09%  pass4/6   0.25%  +extra   0.25%
+  min            c0  29.95% c1  33.48% cell  31.71%  board  14.07%  pass4/6   0.15%  +extra   0.30%
+  median_low     c0  19.74% c1  16.29% cell  18.02%  board   3.69%  pass4/6   0.00%  +extra   0.00%
+  median_high    c0  19.75% c1  16.33% cell  18.04%  board   3.58%  pass4/6   0.00%  +extra   0.00%
+  closest_input  c0  19.58% c1  16.30% cell  17.94%  board   3.10%  pass4/6   0.00%  +extra   0.00%
+  closest_shown  c0  19.70% c1  14.15% cell  16.92%  board   4.86%  pass4/6   0.00%  +extra   0.00%
+  farthest_input c0  30.33% c1  33.51% cell  31.92%  board   9.96%  pass4/6   0.20%  +extra   0.25%
+  dir_closest    c0  39.49% c1  32.63% cell  36.06%  board  12.20%  pass4/6   0.55%  +extra   0.75%
+  dir_any        c0  49.65% c1  50.25% cell  49.95%  board  24.98%  pass4/6   3.70%  +extra   7.25%
+  center         c0  54.97% c1  22.06% cell  38.51%  board  12.05%  pass4/6   0.15%  +extra   0.20%
+  sign_blind     c0  49.51% c1  50.42% cell  49.96%  board  24.94%  pass4/6   4.20%  +extra   7.10%
+  no_undo        c0  33.33% c1  33.33% cell  33.33%  board  33.33%  pass4/6   0.00%  +extra   0.00%
+  fwd_ok_rev_signblind c0  66.22% c1  67.15% cell  66.68%  board  50.04%  pass4/6  26.05%  +extra  46.35%
+  most_neighbours c0  25.10% c1  25.27% cell  25.19%  board   6.13%  pass4/6   0.00%  +extra   0.05%
+  dir_most_neighbours c0  49.88% c1  49.87% cell  49.88%  board  24.68%  pass4/6   3.45%  +extra   7.25%
+  fewest_neighbours c0  24.77% c1  24.70% cell  24.74%  board   5.86%  pass4/6   0.00%  +extra   0.00%
+  pos0           c0  25.83% c1  24.89% cell  25.36%  board   6.20%  pass4/6   0.05%  +extra   0.10%
+  pos1           c0  24.60% c1  25.40% cell  25.00%  board   6.07%  pass4/6   0.00%  +extra   0.00%
+  pos2           c0  24.85% c1  24.80% cell  24.82%  board   6.31%  pass4/6   0.00%  +extra   0.05%
+  pos3           c0  24.72% c1  24.91% cell  24.81%  board   6.20%  pass4/6   0.10%  +extra   0.10%
+  avoid_seen     c0  25.54% c1  37.32% cell  31.43%  board   9.61%  pass4/6   0.15%  +extra   0.25%
+  prefer_seen    c0  25.54% c1   2.72% cell  14.13%  board   0.68%  pass4/6   0.00%  +extra   0.00%
 
-L5  answer rank among sorted cards: 25.25% / 25.02% / 24.79% / 24.94%
-  guess          c0  25.08% c1  25.17% cell  25.12%  board   6.49%  pass4/6   0.15%  +extra   0.20%
-  max            c0  24.68% c1  25.20% cell  24.94%  board   6.15%  pass4/6   0.05%  +extra   0.10%
-  min            c0  25.24% c1  25.25% cell  25.25%  board   6.59%  pass4/6   0.05%  +extra   0.05%
-  median_low     c0  24.82% c1  25.22% cell  25.02%  board   6.51%  pass4/6   0.00%  +extra   0.00%
-  median_high    c0  25.25% c1  24.33% cell  24.79%  board   6.20%  pass4/6   0.00%  +extra   0.05%
-  closest_input  c0  19.73% c1  10.09% cell  14.91%  board   0.82%  pass4/6   0.00%  +extra   0.00%
-  closest_shown  c0  19.73% c1  14.77% cell  17.25%  board   1.62%  pass4/6   0.00%  +extra   0.00%
-  farthest_input c0  23.84% c1  29.97% cell  26.90%  board   7.47%  pass4/6   0.00%  +extra   0.10%
-  dir_closest    c0  19.73% c1  14.50% cell  17.12%  board   2.97%  pass4/6   0.00%  +extra   0.00%
-  dir_any        c0  27.19% c1  30.80% cell  28.99%  board   8.12%  pass4/6   0.00%  +extra   0.10%
-  center         c0  28.13% c1  19.62% cell  23.88%  board   1.55%  pass4/6   0.00%  +extra   0.00%
-  pos0           c0  25.14% c1  25.25% cell  25.20%  board   6.26%  pass4/6   0.00%  +extra   0.00%
-  pos1           c0  24.91% c1  24.82% cell  24.87%  board   6.04%  pass4/6   0.05%  +extra   0.05%
-  pos2           c0  25.05% c1  25.01% cell  25.03%  board   6.28%  pass4/6   0.00%  +extra   0.00%
-  pos3           c0  24.90% c1  24.91% cell  24.90%  board   6.11%  pass4/6   0.10%  +extra   0.10%
-  avoid_seen     c0  25.08% c1  38.77% cell  31.92%  board   9.78%  pass4/6   0.00%  +extra   0.10%
-  prefer_seen    c0  25.08% c1   7.71% cell  16.40%  board   1.96%  pass4/6   0.00%  +extra   0.00%
+L5  answer rank among sorted cards: 23.58% / 26.41% / 26.63% / 23.38%
+  guess          c0  25.27% c1  24.99% cell  25.13%  board   6.40%  pass4/6   0.00%  +extra   0.05%
+  max            c0  23.44% c1  23.33% cell  23.38%  board   6.48%  pass4/6   0.00%  +extra   0.00%
+  min            c0  23.60% c1  23.56% cell  23.58%  board   6.50%  pass4/6   0.00%  +extra   0.00%
+  median_low     c0  26.39% c1  26.43% cell  26.41%  board   7.92%  pass4/6   0.05%  +extra   0.05%
+  median_high    c0  26.57% c1  26.69% cell  26.63%  board   7.95%  pass4/6   0.00%  +extra   0.00%
+  closest_input  c0  26.15% c1  26.42% cell  26.29%  board   6.73%  pass4/6   0.05%  +extra   0.15%
+  closest_shown  c0  26.75% c1  20.72% cell  23.73%  board   6.13%  pass4/6   0.00%  +extra   0.05%
+  farthest_input c0  23.75% c1  23.15% cell  23.45%  board   5.56%  pass4/6   0.05%  +extra   0.15%
+  dir_closest    c0  52.96% c1  53.12% cell  53.04%  board  27.92%  pass4/6   5.15%  +extra  10.95%
+  dir_any        c0  50.40% c1  50.28% cell  50.34%  board  25.15%  pass4/6   4.10%  +extra   7.40%
+  center         c0  32.57% c1  27.20% cell  29.88%  board   9.30%  pass4/6   0.10%  +extra   0.25%
+  sign_blind     c0  49.45% c1  49.81% cell  49.63%  board  24.99%  pass4/6   3.70%  +extra   7.95%
+  no_undo        c0  33.33% c1  33.33% cell  33.33%  board  33.33%  pass4/6   0.00%  +extra   0.00%
+  fwd_ok_rev_signblind c0  66.19% c1  66.13% cell  66.16%  board  49.77%  pass4/6  25.90%  +extra  44.50%
+  most_neighbours c0  24.50% c1  24.67% cell  24.58%  board   6.03%  pass4/6   0.05%  +extra   0.10%
+  dir_most_neighbours c0  49.98% c1  49.90% cell  49.94%  board  24.90%  pass4/6   3.35%  +extra   6.70%
+  fewest_neighbours c0  24.95% c1  25.18% cell  25.06%  board   6.38%  pass4/6   0.00%  +extra   0.00%
+  pos0           c0  24.75% c1  24.78% cell  24.77%  board   6.15%  pass4/6   0.00%  +extra   0.00%
+  pos1           c0  25.00% c1  24.61% cell  24.81%  board   5.97%  pass4/6   0.00%  +extra   0.00%
+  pos2           c0  25.21% c1  25.33% cell  25.27%  board   6.47%  pass4/6   0.00%  +extra   0.00%
+  pos3           c0  25.04% c1  25.27% cell  25.16%  board   6.43%  pass4/6   0.00%  +extra   0.00%
+  avoid_seen     c0  25.27% c1  30.92% cell  28.10%  board   7.76%  pass4/6   0.15%  +extra   0.20%
+  prefer_seen    c0  25.27% c1  12.22% cell  18.75%  board   3.00%  pass4/6   0.00%  +extra   0.00%
 
 error kinds {
-  'L1:near': 59293,
-  'L1:off_by_one': 60250,
-  'L1:one_machine': 9004,
-  'L1:sign': 15453,
-  'L2:near': 59455,
-  'L2:sign': 15372,
-  'L2:off_by_one': 60085,
-  'L2:one_machine': 9088,
-  'L3:off_by_one': 60313,
-  'L3:near': 59559,
-  'L3:sign': 15111,
-  'L3:one_machine': 9017,
-  'L4:off_by_one': 60180,
-  'L4:near': 59422,
-  'L4:sign': 15350,
-  'L4:one_machine': 9048,
-  'L5:off_by_one': 64109,
-  'L5:near': 59601,
-  'L5:sign': 11842,
-  'L5:one_machine': 8448
+  'L1:off_by_one': 38691,
+  'L1:sign': 48000,
+  'L1:sign_off_by_one': 36526,
+  'L1:off_by_two': 5472,
+  'L1:sign_off_by_two': 9309,
+  'L1:one_machine': 6002,
+  'L2:sign': 48000,
+  'L2:off_by_one': 38737,
+  'L2:sign_off_by_one': 36787,
+  'L2:sign_off_by_two': 9263,
+  'L2:one_machine': 5930,
+  'L2:off_by_two': 5283,
+  'L3:off_by_one': 38700,
+  'L3:sign': 48000,
+  'L3:sign_off_by_one': 36686,
+  'L3:sign_off_by_two': 9300,
+  'L3:one_machine': 5994,
+  'L3:off_by_two': 5320,
+  'L4:sign': 48000,
+  'L4:sign_off_by_one': 36663,
+  'L4:off_by_one': 38672,
+  'L4:sign_off_by_two': 9328,
+  'L4:one_machine': 6055,
+  'L4:off_by_two': 5282,
+  'L5:sign_off_by_one': 38526,
+  'L5:sign': 48000,
+  'L5:off_by_one': 39626,
+  'L5:one_machine': 2302,
+  'L5:off_by_two': 7172,
+  'L5:sign_off_by_two': 8374
 }
-real 6.59
-user 6.91
-sys 0.13

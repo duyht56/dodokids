@@ -14,10 +14,10 @@
 
 ## 3. Audio (đợt v8, chưa thu)
 
-- [x] 3.1 Khối liền cuối `PROMPT_PHRASES`: `game_number_chain`, `chain2_forward_q`, `chain2_reverse_q`, `chain2_ask_end`, `chain2_ask_start`, `chain2_mantra_forward`, `chain2_mantra_reverse`, `chain2_hint_dots`, `chain2_intro_3..5`; `numberChainKeys(mode, blankIndex)`, `numberChainMantraKeys`.
+- [x] 3.1 Khối liền cuối `PROMPT_PHRASES`: `game_number_chain`, `chain2_forward_q`, `chain2_reverse_q`, `chain2_ask_end`, `chain2_ask_start`, `chain2_mantra_forward`, `chain2_mantra_reverse`, `chain2_hint_dots`, `chain2_intro_3`, `chain2_intro_4`; `numberChainKeys(mode, blankIndex)`, `numberChainMantraKeys`. Bậc 2 / bậc 5 dùng lại `chain_intro_2` / `chain_intro_4` (pack v7).
 - [x] 3.2 Mirror kido-pipeline `exploreAudioInventory.ts` (pipeline `4d404d4`, local, không push; chưa bump pack).
 - [x] 3.3 `npm run explore-lines:dump`: không đổi (câu không có số).
-- [ ] 3.4 Đợt audio v8: gen + duyệt + export 11 clip trên (gom với các game khác), bump pack.
+- [ ] 3.4 Đợt audio v8: gen + duyệt + export 10 clip trên (gom với các game khác), bump pack.
 
 ## 4. kido-server (`2e28ba1`, nhánh `feat/explore-number-chain-rework`, chưa push)
 
@@ -35,4 +35,11 @@
 ## 6. Docs
 
 - [x] 6.1 BRD §7.12 (mục Máy nối tiếp) + §10; `AI_CONTEXT.md`.
-- [ ] 6.2 `KIDO_MARKETING_CLAIMS.md` C-50 (chỉ có ở bản chưa commit của checkout chính): câu claim vẫn đúng; khi bản v2 lên store, sửa nguồn "số trong khoảng 1–20" thành "1–10".
+- [ ] 6.2 `KIDO_MARKETING_CLAIMS.md` C-50 (chỉ có ở bản chưa commit của checkout chính): câu claim vẫn đúng; khi bản v2 lên store, sửa nguồn "số trong khoảng 1–20" thành "0–20 (bậc 1–4: 0–10)".
+
+## 7. Sửa sau review nhánh (Codex, 2026-10-21, `tmp/explore-review-2026-10-21/branch-review-confirmed.md`)
+
+- [x] 7.1 NUMBER-CHAIN-01 (High): thẻ ngược dấu / chạy xuôi có mặt ở mọi ô — bộ thẻ đối xứng quanh số đi vào máy; bậc 1–4 thành 0–10 với máy 2–4, bậc 5 thành phạm vi 20 (máy bước 5 không còn chỗ cho thẻ ngược dấu); vòng bậc ≥ 2 = 2 xuôi + 4 ngược. Contract đo "bỏ qua dấu" (= 50% ô, sàn), "không gỡ máy" (0%), "giỏi xuôi + đoán dấu chiều ngược" (≤ 30% vòng).
+- [x] 7.2 NUMBER-CHAIN-02 (Medium): thẻ nào cũng cùng số hàng xóm ±1; contract đo "nhiều/ít hàng xóm" và "chiều + nhiều hàng xóm".
+- [x] 7.3 NUMBER-CHAIN-03 (Low): thẻ đã chọn sai giữ dáng mờ qua lúc chuyển ô và lúc diễn lại (harness kiểm).
+- [x] 7.4 NUMBER-CHAIN-04 (Low): BRD, proposal, design, chú thích code nói đúng số đo thật (mẹo "theo cỡ" / "gần số giữa" ≤ 15% bài ở bậc 1–4, không còn "luôn có thẻ gần mọi mốc").
