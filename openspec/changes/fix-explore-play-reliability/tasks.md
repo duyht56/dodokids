@@ -54,4 +54,13 @@
 - [x] 6.3 DOT1-FOLLOWUP-03 (`d570613`): `stage.mantra` đọc và thắp lại thần chú bị pause cắt (`useBusSequencer.nextPause`); xe chạy / hold / lượt sau chỉ sau lần đọc đó. Màn chơi (route-mirror `382984c`) coi thần chú là lời riêng của renderer nên không đọc đè câu hỏi.
 - [x] 6.4 DOT1-FOLLOWUP-04 (`d570613`): bong bóng chữ cái «Bé tô theo chữ nhé.» (= clip `tracing_do_letter`); test kiểm chữ renderer vẽ ra và `promptVi` của mọi mục.
 - [x] 6.5 Kiểm chứng như 5.8; mỗi kiểm mới đỏ trên `b2f504d`.
-- [ ] 6.6 Khoảng hở còn lại: pause trong ~450 ms giữa lúc thần chú nói xong và lúc xe chạy thì màn chơi vẫn đọc lại câu hỏi (renderer không còn đang nói) rồi «nb_go» cắt nó.
+- [x] 6.6 Khoảng hở còn lại: pause trong ~450 ms giữa lúc thần chú nói xong và lúc xe chạy thì màn chơi vẫn đọc lại câu hỏi (renderer không còn đang nói) rồi «nb_go» cắt nó. → đóng ở 7.2.
+
+## 7. Sửa sau vòng kiểm 3 trên cây gộp (`round3-residuals.md`, mobile `3f067b3`)
+
+- [x] 7.1 NEW-dot1-0: `stage.mantra` cho cảnh đi tiếp (onDone) đúng một lần; pause sau lúc đó không đọc lại thần chú (lời có thể còn chờ sau câu khác) — hết «Còn cách chia nào nữa nhỉ?» hai lần, Xong mở giữa thần chú lượt 2, xe chạy và báo đúng hai lần.
+- [x] 7.2 DOT1-FOLLOWUP-03 (phần còn lại): Xe buýt báo `onBoardBusy` (prop của route-mirror `748b04e`, cùng chữ trong `ExploreRendererProps`) từ lúc bé trả lời xong tới khi báo đúng (NumberBusRenderer xoá cờ trước `onAnswer(true)`; free_split lượt 1 hết bận khi hỏi cách chia khác). Pause sau lời thần chú, giữa số cuối và thần chú, hay lúc Ô thiếu chờ «Bài tiếp theo» không còn bị đọc lại câu hỏi. Màn chơi (route-mirror) đã bỏ đọc lại khi renderer bận; nhánh này không sửa `ExplorePlayScreen`.
+- [x] 7.3 DOT1-FOLLOWUP-01 (phần còn lại): nét ngắn đo quãng đi tới dọc nét (từ chỗ đặt tay, chỉ phần vượt quá chỗ xa nhất đã tới); cử chỉ chỉ giữ tiến độ khi ≥ nửa chuyển động đi dọc nét — vuốt tay nghiêng/lượn qua chấm không để lại mực.
+- [x] 7.4 DOT1-FOLLOWUP-02 (phần còn lại): chừa 0,5 đơn vị cho chỗ đặt tay trước mực (vùng sáng), ngưỡng chạm = min(25% nét, 1/3 phần còn lại), chấm đã tô ≥ ¾ thì chạm tới cuối là xong; tô tiếp từ đầu mực vẽ ra ở 0,6–0,85 đều xong.
+- [x] 7.5 Kiểm chứng như 5.8, mỗi kiểm mới đỏ trên `d570613`; chạy lại probe của người kiểm (Xe buýt có mô phỏng `onBoardBusy` của màn chơi; Xưởng probe-eval/render/inkend/tolerance).
+- [ ] 7.6 Còn lại / chưa kiểm: đặt tay trong vùng sáng xa trước mực ở 50–70% chấm được nhận ít hơn `main` (76%/67% so với 86%/95% trong probe-tolerance) vì bị coi là nhảy (lớp C12); bỏ pause lúc Ô thiếu đang chờ «Bài tiếp theo» thì im (không đọc lại câu hỏi); chưa thử trên máy ảo/máy thật.

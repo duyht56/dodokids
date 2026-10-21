@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: Short strokes are judged on where the gesture went
-A stroke at most 12 normalized units long (the tittles of i and j) SHALL be judged on its geometry alone, not on its sample count, so a correct quick dab that sends only two or three touch samples is accepted. Because the start radius covers the whole of such a stroke, the gesture SHALL also begin within the first half of it (past where the trace is), and its travel SHALL be measured along the stroke — the stretch of it the finger passed over — not as the length of the finger's path: a gesture covering less than a quarter of the stroke, or less than half of what is left of it, SHALL count as a tap (too little to judge), and any progress it claims SHALL be travelled along the stroke (at least 55% of that distance). Every longer stroke SHALL keep refusing a gesture of fewer than four samples (a jump to the end included); such a gesture SHALL be reported as too little to judge (`insufficientData`), and the child SHALL be pointed at the dots to follow rather than sent back to the start star, which stays the guidance for a wrong start. A refused jump SHALL commit no progress on any stroke, so a later gesture cannot finish a stroke the finger never travelled.
+A stroke at most 12 normalized units long (the tittles of i and j) SHALL be judged on its geometry alone, not on its sample count, so a correct quick dab that sends only two or three touch samples is accepted. Because the start radius covers the whole of such a stroke, the gesture SHALL also begin within the first half of it (past where the trace is), and its travel SHALL be measured as its forward reach along the stroke — from where the finger landed, only the part of each point's projection that goes past the furthest point already reached — not as the length of the finger's path or the span of its projections, so wobble, a tilted or sideways swipe and a drift back up the dot add nothing: a gesture reaching forward less than a quarter of the stroke, or less than a third of what is left of it, SHALL count as a tap (too little to judge), and any progress it claims SHALL be travelled along the stroke (at least 55% of that distance, less a 0.5-unit allowance for landing on the glow just ahead of the ink). A gesture on a short stroke SHALL keep partial progress only when at least half of the finger's movement went along the stroke. A short stroke already traced at least three quarters of the way SHALL be finished by a gesture that reaches its end. Every longer stroke SHALL keep refusing a gesture of fewer than four samples (a jump to the end included); such a gesture SHALL be reported as too little to judge (`insufficientData`), and the child SHALL be pointed at the dots to follow rather than sent back to the start star, which stays the guidance for a wrong start. A refused jump SHALL commit no progress on any stroke, so a later gesture cannot finish a stroke the finger never travelled.
 
 #### Scenario: Quick dab on the tittle of i
 - **WHEN** the child draws the dot of «i» with a quick dab that reports two touch samples along it
@@ -15,9 +15,21 @@ A stroke at most 12 normalized units long (the tittles of i and j) SHALL be judg
 - **WHEN** the child swipes sideways across the middle of the dot of «i», then across its bottom
 - **THEN** neither swipe is accepted or commits progress, and the item does not complete
 
+#### Scenario: A real hand's swipe across the dot
+- **WHEN** the child swipes across the dot of «i» with the swipe tilted up the dot or wobbling, twice, at any level
+- **THEN** no ink is left on the dot after either swipe and the item does not complete
+
 #### Scenario: Continuing from the glow near the end of the dot
 - **WHEN** a first dab stops at 80% of the dot and the child continues from the glow to the end marker
 - **THEN** the stroke is accepted
+
+#### Scenario: Continuing from where the ink is drawn
+- **WHEN** a first dab stops between 60% and 85% of the dot and the child continues from the end of the ink as drawn on screen to the end marker
+- **THEN** the stroke is accepted
+
+#### Scenario: A tap cannot finish the dot from halfway
+- **WHEN** the dot is traced 60% of the way and the child taps its end marker
+- **THEN** the tap is not accepted; with three quarters traced, reaching the end finishes the dot
 
 #### Scenario: Flick, then a wiggle at the end of a long stroke
 - **WHEN** a two-sample flick from the start to the end of a long stroke is refused and the child then wiggles at the end
