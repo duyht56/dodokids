@@ -56,5 +56,5 @@ A game whose renderer reports every miss to the shell (`onAnswer(false)` before 
 - **THEN** the set stays visible with a full sand timer, and the look window starts only once the board unlocks
 
 #### Scenario: Game without a miss signal
-- **WHEN** a game's boards only ever end in `onAnswer(true)` (memory match, stack tower, route planner, tracing)
+- **WHEN** a game's boards only ever end in `onAnswer(true)` (memory match, stack tower, tracing; route planner reports its failed runs since change update-explore-route-mirror-leveled)
 - **THEN** it keeps its existing run model and is not listed in the leveled-rounds table
