@@ -186,18 +186,20 @@ Mobile:
 - Dẫn đường cho Đô Đô (`route_planner`) is a sibling offline spatial game (it
   originally filled the hidden Tracing slot): local grid generator/solver/validator in
   `mobile/src/explore/games/routePlanner{Types,Engine,Game}.ts`, rendered by
-  `mobile/src/explore/renderers/RoutePlannerRenderer.tsx`, run as a continuous
-  one-at-a-time L1→L5 progression owned by `ExplorePlayScreen`. All run state
-  (level, seed, commands, support, replay exclusions) is memory-only; optional
-  audio (`mobile/src/explore/audio.ts`) is never a required dependency.
+  `mobile/src/explore/renderers/RoutePlannerRenderer.tsx`, played in leveled
+  rounds since 2026-10-21 (see the route/mirror bullet below; it used to be the
+  only continuous one-at-a-time game). All run state (level, seed, commands,
+  support, replay exclusions) is memory-only; optional audio
+  (`mobile/src/explore/audio.ts`) is never a required dependency.
 - Explore shared play layer (OpenSpec `fix-explore-catalog-round-1`, 2026-08):
   the round planner in `mobile/src/explore/variety.ts` rotates bucket serving
   order per batch and serves `recentBucketKeys` last, so one-exercise batches
   cover every reachable mode (contract: `npm run test:explore-variety-buckets`);
   `buildNearTargetOptions(..., { exclude })` in `games/numberUtils.ts` is the
   shared, non-median distractor builder; range/arithmetic progress is
-  `{ level, recent }` with 5-of-7 window promotion; continuous runs end after
-  `CONTINUOUS_RUN_TARGET` (8) correct answers (Route Planner after Stage 5);
+  `{ level, recent }` with 5-of-7 window promotion; the play screen has had no
+  continuous mode since 2026-10-21 (`isContinuousExploreRunGame` is always
+  false, kept only for older contract calls);
   `ExploreMascot` (`explore/components/ExploreMascot.tsx`) is the only mascot;
   the play screen owns a global 🔊 replay button and renders exercises through
   `ExploreExerciseView`; catalog order/grouping is bundled `GAME_COPY` order
@@ -209,7 +211,8 @@ Mobile:
   profile; declared buckets/capacity in `variety.ts` cover both profiles and
   `generatorVersion` bumped to `number-explorer-v4` (seeded stream changed).
 - Explore Đợt 2 (OpenSpec `add-explore-round-2-games`, 2026-08): two more
-  local games — `stack_tower` and `odd_one_out` (progressive five-board runs)
+  local games — `stack_tower` and `odd_one_out` (progressive five-board runs;
+  stack_tower four boards since `fix-explore-stack-tower-light`)
   — each owning its variety
   policy/keys in `mobile/src/explore/games/<game>Game.ts`; renderers receive
   `supportLevel` (0/1/2 from the play screen's miss count) and the screen
@@ -222,18 +225,49 @@ Mobile:
   Later batches: v3 (go-live re-record), v4 (`number_bus` `nb_*`), v5 (whole
   lines, below), v6 (`balance_scale`), v7 (2026-10-19: Ú òa look/support lines,
   Đúng vị trí question lines `ord_tap`/`ord_tap_row`; 2026-10-20 its level intros
-  `ordinal_intro_2..5`); v8 (2026-10-21: Thám tử Đô Đô inventory, not yet
-  generated/reviewed/exported). `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
-  `explore/exploreAudioCapability.ts` lists every accepted pack; support for v8
-  does not mean approved v8 audio is bundled.
+  `ordinal_intro_2..5`), v8 (2026-10-21, owner listened and approved all 55
+  takes; on main): 30 new ids — Dẫn đường/Soi gương (9)
+  `route_intro_2..5`, `mirror_intro_2..5`, `mirror_hint_pair`; Máy nối tiếp
+  (10) `game_number_chain`, `chain2_forward_q`, `chain2_reverse_q`,
+  `chain2_ask_end`, `chain2_ask_start`, `chain2_mantra_forward`,
+  `chain2_mantra_reverse`, `chain2_hint_dots`, `chain2_intro_3`,
+  `chain2_intro_4`; Ú òa cốc (9) `peekaboo_mantra`, `peekaboo_cups_which`,
+  `peekaboo_cups_which_next`, `peekaboo_hint_place`, `peekaboo_missing_done`,
+  `peekaboo_cups_done`, `peekaboo_cups_intro_3..5` (appended in this order at
+  the end of `PROMPT_PHRASES` in mobile `promptAudio.ts` and in the pipeline
+  inventory), the Ô thiếu mantra `missing_cell_solve` and the Đúng vị trí game name
+  `game_ordinal_position` (review D13: its catalog card was silent); plus Đô Đô's 12
+  «Mình…» lines re-worded and re-recorded as «Bé…» (persona,
+  `docs/KIDO_DODO_PERSONA.md`): `fb_retry_2`, `fb_level_up`, `fb_easier`,
+  `fb_run_complete`, `fb_level_next`, `fb_level_again`, `tracing_continue_glow`,
+  `tracing_next_stroke`, `tracing_follow_dots`, `nb_count_model`, `nb_today`,
+  `nb_counted_already`, with the 13 whole lines that contain them (`nb_today` 3–8,
+  `nb_remodel` 3–9). Pack v8 = 515 clips (241 whole lines); the export drops
+  `tower_which_bigger` (Xếp tháp; its v7 file stays in the folder, unbundled).
+  `test:explore-prompt-audio` fails if a game has no `game_<code>` phrase or a phrase
+  says «mình». Re-take chosen clips with
+  `VIENEU_TEMPERATURE=0.7 npm run explore-audio:generate -- --keys <key…>` (forced,
+  rejected included; reports clips shared by aliases). v9 (2026-10-21, Thám tử Đô Đô,
+  pending — not yet generated/reviewed/exported): `game_clue_detective` + 17 `clue_*`
+  phrases/fragments appended at the end of `PROMPT_PHRASES` (mobile `CLUE_PHRASES` /
+  `CLUE_AUDIO_FRAGMENTS` are picked from there), 14 `clue-*` labels and 56 whole lines
+  (`clue_has`, `clue_not`, `clue_fb_extra`, `clue_fb_missing`); pipeline
+  `EXPLORE_AUDIO_PACK_VERSION` is v9; support for v9 does not mean approved v9 audio
+  is bundled.
+  `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
+  `explore/exploreAudioCapability.ts` lists every accepted pack.
 - Explore prompt timing: the play shell reads `exercise.audioRefs` on mount,
-  except `RENDERER_CUED_PROMPT_GAMES` (`peekaboo_recall`, `clue_detective`). Ú òa
-  cues each line through `onPromptCue` when it fits the board (the look line,
-  then the question only once the gap is revealed; 🔊 repeats the last cue).
-  Thám tử instead owns its full card/speech sequence through the gentle feedback
-  queue and `registerPromptReplay`; the shell does not autoplay its `audioRefs`.
-  The support hint row/voice comes from `supportHintPhraseId` (a game's own line
-  where the generic «nghe lại / nhìn kỹ từng lựa chọn» does not fit).
+  except `RENDERER_CUED_PROMPT_GAMES` (`peekaboo_recall`, `number_chain`,
+  `clue_detective`), whose
+  renderer cues each line through `onPromptCue` when it fits the board (Ú òa: the
+  look line, then the question only once the gap is revealed or the cups are
+  down; Máy nối tiếp: each blank's question; 🔊 repeats the last cue). Thám tử
+  instead owns its full card/speech sequence through the gentle feedback queue and
+  `registerPromptReplay` (🔊 calls the renderer's replay).
+  The support hint row/voice comes from
+  `supportHintPhraseId(gameCode, level, hasAudio, exercise?)` (a game's own line
+  where the generic «nghe lại / nhìn kỹ từng lựa chọn» does not fit; Ú òa picks
+  its line by the board's mode).
   `ordinal_position` speaks its actual question (`ordinalPositionKeys(isGrid,
   row, ordinal, fromLeft)`), no longer one generic sentence, and as a
   `BOARD_QUESTION_PROMPT_GAMES` member every board reads it (never skipped as a
@@ -300,13 +334,29 @@ Mobile:
 - Explore tier-2 games (Đợt 3 Slice 3, OpenSpec `add-explore-<code>-game` each):
   four new offline/stateless/no-reward games registered end-to-end exactly like
   the Đợt 2 games — `sort_bins` (tap-only classify into 2–3 bins),
-  `missing_cell` (2-D Raven matrix, reuses pattern hidden-slot),
-  `peekaboo_recall` (what's-missing, reuses memory cover/reveal), `mirror_build`
+  `missing_cell` (2-D Raven matrix, reuses pattern hidden-slot; since
+  2026-10-20, OpenSpec `fix-explore-missing-cell-leak`, `missing-cell-v2`: a 3×3
+  board covers the other three corners of a 2×2 block around the "?" cell and
+  offers exactly that block, a 2×2 board covers nothing and offers one board
+  mate plus one off-board token, the validator proves the board reads one way
+  only, the contract bounds naive solvers on 2000 seeds per level, and a right
+  answer plays a worked solution with the mantra `missing_cell_solve` before
+  `onAnswer(true)`; since 2026-10-21, OpenSpec
+  `update-explore-missing-cell-warm-up`, `missing-cell-v3`: the scored levels
+  are L1–L3, all 3×3 (shape, dots, either kind — the old L3–L5), and the 2×2
+  board is generator level 0 (`MISSING_CELL_WARM_UP_LEVEL`, outside `levels`),
+  played only as the unscored warm-up because elimination wins it 100%; a
+  starting level saved on the old five-level ladder is moved once by the
+  `kido-parent-preferences` store, persist version 1 →
+  `migrateExploreParentConfig`: 1–3 → L1, 4 → L2, ≥5 → L3),
+  `peekaboo_recall` (what's-missing, reuses memory cover/reveal; since
+  2026-10-21 "what is under this cup" from L3, see the Ú òa entry below), `mirror_build`
   (build the symmetric right half). `peekaboo_recall` shows its set for
-  a ~3s look window timed by the shared, numeral-free
+  a look window (1 s per object, at least 3 s) timed by the shared, numeral-free
   `explore/components/SandTimer.tsx` (owner-approved 2026-09-13; answering stays
   untimed and running out fails nothing). All tap-only, progressive L1→L5 (`missing_cell`
-  and `peekaboo_recall` play leveled rounds since 2026-10-18, see below), deterministic generator +
+  and `peekaboo_recall` play leveled rounds since 2026-10-18, `mirror_build` since
+  2026-10-21, see below), deterministic generator +
   independent validator (byte-identical replay), Đô Đô mascot, React-Compiler-safe
   (setState deferred in callbacks/timeouts). Registration points per game: codes in
   the 3 EXPLORE_GAME_CODES, games/renderers/rendererRegistry, registry.ts,
@@ -362,15 +412,15 @@ Mobile:
   The 10-second attention wait starts when play unlocks.
   Known limits remain explicit: forgetting one negative clue passes a level 56.9%
   of the time; S3∩S9 reaches 100% (BRD §7.15, design §9–10).
-  Inventory v8 adds 88 keys: 56 whole lines (`clue_has`, `clue_not`,
+  Inventory v9 adds 88 keys: 56 whole lines (`clue_has`, `clue_not`,
   `clue_fb_extra`, `clue_fb_missing`, item params 1..14), 13 fixed phrases,
   5 fragments and 14 labels; estimated 81 new syntheses after label reuse.
   Audio has no mandatory manifest dependency. Game stays `catalogVisible: false`
-  until paper playtesting passes and approved v8 audio is bundled; no v8 generation,
-  Human Gate, export or server deploy has happened in this slice. Thumbnail
-  `clue-detective.png` is registered. The missing-cell branch is not merged here:
-  no `missing_cell_solve` or `BundledLocalGameSpec.version`; merge that branch first
-  during integration, then this one. Contracts: `test:explore-clue-detective`,
+  until paper playtesting passes and approved v9 audio is bundled; no v9 generation,
+  Human Gate, export or server deploy has happened yet. Thumbnail
+  `clue-detective.png` is registered. On `main` since 2026-10-21, merged after the
+  Ô thiếu and Explore integration branches (server keeps both `catalogVisible?` and
+  `version?`; Thám tử uses the default version 1). Contracts: `test:explore-clue-detective`,
   `node scripts/verify-explore-clue-renderer.cjs` (also called by the full clue
   contract), server `explore.contract-codes.spec.ts`.
 - Cân thăng bằng (`balance_scale`, OpenSpec `add-explore-balance-scale-game`,
@@ -407,19 +457,32 @@ Mobile:
   Leveled rounds are shared since 2026-10-18 (OpenSpec
   `update-explore-leveled-rounds`): `pattern_finder`, `missing_cell`,
   `peekaboo_recall`, `number_chain` and (2026-10-20, intro lines
-  `ordinal_intro_2..5` in pack v7) `ordinal_position` left
+  `ordinal_intro_2..5` in pack v7) `ordinal_position`, then (2026-10-21, see the
+  Dẫn đường + Soi gương entry below) `route_planner` and `mirror_build` left
   `isProgressiveExploreRunGame`, so a
   round is a one-level `LocalExploreProvider` batch of `roundSize`
   (`getExploreRunSize` returns it); multi-board batches in `planExploreRound`
   draw until every bucket has ⌈count/buckets⌉ unseen boards (even mode mix);
+  a leveled game may declare `warmUp` (`ExploreWarmUp`: generator level outside
+  `levels`, board count, demo count, closing line; only `missing_cell`: two 2×2
+  boards, the first shown by Đô Đô through the renderer prop `demo`):
+  `getExploreWarmUp(game, startLevel)` gives it only at the lowest level, the
+  play screen puts it before the first round of the visit's first run
+  (`warmUpCount` leading boards, `warmUpOfferedRef`), never counts it (no
+  first-try, never a round end, header «Làm quen k/2» with its own dots) and ends
+  it like a move up (`fb_level_next` + `missing_cell_intro_3`);
   the play screen clears `lastPromptKeyRef` at each round swap and remembers
   each level's last two rounds (`roundKeysByLevelRef`, memory-only) so a new run
   avoids the boards of its start level; `LocalExploreProvider` keeps 2×count
   exclusions for multi-board batches; the authored branch caps earlier
   exclusions at capacity − slots (balance L2 has 12 boards); Ú òa's look
   window waits for the board to open (`opened`). Only games whose renderer
-  reports every miss may opt in (memory/stack/route/tracing/number_bus scenes
-  only send `onAnswer(true)`); the other five are owner decisions. Contract:
+  reports every miss may opt in (memory/tracing and number_bus's board_all /
+  free_split only send `onAnswer(true)`); `stack_tower` reports wrong
+  placements since 2026-10-21 but stays progressive because the owner chose not
+  to turn it on yet. Each leveled game's rule is
+  pinned in the contract (`RULE_EXCEPTIONS`: default 6/4/1, `mirror_build`
+  4/3/1, `balance_scale` its own pass mark). Contract:
   `npm run test:explore-leveled-rounds`.
   Authored runs (`createExploreRunBatch`) generate slots in order and exclude
   every board already picked this run, so no run repeats a board (applies to
@@ -442,16 +505,175 @@ Mobile:
   `background`/`inactive`: shell timers go through `explore/pausableTimers.ts`
   (API `pause/unpause` — kido-server `explore.stateless-privacy.spec` forbids
   "resume" in the play screen), voice stops, renderers get `disabled` +
-  `paused`; Ú òa re-runs a full look, `useBusSequencer(paused)` holds Cân/Xe buýt
+  `paused`; Ú òa re-runs a full look when paused during the look (once covered
+  or revealed it holds the board, review C04, see the Ú òa cups entry), `useBusSequencer(paused)` holds Cân/Xe buýt
   beats. Xe buýt `stage.speak/say` return promises (count_on/next_number report
-  after the closing line). Tracing: strokes ≤ `SHORT_TRACING_STROKE_LENGTH` (12)
-  are judged on geometry; longer ones keep the ≥4-sample guard and report
-  `insufficientData`; the workshop only takes the completion of the seed being
-  practised. Route ✓ uses `routeCheckpointProgress` (ordered, as the engine).
+  after the closing line); follow-up branch `fix/explore-dot1-followup`: a mantra
+  cut by a pause is re-said, `stage.mantra` moves the scene on exactly once, and
+  number_bus reports `onBoardBusy` from the child's answer until `onAnswer(true)`
+  so the shell does not re-ask a board closing itself. Tracing: strokes ≤
+  `SHORT_TRACING_STROKE_LENGTH` (12) are judged on geometry — forward reach along
+  the stroke from where the finger landed (wobble or a sideways swipe adds
+  nothing), ≥ ¾ traced finishes on reaching the end; longer ones keep the
+  ≥4-sample guard and report `insufficientData`; the workshop only takes the
+  completion of the seed being practised. Route ✓ uses `routeCheckpointProgress` (ordered, as the engine).
   Contract scripts can mount real renderers through
   `mobile/scripts/explore-render-harness.cjs` (hooks, fake clock, RN stubs):
   `test:explore-play-shell`, `test:explore-tracing`, `test:explore-route-planner`,
   number_bus §12.
+- Xếp tháp light fix (OpenSpec `fix-explore-stack-tower-light`, 2026-10-21,
+  owner kept the game; mobile branch `fix/explore-stack-tower-light`): the
+  two-block "Bạn nào to hơn?" warm-up and the `compare` dimension are gone;
+  four levels renumbered L1–L4 (config of the old L2–L5) as `stack-tower-v2`
+  (kido-server `BundledLocalGameSpec.version` = 2, levels [1..4]); a run is
+  still progressive, one board per level (`PROGRESSIVE_RUN_SIZE.stack_tower = 4`),
+  so any stored starting level opens on L1. The renderer now reports EVERY
+  misplacement as `onAnswer(false)` (the physical slide-back stays; support
+  comes only from the shell), yet it stays a progressive climb, out of leveled
+  rounds, by the owner's choice (2026-10-21); `test:explore-leveled-rounds` pins
+  it in `PROGRESSIVE_WITH_MISSES` (renderer reports misses, no
+  `LEVELED_ROUNDS` entry, still `isProgressiveExploreRunGame`). Each floor block
+  sits in a tap cell `layout.blocks[i].hit` ≥ `STACK_TOWER_MIN_HIT` (48pt) that
+  is the touchable view (hitSlop cannot reach past a parent);
+  `test:explore-stack-tower` measures the real tap areas through the render
+  harness on 320/375/430pt phones. The renderer draws `layoutStackTowerStage`:
+  32pt floor reserve (`STACK_TOWER_FLOOR_RESERVE`, spare top room used first,
+  shrinking only while `stackTowerLayoutReadable` holds: level ratio and a 6pt
+  step between blocks next in size) and an 8pt pad above Đô Đô, on a stage
+  hung from the scene's TOP, so the
+  shell's hint strip taking up to 32pt from the bottom on a miss moves
+  nothing; `nextStackTowerSceneSize` relays out only past the reserve, on a new
+  width, or growth before the first tap (then a trying block springs home and
+  Đô Đô's hops follow the new layout). Xếp tháp and Lật thẻ run their beats on
+  `useBusSequencer(paused)`, so the climb, the memory turn-back/peek and both
+  reports hold while paused. Passenger dots are ink (`DotGroup` coral = the
+  orange car). Phrase `tower_which_bigger` left `promptAudio.ts` and the
+  pipeline inventory (its `.wav` stays bundled until the next pack export).
+- Dẫn đường + Soi gương leveled (OpenSpec `update-explore-route-mirror-leveled`,
+  2026-10-21; mobile branch `feat/explore-route-mirror-leveled`, kido-server branch
+  of the same name): `route_planner` reports every failed run (edge, obstacle,
+  locked door, short of / past home, missing star or checkpoint order) as ONE
+  `onAnswer(false)` after the walk and keeps the board; it plays
+  `LEVELED_ROUND_RULE` 6/4/1 with `route_intro_2..5`. The play screen lists it in
+  `SELF_VOICED_MISS_GAMES` and the new `BOARD_GUIDANCE_GAMES` (no shell text under
+  the board on a miss; praise/round lines float over the board's bubble only while
+  it is locked). Its walk/result/guidance timers are a renderer-owned
+  `createPausableTimers()` held on `paused`; under reduced motion the whole path
+  shows at once (900 ms hold); walked cells are tinted. `mirror_build` is v2:
+  `MIRROR_ROUND_RULE` 4/3/1 with `mirror_intro_2..5`; L5 is 5×(2·3) (never > 3
+  columns a side); boards whose left half is its own reflection are redrawn
+  (`mirrorBuildCopyIsWrong`, validator too, minOn ≥ 2); support shows ONE pair
+  picked once per board (`mirrorBuildDemoPair`: missing ON cell furthest from
+  the mirror, else an extra ON cell), cleared when its right cell is tapped,
+  then column distance dots at level 2 — no anchor that follows the answer, no
+  dimming; spoken/hint line `mirror_hint_pair`. Cell size comes from
+  `mirrorBuildCellLayout(width, rows, cols, gridBudget)` (44–68 pt, keeps to the
+  20 pt column unless 44 pt needs the padding, 8 pt from the edge, gap 6→4) over
+  the measured play area. kido-server mirrors versions through
+  `BundledLocalGameSpec.version` (mirror_build = 2, same code as
+  `fix/explore-missing-cell-leak`). The render harness has `knobs.window`;
+  `test:explore-mirror-build` measures rendered cells at 320/375/430 pt.
+  New lines `route_intro_2..5`, `mirror_intro_2..5`, `mirror_hint_pair` (9) wait
+  for audio v8; they ARE in `kido-pipeline` `exploreAudioInventory.ts` on the
+  integration branch `integrate/explore-2026-10-21` (66389c5; the route-mirror
+  branch itself has no pipeline commit) — without them,
+  `test:explore-prompt-audio` fails when mobile sits next to kido-pipeline.
+  Soi gương switches to a compact layout (smaller prompt, no helper line under
+  the grid, tighter gaps) when the measured board is too short for the roomy
+  one at its level, so "Xong" never lands under the play screen's feedback
+  strip on 16:9 Android phones (that strip is `pointerEvents="none"` too). After
+  a pause, a renderer playing out the child's action (`onBoardBusy`, Dẫn đường's
+  walk) never gets the question read over its ending (the renderer releases
+  busy on every way out: ending, edit, unmount); one cut off mid-line gets
+  1.5 s to go on before the question is read (never silence), except a game in
+  `RENDERER_CUED_PROMPT_GAMES` that spoke after its latest cue — that cue is
+  stale (Máy nối tiếp v2's filled cell) and is not read again.
+  Pause follow-ups from the adversarial review of Đợt 1 (same change): the shell
+  holds `onAnswer` calls made while paused (`heldAnswersRef`) and answers them
+  when play goes on (miss first); `handleTryAgainSound` is silent while paused;
+  renderer feedback lines are numbered against the board's question
+  (`voiceSeqRef`/`questionSeqRef`/`rendererLinesRef`): a solved board, or one
+  whose renderer was busy (`onBoardBusy`), is NOT asked again on the way back;
+  if a renderer line asked after the question was in flight when the pause
+  began, the renderer gets `RENDERER_GOES_ON_MS` (1.5 s) to say it again or
+  report the board, and the question is read only if it stays silent (a new
+  pause cancels that read). Xe buýt's mantra cut by a pause is re-said from
+  the start by `stage.mantra` before the bus moves on, and the bus reports
+  `onBoardBusy` from the child's answer, so no question is read on the way back;
+  Máy nối tiếp v2 says its mantra through `throughPause` (re-said whole, success
+  waits for it) and reports `onBoardBusy` from the right second card until
+  `onAnswer(true)` (integration commit 0ca421f, task 8.7); Ú òa clears its cue
+  once the set is covered and is busy during the why (integration commit
+  9779e61); a break reminder dropped by the pause
+  is said once afterwards (`breakLineOwedRef`). Route guidance cut by a pause is
+  re-said by the renderer (`speakGuidance`/`owedGuidanceRef`). The play-shell
+  contract §7 mounts the real `ExplorePlayScreen` through the harness with
+  recorded audio/SFX stubs (`harness.stubs[...]`, `@/constants/layout` alias).
+- Máy nối tiếp v2 (`number_chain`, OpenSpec `rework-explore-number-chain`,
+  2026-10-21; mobile branch `feat/explore-number-chain-rework`, server mirror at
+  `BundledLocalGameSpec.version` 2): the child fills BOTH blanks of the
+  two-machine chain in the worksheet's order (`params.blanks`: forward
+  mid→end, reverse mid→start; `answer.values`). Levels: L1 forward + dots on both
+  machines, L2 + reverse, L3 dots only on the machine worked first
+  (`dotSteps` 1), L4 no dots, L5 range 0–20; L1–L4 range 0–10, machines 2–4.
+  From L2 a round is 2 forward + 2 `reverse_add` + 2 `reverse_sub` (buckets by
+  machine 2). Cards: `{a, a±g, m, m±g}`, m = 2x − a the sign / run-forward
+  card (always present; g = 1, else 2); the off card's side (toward / away from
+  the input x) is drawn evenly and independently for each pair, and same-sign /
+  mixed-sign machines evenly, before the chain is chosen; blank 1 never shows
+  blank 2's answer or sign card — do not swap in `buildNearTargetOptions`. Owner
+  approved 2026-10-21 (direction A): no ±1 machines, L1–L4 in 0–10 with 0, L5 up
+  to 20, and a known gap kept on L1–L4 — blank 1 (the middle) is never farther
+  from 5 than its sign card at 0–10 (count k, ignore the sign, pick nearer 5
+  passes 26–30% of rounds; L5 is the reverse-reasoning gate); review after
+  playtest. Format limit (2026-10-21): direction + card distance to the input
+  tops out at ~76% of blank 1 and 87–88% of blank 2 (a card next to the input
+  is never right) — generator tuning stopped, contract locks it at the measured
+  level; a "build the answer" format for Đợt 3 awaits the owner. Renderer
+  reports every miss, cues each blank's question (`number_chain` is in
+  `RENDERER_CUED_PROMPT_GAMES`), keeps missed cards faded until the row changes,
+  and after the second blank replays the chain forward with `DotGroup`
+  `changed` dots while saying the mantra, then `onAnswer(true)` (busy via
+  `onBoardBusy` meanwhile; a mantra cut by a pause is re-said through
+  `throughPause`; a pause in the `NEXT_CELL_MS` move to blank 2 cues blank 2's
+  question at once, so the way back never re-reads blank 1's). `DotGroup`
+  gained optional `size`/`changed`. Contract `npm run test:explore-number-chain`
+  measures every trick class through the real planner (no-knowledge,
+  direction-only, steps-only, the structural "nearer 5" class and the
+  direction + distance class at their measured levels, reverse; `NC_REPORT=1`
+  prints the table) and drives the renderer through the harness. Audio v8 (not
+  rendered): `game_number_chain` + nine `chain2_*` lines (no `chain2_intro_5`:
+  L2 / L5 reuse pack-v7 `chain_intro_2` / `chain_intro_4`, «…số lớn tới hai
+  mươi…»), mirrored in the pipeline inventory.
+- Ú òa "Dưới cốc này là gì?" (OpenSpec `upgrade-explore-peekaboo-cups`,
+  2026-10-21, owner decision after the 12-game review; mobile/kido-server/
+  kido-pipeline branches `feat/explore-peekaboo-cups`): `peekaboo_recall` v2 has
+  two board kinds, `params.mode` `missing` (L1 3 objects, L2 4; cards = the
+  missing one + exactly one still on the board + new ones, so neither "seen
+  before" nor "not on the board" answers alone) and `cups` (L3 3 cups, L4 4, L5 4
+  with two cups asked in a row; cards = exactly the objects under the cups;
+  `askedSlots` by seeded permutation). Answer shape `assetIds` (one per
+  question). `variantKey` = kind + arrangement + removed slot / asked cups, never
+  the cards. Look = `peekabooLookMs` (1 s per object, ≥ 3 s). The renderer
+  shows why after the last right answer (gap filled / cups lifted left to right)
+  and says `peekaboo_missing_done` / `peekaboo_cups_done` through
+  `onSpeakFeedback`, then reports `onAnswer(true)` (held while paused; a pause
+  after the cover/cups/reveal never shows the set again, C04). On the play
+  screen (integration commit 9779e61) the renderer puts an empty cue on record
+  once the set is covered (`onPromptCue([])`), so neither 🔊 nor the way back
+  from a pause reads the look line / mantra over the cover, and reports
+  `onBoardBusy` from the last right answer until `onAnswer(true)`, so the
+  answered question is not read over the why (even with the v8 clips missing;
+  `test:explore-play-shell` §8 drives the real screen + real renderer); the
+  bubble follows the phase; cups are Views; one row of objects and one of cards
+  sized by the pure `renderers/peekabooLayout.ts`. Mantra `peekaboo_mantra` is
+  the cups look line; 9 new phrases wait for audio batch v8 (in the pipeline
+  inventory on the integration branch); `levelIntroLine
+  ('peekaboo')` maps L2 to the existing `peekaboo_intro_3`. kido-server
+  `BundledLocalGameSpec.version` (same lines as the Ô thiếu branch) = 2.
+  Contract `npm run test:explore-peekaboo` runs naive solvers on real planner
+  rounds (memory-free tricks ≈ guessing; v1's "pick the familiar card" was
+  100%), the layout on five devices and the mounted renderer.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/

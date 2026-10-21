@@ -37,15 +37,15 @@ A game-owned run plan SHALL declare an ordered finite list of generation slots w
 ## ADDED Requirements
 
 ### Requirement: Leveled rounds
-A game whose renderer reports every miss to the shell (`onAnswer(false)` before success) MAY opt into leveled rounds with a round size, a pass mark and a maximum number of extra rounds; the default rule SHALL be 6 boards, 4 right on the first try and 1 extra round. After a round, the shell SHALL move up to the next level when the pass mark is reached, otherwise play one fresh round of the same level that avoids the boards of the round just played; a failed last extra round or a passed top level SHALL end the run naturally ("Mình luyện xong rồi!"). A round SHALL contain no board twice and SHALL split its modes evenly where the pool allows. The next round's first board SHALL stay locked until the round lines ("Giỏi quá! Mình lên bậc mới nhé!", followed on a move up by the game's line saying what is new on the new level when it has one, or "Mình luyện thêm bậc này nhé!") have been said, its question SHALL be read after them, and any timed look window SHALL start only once the board is playable. The round level, first-try count and extra-round count SHALL exist only in the mounted play screen and SHALL NOT be written to parent configuration, requests, storage or analytics. A game that never reports a miss SHALL NOT opt in.
+A game whose renderer reports every miss to the shell (`onAnswer(false)` before success) MAY opt into leveled rounds with a round size, a pass mark and a maximum number of extra rounds; the default rule SHALL be 6 boards, 4 right on the first try and 1 extra round. After a round, the shell SHALL move up to the next level when the pass mark is reached, otherwise play one fresh round of the same level that avoids the boards of the round just played; a failed last extra round or a passed top level SHALL end the run naturally ("Bé luyện xong rồi!"). A round SHALL contain no board twice and SHALL split its modes evenly where the pool allows. The next round's first board SHALL stay locked until the round lines ("Giỏi quá! Bé lên bậc mới nhé!", followed on a move up by the game's line saying what is new on the new level when it has one, or "Bé luyện thêm bậc này nhé!") have been said, its question SHALL be read after them, and any timed look window SHALL start only once the board is playable. The round level, first-try count and extra-round count SHALL exist only in the mounted play screen and SHALL NOT be written to parent configuration, requests, storage or analytics. A game that never reports a miss SHALL NOT opt in.
 
 #### Scenario: Child does well on a round
 - **WHEN** at least 4 of the 6 boards of a round at level 2 were right on the first try
-- **THEN** Đô Đô says "Giỏi quá! Mình lên bậc mới nhé!" then what is new at level 3 (Ú òa: "Bây giờ có bốn món đồ, bé nhìn thật kỹ nhé!") and the next round is 6 new boards at level 3, with the header showing "Bậc 3/5"
+- **THEN** Đô Đô says "Giỏi quá! Bé lên bậc mới nhé!" then what is new at level 3 (Ú òa: "Bây giờ có bốn món đồ, bé nhìn thật kỹ nhé!") and the next round is 6 new boards at level 3, with the header showing "Bậc 3/5"
 
 #### Scenario: Child needs more practice
 - **WHEN** fewer than 4 boards of a round were right on the first try and no extra round has been played at that level
-- **THEN** Đô Đô says "Mình luyện thêm bậc này nhé!" and a fresh round of the same level starts with none of the previous round's boards
+- **THEN** Đô Đô says "Bé luyện thêm bậc này nhé!" and a fresh round of the same level starts with none of the previous round's boards
 
 #### Scenario: Extra round fails too
 - **WHEN** the extra round of a level also ends below the pass mark
@@ -56,5 +56,5 @@ A game whose renderer reports every miss to the shell (`onAnswer(false)` before 
 - **THEN** the set stays visible with a full sand timer, and the look window starts only once the board unlocks
 
 #### Scenario: Game without a miss signal
-- **WHEN** a game's boards only ever end in `onAnswer(true)` (memory match, stack tower, route planner, tracing)
+- **WHEN** a game's boards only ever end in `onAnswer(true)` (memory match, tracing; route planner reports its failed runs since change update-explore-route-mirror-leveled, and stack tower its wrong placements since 2026-10-21 but stays out because the owner has not turned it on yet)
 - **THEN** it keeps its existing run model and is not listed in the leveled-rounds table

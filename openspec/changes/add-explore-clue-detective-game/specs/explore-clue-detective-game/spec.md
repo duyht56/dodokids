@@ -530,7 +530,7 @@ hiệu) SHALL chỉ nằm trong bộ nhớ của màn chơi và mất khi thoát
 `clue_detective` SHALL có trong cả ba danh sách `EXPLORE_GAME_CODES` (docs, mobile,
 kido-server), cùng thứ tự, ở cuối, thành 13 mã. Catalog bundled SHALL chỉ hiện
 "Thám tử Đô Đô" (hoặc tên owner chốt) trong nhóm "Quy luật" khi pack
-`explore-audio-vi-v8` có trong bundle; trước đó `catalogVisible` bundled SHALL là
+`explore-audio-vi-v9` có trong bundle; trước đó `catalogVisible` bundled SHALL là
 `false`. Khi server đã có mã này, `catalogVisible` của server SHALL bằng đúng cờ
 bundled ở cùng revision. Hiển thị hiệu lực SHALL là bundled AND server
 (fail-closed): server chỉ ẩn được, không lộ lại game đã ẩn; khi server chưa biết mã
@@ -539,14 +539,14 @@ này, app SHALL dùng bản bundled. Vì vậy revert mã server SHALL không đ
 `clue_detective` với `catalogVisible` là `false` (ngoại lệ duy nhất cho luật server
 mirror cờ bundled, có tên trong spec contract-codes).
 
-#### Scenario: Chưa có pack v8
+#### Scenario: Chưa có pack v9
 
-- **WHEN** app có code `clue_detective` nhưng bundle chưa có pack v8
+- **WHEN** app có code `clue_detective` nhưng bundle chưa có pack v9
 - **THEN** thẻ game không hiện trong catalog trẻ và không có thẻ "Sắp ra mắt"
 
 #### Scenario: Server chưa deploy mã mới
 
-- **WHEN** app có pack v8 và `clue_detective` nhưng catalog server chưa có mã này
+- **WHEN** app có pack v9 và `clue_detective` nhưng catalog server chưa có mã này
 - **THEN** thẻ "Thám tử Đô Đô" vẫn hiện và chơi được bằng bản bundled
 
 #### Scenario: Server tắt game

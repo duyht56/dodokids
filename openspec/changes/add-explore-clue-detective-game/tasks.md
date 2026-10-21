@@ -6,12 +6,12 @@
 > owner có thể cho làm nhóm 1–2 (merge Ô thiếu, module thuần, không phụ thuộc ký
 > hiệu) song song với 0.3–0.5. **Renderer (nhóm 5) chỉ code sau khi 0.5 đạt.**
 > Lát cắt: A = nhóm 2 → B = nhóm 3–5 (ẩn khỏi catalog) → C = nhóm 6–7 (7.3 bật
-> hiển thị cùng commit export pack v8) → D = nhóm 8–11 (server một lần deploy).
+> hiển thị cùng commit export pack v9) → D = nhóm 8–11 (server một lần deploy).
 
 > **Quyết định owner 2026-10-21:** (a) chấp nhận; (b) giữ P1-X; độ dài lượt giữ
 > nguyên; (c) tên "Thám tử Đô Đô". Owner cho **code ngay, trước buổi thử giấy**:
 > renderer (nhóm 5) được code, nhưng game giữ `catalogVisible: false` (ẩn với bé)
-> tới khi 0.3–0.5 đạt VÀ pack v8 có trong bundle; nếu thử giấy buộc đổi ký hiệu thì
+> tới khi 0.3–0.5 đạt VÀ pack v9 có trong bundle; nếu thử giấy buộc đổi ký hiệu thì
 > sửa renderer sau. Code do Codex CLI viết trong worktree
 > `dodokids-wt/clue-detective` (nhánh `feat/explore-clue-detective` từ `main` của cả
 > 4 repo), Claude review. Nhánh Ô thiếu CHƯA merge vào đây (owner chọn tách từ
@@ -76,18 +76,21 @@
 Trong change này chỉ ĐỌC `missingCellGame.ts` và
 `verify-explore-missing-cell-contracts.cjs` làm mẫu, không sửa hai file này.
 
-- [ ] 1.1 Merge mobile `f579d30` (nhánh `fix/explore-missing-cell-leak`:
+- [x] 1.1 Merge mobile `f579d30` (nhánh `fix/explore-missing-cell-leak`:
       `missingCellGame.ts`, `promptAudio.ts` thêm `missing_cell_solve`,
       `MissingCellRenderer.tsx`, contract Ô thiếu) vào `main`; chạy
       `test:explore-missing-cell` và mọi `test:explore-*`
-- [ ] 1.2 Merge server `54b73d2` (cùng nhánh: `explore.registry.ts` thêm
+      > Xong 21/10/2026: Ô thiếu vào `main` (mobile `f68a5cb`), nhánh này merge `main` sau đó.
+- [x] 1.2 Merge server `54b73d2` (cùng nhánh: `explore.registry.ts` thêm
       `BundledLocalGameSpec.version`, `missing_cell` v2,
       `explore.missing-cell.spec.ts`) vào `main` local, **chưa push**; `npm test` +
       `npm run build`
-- [ ] 1.3 Merge kido-pipeline `aa783a6` (nhánh `fix/explore-missing-cell-leak`:
+      > Xong 21/10/2026: server `e6572d7` trên `main`.
+- [x] 1.3 Merge kido-pipeline `aa783a6` (nhánh `fix/explore-missing-cell-leak`:
       `exploreAudioInventory.ts` thêm `missing_cell_solve`) vào `main` local,
       **chưa push**; `npx vitest run src/explore`
-- [ ] 1.4 Sau khi merge Ô thiếu rồi nhánh này: sửa tay các câu trạng thái nhánh
+      > Xong 21/10/2026: pipeline `9e0335a` trên `main`.
+- [x] 1.4 Sau khi merge Ô thiếu rồi nhánh này: sửa tay các câu trạng thái nhánh
       trong `AI_CONTEXT.md`, BRD §7.15/§9 và comment `exploreAudioInventory.ts`.
       Xoá câu "The missing-cell branch is not merged here… then this one.";
       cập nhật tổng inventory trong AI_CONTEXT và BRD thành 89 khoá / dự kiến
@@ -95,6 +98,7 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
       Xoá comment "Chưa gồm missing_cell_solve…", sửa comment inventory thành
       "56 câu liền từ mobile + missing_cell_solve (Ô thiếu)". Kiểm ba file không
       còn các câu trạng thái cũ; `promptAudio.ts` vẫn giữ `missing_cell_solve`.
+      > Xong khi merge `main` vào nhánh này (21/10/2026): câu trạng thái nhánh đã sửa; `missing_cell_solve` đi trong pack v8 nên tổng của Thám tử giữ 88 khoá / 81 lần.
 
 ## 2. Module thuần (mobile, lát A — chưa đăng ký mã)
 
@@ -278,26 +282,26 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
 - [x] 6.4 `verify-explore-prompt-lines-contracts.cjs`: `clueUtterances()`, map
       generator, tham số template; quy ước xưng hô (không "con", "cô", "thầy",
       "sai", "khớp"; câu nhắc tới người chơi gọi "bé")
-- [x] 6.5 `exploreAudioCapability.ts`: thêm `explore-audio-vi-v8`
+- [x] 6.5 `exploreAudioCapability.ts`: thêm `explore-audio-vi-v9`
 - [x] 6.6 kido-pipeline `exploreAudioInventory.ts`: mirror phrases/labels, nâng
-      `EXPLORE_AUDIO_PACK_VERSION` lên v8; `exploreAudioInventory.test.ts` kỳ vọng v8
-- [ ] 6.6b Gộp `missing_cell_solve`: chờ merge pipeline `aa783a6` ở 1.3 trước
-      nhánh này, giữ v8 và dọn comment theo 1.4; chạy
+      `EXPLORE_AUDIO_PACK_VERSION` lên v9; `exploreAudioInventory.test.ts` kỳ vọng v9
+- [x] 6.6b Gộp `missing_cell_solve`: chờ merge pipeline `aa783a6` ở 1.3 trước
+      nhánh này, giữ v9 và dọn comment theo 1.4; chạy
       `npx vitest run src/explore` và mobile `npm run test:explore-prompt-audio`
       sau khi đã merge mobile `f579d30`; commit local cùng 6.1, không push.
       Số 89 khoá / 82 lần tổng hợp ở design §12 chỉ đúng sau bước merge này
+      > Không còn cần: `missing_cell_solve` đã được gen/duyệt/export trong pack v8 (21/10/2026); Thám tử là pack v9 riêng.
 
 ## 7. Audio batch (Human Gate)
 
-- [ ] 7.1 Gen ~82 clip VieNeu `dodo-clone2`, `VIENEU_TEMPERATURE=0.7`, không
-      `--force`; chỉ bắt đầu sau 6.6b, khi inventory pipeline đã có
-      `missing_cell_solve`
+- [ ] 7.1 Gen ~81 lần tổng hợp VieNeu `dodo-clone2`, `VIENEU_TEMPERATURE=0.7`, bằng
+      `explore-audio:generate -- --keys <88 khoá v9>`, không `--force` toàn pack
 - [ ] 7.2 Owner TỰ NGHE riêng 16 clip có chữ "không" (không duyệt gộp) + 14
       `clue_has` + 14 `clue_fb_missing` + chuỗi clip ghép dự phòng; nghe liền chim /
       cá / chó / rùa / bướm; checklist "số chữ 'không' nghe được = số chữ 'không'
       trong câu"; clip chưa rõ → reject → sinh lại đúng khoá đó (6.1) → nghe lại.
       Dự trù 10–15 phút
-- [ ] 7.3 Export pack v8 → mobile; trong CÙNG commit bật hiển thị
+- [ ] 7.3 Export pack v9 → mobile; trong CÙNG commit bật hiển thị
       (`catalogVisible` của `clue_detective` thành hiện); test offline-audio +
       prompt-lines + prompt-audio
 
@@ -309,10 +313,11 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
       prefix `clue-detective`, assets, levels [1..6], `catalogVisible: false`
       mirror bundled), trường tuỳ chọn `BundledLocalGameSpec.catalogVisible`
       và spec đếm catalog 13
-- [ ] 8.1b Sau 1.2: rebase/merge lên `main` đã có `54b73d2`, giữ cả
+- [x] 8.1b Sau 1.2: rebase/merge lên `main` đã có `54b73d2`, giữ cả
       `catalogVisible?` lẫn `version?` trong `interface BundledLocalGameSpec`.
       `clue_detective` không khai `version` nên dùng mặc định 1; gộp code 8.1
       trong **cùng một commit** server. Đổi sang hiện khi làm 7.3, trước push
+      > Xong khi merge `main` vào nhánh này (21/10/2026): giữ cả `catalogVisible?` lẫn `version?`.
 - [x] 8.2 `explore.service.spec.ts`: đếm catalog 12 → 13 + một `it` (local, offline,
       L1–L6, `generateBatch` báo lỗi); tuỳ chọn `explore.clue-detective.spec.ts`
 - [ ] 8.3 `npm test` + `npm run build` server với working tree mobile đã có cả
@@ -345,8 +350,8 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
 ## 9. Docs
 
 - [x] 9.1 BRD §7.15 (mẫu §7.14, có chỗ hở công khai), §10 (danh sách game chơi theo
-      bậc), §9 (pack v8), sửa tiêu đề §7 "DANH MỤC 8 TRÒ CHƠI"
-- [x] 9.2 `AI_CONTEXT.md`: 13 mã, pack v8, gạch đầu dòng Thám tử
+      bậc), §9 (pack v9), sửa tiêu đề §7 "DANH MỤC 8 TRÒ CHƠI"
+- [x] 9.2 `AI_CONTEXT.md`: 13 mã, pack v9, gạch đầu dòng Thám tử
 - [ ] 9.3 `KIDO_MARKETING_CLAIMS.md`: khi tích hợp, sau khi bản sửa claims ở
       checkout chính đã commit, thêm dòng ⛔ nội bộ cho Thám tử với mã còn trống.
       Không cấp mã mới ở nhánh này; public copy giữ nguyên tới khi lên store
@@ -354,7 +359,7 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
 
 ## 10. Kiểm chứng
 
-- [ ] 10.1 Đo thời lượng clip thật của pack v8; tính P95 thời gian khoá đọc đề và
+- [ ] 10.1 Đo thời lượng clip thật của pack v9; tính P95 thời gian khoá đọc đề và
       diễn lại theo bậc; cập nhật bảng thời lượng ở design §2
 - [x] 10.2 mobile `npx tsc --noEmit`, `npm run lint`, mọi `npm run test:explore-*`
 - [ ] 10.3 kido-server `npm test`, `npm run build`; kido-pipeline `npm test`

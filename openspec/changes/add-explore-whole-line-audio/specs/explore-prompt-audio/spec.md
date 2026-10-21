@@ -157,8 +157,8 @@ MUST remain unchanged.
   example `nb_gop` with whole 5, parts 2 and 3 reads "Gộp hai và ba được
   năm!"), and the line set includes every pilot sentence whose params are
   reachable: "Sáu gồm bốn và hai!", "Số nào đứng sau số bảy?", "Có tất cả sáu
-  bạn nhé.", "Trong xe có năm bạn rồi nha.", "Hôm nay mình chơi với số bốn!"
-  and "Số ba ở trong xe rồi, mình đếm thêm nha!"
+  bạn nhé.", "Trong xe có năm bạn rồi nha.", "Hôm nay bé chơi với số bốn!"
+  and "Số ba ở trong xe rồi, bé đếm thêm nha!"
 
 #### Scenario: An unreachable pilot sentence is not a line
 - **WHEN** a pilot sentence's params cannot occur in any game, as with "Gộp hai

@@ -11,6 +11,10 @@ MỌI lần sai. Game chỉ gọi `onAnswer(true)` (Lật thẻ tìm cặp, Xế
 chặn điều này: nó đọc cây cú pháp của renderer (bỏ qua chú thích) và đòi một lời
 gọi `onAnswer(...)` với đối số khác `true`.
 
+Cập nhật 2026-10-21: Dẫn đường báo mỗi lần chạy hỏng và đã bật (change
+`update-explore-route-mirror-leveled`); Xếp tháp đã báo lần đặt sai nhưng
+chủ sản phẩm chọn chưa bật, nên vẫn chạy progressive.
+
 ## 2. Vòng là một batch một bậc
 
 `createExploreRunBatch` giữ nguyên ba nhánh: authored (`runPolicy`),
@@ -50,7 +54,7 @@ chấm sáng khi xong vòng. Thêm: `lastPromptKeyRef` về null khi đổi vòn
 câu đề cố định (Ô thiếu, Ú òa) đọc lại câu đề ở bài đầu vòng mới.
 
 Ú òa bắt đầu đếm thời gian nhìn ngay khi gắn bài. Bài đầu vòng mới gắn lúc còn
-khoá, nên đồng hồ cát sẽ chạy hết dưới câu "Giỏi quá! Mình lên bậc mới nhé!".
+khoá, nên đồng hồ cát sẽ chạy hết dưới câu "Giỏi quá! Bé lên bậc mới nhé!".
 Giờ renderer có cờ `opened` (bật ở lần render đầu tiên bàn chơi được phép bấm),
 và pha `show` chỉ chạy khi `opened`; trong lúc khoá bé thấy cả tập với đồng hồ
 đầy. Ba renderer còn lại không có hẹn giờ lúc gắn bài.
@@ -60,7 +64,7 @@ và pha `show` chỉ chạy khi `opened`; trong lúc khoá bé thấy cả tập
 | Game | Bài/bậc thật | Giây/bài (ước) | Đoán bừa qua 4/6 |
 |---|---|---|---|
 | Tìm quy luật | 72 (L4) → 9825 | 8–25 | 4–12% |
-| Ô thiếu | ≥ 960 | ~8–15 | ~34% nếu chỉ đọc một chiều |
+| Ô thiếu | ≥ 960 | ~8–15 | ~34% nếu chỉ đọc một chiều (một vòng; tính cả vòng thêm là 57%, và mẹo "không có trên bảng" thắng 100%; sửa ở `fix-explore-missing-cell-leak`) |
 | Ú òa | rất lớn | ~10 | thấp |
 | Máy nối tiếp | ≥ 88 (L1) | ~8–15 | ~5–12% |
 | Đúng vị trí (20/10) | rất lớn (đồ vật trên kệ); câu hỏi: L1 4, L2 10, L3 6, L4 16, L5 24 | ~5–10 | 6% (L1) → 0,06% (L5) |
@@ -72,7 +76,7 @@ thêm. Nhắc nghỉ 12 phút vẫn hoạt động như cũ.
 
 - ~~Câu giới thiệu từng bậc (`introLine`) cho 4 game~~ — làm sau trong chính
   thay đổi này (18/10): owner duyệt 16 câu `pattern_/missing_cell_/peekaboo_/
-  chain_intro_2..5` (bậc 1 không có), nói sau "Giỏi quá! Mình lên bậc mới nhé!"
+  chain_intro_2..5` (bậc 1 không có), nói sau "Giỏi quá! Bé lên bậc mới nhé!"
   qua `levelIntroLine` (promptAudio.ts); thêm vào pack v6, một batch.
 - Năm game cần owner quyết (xem proposal; `ordinal_position` đã bật 20/10 kèm 4
   câu `ordinal_intro_2..5` ở pack v7). Một game chỉ cần thêm một dòng vào

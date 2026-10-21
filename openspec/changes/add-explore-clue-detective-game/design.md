@@ -417,7 +417,7 @@ Mỗi bậc thêm **đúng một** nấc khó bé nhìn thấy; riêng bậc 4 b
   hơn", "Nhớ thẻ". Thẻ úp chỉ đến sau khi bé đã qua 9 nhà lúc thẻ còn ngửa.
 - **Thẻ úp (bậc 6):** mặt lưng trung tính, chỉ có chấm thứ tự 1/2/3 (không lộ có
   hay không có). Thẻ nào **thiếu clip gợi ý thì luôn ngửa** (thiếu clip thì thẻ úp
-  không còn cách đọc). Game chỉ hiện khi pack v8 có trong bundle (mục 13), nên
+  không còn cách đọc). Game chỉ hiện khi pack v9 có trong bundle (mục 13), nên
   trường hợp này chỉ xảy ra khi một clip lẻ bị thiếu.
 - **Ít cấu trúc ở mọi bậc** (danh mục 1 / 1 / 1 / 3 / 3 / 3; tính cả dạng thẻ
   1 / 1 / 3 / 9 / 9 / 9 cấu trúc, mục 10). Đây là cái giá của tính hoán đổi được
@@ -1235,7 +1235,7 @@ giữa ô 4–5, hàng dưới ô 6–8.
 - Dải lời **2 dòng** (chữ 14–15, co chữ tối đa 0,75). Nếu giữ dải lời mà emoji
   trong nhà < 26 pt thì **bỏ dải lời** trên màn đó (tiền lệ Cân bỏ dải lời khi
   bảng thấp, `balanceScale/layout.ts`), rồi tính lại. Bỏ dải lời không mất dữ kiện:
-  thẻ hình, đèn soi, phản hồi hình và lời Đô Đô vẫn đủ (game chỉ hiện khi pack v8
+  thẻ hình, đèn soi, phản hồi hình và lời Đô Đô vẫn đủ (game chỉ hiện khi pack v9
   có trong bundle, mục 13).
 - Khe giữa nhà: cột 12 pt, hàng 8 pt (**≥ 8 pt**), vì chạm trượt sang nhà bên là
   mất "đúng ngay lần đầu".
@@ -1321,7 +1321,7 @@ giữa ô 4–5, hàng dưới ô 6–8.
 
 Cả hai bàn mẫu dùng làm bàn thật ở bước 5 của buổi thử giấy (mục 4).
 
-## 12. Audio (pack v8)
+## 12. Audio (pack v9)
 
 Một batch, giọng VieNeu `dodo-clone2`, **temperature 0.7** (pipeline `.env` đang
 1.2 cho lesson: phải chạy `VIENEU_TEMPERATURE=0.7`, run từ chối nếu khác), câu
@@ -1371,14 +1371,10 @@ không?" có chữ "không" nghi vấn, là câu dùng chung nói khi đã hết
 **Tổng theo T-Lai:** 56 line + 13 câu cố định + 5 mảnh + 14 nhãn = **88 khoá mới,
 81 lần tổng hợp** (bỏ phần ghép dự phòng: 69). So với bản trước: bỏ câu giới
 thiệu dạng hai thẻ "có", câu phản hồi theo món không còn chữ "không", mảnh ghép 7
-→ 5. Pack **`explore-audio-vi-v8`** gộp luôn câu mới của Ô thiếu
-`missing_cell_solve` ("Nhìn hàng, nhìn cột, ghép đủ hai điều.", mobile `f579d30`
-và pipeline `aa783a6`, nhánh `fix/explore-missing-cell-leak`, chưa gen clip)
-theo luật một đợt một pack (BRD §9): **89 khoá mới, 82 lần tổng hợp**, pack
-≈ 486 + 89 = 575 clip. Tổng này chỉ đúng sau merge Ô thiếu; chặn batch gen (task
-7.1) tới khi inventory pipeline đã có `missing_cell_solve` (6.6b). Nếu owner
-duyệt câu giới thiệu bậc của 4 game đang chờ (leveled-rounds task 4.1) trước khi
-chạy batch thì gộp vào v8, không thì thành v9.
+→ 5. Pack **`explore-audio-vi-v9`**: pack v9 đã dùng cho đợt tích hợp Khám phá
+(21/10/2026, gồm cả `missing_cell_solve` của Ô thiếu), nên Thám tử là một đợt riêng theo
+luật một đợt một pack (BRD §9): **88 khoá mới, 81 lần tổng hợp**, pack ≈ 515 + 88 =
+603 clip. Sinh lại đúng khoá hỏng bằng `explore-audio:generate -- --keys`.
 
 **Human Gate cho câu có chữ "không" (bắt buộc, không duyệt gộp):**
 
@@ -1424,9 +1420,9 @@ hình và phản hồi hình vẫn đủ để chơi. Bậc 6: thẻ thiếu cli
   4. Mỗi nhà có ba món, bé vẫn soi đủ ba thẻ và chọn đúng.
   5. Bàn chín nhà, mỗi nhà ba món, bé vẫn chọn đúng nhà Đô Đô.
   6. Thẻ úp, bé nhớ hoặc tự chạm lật để nghe lại rồi chọn đúng.
-- **Chỉ hiện khi pack v8 có trong bundle.** Thiếu pack thì bậc 6 thẻ úp vô nghĩa
+- **Chỉ hiện khi pack v9 có trong bundle.** Thiếu pack thì bậc 6 thẻ úp vô nghĩa
   (thẻ thiếu clip luôn ngửa) và câu dạy ký hiệu im. Code merge trước với bundled
-  `catalogVisible: false`; bật hiển thị trong cùng commit export pack v8 vào app.
+  `catalogVisible: false`; bật hiển thị trong cùng commit export pack v9 vào app.
   Không dùng `pendingGame` (hiện thẻ "Sắp ra mắt"). Không thêm audio pack vào
   `dependencyManifest`.
 - **Server mirror đúng cờ bundled ở mọi commit:** `explore.contract-codes.spec.ts`
@@ -1443,7 +1439,8 @@ hình và phản hồi hình vẫn đủ để chơi. Bậc 6: thẻ thiếu cli
 - **Hiển thị hiệu lực** = bundled AND server (fail-closed). App bỏ qua mã chỉ có
   trên server (`registry.ts`); khi server chưa có mã thì app dùng bản bundled.
 - **Thứ tự merge / deploy (cứng):**
-  1. Merge nhánh Ô thiếu vào `main` **trước**: mobile `f579d30`, server
+  1. (Xong 21/10/2026: Ô thiếu vào `main` trước — mobile `f68a5cb`, server
+     `e6572d7`, pipeline `9e0335a` — rồi nhánh này.) Merge nhánh Ô thiếu vào `main` **trước**: mobile `f579d30`, server
      `54b73d2` và pipeline `aa783a6` (cùng nhánh `fix/explore-missing-cell-leak`). Mobile sửa
      `missingCellGame.ts`, `promptAudio.ts` (`missing_cell_solve`),
      `MissingCellRenderer.tsx`, contract Ô thiếu; server sửa `explore.registry.ts`
@@ -1457,8 +1454,8 @@ hình và phản hồi hình vẫn đủ để chơi. Bậc 6: thẻ thiếu cli
      trong server `explore.registry.ts`: giữ cả `catalogVisible?` lẫn `version?`.
      Mobile, pipeline, BRD và AI_CONTEXT merge sạch. Sau khi merge Ô thiếu rồi
      nhánh này vẫn phải sửa tay các câu trạng thái nhánh trong AI_CONTEXT,
-     BRD §7.15/§9 và comment `exploreAudioInventory.ts` theo task 1.4; lúc đó mới
-     ghi tổng 89 khoá / dự kiến 82 lần tổng hợp, gồm `missing_cell_solve`.
+     BRD §7.15/§9 và comment `exploreAudioInventory.ts` theo task 1.4; `missing_cell_solve`
+     đã đi trong pack v8, nên tổng của Thám tử giữ 88 khoá / 81 lần tổng hợp.
   2. Commit mobile Thám tử (`catalogVisible: false`).
   3. Commit server Thám tử, rebase lên trường `version` mới: union
      `explore.types.ts` + `PUBLIC_GAMES` + `BUNDLED_LOCAL_GAMES` + spec đếm 13 trong
@@ -1503,12 +1500,12 @@ hình và phản hồi hình vẫn đủ để chơi. Bậc 6: thẻ thiếu cli
        `ExploreCatalogScreen.tsx:126–145` đặt `serverGames = null` và dùng
        bundled), nên máy offline vẫn thấy game. Muốn tắt cả offline phải ra bản
        app hoặc OTA có bundled `catalogVisible: false`.
-- **kido-pipeline:** mirror inventory + pack v8, commit local, **không push**
+- **kido-pipeline:** mirror inventory + pack v9, commit local, **không push**
   (push = tự deploy GCP VM).
 - **Docs:** BRD §7.15 (theo mẫu §7.14: mục tiêu, neo nguồn yếu, câu thần chú, bảng
   bậc, hướng dẫn, lượt, đồ vật, ký hiệu, audio, chỗ hở công khai), §10 (thêm Thám
-  tử vào danh sách game chơi theo bậc), §9 (pack v8), sửa tiêu đề §7 "DANH MỤC 8
-  TRÒ CHƠI" đã cũ; `AI_CONTEXT.md` (13 mã, pack v8, gạch đầu dòng Thám tử; dòng
+  tử vào danh sách game chơi theo bậc), §9 (pack v9), sửa tiêu đề §7 "DANH MỤC 8
+  TRÒ CHƠI" đã cũ; `AI_CONTEXT.md` (13 mã, pack v9, gạch đầu dòng Thám tử; dòng
   "Public server catalog count is 13" khi đó mới đúng); `KIDO_MARKETING_CLAIMS.md`:
   khi tích hợp, sau khi bản sửa claims ở checkout chính đã commit, thêm dòng ⛔
   nội bộ cho Thám tử với mã còn trống. Không cấp mã mới ở nhánh này; public copy
@@ -1521,7 +1518,7 @@ catalog, play screen, audio, promptAudio, promptLines + JSON sinh, capability,
 4–5 contract script), server 3–4 file + spec, pipeline 2–3 file (thêm lệnh sinh
 lại một khoá) + batch ~82 clip, docs 4 file. Mốc so sánh: Cân thăng bằng
 ~3.500 dòng trong 24 file mobile và 138 clip. Lát cắt: A module thuần + contract
-(song song thử giấy) → B điều phối đọc đề + renderer + đăng ký (ẩn) → C audio v8
+(song song thử giấy) → B điều phối đọc đề + renderer + đăng ký (ẩn) → C audio v9
 + Human Gate + bật hiển thị cùng commit export pack (tasks 7.3) → D server (một lần
 deploy) + docs + playtest.
 

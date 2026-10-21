@@ -36,7 +36,8 @@ chọn không có tác dụng (cửa sổ 5 bài luôn là L1→L5).
   Đô Đô nói câu lên bậc.
 - **Chưa làm, chờ owner** (luật hoặc game phải đổi): `mirror_build`, `stack_tower`,
   `route_planner` (chưa có kênh báo sai), `number_bus` (BRD §7.13 cần playtest
-  trước). `ordinal_position` từng nằm ở đây (câu hỏi chưa có tiếng, bé chưa biết
+  trước). `route_planner` và `mirror_build` bật ngày 2026-10-21 ở change
+  `update-explore-route-mirror-leveled` (Soi gương luật riêng 4/3/1). `ordinal_position` từng nằm ở đây (câu hỏi chưa có tiếng, bé chưa biết
   đọc sẽ kẹt bậc 1) cho tới 2026-10-20. `spin_pattern` (kho bậc 1 chỉ 4 bài) cũng
   từng ở đây; ngày 2026-10-20 nó thành họ `rotation` ở bậc 3 của Tìm quy luật
   (change `merge-explore-spin-into-pattern`) nên chơi theo bậc cùng game đó. **Không hợp**: `memory_match` (lật sai là cách chơi, không có "sai"),

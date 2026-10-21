@@ -90,10 +90,10 @@ là suy luận một phần có dùng phủ định). Cái giá: rất ít cấu
   emoji 22 pt, dải lời 2 dòng hoặc bỏ dải lời trên màn thấp, khe giữa nhà ≥ 8 pt;
   contract đo cả cỡ chữ 1,3.
 - **Lượt theo bậc** dùng luật chung 6/4/1 (`LEVELED_ROUND_RULE`).
-- **Batch audio một lần → pack `explore-audio-vi-v8`**: 88 khoá mới (56 câu liền
+- **Batch audio một lần → pack `explore-audio-vi-v9`**: 88 khoá mới (56 câu liền
   theo món, 13 câu cố định, 5 mảnh, 14 nhãn) + `missing_cell_solve` của Ô thiếu; 16
   clip có chữ "không" owner tự nghe riêng; quy trình reject → sinh lại một khoá.
-- **Hiển thị**: game chỉ hiện trong catalog khi pack v8 có trong bundle
+- **Hiển thị**: game chỉ hiện trong catalog khi pack v9 có trong bundle
   (`catalogVisible: false` tới lúc đó). Không thêm audio pack vào
   `dependencyManifest`.
 - `EXPLORE_GAME_CODES` ba nơi thêm `clue_detective` ở cuối (13 mã); catalog 12 →
@@ -125,7 +125,7 @@ là suy luận một phần có dùng phủ định). Cái giá: rất ít cấu
   bộ nhớ của lượt), `audio.ts` (kiểm/sửa chuỗi lời gentle của renderer),
   `variety.ts`, `thumbnails.ts`, `masteryCriteria.ts`, `promptAudio.ts`,
   `promptLines.ts` + `explorePromptLines.generated.json`,
-  `exploreAudioCapability.ts` (pack v8), `types/explore.ts`,
+  `exploreAudioCapability.ts` (pack v9), `types/explore.ts`,
   `ExploreCatalogScreen.tsx` (nhóm), `ExplorePlayScreen.tsx`
   (`RENDERER_CUED_PROMPT_GAMES`, `SELF_VOICED_MISS_GAMES`, 🔊); script mới
   `verify-explore-clue-detective-contracts.cjs` (`test:explore-clue-detective`) và
@@ -134,21 +134,21 @@ là suy luận một phần có dùng phủ định). Cái giá: rất ít cấu
 - **kido-server**: `explore.types.ts`, `explore.registry.ts`, spec đếm catalog 13,
   trong một commit, sau khi merge `54b73d2` (Ô thiếu); `catalogVisible` server mirror
   đúng cờ bundled (spec contract-codes so trường này). Push = deploy; chỉ push khi
-  owner cho phép, sau khi app bật hiển thị (pack v8), gộp một lần deploy với Ô
+  owner cho phép, sau khi app bật hiển thị (pack v9), gộp một lần deploy với Ô
   thiếu. Nếu phải ẩn game sau phát hành: kill switch là một commit server riêng
   (`catalogVisible: false` cho `clue_detective` + ngoại lệ có tên trong
   `explore.contract-codes.spec.ts`), không phải revert.
 - **kido-pipeline**: lệnh sinh lại đúng một khoá (nếu chưa có), mirror
-  `exploreAudioInventory.ts`, pack v8, batch gen. Commit local, không push.
+  `exploreAudioInventory.ts`, pack v9, batch gen. Commit local, không push.
 - **docs**: `kido-explore-contract.ts`, BRD §7.15 + §9 + §10, `AI_CONTEXT.md`,
   `KIDO_MARKETING_CLAIMS.md` (khi tích hợp, sau khi bản sửa claims ở checkout chính
   đã commit: thêm dòng ⛔ nội bộ cho Thám tử với mã còn trống; không cấp mã mới ở
   nhánh này), `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md`.
 - **Phụ thuộc Ô thiếu**: merge mobile `f579d30` + server `54b73d2` + pipeline
   `aa783a6` (nhánh `fix/explore-missing-cell-leak`) vào `main` trước; change này
-  không sửa `missingCellGame.ts` hay contract riêng của Ô thiếu. Chỉ gen batch v8
-  sau khi inventory pipeline đã có `missing_cell_solve`; tổng 89 khoá / 82 lần
-  tổng hợp chỉ đúng sau merge. Xung đột thật duy nhất với nhánh Ô thiếu là server
+  không sửa `missingCellGame.ts` hay contract riêng của Ô thiếu. Ô thiếu đã vào
+  `main` 21/10/2026 trước nhánh này; `missing_cell_solve` đi trong pack v8, nên
+  batch v9 của Thám tử là 88 khoá / 81 lần tổng hợp. Xung đột thật duy nhất với nhánh Ô thiếu là server
   `interface BundledLocalGameSpec` (giữ cả `catalogVisible?` lẫn `version?`);
   sau hai nhánh merge vẫn phải sửa tay câu trạng thái nhánh trong AI_CONTEXT,
   BRD §7.15/§9 và comment inventory theo task 1.4.

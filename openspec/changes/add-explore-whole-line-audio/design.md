@@ -67,11 +67,11 @@ Template bắt buộc (`{x}` = `vietnameseNumberWord(x)`):
 
 | templateId | params | refs (key builder sẵn có) | transcript |
 |---|---|---|---|
-| `nb_today` | `[w]` | `numberBusOpeningKeys(w)` | Hôm nay mình chơi với số {w}! |
+| `nb_today` | `[w]` | `numberBusOpeningKeys(w)` | Hôm nay bé chơi với số {w}! |
 | `nb_total` | `[n]` | `numberBusTotalKeys(n)` | Có tất cả {n} bạn nhé. |
 | `nb_count_finish` | `[n]` | `numberKey(n)` + `numberBusTotalKeys(n)` | {N}! Có tất cả {n} bạn nhé. |
 | `nb_inside` | `[a]` | `numberBusInsideKeys(a)` | Trong xe có {a} bạn rồi nha. |
-| `nb_remodel` | `[a]` | `numberBusRemodelKeys(a)` | Số {a} ở trong xe rồi, mình đếm thêm nha! |
+| `nb_remodel` | `[a]` | `numberBusRemodelKeys(a)` | Số {a} ở trong xe rồi, bé đếm thêm nha! |
 | `nb_gom` | `[whole,a,b]` | `numberBusMantraKeys('gom',…)` | {Whole} gồm {a} và {b}! |
 | `nb_gop` | `[whole,a,b]` | `numberBusMantraKeys('gop',…)` | Gộp {a} và {b} được {whole}! |
 | `number_after` | `[n]` | `numberBeforeAfterKeys('after',n)` | Số nào đứng sau số {n}? |
@@ -80,7 +80,7 @@ Template bắt buộc (`{x}` = `vietnameseNumberWord(x)`):
 
 `ordinal`: 1 → «nhất», 4 → «tư», còn lại `vietnameseNumberWord`. Ba câu ghép
 có key builder nhưng **không đọc được** nên không có template: «Số nào đứng trước
-số» N (`numberBeforeAfterKeys` chỉ được gọi với `'after'`), «Giỏi quá! Mình thử
+số» N (`numberBeforeAfterKeys` chỉ được gọi với `'after'`), «Giỏi quá! Bé thử
 phạm vi» N (`levelUpKeys`) và «Bé hãy chọn số» N (`numberChooseKeys`) — hai hàm
 sau không có call site ngoài `promptAudio.ts`. Check
 `npm run test:explore-prompt-lines` fail khi một trong ba có call site, để
@@ -122,7 +122,7 @@ Hai luật resolver đi kèm:
 
 - Một line mở đầu bằng số (`nb_gom`, `nb_count_finish`) KHÔNG được ăn con số
   đang kết thúc một mảnh câu đứng trước (cụm từ hoặc phrase chưa có dấu kết
-  câu). Ví dụ: khi line `nb_today` thiếu, «Hôm nay mình chơi với số» + «sáu»
+  câu). Ví dụ: khi line `nb_today` thiếu, «Hôm nay bé chơi với số» + «sáu»
   vẫn ghép, và «sáu» không bị `nb_count_finish:6` lấy mất.
 - Một clip số đứng một mình ngay trước một line được tính là hết câu (có nghỉ
   280 ms): tiếng vọng khi `nb_count_finish` thiếu, hoặc mảnh mở màn ghép như ví

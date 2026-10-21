@@ -177,7 +177,7 @@ chấm đếm được — và đọc «Trong xe có» [a] «bạn rồi nha.»;
 bến. Mỗi chạm đưa một bạn lên xe SHALL phát [number:a+i]. L3 SHALL forced-tap
 (thẻ chỉ hiện sau khi chạm hết); L4 thẻ hiện ngay. Khi bé chọn thẻ a+b−1,
 renderer SHALL `onAnswer(false)` như thường rồi tự chạy re-model NGAY TRONG
-bài: thẻ tạm ẩn → đọc «Số» [number:a] «ở trong xe rồi, mình đếm thêm nha!»
+bài: thẻ tạm ẩn → đọc «Số» [number:a] «ở trong xe rồi, bé đếm thêm nha!»
 (ngoại lệ documented của luật không-số — a đang hiển thị) → chuyển forced-tap
 đếm [a+1]…[a+b] → thẻ hiện lại cho bé chọn lại. Đáp án a+b SHALL không bao
 giờ visible trước khi chọn.
@@ -276,7 +276,7 @@ text trong renderer.
 
 Chưa đúng SHALL không bao giờ là lời phán xét: phản hồi vật lý (rèm lay, ghế
 nhún, bạn "tụt" về bến), câu báo không số, không countdown, không "Thua",
-không streak; run 6 slot kết bằng "Mình luyện xong rồi!" — chơi lại là lựa
+không streak; run 6 slot kết bằng "Bé luyện xong rồi!" — chơi lại là lựa
 chọn. Thẻ đáp án numeral SHALL kèm dải chấm mờ làm neo pictorial. Ký hiệu
 +/−/= SHALL bị cấm trước L5 (L5 GĐ2: chỉ hiện SAU khi đúng, lớp phủ tĩnh).
 Mọi motion SHALL dùng native driver và SHALL bỏ qua khi hệ thống bật reduced

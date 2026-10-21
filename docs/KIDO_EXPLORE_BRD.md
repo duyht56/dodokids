@@ -142,7 +142,7 @@ Mở Khám phá
   → nghe hướng dẫn ngắn
   → thực hiện 5–8 lượt tương tác, hoặc đi tiếp đến cuối nhóm với game dạng
     ordered-track như Xưởng luyện nét, hoặc (game chơi theo bậc, §10) nhiều
-    vòng 6 bài, làm tốt thì lên bậc
+    vòng 6 bài (Soi gương: 4 bài), làm tốt thì lên bậc
   → nhận feedback/hint mang tính hướng dẫn
   → kết thúc tự nhiên
   → Chơi lại từ đầu hoặc Chọn trò khác
@@ -172,7 +172,7 @@ Trẻ vẫn cần phản hồi để hiểu thao tác:
 - Audio xác nhận nhẹ khi hoàn thành đúng.
 - Animation giải thích việc thêm, bớt, tách hoặc gộp.
 - Hint chỉ rõ bước tiếp theo khi trẻ gặp khó khăn.
-- Lời kết trung tính như “Mình luyện xong rồi” hoặc “Con muốn chơi lại không?”.
+- Lời kết trung tính như “Bé luyện xong rồi” hoặc “Bé muốn chơi lại không?”.
 
 Không hiển thị XP, sao, sticker, badge, streak, currency hoặc bảng thành tích.
 
@@ -181,7 +181,7 @@ Không hiển thị XP, sao, sticker, badge, streak, currency hoặc bảng thà
 ## 7. DANH MỤC 13 TRÒ CHƠI (12 ĐANG HIỂN THỊ)
 
 > **Cập nhật 2026-10-21:** 13 mã được đăng ký trong code; Thám tử Đô Đô còn ẩn
-> tới khi thử giấy đạt và pack v8 đã duyệt có trong bundle. Số thứ tự các mục
+> tới khi thử giấy đạt và pack v9 đã duyệt có trong bundle. Số thứ tự các mục
 > dưới đây giữ lịch sử, gồm cả các game đã gỡ hoặc gộp; không phải số thẻ hiện tại.
 
 > **Cập nhật (2026-08-25) — bật lại Xưởng luyện nét + làm mịn nét tiếng Việt.**
@@ -195,6 +195,16 @@ Không hiển thị XP, sao, sticker, badge, streak, currency hoặc bảng thà
 > catalog. Hiển thị hiệu lực = bundled AND server (fail-closed) — server chỉ có thể
 > ẨN (kill switch) một game đang hiện, không thể lộ lại game đã ẩn. Chi tiết:
 > openspec `explore-route-planner-game`, `explore-catalog`, `explore-session-runtime`.
+>
+> **Dẫn đường chơi theo bậc (owner 2026-10-21; openspec
+> `update-explore-route-mirror-leveled`).** Không còn "chặng 1→5, xong một bảng là
+> lên chặng": một lượt là các vòng 6 bảng cùng bậc (§10). Mỗi lần bấm "Đô Đô đi
+> thôi!" mà Đô Đô không về được nhà với đủ mục tiêu (mép bảng, chướng ngại, cửa
+> khoá, chưa tới / đi qua nhà, thiếu sao, sai thứ tự điểm) là một lần sai: bảng đó
+> không còn tính "đúng ngay lần đầu", bé sửa tiếp trên cùng bảng với lời dẫn của
+> Đô Đô trong bong bóng. Thanh trên ghi "Bậc x/5" và chấm của vòng như các game
+> theo bậc. Bước đi dừng khi hộp thoát mở / app ra nền; khi máy bật giảm chuyển
+> động, cả đường hiện một lần thay cho Đô Đô đi từng ô; ô đã đi qua được tô nhạt.
 
 ### 7.1. Game 1 — Xưởng luyện nét (bật lại, nét tiếng Việt làm mịn v5)
 
@@ -436,28 +446,30 @@ ngoài việc bump generatorVersion do pool đổi.
 
 ### 7.10. Game 10 — Xếp tháp cho Đô Đô (`stack_tower`)
 
-**Mục tiêu:** xếp thứ tự theo MỘT chiều đo đơn điệu (seriation) — to→nhỏ, ngắn→dài, thấp→cao, ít→nhiều — kỹ năng `math_seriation_size` (`_size` L2, `_length` L3, `_height` L3, `_quantity` L4); L1 là bài khởi động so sánh hai vật (`math_compare_size`). Construct logic mạnh nhất của domain `seq`: chỉ có một thứ tự đúng, neo ở hai đầu.
+**Mục tiêu:** xếp thứ tự theo MỘT chiều đo đơn điệu (seriation) — to→nhỏ, ngắn→dài, thấp→cao, ít→nhiều — kỹ năng `math_seriation_size` (`_size` L1, `_length`/`_height` L2, `_quantity` L3, 5 vật L4). Construct logic mạnh nhất của domain `seq`: chỉ có một thứ tự đúng, neo ở hai đầu.
+
+> **Cập nhật 2026-10-21 (OpenSpec `fix-explore-stack-tower-light`, sau review 12 game Khám phá).** Owner chốt giữ game và sửa nhẹ: bỏ bậc khởi động hai khối "Bạn nào to hơn?" (so sánh, chưa phải xếp thứ tự), còn bốn bậc đánh số lại L1–L4 (generator `stack-tower-v2`); mỗi lần đặt sai được báo cho màn chơi chung; mỗi khối trên sàn có ô chạm ≥ 48pt; nhịp leo của Đô Đô và lời báo xong dừng theo tạm dừng chung; chấm trên toa tàu màu mực. Vẫn chạy lượt progressive, chưa bật lượt theo bậc.
 
 #### Cách chơi
 
 - Các khối nằm ngổn ngang trên sàn (đã xáo trộn theo seed). Trẻ chạm từng khối theo đúng thứ tự; khối bay lên đúng chỗ: tháp xếp chồng lên cao và canh giữa (size), tàu nối toa từ trái sang phải (length, quantity), dãy nhà thấp→cao trên cùng một nền (height).
-- Chạm sai thứ tự được trả lời bằng **vật lý, không bằng chữ**: khối được "thử" lên đỉnh, cả công trình nghiêng 8° rồi lắc về, khối trượt xuống sàn kèm tiếng "thử lại". Không có trạng thái thua, không đếm sai, không báo `onAnswer(false)`; tàu chở chấm (quantity) chỉ trượt về, không nghiêng.
-- Xếp xong, Đô Đô leo từng khối (~250 ms/khối; với tàu: nhảy từng toa rồi cả tàu chạy khỏi màn hình) rồi vẫy tay. Chỉ lúc đó bài mới được tính hoàn thành (≤ 1,5 s sau chạm cuối). L1: chạm vào khối to hơn → Đô Đô nhảy lên khối đó.
-- Hỗ trợ: sau 2 lần trượt (hoặc hỗ trợ mức 1 của màn chơi) khối đúng tiếp theo nhấp nháy có viền; mức 2 làm mờ những khối rõ ràng sai để trẻ chọn giữa hai khối. Tôn trọng cài đặt giảm chuyển động: khối vào chỗ ngay, Đô Đô xuất hiện trên đỉnh, âm thanh như cũ.
+- Chạm sai thứ tự được trả lời trước hết bằng **vật lý**: khối được "thử" lên đỉnh, cả công trình nghiêng 8° rồi lắc về, khối trượt xuống sàn; tàu chở chấm (quantity) chỉ trượt về, không nghiêng. Mỗi lần đặt sai cũng được báo `onAnswer(false)` (từ 2026-10-21): màn chơi chung phát tiếng "thử lại", hiện hàng gợi ý, nâng mức hỗ trợ và giữ nguyên bài. Không có trạng thái thua.
+- Xếp xong, Đô Đô leo từng khối (~250 ms/khối; với tàu: nhảy từng toa rồi cả tàu chạy khỏi màn hình) rồi vẫy tay. Chỉ lúc đó bài mới được tính hoàn thành (`onAnswer(true)`, ≤ 1,5 s sau chạm cuối). Khi lượt chơi tạm dừng (hộp «Bé muốn nghỉ chưa?», app ra nền), Đô Đô đứng lại sau bước đang nhảy và bài chưa được báo xong cho tới khi bé quay lại.
+- Hỗ trợ theo mức của màn chơi chung (tăng ở mỗi lần đặt sai): mức 1 khối đúng tiếp theo nhấp nháy có viền; mức 2 làm mờ những khối rõ ràng sai để trẻ chọn giữa hai khối. Tôn trọng cài đặt giảm chuyển động: khối vào chỗ ngay, Đô Đô xuất hiện trên đỉnh, âm thanh như cũ.
+- Mỗi khối trên sàn nằm trong một ô chạm ≥ 48×48pt (khối nhỏ nhất vẽ 18pt vẫn chạm được cả ô), các ô không chồng nhau; khối đã xếp lên công trình không nhận chạm.
 
 #### Độ khó
 
-- L1: 2 khối, "Bạn nào to hơn?", chênh ≥ 1,5 lần.
-- L2: 3 khối, to→nhỏ, chênh ≥ 1,4 lần.
-- L3: 4 khối, một trong ba chiều to→nhỏ / ngắn→dài / thấp→cao, chênh ≥ 1,25 lần.
-- L4: 4 toa tàu ít→nhiều, mỗi toa 1–6 chấm khác nhau (bắc cầu sang `num`, trẻ được đọc số chấm khi nối toa).
-- L5: 5 khối, một trong ba chiều đo, chênh ≥ 1,2 lần.
+- L1: 3 khối, to→nhỏ, chênh ≥ 1,4 lần.
+- L2: 4 khối, một trong ba chiều to→nhỏ / ngắn→dài / thấp→cao, chênh ≥ 1,25 lần.
+- L3: 4 toa tàu ít→nhiều, mỗi toa 1–6 chấm khác nhau (chấm màu mực, thấy rõ trên mọi màu toa; bắc cầu sang `num`, trẻ được đọc số chấm khi nối toa).
+- L4: 5 khối, một trong ba chiều đo, chênh ≥ 1,2 lần.
 
-Mỗi lượt chơi là chuỗi L1→L5 (5 bảng). Bước chênh luôn ≥ 20% theo catalog (dưới 20% là mơ hồ). Ở L3/L5 mỗi chiều đo phải đến được trẻ ≥ 20% số vòng.
+(Bậc khởi động 2 khối "Bạn nào to hơn?" đã bỏ ngày 2026-10-21; bốn bậc còn lại giữ nguyên cấu hình của L2–L5 cũ.) Mỗi lượt chơi là chuỗi L1→L4 (4 bảng, mỗi bậc một bảng); bậc bắt đầu phụ huynh lưu từ bản cũ không đổi gì, lượt luôn mở ở L1. Bước chênh luôn ≥ 20% theo catalog (dưới 20% là mơ hồ). Ở L2/L4 mỗi chiều đo phải đến được trẻ ≥ 20% số vòng.
 
 #### Sinh bài
 
-Deterministic theo seed: chọn chiều đo trong cấp, sinh chuỗi magnitude giảm dần từ 1 với tỉ lệ trong [minRatio, minRatio + 0,15] (làm tròn xuống 3 chữ số nên tỉ lệ lưu luôn đủ), gán màu khác nhau từ palette 6 màu (màu không bao giờ là gợi ý kích thước), xáo trộn sàn sao cho không trùng và không ngược thứ tự đáp án. Validator độc lập suy lại thứ tự từ magnitude, kiểm tra số khối, màu, tỉ lệ/chấm, sàn, prompt, audio và replay byte-identical. Bố cục cảnh là hàm thuần: khối ≤ 85% bề rộng, công trình + Đô Đô nằm trong chiều cao, không chồng lấn.
+Deterministic theo seed: chọn chiều đo trong cấp, sinh chuỗi magnitude giảm dần từ 1 với tỉ lệ trong [minRatio, minRatio + 0,15] (làm tròn xuống 3 chữ số nên tỉ lệ lưu luôn đủ), gán màu khác nhau từ palette 6 màu (màu không bao giờ là gợi ý kích thước), xáo trộn sàn sao cho không trùng và không ngược thứ tự đáp án. Validator độc lập suy lại thứ tự từ magnitude, kiểm tra số khối, màu, tỉ lệ/chấm, sàn, prompt, audio và replay byte-identical. Bố cục cảnh là hàm thuần: khối ≤ 85% bề rộng, công trình + Đô Đô nằm trong chiều cao, không chồng lấn, mỗi khối trên sàn có ô chạm ≥ 48pt (contract đo vùng chạm thật trên màn 320/375/430pt).
 
 #### Asset
 
@@ -465,7 +477,7 @@ Chỉ primitive (khối màu bo góc, toa có bánh xe, chấm `DotGroup`) và m
 
 #### Audio
 
-Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đọc qua prompt-audio: "Xếp từ to đến nhỏ nhé.", "Xếp từ ngắn đến dài nhé.", "Xếp từ thấp đến cao nhé.", "Xếp từ ít đến nhiều nhé.", "Bạn nào to hơn?" (`tower_*`). Toa chấm được đếm to bằng clip số (`numberKey`). Khen/thử lại/gợi ý do màn chơi chung đọc. Audio là best-effort: thiếu clip không chặn chơi (pack v2 gen một lần sau).
+Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đọc qua prompt-audio: "Xếp từ to đến nhỏ nhé.", "Xếp từ ngắn đến dài nhé.", "Xếp từ thấp đến cao nhé.", "Xếp từ ít đến nhiều nhé." (`tower_*`; câu "Bạn nào to hơn?" đã rời danh mục cùng bậc 2 khối, file clip cũ vẫn trong app). Toa chấm được đếm to bằng clip số (`numberKey`). Khen/thử lại/gợi ý do màn chơi chung đọc. Audio là best-effort: thiếu clip không chặn chơi (pack v2 gen một lần sau).
 
 ### 7.11. Game 11 — Ai lạc đàn? (`odd_one_out`)
 
@@ -506,7 +518,8 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
 > Bốn game bổ sung ở Đợt 3, cùng một khuôn: offline / stateless / no-reward,
 > generator deterministic + validator ĐỘC LẬP (replay theo seed byte-identical),
 > Đô Đô làm mascot, tương tác CHẠM (không kéo-thả), một lượt = 5 bảng L1→L5
-> (progressive; từ 2026-10-18 Ô thiếu và Ú òa chơi theo bậc, §10), tái dùng
+> (progressive; từ 2026-10-18 Ô thiếu và Ú òa, từ 2026-10-21 Soi gương chơi theo
+> bậc, §10), tái dùng
 > engine / pool / asset đã có (KHÔNG thêm art mới). Spec
 > đầy đủ nằm ở các OpenSpec capability change `add-explore-<code>-game`. Thumbnail
 > là PNG clay, đã giao đủ (xem cuối mục). Clip audio (đề + tên game) là best-effort, im lặng tới batch audio kế
@@ -519,25 +532,124 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
   (4→8) và số thùng (2→3). Tái dùng bộ thuộc tính của `odd_one_out`.
 - **Ô thiếu (`missing_cell`)** — suy luận ma trận 2 chiều (khác `pattern_finder`
   một chiều): lưới 2×2 / 3×3 kiểu Raven, hàng theo một thuộc tính và cột theo
-  thuộc tính khác, một ô trống; trẻ chọn token đúng từ options. Validator: CHỈ MỘT
-  option thỏa CẢ luật hàng lẫn cột. L1→L5 tăng cỡ lưới + độ phức tạp. Tái dùng
-  hidden-slot của `pattern_finder` + lưới `odd_one_out`.
-- **Ú òa (`peekaboo_recall`)** — trí nhớ làm việc ("cái gì biến mất"): cho bé nhìn
-  2–5 vật khoảng 3 giây kèm đồng hồ cát không số → Đô Đô che
-  (peekaboo) → bớt 1 vật → lộ lại kèm 1 ô trống → trẻ chạm vật bị thiếu từ
-  options. Đồng hồ cát chỉ đo thời gian NHÌN, trả lời không giới hạn thời gian
-  (product owner duyệt 2026-09-13, thay bản hiện 1,5 giây). `supportLevel` làm mờ
-  bớt lựa chọn sai; mức 2 cho nhìn lại cả tập thêm một lượt (có đồng hồ cát).
-  Bài đầu vòng mới (chơi theo bậc) hiện cả tập với đồng hồ đầy trong lúc Đô Đô
-  nói câu lên bậc; đồng hồ chỉ chạy khi bàn chơi mở.
-  Validator: phần còn lại = tập gốc trừ đúng 1, options gồm vật bị thiếu thật.
-  L1→L5 tăng cỡ tập (2→5). Tái dùng cover/reveal + pool thẻ của Lật thẻ.
+  thuộc tính khác, một ô "?"; trẻ chọn token đúng từ options. Validator: CHỈ MỘT
+  option thỏa CẢ luật hàng lẫn cột, và bảng chỉ đọc được một cách. L1→L5 tăng cỡ
+  lưới + độ phức tạp. Tái dùng hidden-slot của `pattern_finder` + lưới `odd_one_out`.
+  **Chống lộ đáp án** (2026-10-20, OpenSpec `fix-explore-missing-cell-leak`):
+  bản đầu lấy nhiễu từ ô trên bảng nên đáp án luôn là lựa chọn duy nhất bé chưa
+  thấy. Nay ở 3×3, ô "?" là một góc của khối 2×2, ba góc kia bị che (ô sọc,
+  không chạm được), bốn lựa chọn chính là khối đó: mọi mẹo không nhìn vị trí còn
+  đúng mức đoán bừa. Ở 2×2 không che được (che chéo thì bảng đọc được hai cách),
+  nên nhiễu là một ô cùng hàng/cột trên bảng và một hình mang một giá trị không
+  có trên bảng. **Sau mỗi bài đúng**, bảng diễn lại lời giải: hàng của ô "?"
+  sáng, rồi cột, rồi các ô che mở ra, Đô Đô nói câu thần chú «Nhìn hàng, nhìn cột,
+  ghép đủ hai điều.» (clip `missing_cell_solve`, pack v8).
+  **Lưới 2×2 chỉ là bài làm quen** (owner chốt 2026-10-21, OpenSpec
+  `update-explore-missing-cell-warm-up`, `missing-cell-v3`): ở 2×2 bé bỏ thẻ có giá
+  trị lạ rồi bỏ thẻ đã có trên bảng là đúng 100% mà không đọc hàng/cột, nên 2×2
+  không tính lên bậc. Thang chấm điểm còn ba bậc 3×3, mỗi bậc gỡ một hỗ trợ:
+
+  | Bậc | Bảng | Gỡ so với trước |
+  |---|---|---|
+  | Làm quen (không tính) | 2×2 hình × màu, 3 lựa chọn, không che; bài đầu Đô Đô làm mẫu | (đầu thang) |
+  | 1 | 3×3 hình × màu, 3 ô che, 4 lựa chọn | bỏ làm mẫu; bảng lớn hơn, đáp án và nhiễu là ô bị che |
+  | 2 | 3×3 chấm × màu | một chiều phải đếm chấm |
+  | 3 | 3×3 hình hoặc chấm | bảng đổi loại giữa các bài, bé tự tìm thuộc tính chạy theo hàng |
+
+  Bài làm quen: 2 bài 2×2 mở lượt đầu mỗi lần vào game, chỉ khi lượt bắt đầu ở bậc
+  1 (phụ huynh chọn bậc 2–3 thì không có; «Chơi lượt mới» cũng không — bé vừa làm).
+  Bài đầu: câu hỏi đọc xong, Đô Đô nói câu thần chú, hàng của ô "?" sáng rồi tới cột,
+  lựa chọn chỉ bấm được sau đó; bài hai bé tự làm. Bài làm quen không thuộc vòng 6
+  bài, không tính "đúng ngay lần đầu", đầu màn hiện «Làm quen 1/2». Hết bài làm quen
+  là «Giỏi quá! Bé lên bậc mới nhé!» + «Bây giờ bảng có ba hàng ba cột, bé nhìn kỹ
+  nhé!» rồi vào bậc 1. Lên bậc 2/3 nói «Bây giờ bé đếm chấm trên bảng ba hàng ba
+  cột nhé!» / «Bây giờ có cả hình và chấm, bé nhìn hàng và cột nhé!» (clip có sẵn,
+  không có clip mới). Bậc bắt đầu phụ huynh lưu ở thang 5 bậc cũ được chuyển một lần:
+  1–3 → 1, 4 → 2, 5 → 3.
+- **Ú òa (`peekaboo_recall`)** — trí nhớ "nhìn một lần, nhớ cả bố cục" (khác Lật
+  thẻ: lật dần, nhớ dần). Owner chốt 2026-10-21 (OpenSpec
+  `upgrade-explore-peekaboo-cups`): bậc 1–2 "món nào biến mất", từ bậc 3 "Dưới cốc
+  này là gì?". Cho bé nhìn các vật kèm đồng hồ cát không số (1 giây mỗi vật, ít
+  nhất 3 giây; đồng hồ chỉ đo thời gian NHÌN, trả lời không giới hạn — owner duyệt
+  2026-09-13, thay bản 1,5 giây). Mỗi bậc gỡ một hỗ trợ:
+
+  | Bậc | Bé làm | Thẻ | Gỡ so với bậc trước |
+  |---|---|---|---|
+  | 1 | 3 vật, Đô Đô che, bớt 1, lộ ô trống → chạm vật biến mất | 4: vật mất + 1 vật còn trên bàn + 2 vật lạ | (đầu thang) |
+  | 2 | Như bậc 1 với 4 vật | 4 | thêm một vật |
+  | 3 | 3 vật, cốc úp lên hết, mũi tên chỉ một cốc → chạm vật dưới cốc | 3: đúng các vật dưới cốc | không còn vật nào hiện lúc trả lời, không còn thẻ lạ |
+  | 4 | Như bậc 3 với 4 cốc | 4 | thêm một cốc |
+  | 5 | 4 cốc, hỏi hai cốc liền (cốc đúng thì lật giữ nguyên) | 4 | giữ hai chỗ cùng lúc |
+
+  Bậc 1–2 cần cả hai điều "lúc nãy có" và "giờ không còn trên bàn" (một điều một
+  mình chỉ đúng tối đa nửa số lần); bậc 3–5 chỉ nhớ chỗ mới ra. Mẹo không cần nhớ
+  (vị trí thẻ, cốc đầu/giữa, vật hiện nhiều nhất…) qua vòng ở mức đoán mò; bản cũ
+  "chọn vật đã thấy" đúng 100% mọi bậc. **Câu thần chú** (bài cốc): «Bé nhìn kỹ
+  chỗ của từng món nhé!». **Sau mỗi bài đúng**: vật bật về ô trống / mọi cốc lật
+  lần lượt trái → phải, Đô Đô nói câu kết («Lúc nãy món này nằm ở đây, rồi trốn
+  mất đó!» / «Nhớ chỗ của từng món là tìm ra ngay!»), rồi mới chuyển bài; bản tĩnh
+  khi giảm chuyển động. Bong bóng đổi theo pha: nhìn → «Ú… òa!» → câu hỏi → câu
+  kết. `supportLevel` làm mờ bớt thẻ sai; mức 2 cho nhìn lại cả tập thêm một lượt
+  (có đồng hồ cát). Bài đầu vòng mới (chơi theo bậc) hiện cả tập với đồng hồ đầy
+  trong lúc Đô Đô nói câu lên bậc; đồng hồ chỉ chạy khi bàn chơi mở. Vật một hàng,
+  thẻ một hàng, vừa iPhone SE. Validator chứng minh độc lập từng kiểu bài. Tái
+  dùng pool thẻ của Lật thẻ; cốc vẽ bằng View.
 - **Soi gương (`mirror_build`)** — đối xứng / không gian: lưới có trục gương giữa,
   nửa trái có sẵn hình; trẻ chạm ô nửa phải để dựng ảnh phản chiếu rồi "Xong".
   Validator: nửa phải = đúng ảnh gương của nửa trái (suy từ nửa trái nhìn thấy,
-  không từ đáp án generator), bài không tầm thường. Support: mức 1 gợi ô kế tiếp,
-  mức 2 làm mờ ô không hợp lệ. L1→L5 tăng cỡ lưới + mật độ. Tái dùng lưới/ô vẽ
-  bằng View + palette mù-màu-an-toàn.
+  không từ đáp án generator), bài không tầm thường, và nửa trái KHÔNG tự đối
+  xứng — chép nguyên vị trí luôn sai (owner 2026-10-21, trước đó 13% bài bậc 1
+  chép là đúng). Support (sửa 2026-10-21 vì bản cũ lần theo được tới đáp án):
+  lần Xong sai đầu, Đô Đô chỉ MỘT cặp bé đang sai — ô bên trái, đoạn gương và ô
+  cùng khoảng cách bên phải, hình trượt qua gương — rồi để bé tự làm; chạm ô đó
+  thì gợi ý tắt, không nhảy sang ô khác. Lần sai thứ hai: chấm khoảng cách tới
+  gương trên đầu mỗi cột. Không tô hộ, không làm mờ ô. L1→L5 tăng cỡ lưới + mật
+  độ: 3×(2·2), 3×(2·3), 4×(2·3), 4×(2·3) dày hơn, 5×(2·3) — bậc 5 thêm hàng chứ
+  không thêm cột, để ô chạm ≥ 44 pt trên máy 320–430 pt (bản 4×(2·4) cũ chỉ còn
+  37 pt trên màn 375 pt). Chơi theo bậc với vòng 4 bài, đúng ngay 3 thì lên bậc
+  (§10). Tái dùng lưới/ô vẽ bằng View + palette mù-màu-an-toàn.
+- **Máy nối tiếp (`number_chain`)** — chuỗi hai phép cộng/trừ của cuốn "Tách gộp
+  phạm vi 10" Bài 3 ("6 →−4→ □ →+2→ □"). Review 2026-10-21 chấm sư phạm 1/5 (bậc
+  1–2 hiện sẵn số giữa nên chỉ một phép tính, không có vật, mẹo "chọn số gần nhất"
+  qua vòng 57–74%); owner chốt **giữ và sửa** theo sát đề gốc (OpenSpec
+  `rework-explore-number-chain`, v2). Như đề gốc, bé điền **cả hai ô** lần lượt:
+  xuôi = ô giữa rồi ô cuối; ngược = ô giữa (gỡ máy thứ hai từ số cuối) rồi ô đầu.
+  Một bài đúng ngay lần đầu khi cả hai ô đúng lần đầu. Máy bước 2–4 như đề gốc.
+
+  | Bậc | Bé làm (vòng 6 bài) | Hỗ trợ gỡ / độ khó thêm |
+  |---|---|---|
+  | 1 | 6 xuôi, hai ô, đếm chấm, số 0–10 | nhóm chấm dưới số + chấm trên cả hai máy |
+  | 2 | 2 xuôi + 4 ngược (2 gỡ máy thêm, 2 gỡ máy bớt) | thêm chiều ngược (chấm như bậc 1) |
+  | 3 | như bậc 2 | máy tính sau không còn chấm |
+  | 4 | như bậc 2 | không còn chấm, chỉ số |
+  | 5 | như bậc 2 | số lớn tới 20 |
+
+  **Câu thần chú:** «Qua máy thêm thì nhiều lên, qua máy bớt thì ít đi.» (ngược:
+  «Đi ngược: máy thêm thì bớt, máy bớt thì thêm.»). Máy thêm có chấm xanh rơi vào,
+  máy bớt có chấm bị gạch rời đi; ô đang hỏi không bao giờ có chấm. **Thẻ nhiễu theo
+  lỗi thật** (4 thẻ/ô): đáp án, thẻ ngược dấu (chiều ngược: chạy máy xuôi thay vì gỡ)
+  — có ở mọi ô — và một thẻ lệch một cạnh mỗi thẻ, phía thẻ lệch rút đều. Đo qua
+  planner (2000 vòng/bậc, OpenSpec design §5): đoán mò 6% bài; mẹo không cần biết gì
+  (to/bé nhất, vị trí, hàng xóm, gần số đang hiện, thẻ chưa thấy) ≤ 8% bài; chỉ biết
+  chiều («máy thêm chọn thẻ to nhất», không dùng khoảng cách) hay chỉ đếm số bước mà
+  bỏ qua dấu ≈ 50% mỗi ô, qua vòng ≤ 4,5%; không gỡ máy ở chiều ngược không bao giờ
+  đúng. **Giới hạn của dạng chọn 1 trong 4** (số 0–10, máy 2–4): bé biết chiều và
+  nhìn khoảng cách thẻ tới số vào (thẻ sát số vào không bao giờ đúng) chạm trần ~76%
+  ô 1, 87–88% ô 2; «bỏ thẻ sát số vào, lấy thẻ gần nhất phía đó» qua 53–57% vòng ở
+  bậc 1–4 (bậc 5: 24,5%). Dừng tinh chỉnh thẻ (2026-10-21), contract khoá ở mức đo;
+  đề xuất chuyển sang dạng «dựng đáp án» ở Đợt 3 chờ owner. **Owner approved
+  2026-10-21 (hướng A):** bỏ máy ±1; bậc 1–4 trong 0–10 có số 0; bậc 5 lên 20 sau
+  khi bỏ hết chấm; và giữ nguyên **chỗ hở đã biết** ở bậc 1–4: ô giữa là số đi vào
+  máy 2 nên ở 0–10 luôn gần số 5 hơn thẻ ngược dấu của nó — bé đếm số bước, bỏ qua
+  dấu, chọn số gần 5 đúng 72% ô, qua 26–30% vòng; bé chỉ giỏi chiều xuôi làm y vậy ở
+  bài ngược qua 63–66% vòng. Bậc 5 là cửa kiểm suy ngược (9–10% vòng). Xem lại sau
+  playtest; thiết kế lại riêng bài ngược (hướng E) là việc sau nếu cần. **Sau mỗi
+  bài đúng** máy diễn lại từng chặng (chấm
+  chạy qua máy) trong lúc Đô Đô nói câu thần chú, rồi mới chuyển bài; giảm chuyển
+  động thì từng bước đứng yên. Trợ giúp: mức 1 đưa chấm về cho máy đang tính («Bé
+  đếm chấm rồi xem máy thêm hay bớt nhé.»), mức 2 làm mờ một thẻ sai chưa chạm. Chơi
+  theo bậc (§10). Audio đợt v8: tên game + 9 câu `chain2_*`, chưa thu; thiếu clip
+  thì chữ và chấm vẫn đủ để chơi.
 
 **Hoãn / bỏ:** `tangram_assemble` (ghép hình) HOÃN vì cần kéo–xoay–ghép hình học,
 không hợp ràng buộc chạm-only và tái dùng engine thấp nhất — để làm riêng sau.
@@ -643,7 +755,7 @@ và [B] được [N]", đồng bộ highlight phần đang đọc. Audio đếm-
 thẳng clip số sẵn có (gộp đếm từ 1, đếm thêm từ a+1, make-ten từ k+1). **Luật
 sắt:** câu báo thừa/thiếu và câu hint không bao giờ chứa chữ số lẫn từ chỉ số
 lượng — hai ngoại lệ documented: distractor b=1 (chính nó là lỗi chẩn đoán) và
-câu re-model «Số [a] ở trong xe rồi, mình đếm thêm nha!» (a đang hiển thị trên
+câu re-model «Số [a] ở trong xe rồi, bé đếm thêm nha!» (a đang hiển thị trên
 cửa).
 
 #### Sinh bài
@@ -667,7 +779,7 @@ rộng engine duy nhất ở GĐ1: nhánh authored resolve level hiệu dụng =
 clamp(startingLevel + levelOffset, game.levels) thay vì đọc `runSlot.level`
 tĩnh (kèm smoke test riêng — nhánh này chưa từng chạy với game thật). Warm-up
 `next_number` ghim ở s2, count_on chấm điểm chỉ từ s3. Nghi thức mở màn: s1
-prepend «Hôm nay mình chơi với số [W]!» từ generator, deterministic.
+prepend «Hôm nay bé chơi với số [W]!» từ generator, deterministic.
 De-scaffold dùng nguyên cơ chế leo thang sẵn có (miss 1 → support 1, miss 2 →
 support 2): support 1 = chỉ TRỎ, không ĐẾM hộ; support 2 = mở đường đếm-tất-cả
 nhưng KHÔNG BAO GIỜ lộ phần chính là đáp án — `count_on`: cửa trong dần hiện a
@@ -760,7 +872,7 @@ làm mờ thẻ: thẻ sai tự khoá). **Sau mỗi bài đúng**, cân diễn l
 
 **Lượt (owner chốt 2026-10-17; từ 2026-10-18 là luật chung ở §10):** nhiều
 vòng, mỗi vòng 6 bài cùng một bậc. Hết
-vòng, đúng ngay lần đầu ít nhất 4/6 bài thì lên bậc (Đô Đô "Giỏi quá! Mình lên
+vòng, đúng ngay lần đầu ít nhất 4/6 bài thì lên bậc (Đô Đô "Giỏi quá! Bé lên
 bậc mới nhé!" + câu giới thiệu điều mới ở bậc đó), chưa đạt thì luyện thêm một
 vòng cùng bậc với bài mới (tối đa một vòng; vẫn chưa đạt thì kết thúc lượt nhẹ
 nhàng); qua bậc 6 thì kết thúc lượt (từ bậc 1 khoảng 36 bài). Trên cùng hiện "Bậc N/6". Phụ huynh vẫn chọn bậc bắt đầu ở cài đặt Khám
@@ -825,8 +937,8 @@ luôn dùng đủ ba thẻ. Số cấu trúc ít và bước 3→4 đổi cả s
 **Audio và phát hành:** inventory pack `explore-audio-vi-v8` thêm 88 khoá
 (56 câu liền, 13 câu cố định, 5 mảnh, 14 nhãn); dự kiến 81 lần tổng hợp mới sau
 khi dùng lại 7 nhãn cùng chữ. Đây là code/inventory, **chưa sinh, duyệt hay export
-pack v8** trong lát C. Game giữ `catalogVisible: false` cả bundled mobile lẫn
-server tới khi thử giấy đạt và pack v8 có trong bundle; chưa lên store. Audio
+pack v9** trong lát C. Game giữ `catalogVisible: false` cả bundled mobile lẫn
+server tới khi thử giấy đạt và pack v9 có trong bundle; chưa lên store. Audio
 không thuộc dependency bắt buộc của game. Quy trình Human Gate xem §9.
 
 ---
@@ -918,7 +1030,7 @@ Audio có thể được render trước hoặc sinh một lần rồi cache the
 chơi và không yêu cầu đội content tạo audio cho từng lesson.
 
 **Cập nhật (2026-08, Đợt 2):** toàn bộ câu Khám phá — đề bài, phản hồi bằng
-giọng Đô Đô (khen xoay vòng, thử lại, gợi ý, lên phạm vi, "Mình thử bài dễ hơn
+giọng Đô Đô (khen xoay vòng, thử lại, gợi ý, lên phạm vi, "Bé thử bài dễ hơn
 nhé", kết lượt, nhắc nghỉ), tên game trên catalog và hướng dẫn của từng game —
 nằm trong **một inventory duy nhất** (`mobile/src/explore/promptAudio.ts`, mirror
 `kido-pipeline/src/explore/exploreAudioInventory.ts`). Mỗi đợt thêm câu mới được
@@ -939,15 +1051,21 @@ câu vẫn phát nhiều đoạn, có nghỉ 280 ms giữa câu; clip ghép cũ 
 và tự làm fallback khi thiếu line. Không TTS lúc chạy (§3 mục 8, offline, không
 gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
 
-**Cập nhật (2026-10-21, Thám tử Đô Đô):** inventory và danh sách pack hỗ trợ
-đã có `explore-audio-vi-v8`; chưa có pack đã duyệt trong bundle. Bốn template
+**Cập nhật (2026-10-21, pack `explore-audio-vi-v8`):** một đợt cho cả đợt tích hợp
+Khám phá: câu giới thiệu bậc Dẫn đường/Soi gương, Máy nối tiếp v2, Ú òa bài cốc,
+câu thần chú Ô thiếu, tên game «Đúng vị trí» (trước đây chạm thẻ không đọc tên),
+và mọi câu Đô Đô còn tự xưng «Mình…» đọc lại thành «Bé…» (12 câu + 13 câu liền
+Xe buýt có chứa chúng). Chủ sản phẩm nghe và duyệt cả 55 clip; Thám tử Đô Đô để
+đợt sau (v9).
+
+**Cập nhật (2026-10-21, Thám tử Đô Đô — pack `explore-audio-vi-v9`):** inventory và
+danh sách pack hỗ trợ đã có v9; chưa có pack đã duyệt trong bundle. Bốn template
 `clue_has`, `clue_not`, `clue_fb_extra`, `clue_fb_missing` dùng 14 món, tham số
 1-based; nhãn/mảnh ghép vẫn là dự phòng. Lát này thêm **88 khoá / dự kiến 81 lần
-tổng hợp**; `missing_cell_solve` sẽ được hợp nhất từ nhánh Ô thiếu trước khi
-chạy batch, chưa nằm trong số này. Không TTS lúc chơi. Owner phải tự nghe riêng
+tổng hợp**. Không TTS lúc chơi. Owner phải tự nghe riêng
 16 clip có chữ "không", thêm các câu "có"/"chưa có" và nhãn gần âm; reject rồi
 sinh lại đúng khoá bằng lệnh chọn khoá của pipeline, không dùng `--force` toàn
-pack. Chỉ bật game trong cùng đợt export v8 sau khi thử giấy đạt.
+pack. Chỉ bật game trong cùng đợt export v9 sau khi thử giấy đạt.
 
 ---
 
@@ -962,17 +1080,25 @@ pack. Chỉ bật game trong cùng đợt export v8 sau khi thử giấy đạt.
 - Không ghi thời gian trả lời, hint hoặc outcome để dùng ở lần chơi sau.
 - **Chơi theo bậc** (owner 2026-10-17/18; openspec `update-explore-leveled-rounds`):
   một lượt là nhiều vòng 6 bài cùng một bậc, bắt đầu ở bậc phụ huynh chọn. Hết
-  vòng, đúng ngay lần đầu ≥ 4/6 bài thì lên bậc ("Giỏi quá! Mình lên bậc mới
-  nhé!"); chưa đạt thì luyện thêm tối đa một vòng bài mới ("Mình luyện thêm bậc
+  vòng, đúng ngay lần đầu ≥ 4/6 bài thì lên bậc ("Giỏi quá! Bé lên bậc mới
+  nhé!"); chưa đạt thì luyện thêm tối đa một vòng bài mới ("Bé luyện thêm bậc
   này nhé!"); vòng thêm vẫn chưa đạt hoặc qua bậc cao nhất thì kết thúc lượt.
   Bậc và số bài đúng chỉ nằm trong màn chơi đang mở, thoát là mất (đây là điều
   chỉnh trong lượt hiện tại, không phải adaptive nhiều phiên). Chỉ game báo mọi
   lần sai mới chơi theo bậc: Cân thăng bằng, Tìm quy luật, Ô thiếu, Ú òa, Máy nối
   tiếp (`number_chain`), Đúng vị trí (`ordinal_position`, owner đồng ý
-  2026-10-20 sau khi mỗi bài đã đọc đúng câu hỏi của nó, pack v7), Thám tử Đô Đô
-  (`clue_detective`, 6 bậc, đã có code nhưng còn ẩn theo §7.15). Lật thẻ tìm
-  cặp, Xếp tháp cho Đô Đô, Dẫn đường cho Đô Đô, Xưởng luyện nét, Soi gương, Xe
-  buýt hai tầng giữ cách chạy cũ (chờ owner quyết từng game). Xoay hình không còn
+  2026-10-20 sau khi mỗi bài đã đọc đúng câu hỏi của nó, pack v7), Dẫn đường cho
+  Đô Đô (owner 2026-10-21, sau khi mỗi lần chạy hỏng được báo là một lần sai, §7),
+  Soi gương (owner 2026-10-21, luật riêng: vòng 4 bài, đúng ngay ≥ 3/4 thì lên
+  bậc, tối đa một vòng thêm — mỗi bài tô nhiều ô nên vòng ngắn hơn) và Thám tử Đô Đô
+  (`clue_detective`, 6 bậc, đã có code nhưng còn ẩn theo §7.15). Lên bậc ở
+  hai game này cũng có câu "bây giờ có gì mới" cho bậc 2–5. Một game có thể có
+  **bài làm quen** không tính điểm trước vòng đầu (hiện chỉ Ô thiếu: 2 bài 2×2,
+  §7.12): chỉ ở lượt đầu mỗi lần vào game và chỉ khi bắt đầu ở bậc thấp nhất, không
+  thuộc vòng 6 bài, không đếm "đúng ngay lần đầu". Lật thẻ tìm cặp, Xếp
+  tháp cho Đô Đô, Xưởng luyện nét, Xe buýt hai tầng giữ cách chạy cũ: Xếp tháp đã
+  báo lần đặt sai (2026-10-21) nhưng chủ sản phẩm chọn chưa bật; Xe buýt chờ
+  playtest. Xoay hình không còn
   là game riêng: từ 2026-10-20 nó là họ `rotation` ở bậc 3 của Tìm quy luật (§7.7),
   nên chơi theo bậc cùng Tìm quy luật.
 

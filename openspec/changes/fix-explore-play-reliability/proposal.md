@@ -41,7 +41,9 @@ và xác nhận từng lỗi trên mobile `main` @ `ca25e9c`:
   chơi được giữ (`explore/pausableTimers.ts`), Đô Đô im và hàng đợi bị xoá,
   renderer bị khoá và nhận prop `paused`; khi quay lại, timer chạy tiếp phần còn
   lại và câu hỏi của bài được đọc lại. Ú òa dừng cửa sổ nhìn và cho nhìn lại đủ
-  một lượt khi bé quay lại (cả lượt "nhìn lại" ở hỗ trợ mức 2). Cân thăng bằng
+  một lượt khi bé quay lại (cả lượt "nhìn lại" ở hỗ trợ mức 2) — chỉ khi tạm dừng
+  trong lúc nhìn; đã che / đang lộ ô thì giữ nguyên bàn (C04, xem
+  `upgrade-explore-peekaboo-cups`). Cân thăng bằng
   và Xe buýt giữ các nhịp của `useBusSequencer`.
 - **Xưởng luyện nét**: giữ và huỷ timer hoàn thành khi unmount; màn Xưởng chỉ
   nhận kết quả mang đúng mã bài (seed) đang luyện. Nét ngắn (≤ 12 đơn vị, tức
@@ -61,6 +63,12 @@ và xác nhận từng lỗi trên mobile `main` @ `ca25e9c`:
   `test:explore-route-planner`; mở rộng `test:explore-number-bus` (§12, chạy cảnh
   thật qua harness `scripts/explore-render-harness.cjs`); cập nhật hai kiểm
   nguyên văn trong `test:explore-prompt-audio` và `test:explore-leveled-rounds`.
+
+Sau review đối kháng vòng 2 (`dot1-review-confirmed.md`), thêm: nét chấm i/j
+phải tô thật (không còn xong bằng hai lần chạm, cử chỉ bị coi là nhảy không lưu
+tiến độ); một lần sai một câu ở Xưởng; Xe buýt giữ báo cáo khi xe chạy đi lúc
+pause, đọc lại lời kết bị cắt, board_all đếm lại sau câu hỏi; Cân nói lại câu
+một lần và câu kết bị pause cắt.
 
 Không đổi: generator, validator, version game, luật lên bậc, bố cục, clip audio.
 Chữ "Mình…" của Đô Đô và câu nói có clip đi cùng đợt audio sau (luật one-batch).
