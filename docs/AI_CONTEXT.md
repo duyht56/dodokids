@@ -209,7 +209,8 @@ Mobile:
   profile; declared buckets/capacity in `variety.ts` cover both profiles and
   `generatorVersion` bumped to `number-explorer-v4` (seeded stream changed).
 - Explore Đợt 2 (OpenSpec `add-explore-round-2-games`, 2026-08): two more
-  local games — `stack_tower` and `odd_one_out` (progressive five-board runs)
+  local games — `stack_tower` and `odd_one_out` (progressive five-board runs;
+  stack_tower four boards since `fix-explore-stack-tower-light`)
   — each owning its variety
   policy/keys in `mobile/src/explore/games/<game>Game.ts`; renderers receive
   `supportLevel` (0/1/2 from the play screen's miss count) and the screen
@@ -414,6 +415,23 @@ Mobile:
   `mobile/scripts/explore-render-harness.cjs` (hooks, fake clock, RN stubs):
   `test:explore-play-shell`, `test:explore-tracing`, `test:explore-route-planner`,
   number_bus §12.
+- Xếp tháp light fix (OpenSpec `fix-explore-stack-tower-light`, 2026-10-21,
+  owner kept the game; mobile branch `fix/explore-stack-tower-light`): the
+  two-block "Bạn nào to hơn?" warm-up and the `compare` dimension are gone;
+  four levels renumbered L1–L4 (config of the old L2–L5) as `stack-tower-v2`
+  (kido-server `BundledLocalGameSpec.version` = 2, levels [1..4]); a run is
+  still progressive, one board per level (`PROGRESSIVE_RUN_SIZE.stack_tower = 4`),
+  so any stored starting level opens on L1. The renderer now reports EVERY
+  misplacement as `onAnswer(false)` (the physical slide-back stays; support
+  comes only from the shell) — not yet a leveled-rounds game. Each floor block
+  sits in a tap cell `layout.blocks[i].hit` ≥ `STACK_TOWER_MIN_HIT` (48pt) that
+  is the touchable view (hitSlop cannot reach past a parent);
+  `test:explore-stack-tower` measures the real tap areas through the render
+  harness on 320/375/430pt phones. Xếp tháp and Lật thẻ run their beats on
+  `useBusSequencer(paused)`, so the climb, the memory turn-back/peek and both
+  reports hold while paused. Passenger dots are ink (`DotGroup` coral = the
+  orange car). Phrase `tower_which_bigger` left `promptAudio.ts` and the
+  pipeline inventory (its `.wav` stays bundled until the next pack export).
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/
