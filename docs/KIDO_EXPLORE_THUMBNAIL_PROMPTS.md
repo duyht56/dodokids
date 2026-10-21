@@ -1,10 +1,11 @@
 # KIDO EXPLORE — THUMBNAIL PROMPT PACK
 
-- **Version:** 1.3
-- **Updated:** 2026-10-20
+- **Version:** 1.4
+- **Updated:** 2026-10-21
 - **Output:** square thumbnails for the Kido Explore catalog — §5–§8 delivered
   2026-10-05 (`number-bus`, `spin-pattern`, `number-chain`, `ordinal-position`),
-  §9 delivered 2026-10-18 (`balance-scale`); `spin-pattern` retired 2026-10-20
+  §9 delivered 2026-10-18 (`balance-scale`); §10 giao 2026-10-21
+  (`clue-detective`, chờ Claude duyệt ảnh); `spin-pattern` retired 2026-10-20
   (Xoay hình gộp vào Tìm quy luật, file đã gỡ khỏi app)
 - **Recommended size:** generate 1024 × 1024 px, 1:1; ship a 512 × 512 PNG
   without alpha in `mobile/src/assets/images/explore/`
@@ -23,7 +24,7 @@ All thumbnails belong to one visual family:
 - Clear silhouette and readable at small mobile thumbnail size.
 - Gentle contact shadows; no harsh lighting.
 - No frame, no app UI, no button, no badge. Đô Đô appears only where the game
-  title names Đô Đô (`stack_tower`, `route_planner`).
+  title names Đô Đô (`stack_tower`, `route_planner`, `clue_detective`).
 - No words, title, logo or watermark.
 - One flat pastel background from edge to edge — no gradient, no vignette, no
   rounded-square tile. (The 2026-08 batch was cut from one 3×3 sheet and kept a
@@ -220,6 +221,44 @@ giờ rỗng.
 
 ---
 
+## 10. Thám tử Đô Đô
+
+**File:** `clue-detective.png` (đã giao 2026-10-21; chờ Claude duyệt ảnh)
+
+```text
+Use case: stylized-concept. Create ONE square 1:1 1024 x 1024 preschool catalog thumbnail for "Do Do detective", a game of finding Do Do's house through clues.
+
+The attached balance-scale and number-bus images are reference images ONLY for chunky handmade modeling-clay, matte texture, gentle contact shadows and soft studio lighting. The attached dodo.png is the identity reference for the only character: Do Do is an orange baby monkey, very large round ears, cream heart-shaped wide face and muzzle, large warm brown eyes, big ROUND cobalt-blue glasses, three swept-up orange hair tufts, happy open-mouth smile, and royal-blue hoodie. Translate him to clay; keep the hoodie PLAIN with no D or other mark. No book, no pencil, no decorations from his reference.
+
+FRAMING IS CRITICAL: a small compact toy cluster with lots of blank background around it, not a close-up. The entire cluster must occupy only the middle 65% of the square. All objects must fit entirely INSIDE an imaginary centered circle with radius 36% of the canvas, including roof tips and magnifier handle. Leave at least 18% completely empty background along EACH outer edge. The four corners are nothing but background. Do not draw the imaginary circle.
+
+Scene: exactly THREE small toy houses grouped into a compact triangular village. A main butter-yellow house near the center has a low chunky teal roof, one generous open arched doorway containing Do Do peeking out with his face and blue hoodie, and one plain open square display window holding a SINGLE yellow banana. Do Do's face is large and immediately recognizable. Two smaller quiet cream houses stand close behind on the left and right, their lavender and coral roof tips only a little higher than the main house, their wood shutters fully CLOSED. A single oversized coral-rimmed magnifying glass is propped in front at left, its transparent round lens clearly framing the banana window, its SHORT handle pointing diagonally toward the lower left but staying close to the main house. Keep Do Do and banana unobscured. No plants, chimney, stairs, grass or extra objects.
+
+Background: a completely flat, uniform soft SKY BLUE (#CBE4F6), the exact same blue across the whole canvas; no gradient, no vignette, no horizon, only gentle tiny contact shadows directly underneath the clay toys. No floor platform.
+
+Style: handmade plasticine 3D clay illustration, matte and softly textured, chunky rounded forms, saturated cheerful subjects, slightly elevated three-quarter view with very readable house fronts. Strong uncluttered silhouettes at 108 pixels within a circular crop.
+
+Exactly three houses, one magnifying glass, one Do Do, one banana. No clue tokens or cards in this version. No words, no numbers, no letters, no question marks, no logos, no watermark, no frames, no UI, no badges, no rewards or sparkles. Not a full-bleed close-up: leave generous empty sky-blue space.
+```
+
+**Ý nghĩa hình ảnh:** kính lúp soi quả chuối là hành động tìm manh mối; Đô Đô
+ló ra ở nhà còn lại, hai nhà phụ đã khép cửa chớp là các phương án đã bị loại.
+Bé là thám tử, Đô Đô là người đố nên không cho mascot mặc đồ thám tử. Giữ lông
+cam, mặt kem, kính tròn xanh và hoodie xanh của `dodo.png`, bỏ chữ D trên áo
+để tuân thủ quy tắc không chữ/logo. Bỏ hai thẻ gợi ý tùy chọn để kính lúp,
+chuối và gương mặt vẫn rõ trong khung tròn 108 px.
+
+Chọn phương án `tmp/clue-thumb/v2.png` (nền xanh trời, kính lúp đỏ cam):
+gương mặt Đô Đô rõ hơn v3 và bố cục thoáng hơn v1. Giữ cả ba phương án
+1024 × 1024 tại `tmp/clue-thumb/v1.png`, `v2.png`, `v3.png`; bản giao
+512 × 512 PNG không alpha. Đã tự soát khung tròn 108 px: v2 không cắt chủ thể;
+v1 bị cắt đầu cán kính nên không chọn. Cụm v2 chiếm khoảng 80% đường kính
+khung, hơi rộng hơn mốc ~75% nhưng vẫn an toàn khi crop tròn. Nền có
+hạt/biến thiên sắc rất nhẹ do render; tay Đô Đô màu cam thay vì kem ở ảnh mẫu, cần Claude xem khi duyệt.
+Ảnh mới được giao vào thư mục asset, chưa đăng ký trong `thumbnails.ts`.
+
+---
+
 ## Generation and review checklist
 
 Mỗi ảnh chỉ được duyệt khi đạt các điều kiện sau:
@@ -237,6 +276,11 @@ Mỗi ảnh chỉ được duyệt khi đạt các điều kiện sau:
   - prompt 8 (Đúng vị trí): đúng 4 bạn khác nhau, mũi tên bên trái chỉ sang
     phải, chỉ bạn thứ 3 tính từ trái sáng.
   - prompt 9 (Cân thăng bằng): đòn ngang, 1 lê trái, 2 táo phải.
+  - prompt 10 (Thám tử Đô Đô): 3 nhà, chỉ nhà chính mở có 1 Đô Đô và 1 chuối,
+    2 nhà phụ khép cửa chớp, 1 kính lúp; hoodie xanh trơn, không chữ D.
+    Bản chọn không có thẻ gợi ý. Nếu thêm thẻ ở lần sinh sau: thẻ có nền xanh
+    nhạt viền xanh dương; thẻ không có nền trắng, vòng tròn và một vạch chéo
+    đỏ cam (không chữ X hoặc vạch chéo đơn lẻ).
 - Chữ/số/ký hiệu trong prompt 1, 2, 5 và 7 không méo hoặc sai hình dạng.
 - Thu ảnh về ~108 px trong khung tròn: không chi tiết quan trọng nào bị cắt ở
   góc.
