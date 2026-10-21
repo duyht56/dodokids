@@ -536,9 +536,15 @@ Mobile:
   card (always present; g = 1, else 2); the off card's side (toward / away from
   the input x) is drawn evenly and independently for each pair, and same-sign /
   mixed-sign machines evenly, before the chain is chosen; blank 1 never shows
-  blank 2's answer or sign card — do not swap in `buildNearTargetOptions`. Known
-  open cue (owner decision pending on range / ±1 machines): blank 1 (the middle)
-  is never farther from 5 than its sign card at 0–10. Renderer
+  blank 2's answer or sign card — do not swap in `buildNearTargetOptions`. Owner
+  approved 2026-10-21 (direction A): no ±1 machines, L1–L4 in 0–10 with 0, L5 up
+  to 20, and a known gap kept on L1–L4 — blank 1 (the middle) is never farther
+  from 5 than its sign card at 0–10 (count k, ignore the sign, pick nearer 5
+  passes 26–30% of rounds; L5 is the reverse-reasoning gate); review after
+  playtest. Format limit (2026-10-21): direction + card distance to the input
+  tops out at ~76% of blank 1 and 87–88% of blank 2 (a card next to the input
+  is never right) — generator tuning stopped, contract locks it at the measured
+  level; a "build the answer" format for Đợt 3 awaits the owner. Renderer
   reports every miss, cues each blank's question (`number_chain` is in
   `RENDERER_CUED_PROMPT_GAMES`), keeps missed cards faded until the row changes,
   and after the second blank replays the chain forward with `DotGroup`
@@ -547,11 +553,12 @@ Mobile:
   `throughPause`). `DotGroup`
   gained optional `size`/`changed`. Contract `npm run test:explore-number-chain`
   measures every trick class through the real planner (no-knowledge,
-  direction-only, steps-only, the structural "nearer 5" class at its measured
-  level, reverse; `NC_REPORT=1` prints the table) and drives the renderer through
-  the harness. Audio v8 (not rendered): `game_number_chain` + nine `chain2_*`
-  lines (no `chain2_intro_5`: L2 / L5 reuse pack-v7 `chain_intro_2` /
-  `chain_intro_4`, «…số lớn tới hai mươi…»), mirrored in the pipeline inventory.
+  direction-only, steps-only, the structural "nearer 5" class and the
+  direction + distance class at their measured levels, reverse; `NC_REPORT=1`
+  prints the table) and drives the renderer through the harness. Audio v8 (not
+  rendered): `game_number_chain` + nine `chain2_*` lines (no `chain2_intro_5`:
+  L2 / L5 reuse pack-v7 `chain_intro_2` / `chain_intro_4`, «…số lớn tới hai
+  mươi…»), mirrored in the pipeline inventory.
 - Explore catalog visibility is fail-closed: `catalogVisible` (absent = visible)
   on both bundled and server game configs; effective visibility = bundled AND
   applied server, computed by `isExploreGameCatalogVisible`/

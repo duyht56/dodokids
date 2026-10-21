@@ -578,12 +578,20 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
   — có ở mọi ô — và một thẻ lệch một cạnh mỗi thẻ, phía thẻ lệch rút đều. Đo qua
   planner (2000 vòng/bậc, OpenSpec design §5): đoán mò 6% bài; mẹo không cần biết gì
   (to/bé nhất, vị trí, hàng xóm, gần số đang hiện, thẻ chưa thấy) ≤ 8% bài; chỉ biết
-  chiều («máy thêm chọn thẻ to nhất») hay chỉ đếm số bước mà bỏ qua dấu ≈ 50% mỗi ô,
-  qua vòng ≤ 4,5%; không gỡ máy ở chiều ngược không bao giờ đúng. **Còn hở, chờ
-  owner:** ô giữa là số đi vào máy 2 nên ở 0–10 luôn gần số 5 hơn thẻ ngược dấu của
-  nó — bé đếm số bước, bỏ qua dấu, chọn số gần 5 đúng 72% ô, qua 26–30% vòng ở bậc
-  1–4 (bậc 5: 9–10%); gỡ được thì phải đổi phạm vi / máy ±1 / cho ô 2 vắng thẻ ngược
-  dấu. **Sau mỗi bài đúng** máy diễn lại từng chặng (chấm
+  chiều («máy thêm chọn thẻ to nhất», không dùng khoảng cách) hay chỉ đếm số bước mà
+  bỏ qua dấu ≈ 50% mỗi ô, qua vòng ≤ 4,5%; không gỡ máy ở chiều ngược không bao giờ
+  đúng. **Giới hạn của dạng chọn 1 trong 4** (số 0–10, máy 2–4): bé biết chiều và
+  nhìn khoảng cách thẻ tới số vào (thẻ sát số vào không bao giờ đúng) chạm trần ~76%
+  ô 1, 87–88% ô 2; «bỏ thẻ sát số vào, lấy thẻ gần nhất phía đó» qua 53–57% vòng ở
+  bậc 1–4 (bậc 5: 24,5%). Dừng tinh chỉnh thẻ (2026-10-21), contract khoá ở mức đo;
+  đề xuất chuyển sang dạng «dựng đáp án» ở Đợt 3 chờ owner. **Owner approved
+  2026-10-21 (hướng A):** bỏ máy ±1; bậc 1–4 trong 0–10 có số 0; bậc 5 lên 20 sau
+  khi bỏ hết chấm; và giữ nguyên **chỗ hở đã biết** ở bậc 1–4: ô giữa là số đi vào
+  máy 2 nên ở 0–10 luôn gần số 5 hơn thẻ ngược dấu của nó — bé đếm số bước, bỏ qua
+  dấu, chọn số gần 5 đúng 72% ô, qua 26–30% vòng; bé chỉ giỏi chiều xuôi làm y vậy ở
+  bài ngược qua 63–66% vòng. Bậc 5 là cửa kiểm suy ngược (9–10% vòng). Xem lại sau
+  playtest; thiết kế lại riêng bài ngược (hướng E) là việc sau nếu cần. **Sau mỗi
+  bài đúng** máy diễn lại từng chặng (chấm
   chạy qua máy) trong lúc Đô Đô nói câu thần chú, rồi mới chuyển bài; giảm chuyển
   động thì từng bước đứng yên. Trợ giúp: mức 1 đưa chấm về cho máy đang tính («Bé
   đếm chấm rồi xem máy thêm hay bớt nhé.»), mức 2 làm mờ một thẻ sai chưa chạm. Chơi
