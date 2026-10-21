@@ -46,3 +46,12 @@
 - [x] 5.8 Kiểm chứng: tsc, `npm run lint` (0 lỗi), mọi `test:*` mobile, spec kido-server `src/modules/explore` (21 suite, 238 test) trên nhánh này; mỗi kiểm mới đỏ trên `bcb3dab`.
 - [ ] 5.9 Audio v8: render lại `tracing_continue_glow`, `tracing_next_stroke`, `tracing_follow_dots` với «Bé…» (chữ trên màn đã đổi; `TRACING_GUIDANCE_TEXT` = transcript với «Mình» → «Bé»).
 - [ ] 5.10 Chưa kiểm trên máy ảo/máy thật: các tình huống pause ở Xe buýt và Cân, chấm i/j bằng ngón tay thật.
+
+## 6. Sửa sau review nhánh `fix/explore-dot1-followup` (`branch-review-confirmed.md`)
+
+- [x] 6.1 DOT1-FOLLOWUP-01 (`d570613`): nét ngắn đo quãng đi dọc nét (phần nét ngón tay phủ qua, phép chiếu thuần), không đo đường ngón tay; vuốt ngang qua chấm là thiếu dữ liệu, không lưu tiến độ.
+- [x] 6.2 DOT1-FOLLOWUP-02 (`d570613`): ngưỡng "một chạm" = min(25% nét, nửa phần còn lại); tô tiếp từ 0,76–0,88 và từ vùng sáng đều xong.
+- [x] 6.3 DOT1-FOLLOWUP-03 (`d570613`): `stage.mantra` đọc và thắp lại thần chú bị pause cắt (`useBusSequencer.nextPause`); xe chạy / hold / lượt sau chỉ sau lần đọc đó. Màn chơi (route-mirror `382984c`) coi thần chú là lời riêng của renderer nên không đọc đè câu hỏi.
+- [x] 6.4 DOT1-FOLLOWUP-04 (`d570613`): bong bóng chữ cái «Bé tô theo chữ nhé.» (= clip `tracing_do_letter`); test kiểm chữ renderer vẽ ra và `promptVi` của mọi mục.
+- [x] 6.5 Kiểm chứng như 5.8; mỗi kiểm mới đỏ trên `b2f504d`.
+- [ ] 6.6 Khoảng hở còn lại: pause trong ~450 ms giữa lúc thần chú nói xong và lúc xe chạy thì màn chơi vẫn đọc lại câu hỏi (renderer không còn đang nói) rồi «nb_go» cắt nó.
