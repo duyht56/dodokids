@@ -124,7 +124,7 @@ The contract SHALL be enforced by `mobile/scripts/verify-explore-peekaboo-contra
 - **THEN** the mobile modules pass the same rules and the server catalog entry mirrors the bundled game at version 2
 
 ### Requirement: The look never runs out unseen
-When the run is paused (`paused`: the exit card is open or the app left the foreground) DURING the look window, the look SHALL stop, and when play goes on the whole set SHALL show again for a full look window with its look line (the mantra on a cups board). Once the set is covered (Đô Đô's cover, or the cups) or revealed, a pause SHALL NOT show the set again — that would put the taken object back where the child has seen, or is about to see, the gap (review C04): the board SHALL stay as it is behind the exit card (covered, cups down, or the gap showing) and SHALL pick up from that step when play goes on, without a second look or look line. A level-2 peek cut short by a pause SHALL be shown again in full. A pause while the child is answering SHALL change nothing on the board. A right answer whose why is still showing SHALL NOT be reported while paused; it SHALL be reported once play goes on.
+When the run is paused (`paused`: the exit card is open or the app left the foreground) DURING the look window, the look SHALL stop, and when play goes on the whole set SHALL show again for a full look window with its look line (the mantra on a cups board). Once the set is covered (Đô Đô's cover, or the cups) or revealed, a pause SHALL NOT show the set again — that would put the taken object back where the child has seen, or is about to see, the gap (review C04): the board SHALL stay as it is behind the exit card (covered, cups down, or the gap showing) and SHALL pick up from that step when play goes on, without a second look or look line. A level-2 peek cut short by a pause SHALL be shown again in full. A pause while the child is answering SHALL change nothing on the board. A right answer whose why is still showing SHALL NOT be reported while paused; it SHALL be reported once play goes on. Once the set is covered the renderer SHALL leave no look line on record for the play screen to repeat (an empty `onPromptCue`), and from the last right answer until it is reported it SHALL report the board busy (`onBoardBusy`), so the way back from a pause never reads a stale look line or the question just answered.
 
 #### Scenario: Paused during the look window
 - **WHEN** the child opens the exit card two seconds into the look window and comes back after any length of time
@@ -140,11 +140,11 @@ When the run is paused (`paused`: the exit card is open or the app left the fore
 
 #### Scenario: Paused under the cups
 - **WHEN** the run is paused while the cups are down before the question
-- **THEN** every cup stays down behind the exit card and after it, and the question follows the cover step
+- **THEN** every cup stays down behind the exit card and after it, the mantra is not read again over the cups, and the question follows the cover step
 
 #### Scenario: Paused during the why
 - **WHEN** the run is paused after the last right answer, while the board shows why
-- **THEN** `onAnswer(true)` is not called behind the exit card, and it is called once when play goes on
+- **THEN** `onAnswer(true)` is not called behind the exit card, it is called once when play goes on, and the question just answered is not read again before the praise
 
 ## ADDED Requirements
 

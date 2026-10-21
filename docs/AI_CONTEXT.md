@@ -527,7 +527,9 @@ Mobile:
   `onBoardBusy` from the child's answer, so no question is read on the way back;
   Máy nối tiếp v2 says its mantra through `throughPause` (re-said whole, success
   waits for it) and reports `onBoardBusy` from the right second card until
-  `onAnswer(true)` (integration commit 0ca421f, task 8.7); a break reminder dropped by the pause
+  `onAnswer(true)` (integration commit 0ca421f, task 8.7); Ú òa clears its cue
+  once the set is covered and is busy during the why (integration commit
+  9779e61); a break reminder dropped by the pause
   is said once afterwards (`breakLineOwedRef`). Route guidance cut by a pause is
   re-said by the renderer (`speakGuidance`/`owedGuidanceRef`). The play-shell
   contract §7 mounts the real `ExplorePlayScreen` through the harness with
@@ -581,7 +583,13 @@ Mobile:
   shows why after the last right answer (gap filled / cups lifted left to right)
   and says `peekaboo_missing_done` / `peekaboo_cups_done` through
   `onSpeakFeedback`, then reports `onAnswer(true)` (held while paused; a pause
-  after the cover/cups/reveal never shows the set again, C04); the
+  after the cover/cups/reveal never shows the set again, C04). On the play
+  screen (integration commit 9779e61) the renderer puts an empty cue on record
+  once the set is covered (`onPromptCue([])`), so neither 🔊 nor the way back
+  from a pause reads the look line / mantra over the cover, and reports
+  `onBoardBusy` from the last right answer until `onAnswer(true)`, so the
+  answered question is not read over the why (even with the v8 clips missing;
+  `test:explore-play-shell` §8 drives the real screen + real renderer); the
   bubble follows the phase; cups are Views; one row of objects and one of cards
   sized by the pure `renderers/peekabooLayout.ts`. Mantra `peekaboo_mantra` is
   the cups look line; 9 new phrases wait for audio batch v8 (in the pipeline

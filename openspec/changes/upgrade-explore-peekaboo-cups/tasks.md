@@ -14,6 +14,7 @@
 - [x] 2.5 Tạm dừng: trong lúc nhìn → nhìn lại đủ một lượt (Đợt 1); đã che / úp cốc / đang lộ ô → giữ nguyên, chơi tiếp từ bước đó (C04 của review đối kháng Đợt 1: bản Đợt 1 hiện lại đủ bộ sau khi bé đã thấy ô trống). Kiểm mới trong `test:explore-peekaboo` §9c đỏ trên mã trước sửa; `test:explore-play-shell` §4 dùng bài bậc 1, đọc bong bóng qua testID, tạm dừng dưới tấm che giữ che.
 - [x] 2.6 `supportHintPhraseId/supportHintKeys` nhận bài hiện tại: bài cốc mức 1 = `peekaboo_hint_place`; `ExplorePlayScreen` truyền `currentExercise` (2 chỗ).
 - [x] 2.7 `levelIntroLine('peekaboo')` đọc bảng `PEEKABOO_LEVEL_INTRO` (bậc 2 dùng lại `peekaboo_intro_3`).
+- [x] 2.8 Sau khi gộp vào nhánh tích hợp `integrate/explore-2026-10-21` (mobile `9779e61`): kiểm trên cây gộp, 91b0c8d KHÔNG bỏ việc màn chơi đọc lại cue cũ của Ú òa — tạm dừng dưới tấm che / lúc lộ ô / cốc úp thì quay lại đọc lại câu nhìn trên bàn đã che; tạm dừng lúc diễn lại (câu kết chưa có clip) thì đọc lại câu hỏi vừa trả lời. Renderer cue rỗng khi bộ đồ đã che và báo bận từ thẻ đúng cuối tới ngay trước `onAnswer(true)`. `test:explore-play-shell` §8 (màn chơi thật + renderer thật) đỏ khi bỏ từng nửa.
 
 ## 3. Audio (KHÔNG render clip trong change này)
 
