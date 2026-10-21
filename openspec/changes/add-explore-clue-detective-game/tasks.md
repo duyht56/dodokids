@@ -16,8 +16,20 @@
 > `dodokids-wt/clue-detective` (nhánh `feat/explore-clue-detective` từ `main` của cả
 > 4 repo), Claude review. Nhánh Ô thiếu CHƯA merge vào đây (owner chọn tách từ
 > `main`): nhóm 1 chuyển thành bước hợp nhất lúc tích hợp — merge Ô thiếu trước,
-> rồi nhánh này; xung đột dự kiến ở `promptAudio.ts`, `exploreAudioInventory.ts`,
-> server `explore.registry.ts`, BRD, AI_CONTEXT.
+> rồi nhánh này. Xung đột thật duy nhất với nhánh Ô thiếu: server
+> `explore.registry.ts`, `interface BundledLocalGameSpec`; giữ cả
+> `catalogVisible?` lẫn `version?`. `promptAudio.ts`, `exploreAudioInventory.ts`,
+> BRD và AI_CONTEXT merge sạch nhưng phải sửa tay câu trạng thái nhánh (1.4).
+
+
+> **Lượt sửa B + C 2026-10-21:** đã sửa 15 mục review B, gồm `blast-2` và
+> `quality-2`; 18 đột biến trên bản sao đều bị assert riêng bắt. Nhóm 2 đối chiếu
+> lại code/contract đã commit và kết quả research của lát A (không đổi generator).
+> Lát C lần này chỉ inventory/lệnh gen, server local và docs: không gen audio thật,
+> không export pack/bật hiển thị, không merge Ô thiếu, không commit hoặc push.
+> Vì vậy phần code ở 6.6 và 8.1 đã xong trên nhánh hiện tại (Ô thiếu v1), còn
+> merge/commit ở 6.6b và 8.1b chưa làm; 8.3 chỉ đóng sau khi kiểm lại bản tích hợp.
+> Thử giấy, Human Gate và deploy vẫn để mở.
 
 ## 0. Cổng trước khi code (owner)
 
@@ -61,6 +73,9 @@
 
 ## 1. Hợp nhất nhánh Ô thiếu (lúc tích hợp, theo quyết định owner 2026-10-21)
 
+Trong change này chỉ ĐỌC `missingCellGame.ts` và
+`verify-explore-missing-cell-contracts.cjs` làm mẫu, không sửa hai file này.
+
 - [ ] 1.1 Merge mobile `f579d30` (nhánh `fix/explore-missing-cell-leak`:
       `missingCellGame.ts`, `promptAudio.ts` thêm `missing_cell_solve`,
       `MissingCellRenderer.tsx`, contract Ô thiếu) vào `main`; chạy
@@ -69,18 +84,27 @@
       `BundledLocalGameSpec.version`, `missing_cell` v2,
       `explore.missing-cell.spec.ts`) vào `main` local, **chưa push**; `npm test` +
       `npm run build`
-- [ ] 1.3 Không sửa `missingCellGame.ts` hay `verify-explore-missing-cell-contracts.cjs`
-      trong change này (chỉ ĐỌC làm mẫu)
+- [ ] 1.3 Merge kido-pipeline `aa783a6` (nhánh `fix/explore-missing-cell-leak`:
+      `exploreAudioInventory.ts` thêm `missing_cell_solve`) vào `main` local,
+      **chưa push**; `npx vitest run src/explore`
+- [ ] 1.4 Sau khi merge Ô thiếu rồi nhánh này: sửa tay các câu trạng thái nhánh
+      trong `AI_CONTEXT.md`, BRD §7.15/§9 và comment `exploreAudioInventory.ts`.
+      Xoá câu "The missing-cell branch is not merged here… then this one.";
+      cập nhật tổng inventory trong AI_CONTEXT và BRD thành 89 khoá / dự kiến
+      82 lần tổng hợp, gồm `missing_cell_solve`, bỏ câu "chưa nằm trong số này".
+      Xoá comment "Chưa gồm missing_cell_solve…", sửa comment inventory thành
+      "56 câu liền từ mobile + missing_cell_solve (Ô thiếu)". Kiểm ba file không
+      còn các câu trạng thái cũ; `promptAudio.ts` vẫn giữ `missing_cell_solve`.
 
 ## 2. Module thuần (mobile, lát A — chưa đăng ký mã)
 
-- [ ] 2.1 `games/clueDetectiveGame.ts`: `CLUE_ITEMS` (14 món + 2 dự phòng "chú
+- [x] 2.1 `games/clueDetectiveGame.ts`: `CLUE_ITEMS` (14 món + 2 dự phòng "chú
       rùa", "chú bướm", nhãn đọc riêng), `CLUE_NEAR_SOUND_PAIRS`, bảng bậc T-Lai (K
       9 / 9 / 9 / 8 / 9 / 9, m 2 / 2 / 2 / 3 / 3 / 3, dạng thẻ: PNN ở bậc 1–2, rút độc
       lập ở bậc 3–6, `spotlight`, `cardsFaceDown`), versions, `LEVEL_ORDER`
       [1..6], `clueLevelIntroLine`, `CLUE_DETECTIVE_GAME` (local, offline,
       `dependencyManifest` KHÔNG gồm audio pack), không `runPolicy`
-- [ ] 2.2 `CLUE_STRUCTURES[level]` tĩnh = danh mục hoán đổi được 7 dòng ở design §9
+- [x] 2.2 `CLUE_STRUCTURES[level]` tĩnh = danh mục hoán đổi được 7 dòng ở design §9
       (chung cho cả ba dạng thẻ; bậc 1–3 một cấu trúc 9 × 2 K4 ∪ K3; bậc 4 ba cấu trúc
       8 × 3 Möbius–Kantor; bậc 5–6 ba cấu trúc 9 × 3 khuôn (3, 1, 0)), viết bằng món-thẻ
       A, B, C theo vị trí thẻ và món đệm D, E, …; `CLUE_TEMPLATES[level]` suy ra từ cột
@@ -88,7 +112,7 @@
       với design §9 (như `research/design-x.cjs` đọc) và kiểm từng dòng: khuôn đối
       xứng dấu, R1–R12 với cả ba vai trò, chặt (như `research/exact-x.cjs`). Bỏ hẳn
       bộ sinh M, bảng 18 khuôn và vòng xếp món đệm ngẫu nhiên của P1
-- [ ] 2.3 Generator deterministic theo (level, seed), namespace theo bậc: rút cấu
+- [x] 2.3 Generator deterministic theo (level, seed), namespace theo bậc: rút cấu
       trúc đều trong `CLUE_STRUCTURES[level]` TRƯỚC và độc lập với dạng; dạng thẻ rút
       đều độc lập mỗi bài từ bậc 3 (namespace riêng, KHÔNG túi ×2, không lấy từ
       bucket); đặt tên A, B, C rồi D, E, … bằng pool 14, rút ĐỀU trên mọi phép gán hợp
@@ -96,7 +120,7 @@
       bàn; KHÔNG rút tuần tự rồi loại món gần âm, design §9 "Đặt tên đều"); đáp án = nhà
       có chữ ký e_p; vị trí đáp án đều theo seed (KHÔNG túi vị trí);
       ≤ 400 lần thử (contract: lần thử đầu đạt trên mọi seed)
-- [ ] 2.4 Validator độc lập R0–R12 (design §9) + replay byte-identical; R6 (S1 mọi
+- [x] 2.4 Validator độc lập R0–R12 (design §9) + replay byte-identical; R6 (S1 mọi
       thẻ, S3 ≤ 1/3) ở MỌI bậc; R6c (họ S16, cả ba vai trò); R10 theo khuôn của bậc +
       đáp án e_p; R11 "đổi vai trò" (đặt thẻ "có" ở vị trí 1 / 2 / 3: cả ba đạt
       R1–R6c, ba đáp án khác nhau); R12 "hoán đổi được" (cấu trúc thuộc
@@ -104,7 +128,7 @@
       thư viện S1–S16 với đúng quy tắc chấm: tập rỗng → đoán bừa 1/K; phép giao rỗng
       → dùng bộ lọc đầu; xếp hạng hoà → chọn đều; bỏ phép giao và chiến lược viết lại
       lời giải (kể cả tổng tần suất món đệm)
-- [ ] 2.5 Hàm thuần cho renderer: `clueViolation` (thẻ vi phạm đầu tiên, món, loại),
+- [x] 2.5 Hàm thuần cho renderer: `clueViolation` (thẻ vi phạm đầu tiên, món, loại),
       `clueReplaySteps` (nhà khép ở từng bước; chế độ có lời / ngắn theo bậc và số
       lần nhầm; dùng CHUNG cho diễn lại và bài làm mẫu), `clueDemoBoard` (bàn làm mẫu
       đầu lượt: generator của bậc, namespace `demo`, qua validator, khác `variantKey`
@@ -114,11 +138,11 @@
       nào nhắc ký hiệu (bài 1 các vòng sau ở bậc 1–2), bài nào có câu thần chú, theo
       bậc, vị trí bài trong vòng và cờ đã dạy), `clueCardFaceDown` (thiếu clip thì
       ngửa), hàm dựng câu trả về chữ + khoá audio cùng lúc
-- [ ] 2.6 `CLUE_DETECTIVE_VARIETY`: MỘT bucket mỗi bậc (KHÔNG dùng dạng thẻ hay vị
+- [x] 2.6 `CLUE_DETECTIVE_VARIETY`: MỘT bucket mỗi bậc (KHÔNG dùng dạng thẻ hay vị
       trí đáp án làm bucket, vì `planExploreRound` chia đều theo bucket sẽ dựng lại
       túi ×2), `variantKey` = bài cụ thể (chuẩn hoá design §9), `capacityByLevel`
       ≥ 200; KHÔNG khai `QUESTION_POLICIES` cho game này (design §9, Codex vòng 8)
-- [ ] 2.7 `scripts/verify-explore-clue-detective-contracts.cjs` + npm script
+- [x] 2.7 `scripts/verify-explore-clue-detective-contracts.cjs` + npm script
       `test:explore-clue-detective` (chỉ ĐỌC `verify-explore-missing-cell-contracts.cjs`
       làm mẫu), seed cố định:
       - determinism + tampering (đổi đáp án, đổi món một nhà, lật dấu một thẻ, chuyển
@@ -172,7 +196,7 @@
         3–2–3 (m = 3): lưới vừa không cuộn (cả bề ngang hàng 3 nhà), emoji ≥ 22 pt,
         khe giữa nhà ≥ 8 pt, vùng chạm ≥ 88 × 64 pt, số dòng câu dài nhất trên dải
         lời ≤ 2 hoặc cỡ đó bỏ dải lời
-- [ ] 2.8 Đối chiếu số của contract với `research/` (`node exact-x.cjs`, `node
+- [x] 2.8 Đối chiếu số của contract với `research/` (`node exact-x.cjs`, `node
       table-x.cjs`, `node codex-cx.cjs`, `node bayes-p.cjs <cấu hình> strict`, `node
       naming-bias.cjs`, `node enum.cjs 9x2` / `8x3` cho dòng `KHỚP`): ô nào lệch quá
       0,5 điểm thì dừng, tìm nguyên nhân trước khi đi tiếp
@@ -201,8 +225,9 @@
       `SELF_VOICED_MISS_GAMES`; nút 🔊 gọi hàm đọc lại do renderer đăng ký nếu có,
       không thì giữ hành vi cũ
 - [x] 4.2 `rendererRegistry.tsx` (`ExploreRendererProps`): prop đăng ký hàm đọc lại
-      (vd `registerPromptReplay`), vị trí bài trong vòng và bộ nhớ của lượt (chỉ
-      trong RAM, mất khi thoát); game khác không đổi hành vi
+      (vd `registerPromptReplay`), vị trí bài trong vòng và bộ nhớ của lượt qua
+      `runMemory`/`onRunMemoryChange` (React state ở shell, chỉ trong RAM, mất khi
+      thoát); game khác không đổi hành vi
 - [x] 4.3 `audio.ts`: kiểm chuỗi `onSpeakFeedback(refs, { gentle, onStart,
       stillWanted })` của renderer: `onStart` gọi đúng một lần mỗi câu, promise trả
       `false` khi câu bị bỏ, đổi bài hoặc thoát Khám phá huỷ phần còn lại của chuỗi
@@ -242,27 +267,31 @@
 
 ## 6. Audio inventory (mobile + pipeline)
 
-- [ ] 6.1 kido-pipeline: lệnh sinh lại đúng một (hoặc vài) khoá, kể cả clip inventory
+- [x] 6.1 kido-pipeline: lệnh sinh lại đúng một (hoặc vài) khoá, kể cả clip inventory
       đã reject (vd `explore-audio:generate -- --keys <key…>`), nếu pipeline chưa có;
-      không đụng clip khác; test; commit local, không push
-- [ ] 6.2 `promptAudio.ts`: `game_clue_detective`, 7 câu `clue_*`, `clue_intro_2..6`
+      không đụng clip khác; test. Commit local còn mở, làm cùng 6.6b, không push
+- [x] 6.2 `promptAudio.ts`: `game_clue_detective`, 7 câu `clue_*`, `clue_intro_2..6`
       (theo ký hiệu đã chốt), hợp kiểu `levelIntroLine` thêm `'clue'`, 14 nhãn
-      `clue-*`, 5 mảnh ghép, hàm dựng khoá; giữ nguyên `missing_cell_solve` từ nhánh
-      Ô thiếu
-- [ ] 6.3 `promptLines.ts`: template `clue_has`, `clue_not`, `clue_fb_extra`,
+      `clue-*`, 5 mảnh ghép, hàm dựng khoá. `missing_cell_solve` chờ merge ở 1.1
+- [x] 6.3 `promptLines.ts`: template `clue_has`, `clue_not`, `clue_fb_extra`,
       `clue_fb_missing` (domain 14 món); `npm run explore-lines:dump`
-- [ ] 6.4 `verify-explore-prompt-lines-contracts.cjs`: `clueUtterances()`, map
+- [x] 6.4 `verify-explore-prompt-lines-contracts.cjs`: `clueUtterances()`, map
       generator, tham số template; quy ước xưng hô (không "con", "cô", "thầy",
       "sai", "khớp"; câu nhắc tới người chơi gọi "bé")
-- [ ] 6.5 `exploreAudioCapability.ts`: thêm `explore-audio-vi-v8`
-- [ ] 6.6 kido-pipeline `exploreAudioInventory.ts`: mirror phrases/labels, nâng
-      `EXPLORE_AUDIO_PACK_VERSION` lên v8, gộp `missing_cell_solve`;
-      `exploreAudioInventory.test.ts` kỳ vọng v8. Commit local, không push
+- [x] 6.5 `exploreAudioCapability.ts`: thêm `explore-audio-vi-v8`
+- [x] 6.6 kido-pipeline `exploreAudioInventory.ts`: mirror phrases/labels, nâng
+      `EXPLORE_AUDIO_PACK_VERSION` lên v8; `exploreAudioInventory.test.ts` kỳ vọng v8
+- [ ] 6.6b Gộp `missing_cell_solve`: chờ merge pipeline `aa783a6` ở 1.3 trước
+      nhánh này, giữ v8 và dọn comment theo 1.4; chạy
+      `npx vitest run src/explore` và mobile `npm run test:explore-prompt-audio`
+      sau khi đã merge mobile `f579d30`; commit local cùng 6.1, không push.
+      Số 89 khoá / 82 lần tổng hợp ở design §12 chỉ đúng sau bước merge này
 
 ## 7. Audio batch (Human Gate)
 
 - [ ] 7.1 Gen ~82 clip VieNeu `dodo-clone2`, `VIENEU_TEMPERATURE=0.7`, không
-      `--force`
+      `--force`; chỉ bắt đầu sau 6.6b, khi inventory pipeline đã có
+      `missing_cell_solve`
 - [ ] 7.2 Owner TỰ NGHE riêng 16 clip có chữ "không" (không duyệt gộp) + 14
       `clue_has` + 14 `clue_fb_missing` + chuỗi clip ghép dự phòng; nghe liền chim /
       cá / chó / rùa / bướm; checklist "số chữ 'không' nghe được = số chữ 'không'
@@ -274,22 +303,25 @@
 
 ## 8. kido-server (push = deploy)
 
-- [ ] 8.1 Rebase lên `main` đã có `54b73d2`. Trong **cùng một commit**:
-      `explore.types.ts` (thêm mã cuối danh sách), `explore.registry.ts`
+- [x] 8.1 Code trên server `2c86f85`, chưa commit: `explore.types.ts` (thêm mã
+      thứ 13 cuối danh sách), `explore.registry.ts`
       (`PUBLIC_GAMES` cùng tên/mô tả/icon với `GAME_COPY`; `BUNDLED_LOCAL_GAMES`
-      prefix `clue-detective`, assets, levels [1..6], `version` mặc định 1,
-      `catalogVisible` mirror bundled) và spec đếm catalog 13 (guard
-      `explore.registry.ts:558` trên `main` hiện tại, ~566 sau merge Ô thiếu, ném
-      lỗi lúc khởi động nếu lệch số mã). `bundledLocalDefinition` đang cố định
-      `catalogVisible: true` mà `explore.contract-codes.spec.ts` so cả trường này:
-      nếu commit trước 7.3 thì thêm trường tuỳ chọn `catalogVisible` vào
-      `BundledLocalGameSpec`, đặt `false`, và đổi sang hiện ngay khi làm 7.3 (trước
-      push)
-- [ ] 8.2 `explore.service.spec.ts`: đếm catalog 12 → 13 + một `it` (local, offline,
+      prefix `clue-detective`, assets, levels [1..6], `catalogVisible: false`
+      mirror bundled), trường tuỳ chọn `BundledLocalGameSpec.catalogVisible`
+      và spec đếm catalog 13
+- [ ] 8.1b Sau 1.2: rebase/merge lên `main` đã có `54b73d2`, giữ cả
+      `catalogVisible?` lẫn `version?` trong `interface BundledLocalGameSpec`.
+      `clue_detective` không khai `version` nên dùng mặc định 1; gộp code 8.1
+      trong **cùng một commit** server. Đổi sang hiện khi làm 7.3, trước push
+- [x] 8.2 `explore.service.spec.ts`: đếm catalog 12 → 13 + một `it` (local, offline,
       L1–L6, `generateBatch` báo lỗi); tuỳ chọn `explore.clue-detective.spec.ts`
 - [ ] 8.3 `npm test` + `npm run build` server với working tree mobile đã có cả
       missing-cell-v2 lẫn Thám tử (`explore.contract-codes.spec.ts` import mobile);
       ghi lại SHA docs/mobile/server đã kiểm
+      > Kiểm 2026-10-21: đã chạy đầy đủ; 52 suite / 594 test đạt, hai suite
+      > HTTP (11 test) bị sandbox chặn `listen EPERM 0.0.0.0`. Build server đạt.
+      > Giữ 8.3 mở tới khi chạy lại trong môi trường cho phép Supertest mở cổng;
+      > hai file test lỗi giống hệt `main`, không phải thay đổi Thám tử.
 - [ ] 8.4 Push server CHỈ khi owner cho phép, SAU 7.3 (cờ hiển thị server = hiện),
       gộp Ô thiếu + Thám tử trong MỘT lần deploy; deploy lúc mã còn ẩn thì cần lần
       deploy thứ hai để bật (hiển thị là AND)
@@ -312,18 +344,19 @@
 
 ## 9. Docs
 
-- [ ] 9.1 BRD §7.15 (mẫu §7.14, có chỗ hở công khai), §10 (danh sách game chơi theo
+- [x] 9.1 BRD §7.15 (mẫu §7.14, có chỗ hở công khai), §10 (danh sách game chơi theo
       bậc), §9 (pack v8), sửa tiêu đề §7 "DANH MỤC 8 TRÒ CHƠI"
-- [ ] 9.2 `AI_CONTEXT.md`: 13 mã, pack v8, gạch đầu dòng Thám tử
-- [ ] 9.3 `KIDO_MARKETING_CLAIMS.md` C-50: Thám tử Đô Đô có trong code, chưa lên
-      store; public copy giữ nguyên tới khi lên store
-- [ ] 9.4 `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md`: dòng trạng thái + §10
+- [x] 9.2 `AI_CONTEXT.md`: 13 mã, pack v8, gạch đầu dòng Thám tử
+- [ ] 9.3 `KIDO_MARKETING_CLAIMS.md`: khi tích hợp, sau khi bản sửa claims ở
+      checkout chính đã commit, thêm dòng ⛔ nội bộ cho Thám tử với mã còn trống.
+      Không cấp mã mới ở nhánh này; public copy giữ nguyên tới khi lên store
+- [x] 9.4 `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md`: dòng trạng thái + §10
 
 ## 10. Kiểm chứng
 
 - [ ] 10.1 Đo thời lượng clip thật của pack v8; tính P95 thời gian khoá đọc đề và
       diễn lại theo bậc; cập nhật bảng thời lượng ở design §2
-- [ ] 10.2 mobile `npx tsc --noEmit`, `npm run lint`, mọi `npm run test:explore-*`
+- [x] 10.2 mobile `npx tsc --noEmit`, `npm run lint`, mọi `npm run test:explore-*`
 - [ ] 10.3 kido-server `npm test`, `npm run build`; kido-pipeline `npm test`
 - [ ] 10.4 Chơi thật trên iOS simulator (cỡ SE) và máy/emulator 360×640: lượt từ bậc
       1 lên bậc 2 (bài làm mẫu, rồi nhắc ký hiệu ở vòng bậc 2), bắt đầu ở bậc 5 (bài

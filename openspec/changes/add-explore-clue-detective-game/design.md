@@ -133,10 +133,10 @@ có diễn lại lời giải, không chặn mẹo theo từng bài, không leo 
 - **Diễn lại có lời** ở bậc 1–2, và ở **mọi bậc** khi bài đó có ≥ 1 lần nhầm:
   1. Nhà bé chọn mở cửa, Đô Đô (`ExploreMascot`, mood `cheer`) ló ra.
   2. Mọi nhà mở lại (kể cả nhà bé đã chọn nhầm), thẻ ngửa hết.
-  3. Theo thứ tự đọc, thẻ j sáng, Đô Đô đọc lại đúng clip của thẻ j → **ký hiệu
-     của thẻ j phủ lên món đó ở mọi cửa sổ có nó** (vòng xanh với thẻ "có", biển
-     cấm với thẻ "không có", mục 4) → các nhà chưa đúng thẻ j khép cửa chớp **cùng
-     lúc**. R7 bảo đảm bước nào cũng khép ≥ 1 nhà. (Bóng mờ món thiếu chỉ dùng cho
+  3. Theo thứ tự đọc, thẻ j sáng và **ký hiệu của thẻ j phủ lên món đó ở mọi
+     cửa sổ có nó** ngay lúc Đô Đô bắt đầu đọc lại clip (vòng xanh với thẻ "có", biển
+     cấm với thẻ "không có", mục 4); giữ ký hiệu ít nhất 1,1 s rồi các nhà
+     chưa đúng thẻ j khép cửa chớp **cùng lúc**. R7 bảo đảm bước nào cũng khép ≥ 1 nhà. (Bóng mờ món thiếu chỉ dùng cho
      phản hồi một lần nhầm, mục 8, không có trong chuỗi này.)
   4. Còn đúng một nhà mở. Đô Đô chốt: **"Còn lại nhà này! Đây là nhà Đô Đô."**
      (`clue_found`).
@@ -293,10 +293,10 @@ chuỗi đó):
   không trùng `variantKey` với bài nào của vòng; không tính điểm, không gọi
   `onAnswer`, không vào lượt theo bậc; bé chỉ xem (chạm nhà/thẻ lúc này chỉ nảy
   nhẹ).
-- **Chuỗi hình = đúng chuỗi diễn lại** (mục 2, bước 2–4): mọi nhà mở → theo thứ tự
-  đọc, thẻ j sáng (bậc 6: lật ngửa), Đô Đô đọc gợi ý j → **ký hiệu của thẻ j phủ lên
-  món đó** ở mọi cửa sổ có nó (vòng xanh / biển cấm) → các nhà **chưa đúng thẻ j
-  khép cửa chớp cùng lúc** → … → còn một nhà, Đô Đô ló ra ở nhà đó (như bước 1
+- **Chuỗi hình = đúng chuỗi diễn lại** (mục 2, bước 2–4): mọi nhà mở, cả ba thẻ
+  ngửa suốt bài làm mẫu (kể cả bậc 6) → theo thứ tự đọc, thẻ j sáng và **ký hiệu
+  của thẻ j phủ lên món đó ở mọi cửa sổ có nó** (vòng xanh / biển cấm) ngay lúc
+  Đô Đô bắt đầu đọc gợi ý j → các nhà **chưa đúng thẻ j khép cửa chớp cùng lúc** → … → còn một nhà, Đô Đô ló ra ở nhà đó (như bước 1
   của diễn lại) và chốt `clue_found`. Không có thao tác nào khác (không gạt nhà ra,
   không làm mờ riêng, không trỏ nhà).
 - Lần đầu thẻ "có" (hoặc "không có") xuất hiện trong bài làm mẫu, ngay sau câu
@@ -314,7 +314,8 @@ chuỗi đó):
   lên món đó ở mọi cửa sổ có nó 1,5 s rồi tắt (đúng bước "ký hiệu phủ lên món" của
   chuỗi trên; không khép nhà vì bé đang tự giải).
 - **Khi thiếu clip** (`clue_sign_*` hoặc gợi ý) hay máy tắt tiếng: bài làm mẫu
-  chạy **đúng chuỗi hình trên**, mỗi thẻ 1,2 s thay cho độ dài câu, nên bé vẫn được
+  chạy **đúng chuỗi hình trên**, giữ ký hiệu ít nhất 1,1 s trước nhịp khép 300 ms
+  (cùng hằng thời gian với diễn lại có lời), nên bé vẫn được
   làm mẫu bằng đúng thứ app sẽ làm. Buổi thử giấy đo riêng trường hợp này bằng
   đúng chuỗi đó (bước 2).
 
@@ -505,8 +506,10 @@ Chốt:
   hình** (sáng từng thẻ; bậc 1 kèm đèn soi; bậc 6 lật rồi úp lại). Lúc đọc lại bàn
   không khoá: bé chạm nhà là chọn và lời đang đọc dừng.
 - Màn chơi đưa thêm cho renderer **vị trí bài trong vòng** và một **bộ nhớ của
-  lượt** (chỉ trong RAM, mất khi thoát), để renderer biết bài đầu vòng, bài của câu
-  thần chú và cờ đã dạy ký hiệu.
+  lượt** (`runMemory`/`onRunMemoryChange`, React state ở shell, chỉ trong RAM,
+  mất khi thoát), để renderer biết bài đầu vòng, bài của câu thần chú và cờ đã
+  dạy ký hiệu. Controller chọn đúng bàn làm mẫu ngay trong khởi tạo lazy để khung
+  đầu không lóe bàn thật; không đọc ref trong lúc render.
 - Contract (tasks 4.4) assert bốn tình huống: **đọc một lần** (màn chơi không phát
   `audioRefs` cho game này; mỗi gợi ý đọc đúng một lần mỗi bài); **chạm liên tục**
   (chạm nhà lúc khoá không xếp thêm lời, không tính lần chọn; chạm thẻ liên tục chỉ
@@ -583,6 +586,13 @@ giúp khi bàn đã mở khoá và câu phản hồi đã nói xong). Hàm thu�
   án, mức 2 **không khép thêm** mà làm như mức 1 (đọc lại ba thẻ). Số nhà mở có
   thể đã còn 1 do chính bé khép nhầm hết nhà khác; trợ giúp không bao giờ tự làm
   điều đó.
+- Trợ giúp không chạy chồng. Mức 1 nhớ câu thần chú đã bắt đầu và các thẻ đã đọc
+  xong để tạm dừng/chạm thẻ chỉ ngắt rồi tiếp tục phần còn thiếu; đổi mức trợ giúp
+  thì bắt đầu sạch. Mức 2 tính đã đưa ngay khi khép nhà, nên lần chạm thẻ sau đó
+  không làm thẻ 1 sáng lại; nối lại sau tạm dừng vẫn giữ nhịp khép còn thiếu.
+  Câu `clue_hint_2` đã bắt đầu không nói lần hai. Nút 🔊 chờ khi đang trợ giúp.
+  Thẻ 1 và ký hiệu giữ sáng qua nhịp khép (bậc 6 giữ ngửa). Sau khi mở khoá,
+  mốc chờ bàn tay bắt đầu lại từ 10 s.
 - Không làm mờ thẻ nào; trợ giúp không bao giờ đếm hộ hay đánh dấu đáp án.
 
 ## 9. Sinh bài và validator
@@ -1363,8 +1373,10 @@ không?" có chữ "không" nghi vấn, là câu dùng chung nói khi đã hết
 thiệu dạng hai thẻ "có", câu phản hồi theo món không còn chữ "không", mảnh ghép 7
 → 5. Pack **`explore-audio-vi-v8`** gộp luôn câu mới của Ô thiếu
 `missing_cell_solve` ("Nhìn hàng, nhìn cột, ghép đủ hai điều.", mobile `f579d30`
-nhánh `fix/explore-missing-cell-leak`, chưa gen clip) theo luật một đợt một pack
-(BRD §9): **89 khoá mới, 82 lần tổng hợp**, pack ≈ 486 + 89 = 575 clip. Nếu owner
+và pipeline `aa783a6`, nhánh `fix/explore-missing-cell-leak`, chưa gen clip)
+theo luật một đợt một pack (BRD §9): **89 khoá mới, 82 lần tổng hợp**, pack
+≈ 486 + 89 = 575 clip. Tổng này chỉ đúng sau merge Ô thiếu; chặn batch gen (task
+7.1) tới khi inventory pipeline đã có `missing_cell_solve` (6.6b). Nếu owner
 duyệt câu giới thiệu bậc của 4 game đang chờ (leveled-rounds task 4.1) trước khi
 chạy batch thì gộp vào v8, không thì thành v9.
 
@@ -1431,14 +1443,22 @@ hình và phản hồi hình vẫn đủ để chơi. Bậc 6: thẻ thiếu cli
 - **Hiển thị hiệu lực** = bundled AND server (fail-closed). App bỏ qua mã chỉ có
   trên server (`registry.ts`); khi server chưa có mã thì app dùng bản bundled.
 - **Thứ tự merge / deploy (cứng):**
-  1. Merge nhánh Ô thiếu vào `main` **trước**: mobile `f579d30` và server
-     `54b73d2` (cùng nhánh `fix/explore-missing-cell-leak`). Mobile sửa
+  1. Merge nhánh Ô thiếu vào `main` **trước**: mobile `f579d30`, server
+     `54b73d2` và pipeline `aa783a6` (cùng nhánh `fix/explore-missing-cell-leak`). Mobile sửa
      `missingCellGame.ts`, `promptAudio.ts` (`missing_cell_solve`),
      `MissingCellRenderer.tsx`, contract Ô thiếu; server sửa `explore.registry.ts`
      (thêm `BundledLocalGameSpec.version`, `missing_cell` v2) và
-     `explore.missing-cell.spec.ts`. Chạy lại `test:explore-missing-cell` và test
-     server sau merge. Change này không sửa `missingCellGame.ts` hay contract riêng
-     của Ô thiếu.
+     `explore.missing-cell.spec.ts`; pipeline thêm `missing_cell_solve` vào
+     `exploreAudioInventory.ts`. Chạy lại `test:explore-missing-cell`,
+     `test:explore-prompt-audio`, test server và pipeline
+     `npx vitest run src/explore` sau merge; pipeline chỉ commit local, không push.
+     Change này không sửa `missingCellGame.ts` hay contract riêng của Ô thiếu.
+     Xung đột thật duy nhất với nhánh Ô thiếu là `interface BundledLocalGameSpec`
+     trong server `explore.registry.ts`: giữ cả `catalogVisible?` lẫn `version?`.
+     Mobile, pipeline, BRD và AI_CONTEXT merge sạch. Sau khi merge Ô thiếu rồi
+     nhánh này vẫn phải sửa tay các câu trạng thái nhánh trong AI_CONTEXT,
+     BRD §7.15/§9 và comment `exploreAudioInventory.ts` theo task 1.4; lúc đó mới
+     ghi tổng 89 khoá / dự kiến 82 lần tổng hợp, gồm `missing_cell_solve`.
   2. Commit mobile Thám tử (`catalogVisible: false`).
   3. Commit server Thám tử, rebase lên trường `version` mới: union
      `explore.types.ts` + `PUBLIC_GAMES` + `BUNDLED_LOCAL_GAMES` + spec đếm 13 trong
@@ -1489,9 +1509,10 @@ hình và phản hồi hình vẫn đủ để chơi. Bậc 6: thẻ thiếu cli
   bậc, hướng dẫn, lượt, đồ vật, ký hiệu, audio, chỗ hở công khai), §10 (thêm Thám
   tử vào danh sách game chơi theo bậc), §9 (pack v8), sửa tiêu đề §7 "DANH MỤC 8
   TRÒ CHƠI" đã cũ; `AI_CONTEXT.md` (13 mã, pack v8, gạch đầu dòng Thám tử; dòng
-  "Public server catalog count is 13" khi đó mới đúng); `KIDO_MARKETING_CLAIMS.md`
-  C-50 ("Thám tử Đô Đô có trong code, chưa lên store; public copy giữ nguyên tới
-  khi lên store"); `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md` §10.
+  "Public server catalog count is 13" khi đó mới đúng); `KIDO_MARKETING_CLAIMS.md`:
+  khi tích hợp, sau khi bản sửa claims ở checkout chính đã commit, thêm dòng ⛔
+  nội bộ cho Thám tử với mã còn trống. Không cấp mã mới ở nhánh này; public copy
+  giữ nguyên tới khi lên store; `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md` §10.
 
 **Effort: L, cộng 1–2 tuần lịch cho các cổng** (thử giấy 5 bé, có thể thêm 5 bé
 nếu A trượt; owner nghe audio; playtest). Code: khoảng 15 file mobile (game,

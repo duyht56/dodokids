@@ -141,10 +141,17 @@ là suy luận một phần có dùng phủ định). Cái giá: rất ít cấu
 - **kido-pipeline**: lệnh sinh lại đúng một khoá (nếu chưa có), mirror
   `exploreAudioInventory.ts`, pack v8, batch gen. Commit local, không push.
 - **docs**: `kido-explore-contract.ts`, BRD §7.15 + §9 + §10, `AI_CONTEXT.md`,
-  `KIDO_MARKETING_CLAIMS.md` C-50, `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md`.
-- **Phụ thuộc Ô thiếu**: merge mobile `f579d30` + server `54b73d2` (nhánh
-  `fix/explore-missing-cell-leak`) vào `main` trước; change này không sửa
-  `missingCellGame.ts` hay contract riêng của Ô thiếu.
+  `KIDO_MARKETING_CLAIMS.md` (khi tích hợp, sau khi bản sửa claims ở checkout chính
+  đã commit: thêm dòng ⛔ nội bộ cho Thám tử với mã còn trống; không cấp mã mới ở
+  nhánh này), `KIDO_EXPLORE_THUMBNAIL_PROMPTS.md`.
+- **Phụ thuộc Ô thiếu**: merge mobile `f579d30` + server `54b73d2` + pipeline
+  `aa783a6` (nhánh `fix/explore-missing-cell-leak`) vào `main` trước; change này
+  không sửa `missingCellGame.ts` hay contract riêng của Ô thiếu. Chỉ gen batch v8
+  sau khi inventory pipeline đã có `missing_cell_solve`; tổng 89 khoá / 82 lần
+  tổng hợp chỉ đúng sau merge. Xung đột thật duy nhất với nhánh Ô thiếu là server
+  `interface BundledLocalGameSpec` (giữ cả `catalogVisible?` lẫn `version?`);
+  sau hai nhánh merge vẫn phải sửa tay câu trạng thái nhánh trong AI_CONTEXT,
+  BRD §7.15/§9 và comment inventory theo task 1.4.
 - **Không** đổi schema lesson, curriculum, progress, reward, analytics hay
   `explore-stateless-privacy`: mọi trạng thái chơi (kể cả cờ đã dạy ký hiệu) chỉ nằm
   trong bộ nhớ. Không đổi shape `ExploreExerciseEnvelope`, `ExploreRunSlot`,

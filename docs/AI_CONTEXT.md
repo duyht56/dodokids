@@ -222,12 +222,16 @@ Mobile:
   Later batches: v3 (go-live re-record), v4 (`number_bus` `nb_*`), v5 (whole
   lines, below), v6 (`balance_scale`), v7 (2026-10-19: Ú òa look/support lines,
   Đúng vị trí question lines `ord_tap`/`ord_tap_row`; 2026-10-20 its level intros
-  `ordinal_intro_2..5`); `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
-  `explore/exploreAudioCapability.ts` lists every accepted pack.
+  `ordinal_intro_2..5`); v8 (2026-10-21: Thám tử Đô Đô inventory, not yet
+  generated/reviewed/exported). `SUPPORTED_EXPLORE_AUDIO_PACK_VERSIONS` in
+  `explore/exploreAudioCapability.ts` lists every accepted pack; support for v8
+  does not mean approved v8 audio is bundled.
 - Explore prompt timing: the play shell reads `exercise.audioRefs` on mount,
-  except `RENDERER_CUED_PROMPT_GAMES` (`peekaboo_recall`), whose renderer cues
-  each line through `onPromptCue` when it fits the board (Ú òa: the look line,
+  except `RENDERER_CUED_PROMPT_GAMES` (`peekaboo_recall`, `clue_detective`). Ú òa
+  cues each line through `onPromptCue` when it fits the board (the look line,
   then the question only once the gap is revealed; 🔊 repeats the last cue).
+  Thám tử instead owns its full card/speech sequence through the gentle feedback
+  queue and `registerPromptReplay`; the shell does not autoplay its `audioRefs`.
   The support hint row/voice comes from `supportHintPhraseId` (a game's own line
   where the generic «nghe lại / nhìn kỹ từng lựa chọn» does not fit).
   `ordinal_position` speaks its actual question (`ordinalPositionKeys(isGrid,
@@ -280,7 +284,8 @@ Mobile:
   step, hole at index 4–5, three options taken from the row, `complete` mode
   only, question clip `spin_which`, intro `pattern_intro_3` names the arrows;
   versions are now `pattern-finder-v6`/`pattern-finder-validator-v5`. The
-  catalog groups are "Quy luật" (pattern_finder, missing_cell), "Trí nhớ"
+  catalog groups are "Quy luật" (pattern_finder, missing_cell, and the hidden
+  clue_detective), "Trí nhớ"
   (peekaboo_recall, memory_match) and "Sắp xếp và dẫn đường".
 - Explore memory pool + hint (OpenSpec `expand-explore-memory-pool-add-hint`,
   2026-08): `MEMORY_ASSETS` expanded 16 → 37 (each a single, background-free,
@@ -310,7 +315,7 @@ Mobile:
   PUBLIC_GAMES + bundled def + explore.service.spec catalog count, a
   verify-explore-<game> script, a kido-server spec, and best-effort audio keys
   mirrored to promptAudio + exploreAudioInventory (silent until next audio batch).
-  Server registered-public catalog count was 11 then (12 now, see the game-codes
+  Server registered-public catalog count was 11 then (13 now, see the game-codes
   entry below), and as of 2026-08-25 all were catalog-visible (tracing
   re-enabled + smoothed to pack v5). Deferred:
   `tangram_assemble` (needs drag/rotate, not tap-only); `balance_scale` was dropped
@@ -318,13 +323,13 @@ Mobile:
   construct (see the Cân thăng bằng entry below). Also pending: catalog PNG art for all Đợt-2
   and tier-2 games; route predict-ahead mode.
 - Explore game codes (2026-09-23, OpenSpec `add-explore-number-bus-game`;
-  `balance_scale` appended 2026-10-16): `EXPLORE_GAME_CODES` is identical —
-  same 12 codes, same order — in
+  `balance_scale` appended 2026-10-16, `clue_detective` 2026-10-21):
+  `EXPLORE_GAME_CODES` is identical — same 13 codes, same order — in
   `docs/kido-explore-contract.ts`, `mobile/src/types/explore.ts` and kido-server
   `explore.types.ts`: `tracing_workshop`, `route_planner`, `pattern_finder`,
   `memory_match`, `stack_tower`, `missing_cell`, `peekaboo_recall`,
   `mirror_build`, `ordinal_position`, `number_chain`,
-  `number_bus`, `balance_scale` (`spin_pattern` was removed 2026-10-20 when it
+  `number_bus`, `balance_scale`, `clue_detective` (`spin_pattern` was removed 2026-10-20 when it
   became pattern_finder's `rotation` family). The legacy `number_explorer`/`odd_one_out`/`sort_bins` are gone
   from docs/server as well (their server specs removed). kido-server
   `explore.registry.ts` mirrors each bundled local game through
@@ -332,9 +337,42 @@ Mobile:
   tầng") is local-only and offline with levels L1–L4 (GĐ1) and is never
   generated server-side. `explore.contract-codes.spec.ts` guards the three-way
   code equality and the server↔mobile mirror (`memory_match`/`pattern_finder`
-  excepted: legacy server manifests). Public server catalog count is 13.
+  excepted: legacy server manifests). Public server catalog count is 13;
+  12 games are visible, with `clue_detective` hidden in both bundle and server.
+  `BundledLocalGameSpec.catalogVisible` defaults to true for existing entries.
   `ExploreRunSlot.level` is the declared default; the mobile authored-run
   branch plays clamp(startingLevel + `constraints.levelOffset`, game levels).
+- Thám tử Đô Đô (`clue_detective`, OpenSpec `add-explore-clue-detective-game`,
+  2026-10-21): local/offline L1–L6, six-board leveled rounds (4/6 first-try pass,
+  one extra round). `games/clueDetectiveGame.ts` owns the P1-X generator and
+  independent R0–R12 validator; `clueDetectiveStructures.ts` is its exchangeable
+  structure catalog, with uniformly assigned item names and one bucket per level.
+  One positive and two negative clues identify a house among 8–9 houses, with
+  2–3 items each. A run starts with a separate demo; the renderer
+  (`ClueDetectiveRenderer.tsx`, `clueDetective/controller.ts`) owns card/audio
+  synchronization, support, shutter elimination and answer replay. Teaching memory
+  lives in shell React state, passed as `runMemory` with `onRunMemoryChange`,
+  resets each run and is never persisted. Lazy controller initialization chooses
+  the demo board before the first frame without reading refs during render.
+  `clueFeedbackLines` supplies the rule and house-specific feedback as separate
+  text/audio lines. Interrupted level-1 support resumes unread cards without
+  restarting the mantra; a new support level starts with clean progress.
+  Level-2 support is served when shutters close, so later taps do not relight
+  card 1; pause resumes the remaining hold without repeating `clue_hint_2`.
+  The 10-second attention wait starts when play unlocks.
+  Known limits remain explicit: forgetting one negative clue passes a level 56.9%
+  of the time; S3∩S9 reaches 100% (BRD §7.15, design §9–10).
+  Inventory v8 adds 88 keys: 56 whole lines (`clue_has`, `clue_not`,
+  `clue_fb_extra`, `clue_fb_missing`, item params 1..14), 13 fixed phrases,
+  5 fragments and 14 labels; estimated 81 new syntheses after label reuse.
+  Audio has no mandatory manifest dependency. Game stays `catalogVisible: false`
+  until paper playtesting passes and approved v8 audio is bundled; no v8 generation,
+  Human Gate, export or server deploy has happened in this slice. Thumbnail
+  `clue-detective.png` is registered. The missing-cell branch is not merged here:
+  no `missing_cell_solve` or `BundledLocalGameSpec.version`; merge that branch first
+  during integration, then this one. Contracts: `test:explore-clue-detective`,
+  `node scripts/verify-explore-clue-renderer.cjs` (also called by the full clue
+  contract), server `explore.contract-codes.spec.ts`.
 - Cân thăng bằng (`balance_scale`, OpenSpec `add-explore-balance-scale-game`,
   2026-10-16): local, offline, L1–L6, teaches the worksheet "cân nặng"
   substitution ("1 quả lê nặng bằng 2 quả táo, đổi 1 lê lấy 2 táo"). Game module

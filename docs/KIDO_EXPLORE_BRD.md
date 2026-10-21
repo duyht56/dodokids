@@ -178,7 +178,11 @@ Không hiển thị XP, sao, sticker, badge, streak, currency hoặc bảng thà
 
 ---
 
-## 7. DANH MỤC 8 TRÒ CHƠI
+## 7. DANH MỤC 13 TRÒ CHƠI (12 ĐANG HIỂN THỊ)
+
+> **Cập nhật 2026-10-21:** 13 mã được đăng ký trong code; Thám tử Đô Đô còn ẩn
+> tới khi thử giấy đạt và pack v8 đã duyệt có trong bundle. Số thứ tự các mục
+> dưới đây giữ lịch sử, gồm cả các game đã gỡ hoặc gộp; không phải số thẻ hiện tại.
 
 > **Cập nhật (2026-08-25) — bật lại Xưởng luyện nét + làm mịn nét tiếng Việt.**
 > **Xưởng luyện nét (`tracing_workshop`) đã được BẬT LẠI và HIỂN THỊ trong catalog
@@ -772,6 +776,61 @@ và hình vẫn đủ để chơi.
 
 ---
 
+### 7.15. Game 15 — Thám tử Đô Đô (`clue_detective`)
+
+**Mục tiêu:** nghe và phối hợp ba điều kiện, gồm một thẻ "có" và hai thẻ
+"không có", để tìm đúng nhà Đô Đô. Bé chạm một nhà; không cần đọc chữ, kéo thả
+hay thao tác đóng nhà bằng tay. Thiết kế: OpenSpec
+`add-explore-clue-detective-game`, phương án **P1-X** đã được owner chốt.
+
+**Neo dạng bài (nguồn yếu):** theo design §1, một câu trong đề Đoàn Thị Điểm
+năm học 2011–2012 được Tiền Phong đăng lại ngày 12/04/2013 từ Infonet, chưa có
+xác nhận của trường. Chỉ định vị là **luyện suy luận nhiều điều kiện**; không
+claim "sát đề" hoặc dùng tên trường trong public copy.
+
+**Câu thần chú:** "Bé soi từng thẻ một. Nhà Đô Đô đúng với cả ba thẻ."
+
+| Bậc | Tên | Bàn và hỗ trợ |
+|---|---|---|
+| 1 | Đèn soi | 9 nhà × 2 món, thẻ "có" đứng đầu; ký hiệu soi món khi đọc |
+| 2 | Tự soi | Giữ bàn 9 × 2, bé tự soi không cần đèn |
+| 3 | Đổi chỗ thẻ | Giữ bàn 9 × 2; vị trí thẻ "có" rút độc lập mỗi bài |
+| 4 | Nhà ba món | 8 nhà × 3 món; lưới 3–2–3 |
+| 5 | Nhiều nhà hơn | 9 nhà × 3 món; lưới 3–3–3 |
+| 6 | Nhớ thẻ | Giữ bàn 9 × 3; thẻ úp, chạm để lật nghe lại; thiếu clip thì ngửa |
+
+**Hướng dẫn:** đầu lượt có bài làm mẫu riêng ở bất kỳ bậc bắt đầu nào, ngửa cả
+ba thẻ và dạy vòng xanh/biển cấm. Đô Đô đọc từng thẻ đúng lúc thẻ sáng, ký hiệu
+phủ lên món rồi nhà chưa đúng khép cửa chớp. Chạm nhầm được nghe câu luật và câu
+chỉ nhà, kèm hình theo loại thừa/thiếu món; nhà đó khép. Trợ giúp 1 đọc lại ba
+thẻ; trợ giúp 2 khép nhà vi phạm thẻ đầu, không tự giảm từ ≥ 2 nhà mở xuống 1. Khi chọn
+đúng, bàn diễn lại cách loại nhà (có lời ở bậc 1–2 hoặc khi đã nhầm; ngắn nếu
+đúng ngay ở bậc 3–6). Bé được nghe lại không giới hạn, không bị tính giờ trả lời.
+
+**Lượt:** theo luật §10: mỗi vòng 6 bài cùng bậc, đúng ngay ít nhất 4/6 thì lên
+bậc; tối đa một vòng luyện thêm, qua bậc 6 thì kết thúc nhẹ nhàng. Cấu hình bậc
+bắt đầu và 6 tiêu chí "khi nào bé vững" dành cho phụ huynh. Mọi trạng thái chơi
+chỉ ở RAM; không có phần thưởng hay lịch sử kỹ năng.
+
+**Sinh bài và giới hạn sư phạm:** generator/validator độc lập, deterministic,
+local và offline; 14 emoji (hai món dự phòng chưa tham gia), danh mục cấu trúc
+hoán đổi được P1-X, đặt tên đều, một bucket mỗi bậc; validator kiểm R0–R12.
+Mẹo chỉ đọc thẻ "có" hoặc mù dấu ở bậc 3–6 có cận qua bậc khoảng 19,0%.
+**Chỗ hở công khai:** quên một thẻ "không có" vẫn đúng 1/2 mỗi bài và qua bậc
+**56,9%** ở mọi bậc; **S3∩S9** (đọc hai thẻ "không có", bỏ thẻ "có", chọn tổ hợp
+món-thẻ duy nhất) đạt **100%**. Vì vậy không claim rằng qua bậc chứng minh bé
+luôn dùng đủ ba thẻ. Số cấu trúc ít và bước 3→4 đổi cả số nhà lẫn số món cần
+được quan sát khi thử với bé.
+
+**Audio và phát hành:** inventory pack `explore-audio-vi-v8` thêm 88 khoá
+(56 câu liền, 13 câu cố định, 5 mảnh, 14 nhãn); dự kiến 81 lần tổng hợp mới sau
+khi dùng lại 7 nhãn cùng chữ. Đây là code/inventory, **chưa sinh, duyệt hay export
+pack v8** trong lát C. Game giữ `catalogVisible: false` cả bundled mobile lẫn
+server tới khi thử giấy đạt và pack v8 có trong bundle; chưa lên store. Audio
+không thuộc dependency bắt buộc của game. Quy trình Human Gate xem §9.
+
+---
+
 ## 8. MÔ HÌNH SINH BÀI VÀ QUẢN TRỊ NỘI DUNG
 
 ### 8.1. Nguyên tắc
@@ -880,6 +939,16 @@ câu vẫn phát nhiều đoạn, có nghỉ 280 ms giữa câu; clip ghép cũ 
 và tự làm fallback khi thiếu line. Không TTS lúc chạy (§3 mục 8, offline, không
 gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
 
+**Cập nhật (2026-10-21, Thám tử Đô Đô):** inventory và danh sách pack hỗ trợ
+đã có `explore-audio-vi-v8`; chưa có pack đã duyệt trong bundle. Bốn template
+`clue_has`, `clue_not`, `clue_fb_extra`, `clue_fb_missing` dùng 14 món, tham số
+1-based; nhãn/mảnh ghép vẫn là dự phòng. Lát này thêm **88 khoá / dự kiến 81 lần
+tổng hợp**; `missing_cell_solve` sẽ được hợp nhất từ nhánh Ô thiếu trước khi
+chạy batch, chưa nằm trong số này. Không TTS lúc chơi. Owner phải tự nghe riêng
+16 clip có chữ "không", thêm các câu "có"/"chưa có" và nhãn gần âm; reject rồi
+sinh lại đúng khoá bằng lệnh chọn khoá của pipeline, không dùng `--force` toàn
+pack. Chỉ bật game trong cùng đợt export v8 sau khi thử giấy đạt.
+
 ---
 
 ## 10. ĐỘ KHÓ VÀ CẤU HÌNH KHỞI ĐẦU
@@ -900,7 +969,8 @@ gửi bài lên server). Chi tiết: openspec `add-explore-whole-line-audio`.
   chỉnh trong lượt hiện tại, không phải adaptive nhiều phiên). Chỉ game báo mọi
   lần sai mới chơi theo bậc: Cân thăng bằng, Tìm quy luật, Ô thiếu, Ú òa, Máy nối
   tiếp (`number_chain`), Đúng vị trí (`ordinal_position`, owner đồng ý
-  2026-10-20 sau khi mỗi bài đã đọc đúng câu hỏi của nó, pack v7). Lật thẻ tìm
+  2026-10-20 sau khi mỗi bài đã đọc đúng câu hỏi của nó, pack v7), Thám tử Đô Đô
+  (`clue_detective`, 6 bậc, đã có code nhưng còn ẩn theo §7.15). Lật thẻ tìm
   cặp, Xếp tháp cho Đô Đô, Dẫn đường cho Đô Đô, Xưởng luyện nét, Soi gương, Xe
   buýt hai tầng giữ cách chạy cũ (chờ owner quyết từng game). Xoay hình không còn
   là game riêng: từ 2026-10-20 nó là họ `rotation` ở bậc 3 của Tìm quy luật (§7.7),
