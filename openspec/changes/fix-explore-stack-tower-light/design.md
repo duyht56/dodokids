@@ -58,24 +58,37 @@ bước đang nhảy (≤ 250ms). Lật thẻ: cả bốn timer (úp thẻ sai 7
 260ms, đóng lượt nhìn trộm 1100ms, báo xong 420ms) qua `later`; lời báo xong đọc
 `onAnswer` mới nhất qua ref, để một callback mới trong lúc dừng không huỷ lời báo.
 
-## 5. Cảnh đổi cỡ giữa bài (review đối kháng 21/10, STACK-TOWER-01)
+## 5. Cảnh đổi cỡ giữa bài (review đối kháng 21/10, STACK-TOWER-01, vòng kiểm 3)
 
 Báo sai làm dải gợi ý/phản hồi của màn chơi hiện ở mọi lần sai. Ở cỡ chữ mặc
-định dải vẫn dưới `minHeight` 90pt, nhưng với cỡ chữ hệ thống lớn (Android 1,3×,
-iOS XXXL) hoặc khi nhắc nghỉ mắt đang hiện, dải cao hơn và cảnh (`flex: 1`) thấp
-đi ~20pt, rồi cao lại khi chữ «Bé thử lại nhé.» tắt sau 2,5 s. Trước đây mỗi lần
-đổi cỡ là một bố cục mới: mọi khối bị `stopAnimation()` (khối đang trượt về bị
-cắt), khối nhảy chỗ/đổi cỡ, và các bước leo đã hẹn đưa Đô Đô về toạ độ cũ.
+định dải vẫn dưới `minHeight` 90pt, nhưng khi nhắc nghỉ mắt đang hiện (~30pt)
+hoặc cỡ chữ hệ thống lớn (Android 1,3×: ~20pt) dải cao hơn, cảnh (`flex: 1`) mất
+chừng đó ở ĐÁY, rồi lấy lại khi chữ «Bé thử lại nhé.» tắt sau 2,5 s.
 
-- Bàn vẽ trên một view "sân khấu" `position: absolute; bottom: 0` cỡ đúng bố
-  cục. Cảnh thấp đi thì sân khấu đi lên cùng sàn, chỉ phần trống phía trên bị che.
-- `nextStackTowerSceneSize(current, measured, layout, touched)` (thuần): đổi bề
-  rộng → tính lại; thấp đi → giữ nếu đỉnh bàn (`stackTowerContentTop`: chỗ cao
-  nhất Đô Đô đứng) vẫn trong cảnh, không thì tính lại; cao lên → chỉ tính lại khi
-  chưa chạm (để lần đo đầu như 520 → 620 trên máy vẫn dùng hết chỗ).
-- Nhiều bàn sát mép trên (khoảng trống 8–20pt, vì bố cục dùng hết chiều cao),
-  nên vẫn có lúc phải tính lại. Khi đó: khối trên sàn không bị dừng (hoạt ảnh trượt
-  về kết thúc ở ô mới), khối đã xếp và Đô Đô nhảy tới toạ độ mới (Đô Đô tới đúng
-  bước đang leo), mỗi bước leo đọc điểm đáp từ bố cục đang hiện lúc đến nhịp.
+Bản đầu (d4162b6) neo bàn vào đáy cảnh và chỉ giữ bố cục khi bàn còn vừa. Vòng
+kiểm 3 cho thấy chưa đủ: bố cục vốn dùng hết chiều cao (bàn cột cao luôn chỉ còn
+8–9pt phía trên, ~2/3 bàn tháp dưới 20pt), nên phần lớn bàn vẫn bị tính lại (khối
+co lại, nhảy chỗ, khối đang thử bay tới đích cũ); bàn còn chỗ thì cả bàn nhảy
+lên xuống theo dải; bàn giữ lại có thể sát mép trên, cắt cú nhảy của Đô Đô.
 
-Không đổi khung chơi chung (phiên khác đang sửa `ExplorePlayScreen`).
+Cách làm hiện tại:
+
+- **Treo từ đỉnh.** Sân khấu `position: absolute; top: 0` cỡ đúng bố cục. Cảnh mất
+  chiều cao ở đáy thì mép trên không dịch: không gì trên bàn di chuyển.
+- **Dải dự phòng dưới sàn.** `layoutStackTowerStage` chọn bố cục lớn nhất vẫn chừa
+  `STACK_TOWER_FLOOR_RESERVE` (32pt) dưới các ô chạm hàng dưới và
+  `STACK_TOWER_SCENE_PAD` (8pt) trên chỗ đứng cao nhất của Đô Đô. Nó dùng khoảng
+  trống phía trên trước (dịch bàn lên), nên bàn còn chỗ (tàu, toa chấm, phần lớn
+  bàn trên máy 430pt) giữ nguyên cỡ; chỉ bàn chật mới thu nhỏ, và không bao giờ
+  tới mức hai khối bằng cỡ hoặc mất pad (cảnh quá chật thì chừa ít hơn 32pt). Dải
+  đất vẽ từ vạch sàn tới đáy cảnh, nên phần dự phòng trông là nền sàn.
+- `nextStackTowerSceneSize`: đổi bề rộng → tính lại; thấp đi → giữ khi cảnh còn
+  chứa hết các ô chạm hàng dưới (`stackTowerContentBottom`), tức tới hết dự
+  phòng; cao lên → chỉ tính lại khi chưa chạm.
+- **Khi buộc tính lại** (co quá dự phòng): khối đã xếp và Đô Đô sang toạ độ mới
+  (Đô Đô tới đúng bước đang leo, mỗi bước leo đọc điểm đáp khi tới nhịp); khối
+  đang thử lên công trình bỏ đích cũ và nảy thẳng về ô mới.
+
+Giá: trên cảnh thường của máy 320pt và 375pt, tháp và dãy cột nhỏ đi khoảng 7–20%
+(trung vị 85–93% cỡ khối to nhất); tàu và toa chấm không đổi; máy 430pt hầu như
+không đổi. Không đổi khung chơi chung (phiên khác đang sửa `ExplorePlayScreen`).

@@ -62,11 +62,15 @@ trông như không có chấm (khoảng 2/3 bảng toa chấm có toa cam).
   tiếp phần thời gian còn lại).
 - **Chấm toa tàu màu mực** (`palette.ink`) để thấy rõ trên mọi màu toa.
 - **Bàn chơi đứng yên khi cảnh đổi cỡ giữa bài** (review đối kháng 21/10,
-  STACK-TOWER-01): giờ mỗi lần sai đều hiện dải gợi ý của màn chơi, mà với cỡ
-  chữ lớn hoặc khi đang hiện nhắc nghỉ mắt dải đó cao quá 90pt làm cảnh thấp đi.
-  Bàn vẽ trên một sân khấu neo đáy cảnh; `nextStackTowerSceneSize` chỉ tính lại
-  bố cục khi bàn không còn vừa, khi đổi bề rộng, hoặc cảnh cao lên trước lần chạm
-  đầu. Khi buộc tính lại, khối đang trượt về làm nốt, Đô Đô theo toạ độ mới.
+  STACK-TOWER-01 và vòng kiểm 3): giờ mỗi lần sai đều hiện dải gợi ý của màn
+  chơi, mà với cỡ chữ lớn hoặc khi đang hiện nhắc nghỉ mắt dải đó cao quá 90pt,
+  lấy 20–30pt từ đáy cảnh. Bàn treo từ ĐỈNH cảnh và bố cục
+  (`layoutStackTowerStage`) chừa sẵn 32pt dự phòng dưới sàn (dải đất chạy xuống
+  đó), lấy khoảng trống phía trên trước: dải gợi ý lấy tới 32pt thì không gì trên
+  bàn di chuyển, đổi cỡ hay bị dừng, và luôn còn 8pt trên chỗ đứng cao nhất của
+  Đô Đô. Co quá 32pt thì tính lại: khối đang thử nảy thẳng về ô mới, Đô Đô và các
+  bước leo theo toạ độ mới. Giá: tàu và toa chấm giữ nguyên cỡ, tháp và dãy cột
+  trên máy 320/375pt nhỏ đi khoảng 7–20%.
 - Câu `tower_which_bigger` («Bạn nào to hơn?») rời danh mục câu
   (`promptAudio.ts`, inventory pipeline). File clip đã phát hành giữ nguyên.
 - Test: `test:explore-stack-tower` viết lại (bốn bậc, ô chạm trong bố cục, đo
