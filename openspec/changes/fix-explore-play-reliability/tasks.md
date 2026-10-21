@@ -32,7 +32,7 @@
 - [x] 4.3b Review đối kháng vòng 2 (`tmp/explore-review-2026-10-21/dot1-review-confirmed.md`): phần của phiên này ở mục 5; C01–C03, C07, C08, C10, C11-shell, C13 (màn chơi, Dẫn đường) do phiên route-mirror-leveled; C04 (Ú òa) do phiên peekaboo-cups.
 - [ ] 4.4 Máy thật: chạm hai ngón ở Xe buýt; app ra nền trên Android (`AppState` chỉ báo `background`); cắt dấu ở câu hỏi Baloo trên iPhone SE với cỡ chữ lớn.
 - [ ] 4.5 Đợt audio sau: đổi chữ "Mình…" của Đô Đô (feedback chung, Xưởng, Xe buýt) cùng clip theo luật one-batch.
-- [ ] 4.6 Phát hành. (`fix/explore-dot1-bugs` đã fast-forward vào mobile `main`; nhánh `fix/explore-dot1-followup` chờ gộp.)
+- [ ] 4.6 Phát hành. (`fix/explore-dot1-bugs` đã vào mobile `main`; các nhánh sau gộp qua `integrate/explore-2026-10-21`, owner duyệt merge vào main 2026-10-21.)
 
 ## 5. Sửa sau review vòng 2 (mobile nhánh `fix/explore-dot1-followup` từ `bcb3dab`)
 
@@ -64,3 +64,14 @@
 - [x] 7.4 DOT1-FOLLOWUP-02 (phần còn lại): chừa 0,5 đơn vị cho chỗ đặt tay trước mực (vùng sáng), ngưỡng chạm = min(25% nét, 1/3 phần còn lại), chấm đã tô ≥ ¾ thì chạm tới cuối là xong; tô tiếp từ đầu mực vẽ ra ở 0,6–0,85 đều xong.
 - [x] 7.5 Kiểm chứng như 5.8, mỗi kiểm mới đỏ trên `d570613`; chạy lại probe của người kiểm (Xe buýt có mô phỏng `onBoardBusy` của màn chơi; Xưởng probe-eval/render/inkend/tolerance).
 - [ ] 7.6 Còn lại / chưa kiểm: đặt tay trong vùng sáng xa trước mực ở 50–70% chấm được nhận ít hơn `main` (76%/67% so với 86%/95% trong probe-tolerance) vì bị coi là nhảy (lớp C12); bỏ pause lúc Ô thiếu đang chờ «Bài tiếp theo» thì im (không đọc lại câu hỏi); chưa thử trên máy ảo/máy thật.
+
+## 8. Sau khi gộp Ô thiếu missing-cell-v2 vào main (review MC-LIFE-1, MC-LIFE-2)
+
+(Số mục nối tiếp mục 5–7 trên nhánh tích hợp `integrate/explore-2026-10-21` của repo gốc.)
+
+Mobile `6deb101`, nhánh `fix/explore-missing-cell-pause` tách từ `integrate/explore-2026-10-21` @ `c8acc10` (chưa push).
+
+- [x] 8.1 MC-LIFE-2: `MissingCellRenderer` chạy nhịp lời giải trên `useBusSequencer(paused)`; câu thần chú qua `throughPause`; `onBoardBusy(true)` từ lần chạm đúng tới ngay trước `onAnswer(true)`, nhả khi unmount.
+- [x] 8.2 MC-LIFE-1: `stillWanted` của lời nhắc/gợi ý trong màn chơi thêm `rendererBusyBoardRef.current !== board` (Ô thiếu, Ú òa; Dẫn đường tự nói lời sai nên không đổi).
+- [x] 8.3 Test: `test:explore-play-shell` §9 (màn chơi + renderer thật, loa có thời lượng thật, clip thần chú đứng tạm tới audio v8), `test:explore-missing-cell` (lời giải qua tạm dừng, cờ bận, unmount); đỏ trên mã trước sửa. Probe `mc-stale-hint.cjs`: trước `0ms fb_hint_listen | 2260ms fb_hint_listen | 4770ms fb_praise_1`, sau (shell giả thêm luật bận) `0ms fb_hint_listen | 3850ms fb_praise_1`.
+- [x] 8.4 Mobile: mọi `test:*`, `tsc`, `lint` xanh; kido-server `integrate/explore-2026-10-21` explore 246/246 với mobile nhánh này.
