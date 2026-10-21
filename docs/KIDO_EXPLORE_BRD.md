@@ -518,16 +518,34 @@ Mỗi chiều đo một câu cố định, hiển thị trên màn hình và đ�
   thuộc tính khác, một ô trống; trẻ chọn token đúng từ options. Validator: CHỈ MỘT
   option thỏa CẢ luật hàng lẫn cột. L1→L5 tăng cỡ lưới + độ phức tạp. Tái dùng
   hidden-slot của `pattern_finder` + lưới `odd_one_out`.
-- **Ú òa (`peekaboo_recall`)** — trí nhớ làm việc ("cái gì biến mất"): cho bé nhìn
-  2–5 vật khoảng 3 giây kèm đồng hồ cát không số → Đô Đô che
-  (peekaboo) → bớt 1 vật → lộ lại kèm 1 ô trống → trẻ chạm vật bị thiếu từ
-  options. Đồng hồ cát chỉ đo thời gian NHÌN, trả lời không giới hạn thời gian
-  (product owner duyệt 2026-09-13, thay bản hiện 1,5 giây). `supportLevel` làm mờ
-  bớt lựa chọn sai; mức 2 cho nhìn lại cả tập thêm một lượt (có đồng hồ cát).
-  Bài đầu vòng mới (chơi theo bậc) hiện cả tập với đồng hồ đầy trong lúc Đô Đô
-  nói câu lên bậc; đồng hồ chỉ chạy khi bàn chơi mở.
-  Validator: phần còn lại = tập gốc trừ đúng 1, options gồm vật bị thiếu thật.
-  L1→L5 tăng cỡ tập (2→5). Tái dùng cover/reveal + pool thẻ của Lật thẻ.
+- **Ú òa (`peekaboo_recall`)** — trí nhớ "nhìn một lần, nhớ cả bố cục" (khác Lật
+  thẻ: lật dần, nhớ dần). Owner chốt 2026-10-21 (OpenSpec
+  `upgrade-explore-peekaboo-cups`): bậc 1–2 "món nào biến mất", từ bậc 3 "Dưới cốc
+  này là gì?". Cho bé nhìn các vật kèm đồng hồ cát không số (1 giây mỗi vật, ít
+  nhất 3 giây; đồng hồ chỉ đo thời gian NHÌN, trả lời không giới hạn — owner duyệt
+  2026-09-13, thay bản 1,5 giây). Mỗi bậc gỡ một hỗ trợ:
+
+  | Bậc | Bé làm | Thẻ | Gỡ so với bậc trước |
+  |---|---|---|---|
+  | 1 | 3 vật, Đô Đô che, bớt 1, lộ ô trống → chạm vật biến mất | 4: vật mất + 1 vật còn trên bàn + 2 vật lạ | (đầu thang) |
+  | 2 | Như bậc 1 với 4 vật | 4 | thêm một vật |
+  | 3 | 3 vật, cốc úp lên hết, mũi tên chỉ một cốc → chạm vật dưới cốc | 3: đúng các vật dưới cốc | không còn vật nào hiện lúc trả lời, không còn thẻ lạ |
+  | 4 | Như bậc 3 với 4 cốc | 4 | thêm một cốc |
+  | 5 | 4 cốc, hỏi hai cốc liền (cốc đúng thì lật giữ nguyên) | 4 | giữ hai chỗ cùng lúc |
+
+  Bậc 1–2 cần cả hai điều "lúc nãy có" và "giờ không còn trên bàn" (một điều một
+  mình chỉ đúng tối đa nửa số lần); bậc 3–5 chỉ nhớ chỗ mới ra. Mẹo không cần nhớ
+  (vị trí thẻ, cốc đầu/giữa, vật hiện nhiều nhất…) qua vòng ở mức đoán mò; bản cũ
+  "chọn vật đã thấy" đúng 100% mọi bậc. **Câu thần chú** (bài cốc): «Bé nhìn kỹ
+  chỗ của từng món nhé!». **Sau mỗi bài đúng**: vật bật về ô trống / mọi cốc lật
+  lần lượt trái → phải, Đô Đô nói câu kết («Lúc nãy món này nằm ở đây, rồi trốn
+  mất đó!» / «Nhớ chỗ của từng món là tìm ra ngay!»), rồi mới chuyển bài; bản tĩnh
+  khi giảm chuyển động. Bong bóng đổi theo pha: nhìn → «Ú… òa!» → câu hỏi → câu
+  kết. `supportLevel` làm mờ bớt thẻ sai; mức 2 cho nhìn lại cả tập thêm một lượt
+  (có đồng hồ cát). Bài đầu vòng mới (chơi theo bậc) hiện cả tập với đồng hồ đầy
+  trong lúc Đô Đô nói câu lên bậc; đồng hồ chỉ chạy khi bàn chơi mở. Vật một hàng,
+  thẻ một hàng, vừa iPhone SE. Validator chứng minh độc lập từng kiểu bài. Tái
+  dùng pool thẻ của Lật thẻ; cốc vẽ bằng View.
 - **Soi gương (`mirror_build`)** — đối xứng / không gian: lưới có trục gương giữa,
   nửa trái có sẵn hình; trẻ chạm ô nửa phải để dựng ảnh phản chiếu rồi "Xong".
   Validator: nửa phải = đúng ảnh gương của nửa trái (suy từ nửa trái nhìn thấy,
