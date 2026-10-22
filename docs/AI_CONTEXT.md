@@ -418,10 +418,14 @@ Mobile:
   Inventory v9 adds 88 keys: 56 whole lines (`clue_has`, `clue_not`,
   `clue_fb_extra`, `clue_fb_missing`, item params 1..14), 13 fixed phrases,
   5 fragments and 14 labels; estimated 81 new syntheses after label reuse.
-  Audio has no mandatory manifest dependency. Game stays `catalogVisible: false`
-  until the owner turns it on; the owner skipped the paper test (2026-10-21) and the
-  approved v9 pack is bundled. Still open before showing it: the play-shell pause test
-  with the real renderer (tasks 10.6) and the server flag/deploy. Thumbnail
+  Audio has no mandatory manifest dependency. The owner turned the game ON on
+  2026-10-22 for the 1.1.0 rebuild: `catalogVisible: true` in the bundled mobile
+  config (`abe06f5`) and in the server registry (`e7b6aa5`, not pushed yet). The app
+  shows it even against the current production server (that server does not know the
+  code, and visibility is bundled AND server). Level-six cards rest face down only when
+  the clue is audible: clip bundled AND sound on with volume > 0 in Settings
+  (`5c46583`; muted devices keep every card face up). Still open: the play-shell pause
+  test with the real renderer (tasks 10.6). Thumbnail
   `clue-detective.png` is registered. On `main` since 2026-10-21, merged after the
   Ô thiếu and Explore integration branches (server keeps both `catalogVisible?` and
   `version?`; Thám tử uses the default version 1). Contracts: `test:explore-clue-detective`,

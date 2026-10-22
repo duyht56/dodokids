@@ -337,7 +337,8 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
       > HTTP (11 test) bị sandbox chặn `listen EPERM 0.0.0.0`. Build server đạt.
       > Giữ 8.3 mở tới khi chạy lại trong môi trường cho phép Supertest mở cổng;
       > hai file test lỗi giống hệt `main`, không phải thay đổi Thám tử.
-- [ ] 8.4 Push server CHỈ khi owner cho phép, SAU 7.3 (cờ hiển thị server = hiện),
+- [ ] 8.4 Push server CHỈ khi owner cho phép, SAU 7.3 (cờ hiển thị server = hiện; đã commit
+      `e7b6aa5` ngày 22/10/2026, chưa push),
       gộp Ô thiếu + Thám tử trong MỘT lần deploy; deploy lúc mã còn ẩn thì cần lần
       deploy thứ hai để bật (hiển thị là AND)
 - [ ] 8.5 Smoke test sau deploy: server khởi động (health), catalog Khám phá trả 13
@@ -394,4 +395,8 @@ Trong change này chỉ ĐỌC `missingCellGame.ts` và
       "đều" 9 × 3), bậc 6 (thẻ úp); ghi mẫu chọn lặp (dấu hiệu học mẹo của danh mục:
       mọi bậc ít cấu trúc, bậc 1–3 chỉ 1), đo bàn tay gợi ý 10 s, độ dài bài làm mẫu
       và diễn lại
-- [ ] 11.2 Owner chơi thử và quyết định đưa vào bản phát hành
+- [x] 11.2 Owner chơi thử và quyết định đưa vào bản phát hành
+      > 22/10/2026: owner quyết phát hành cùng bản 1.1.0 dựng lại. Bật `catalogVisible: true`
+      > ở mobile (`abe06f5`) và server (`e7b6aa5`, chưa push). Kèm sửa bậc 6: thẻ chỉ úp khi
+      > bé nghe được (có clip VÀ bật tiếng, âm lượng > 0), tắt tiếng thì thẻ ngửa (`5c46583`,
+      > test mới đỏ trên mã cũ). 10.6 vẫn mở (thử tay trên sim chạy đúng).

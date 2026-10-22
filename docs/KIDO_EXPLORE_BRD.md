@@ -937,9 +937,11 @@ luôn dùng đủ ba thẻ. Số cấu trúc ít và bước 3→4 đổi cả s
 **Audio và phát hành:** inventory pack `explore-audio-vi-v9` thêm 88 khoá
 (56 câu liền, 13 câu cố định, 5 mảnh, 14 nhãn); dự kiến 81 lần tổng hợp mới sau
 khi dùng lại 7 nhãn cùng chữ. Pack v9 đã sinh, chủ sản phẩm nghe duyệt
-cả 81 clip mới và đã có trong bundle (21/10/2026). Game giữ `catalogVisible: false` cả
-bundled mobile lẫn server tới khi chủ sản phẩm bật (thử giấy được bỏ qua 21/10/2026;
-còn test tạm dừng với renderer thật); chưa lên store. Audio
+cả 81 clip mới và đã có trong bundle (21/10/2026). Chủ sản phẩm bật hiển thị ngày
+22/10/2026 cho bản 1.1.0 dựng lại (`catalogVisible: true` cả bundled mobile lẫn server;
+thử giấy được bỏ qua 21/10/2026; còn test tạm dừng với renderer thật). Ở bậc 6, thẻ
+gợi ý chỉ úp khi bé nghe được: có clip VÀ đang bật tiếng (âm lượng > 0) trong Cài đặt;
+tắt tiếng thì mọi thẻ ngửa. Audio
 không thuộc dependency bắt buộc của game. Quy trình Human Gate xem §9.
 
 ---
